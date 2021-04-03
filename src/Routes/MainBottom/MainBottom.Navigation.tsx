@@ -5,7 +5,7 @@ import { ActivitySelection, Settings, User } from "../../Pages";
 import { Home, User as UserIcon, Settings as SettingsIcon } from "./Icons";
 import { Dimensions, Text } from "react-native";
 import { TextBar } from "./Label";
-import WithStatusBar from "../../Components/WithStatusBar/WithStatusBar.Component";
+import { WithStatusBar } from "../../Components";
 
 const BottomTab = createBottomTabNavigator();
 
