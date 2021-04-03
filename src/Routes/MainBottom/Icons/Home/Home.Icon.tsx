@@ -3,6 +3,11 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { IconProps } from "../../../Interfaces";
 
+/**
+* This is the Icon of the Home page, it's going to appear on the Main Navigation.
+* 
+* @author andr3z0
+**/
 const Home: React.FC<IconProps> = (props) => {
   return (
     <BaseContainer

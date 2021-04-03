@@ -2,6 +2,10 @@ import React from "react";
 import { StatusBar, Text } from "react-native";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
+/**
+* ActivitySelectionPage aka Home, thats the place where user is going to select an activity
+* @author andr3z0
+**/
 const ActivitySelection: React.FC = () => {
   return (
     <>

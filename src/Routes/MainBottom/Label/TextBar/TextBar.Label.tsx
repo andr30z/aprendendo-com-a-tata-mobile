@@ -6,6 +6,11 @@ interface TextBarProps {
   textLabel: string;
 }
 
+/**
+* Label Component that is responsible to render a label below the icon page on the navigation bar.
+* @param textLabel the text responsible for identifying the current page
+* @author andr3z0
+**/
 const TextBar: React.FC<LabelProps & TextBarProps> = ({ textLabel }) => {
   return (
     <Text style={{ color: "#000", fontSize: 12, marginBottom: 5 }}>
