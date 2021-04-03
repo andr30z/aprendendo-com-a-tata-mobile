@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
 const ActivitySelection: React.FC = () => {
   return (
-    <View>
-      <Text>AAAAAAAA</Text>
-    </View>
+    <BaseContainer justify="center">
+      <Text>AAAAAAASDAS</Text>
+    </BaseContainer>
   );
 };
 
