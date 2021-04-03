@@ -1,9 +1,23 @@
-import React, { FC } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ActivitySelection } from "../../Pages";
+import { ActivitySelection, Settings, User } from "../../Pages";
+import { Home, User as UserIcon, Settings as SettingsIcon } from "./Icons";
+import { Dimensions, Text } from "react-native";
+import { TextBar } from "./Label";
+import { WithStatusBar } from "../../Components";
 
 const BottomTab = createBottomTabNavigator();
+
+export const ROUTES_NAME = {
+  HOME: "ActivitySelection",
+  SETTINGS: "Settings",
+  USER: "User",
+};
+
+const UserPageWithStatusBar = WithStatusBar(User);
+const ActivitySelectionPageWithStatusBar = WithStatusBar(ActivitySelection);
+const SettingsPageWithStatusBar = WithStatusBar(Settings);
 
 /**
  * This is the main navigation container of the application.
@@ -12,10 +26,47 @@ const BottomTab = createBottomTabNavigator();
 const MainBottomNavigation: React.FC = () => {
   return (
     <NavigationContainer>
-      <BottomTab.Navigator>
+      <BottomTab.Navigator
+        tabBarOptions={{
+          style: {
+            backgroundColor: "#fff",
+            borderTopLeftRadius: 21,
+            borderTopRightRadius: 21,
+            position: "absolute",
+            width: Dimensions.get("window").width + 2,
+            left: -1,
+            bottom: 0,
+            height: "7%",
+            borderTopWidth: 0,
+          },
+        }}
+        initialRouteName={ROUTES_NAME.HOME}
+      >
         <BottomTab.Screen
-          name="ActivitySelection"
-          component={ActivitySelection}
+          options={{
+            tabBarLabel: (props) => <TextBar {...props} textLabel="Usuário" />,
+            tabBarIcon: UserIcon,
+          }}
+          name={ROUTES_NAME.USER}
+          component={UserPageWithStatusBar}
+        />
+        <BottomTab.Screen
+          options={{
+            tabBarLabel: (props) => (
+              <TextBar {...props} textLabel="Descobrir" />
+            ),
+            tabBarIcon: Home,
+          }}
+          name={ROUTES_NAME.HOME}
+          component={ActivitySelectionPageWithStatusBar}
+        />
+        <BottomTab.Screen
+          name={ROUTES_NAME.SETTINGS}
+          component={SettingsPageWithStatusBar}
+          options={{
+            tabBarIcon: SettingsIcon,
+            tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
+          }}
         />
       </BottomTab.Navigator>
     </NavigationContainer>
