@@ -5,6 +5,7 @@ import { ActivitySelection, Settings, User } from "../../Pages";
 import { Home, User as UserIcon, Settings as SettingsIcon } from "./Icons";
 import { Dimensions, Text } from "react-native";
 import { TextBar } from "./Label";
+import WithStatusBar from "../../Components/WithStatusBar/WithStatusBar.Component";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -13,6 +14,10 @@ export const ROUTES_NAME = {
   SETTINGS: "Settings",
   USER: "User",
 };
+
+const UserPageWithStatusBar = WithStatusBar(User);
+const ActivitySelectionPageWithStatusBar = WithStatusBar(ActivitySelection);
+const SettingsPageWithStatusBar = WithStatusBar(Settings);
 
 /**
  * This is the main navigation container of the application.
@@ -43,7 +48,7 @@ const MainBottomNavigation: React.FC = () => {
             tabBarIcon: UserIcon,
           }}
           name={ROUTES_NAME.USER}
-          component={User}
+          component={UserPageWithStatusBar}
         />
         <BottomTab.Screen
           options={{
@@ -53,11 +58,11 @@ const MainBottomNavigation: React.FC = () => {
             tabBarIcon: Home,
           }}
           name={ROUTES_NAME.HOME}
-          component={ActivitySelection}
+          component={ActivitySelectionPageWithStatusBar}
         />
         <BottomTab.Screen
           name={ROUTES_NAME.SETTINGS}
-          component={Settings}
+          component={SettingsPageWithStatusBar}
           options={{
             tabBarIcon: SettingsIcon,
             tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
