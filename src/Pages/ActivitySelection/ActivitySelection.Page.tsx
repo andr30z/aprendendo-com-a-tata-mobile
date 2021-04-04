@@ -1,19 +1,39 @@
 import React from "react";
-import { StatusBar, Text } from "react-native";
-import { BaseContainer } from "../../GlobalStyles/Containers.Style";
+import { BaseText } from "../../GlobalStyles/BaseStyles";
+import {
+  BaseContainer,
+  ScrollContainer,
+} from "../../GlobalStyles/Containers.Style";
+import { Mockup } from "./ApiMockup.constant";
+
+import { StatusBar } from "react-native";
+import { CONSTANTS } from "../../Constants";
+import { LinearGradient } from "expo-linear-gradient";
+import Input from "../../Components/Input/Input.Component";
+import { ActivityList, HeaderActivity } from "./Modules";
 
 /**
-* ActivitySelectionPage aka Home, thats the place where user is going to select an activity
-* @author andr3z0
-**/
-const ActivitySelection: React.FC = () => {
+ * ActivitySelectionPage aka Home, thats the place where user is going to select an activity
+ * @author andr3z0
+ **/
+const ActivitySelection: React.FC = ({ children }) => {
   return (
-    <>
-      {/* <StatusBar backgroundColor="transparent" barStyle={} /> */}
-      <BaseContainer justify="center" backgroundColor="#5B96B7">
-        <Text>AAAAAAASDAS</Text>
-      </BaseContainer>
-    </>
+    <ScrollContainer style={{ height: "100%" }} backgroundColor="#transparent">
+      <StatusBar backgroundColor="#f2066d" translucent />
+      <LinearGradient
+        style={{
+          marginTop: 30,
+          height: CONSTANTS.DEVICE_HEIGHT*85/100,
+          flex: 1,
+          flexDirection: "column",
+        }}
+        colors={["#f2066d", "#7d00ff"]}
+      >
+        {children}
+        <HeaderActivity />
+      </LinearGradient>
+      <ActivityList />
+    </ScrollContainer>
   );
 };
 
