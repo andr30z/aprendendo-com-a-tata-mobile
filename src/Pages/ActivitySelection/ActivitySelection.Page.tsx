@@ -18,12 +18,16 @@ import { ActivityList, HeaderActivity } from "./Modules";
  **/
 const ActivitySelection: React.FC = ({ children }) => {
   return (
-    <ScrollContainer style={{ height: "100%" }} backgroundColor="#transparent">
+    <ScrollContainer
+      style={{ height: "100%" }}
+      contentContainerStyle={{ paddingBottom: 100 }}
+      backgroundColor="#transparent"
+    >
       <StatusBar backgroundColor="#f2066d" translucent />
       <LinearGradient
         style={{
           marginTop: 30,
-          height: CONSTANTS.DEVICE_HEIGHT*85/100,
+          height: (CONSTANTS.DEVICE_HEIGHT * 75) / 100,
           flex: 1,
           flexDirection: "column",
         }}
