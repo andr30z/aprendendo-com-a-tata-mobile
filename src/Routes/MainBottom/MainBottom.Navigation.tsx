@@ -15,9 +15,12 @@ export const ROUTES_NAME = {
   USER: "User",
 };
 
-const UserPageWithStatusBar = WithStatusBar(User);
-const ActivitySelectionPageWithStatusBar = WithStatusBar(ActivitySelection);
-const SettingsPageWithStatusBar = WithStatusBar(Settings);
+const UserPageWithStatusBar = WithStatusBar(User, true);
+const ActivitySelectionPageWithStatusBar = WithStatusBar(
+  ActivitySelection,
+  true
+);
+const SettingsPageWithStatusBar = WithStatusBar(Settings, true);
 
 /**
  * This is the main navigation container of the application.
