@@ -6,7 +6,7 @@ import { Mockup } from "../../ApiMockup.constant";
 import { GridContainer } from "./Styles";
 Mockup;
 interface ActivityListProps {
-  activity: Array<{
+  activities: Array<{
     level: number;
     name: string;
     description: string;
@@ -17,11 +17,13 @@ interface ActivityListProps {
   }>;
 }
 
-const ActivityList: React.FC<ActivityListProps> = ({ activity }) => {
+const ActivityList: React.FC<ActivityListProps> = ({ activities }) => {
   return (
     <BaseContainer>
       <GridContainer>
-        
+        {activities.map((a, index) => {
+          return null;
+        })}
       </GridContainer>
     </BaseContainer>
   );

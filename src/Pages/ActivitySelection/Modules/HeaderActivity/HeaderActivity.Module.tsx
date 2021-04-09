@@ -4,7 +4,7 @@ import Input from "../../../../Components/Input/Input.Component";
 import { CONSTANTS } from "../../../../Constants";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
-import Icons from "../../../../Illustrations/icons-2.svg";
+import Icons from "../../../../Illustrations/kids.svg";
 
 const HeaderActivity: React.FC = () => {
   return (

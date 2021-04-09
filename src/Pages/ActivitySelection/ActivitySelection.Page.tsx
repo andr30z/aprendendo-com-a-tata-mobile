@@ -8,8 +8,6 @@ import { Mockup } from "./ApiMockup.constant";
 
 import { StatusBar } from "react-native";
 import { CONSTANTS } from "../../Constants";
-import { LinearGradient } from "expo-linear-gradient";
-import Input from "../../Components/Input/Input.Component";
 import { ActivityList, HeaderActivity } from "./Modules";
 
 /**
@@ -23,20 +21,20 @@ const ActivitySelection: React.FC = ({ children }) => {
       contentContainerStyle={{ paddingBottom: 100 }}
       backgroundColor="#transparent"
     >
-      <StatusBar backgroundColor="#f2066d" translucent />
-      <LinearGradient
+      <StatusBar backgroundColor="#8078cc" translucent />
+      <BaseContainer
         style={{
           marginTop: 30,
           height: (CONSTANTS.DEVICE_HEIGHT * 75) / 100,
           flex: 1,
           flexDirection: "column",
+          backgroundColor: "#8F86E3",
         }}
-        colors={["#f2066d", "#7d00ff"]}
       >
         {children}
         <HeaderActivity />
-      </LinearGradient>
-      <ActivityList />
+      </BaseContainer>
+      <ActivityList activities={Mockup} />
     </ScrollContainer>
   );
 };
