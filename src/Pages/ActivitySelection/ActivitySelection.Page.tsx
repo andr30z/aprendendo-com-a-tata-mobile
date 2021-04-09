@@ -19,7 +19,7 @@ const ActivitySelection: React.FC = ({ children }) => {
     <ScrollContainer
       style={{ height: "100%" }}
       contentContainerStyle={{ paddingBottom: 100 }}
-      backgroundColor="#transparent"
+      backgroundColor="#fff"
     >
       <StatusBar backgroundColor="#8078cc" translucent />
       <BaseContainer
