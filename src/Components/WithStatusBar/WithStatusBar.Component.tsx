@@ -10,7 +10,7 @@ const StatusView: React.FC = () => (
 );
 
 /**
- * High-order component that involves a certain page and gives it a certain margin to be spaced from the status bar, respecting the current OS
+ * High-order component that involves a certain page and gives it a margin to be spaced from the status bar, respecting the current OS
  * @param Component a React Component thats going to be wrapped
  * @param hasChildren a boolean that says if the ```Component``` wrapped makes use of children prop, this can be useful if you have a component that needs to wrap
  * the status bar margin into itself for layout purposes 
