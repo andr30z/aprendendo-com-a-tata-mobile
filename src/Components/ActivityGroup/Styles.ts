@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/native";
 
 export const GroupTitle = styled.Text`
-  font-size: 20px;
+  font-size: 30px;
   text-align: left;
   font-weight: bold;
   color: #f7cc7f;
