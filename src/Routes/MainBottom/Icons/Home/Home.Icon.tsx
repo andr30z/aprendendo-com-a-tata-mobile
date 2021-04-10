@@ -4,10 +4,10 @@ import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { IconProps } from "../../../Interfaces";
 
 /**
-* This is the Icon of the Home page, it's going to appear on the Main Navigation.
-* 
-* @author andr3z0
-**/
+ * This is the Icon of the Home page, it's going to appear on the Main Navigation.
+ *
+ * @author andr3z0
+ **/
 const Home: React.FC<IconProps> = (props) => {
   return (
     <BaseContainer
@@ -18,7 +18,7 @@ const Home: React.FC<IconProps> = (props) => {
         height: 50,
         width: 50,
       }}
-      backgroundColor="#000"
+      backgroundColor={props.focused ? "#8078cc" : "#fff"}
       align="center"
       justify="center"
     >
@@ -26,7 +26,7 @@ const Home: React.FC<IconProps> = (props) => {
         style={{ marginLeft: 5 }}
         name="control-play"
         size={30}
-        color="#fff"
+        color={props.focused ? "#fff" : "#9C9CA8"}
       />
     </BaseContainer>
   );

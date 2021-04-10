@@ -40,7 +40,11 @@ const MainBottomNavigation: React.FC = () => {
             left: -1,
             bottom: 0,
             height: "7%",
-            borderTopWidth: 0,
+            borderTopWidth: 0.1,
+            borderLeftWidth: 0.1,
+            borderRightWidth: 0.1,
+            borderColor:"#a1a1a1",
+            borderBottomWidth: 0,
           },
         }}
         initialRouteName={ROUTES_NAME.HOME}
