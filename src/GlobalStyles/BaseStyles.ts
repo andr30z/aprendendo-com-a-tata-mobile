@@ -1,7 +1,7 @@
 import { TextInputProps, TextStyle } from "react-native";
 import styled from "styled-components/native";
 
-interface BaseText {
+export interface BaseTextProps {
   color?: string;
   fontSize?: string;
   align?: string;
@@ -12,7 +12,7 @@ export interface BaseInputProps extends TextInputProps{
   inputHeight?: number | string;
 }
 
-export const BaseText = styled.Text<BaseText>`
+export const BaseText = styled.Text<BaseTextProps>`
   color: ${({ color }) => color || "#000"};
   font-size: ${({ fontSize }) => fontSize || "15px"};
   text-align: ${({ align }) => align || "auto"};
