@@ -13,7 +13,7 @@ export interface BaseInputProps extends TextInputProps{
 }
 
 export const BaseText = styled.Text<BaseTextProps>`
-  color: ${({ color }) => color || "#000"};
+  color: ${({ color }) => color || "#fff"};
   font-size: ${({ fontSize }) => fontSize || "15px"};
   text-align: ${({ align }) => align || "auto"};
 `;
