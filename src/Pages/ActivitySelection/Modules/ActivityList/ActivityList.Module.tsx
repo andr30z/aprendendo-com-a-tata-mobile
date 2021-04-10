@@ -1,5 +1,6 @@
 import React from "react";
 import { Text } from "react-native";
+import ActivityGroup from "../../../../Components/ActivityGroup/ActivityGroup.Component";
 import { CONSTANTS } from "../../../../Constants";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { ActivityListProps } from "../../../../Interfaces";
@@ -9,8 +10,8 @@ const ActivityList: React.FC<ActivityListProps> = ({ activities }) => {
   return (
     <BaseContainer>
       <GridContainer>
-        {activities.map((a, index) => {
-          return null;
+        {activities.map((group, index) => {
+          return <ActivityGroup key={index} activityGroup={group} />;
         })}
       </GridContainer>
     </BaseContainer>
