@@ -13,4 +13,5 @@ export interface ActivityItem {
   name: string;
   level: number;
   description: string;
+  tags: Array<string>;
 }
