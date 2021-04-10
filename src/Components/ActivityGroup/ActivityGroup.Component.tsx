@@ -1,17 +1,57 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { ActivityGroup } from "../../Interfaces";
+import { CONSTANTS } from "../../Constants";
+import { BaseText } from "../../GlobalStyles/BaseStyles";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
+import { ActivityGroup as ActivityGroupType } from "../../Interfaces";
+import ActivityItem from "../ActivityItem/ActivityItem.Component";
+import {
+  GroupLevelContainer,
+  GroupLevelInnerContainer,
+  GroupTitle,
+} from "./Styles";
 
-const ActivityGroup: React.FC<ActivityGroup> = ({
-  level,
-  name,
-  activities,
-  description,
-}) => {
+interface ActivityGroupProps {
+  activityGroup: ActivityGroupType;
+}
+
+const ActivityGroup: React.FC<ActivityGroupProps> = ({ activityGroup }) => {
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <BaseContainer
+      style={{
+        width: "100%",
+        marginTop: 10,
+        padding: "5%",
+      }}
+    >
+      <BaseContainer
+        justify="space-between"
+        align="center"
+        style={{
+          flexDirection: "row",
+          position: "relative",
+        }}
+      >
+        <GroupTitle>{activityGroup.name}</GroupTitle>
+        <GroupLevelContainer />
+        <GroupLevelInnerContainer>
+          <BaseText fontSize="12px" color="#fff">
+            Nível
+          </BaseText>
+          <BaseText color="#fff">{activityGroup.level}</BaseText>
+        </GroupLevelInnerContainer>
+      </BaseContainer>
+      <BaseContainer style={{ marginTop: 40 }}>
+        {activityGroup.activities.map((activity, index) => {
+          return (
+            <ActivityItem
+              key={String(index + activity.name)}
+              itemIndex={index}
+              {...activity}
+            />
+          );
+        })}
+      </BaseContainer>
+    </BaseContainer>
   );
 };
 
