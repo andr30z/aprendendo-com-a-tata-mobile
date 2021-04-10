@@ -12,4 +12,5 @@ export interface ActivityGroup {
 export interface ActivityItem {
   name: string;
   level: number;
+  description: string;
 }
