@@ -8,27 +8,14 @@ import { IconProps } from "../../../Interfaces";
  *
  * @author andr3z0
  **/
-const Home: React.FC<IconProps> = (props) => {
+const Home: React.FC<IconProps> = ({ focused }) => {
   return (
-    <BaseContainer
-      style={{
-        position: "absolute",
-        top: -25,
-        borderRadius: 60 / 2,
-        height: 50,
-        width: 50,
-      }}
-      backgroundColor={props.focused ? "#8078cc" : "#fff"}
-      align="center"
-      justify="center"
-    >
-      <SimpleLineIcons
-        style={{ marginLeft: 5 }}
-        name="control-play"
-        size={30}
-        color={props.focused ? "#fff" : "#9C9CA8"}
-      />
-    </BaseContainer>
+    <SimpleLineIcons
+      style={{ marginLeft: focused ? 5 : 0 }}
+      name="control-play"
+      size={focused ? 30 : 25}
+      color={focused ? "#fff" : "#9C9CA8"}
+    />
   );
 };
 

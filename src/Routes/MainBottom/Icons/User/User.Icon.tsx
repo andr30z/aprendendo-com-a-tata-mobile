@@ -12,7 +12,7 @@ const User: React.FC<IconProps> = (props) => {
   return (
     <FontAwesome
       name="smile-o"
-      color={props.focused ? "#8078cc" : "#9C9CA8"}
+      color={props.focused ? "#fff" : "#9C9CA8"}
       // style={{ marginTop: 3 }}
       size={27}
     />

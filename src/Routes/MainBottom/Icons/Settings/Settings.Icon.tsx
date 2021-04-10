@@ -13,7 +13,7 @@ const Settings: React.FC<IconProps> = (props) => {
     <SimpleLineIcons
       name="settings"
       size={27}
-      color={props.focused ? "#8078cc" : "#9C9CA8"}
+      color={props.focused ? "#fff" : "#9C9CA8"}
       style={{ marginTop: 3 }}
     />
   );
