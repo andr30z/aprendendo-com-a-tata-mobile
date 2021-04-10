@@ -21,11 +21,14 @@ const HeaderActivity: React.FC = () => {
           Descubra Atividades
         </BaseText>
         <BaseText
-          color="#fff"
+          color="#8078cc"
           align="center"
           fontSize="24px"
           style={{
             marginTop: 7,
+            backgroundColor: "#fff",
+            padding: 5,
+            borderRadius: 15,
           }}
         >
           Explore Novos Tópicos
