@@ -8,5 +8,5 @@ export interface BadgeProps {
 export const BadgeContainer = styled.View<BadgeProps>`
   background: ${(props) => props.backgroundColor || "#fff"}
   border-radius:  ${(props) => (props.pill ? "6px" : "0")}
-  padding: 1.3%;
+  padding: 1.4%;
 `;
