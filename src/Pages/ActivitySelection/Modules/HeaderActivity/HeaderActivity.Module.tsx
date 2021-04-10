@@ -6,7 +6,7 @@ import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import Icons from "../../../../Illustrations/kids.svg";
 
-const HeaderActivity: React.FC = () => {
+const ActivityHeader: React.FC = () => {
   return (
     <BaseContainer align="center">
       <BaseContainer
@@ -27,8 +27,8 @@ const HeaderActivity: React.FC = () => {
           style={{
             marginTop: 7,
             backgroundColor: "#fff",
-            padding: 5,
-            borderRadius: 15,
+            padding: 10,
+            borderRadius: 25,
           }}
         >
           Explore Novos Tópicos
@@ -56,4 +56,4 @@ const HeaderActivity: React.FC = () => {
   );
 };
 
-export default HeaderActivity;
+export default ActivityHeader;
