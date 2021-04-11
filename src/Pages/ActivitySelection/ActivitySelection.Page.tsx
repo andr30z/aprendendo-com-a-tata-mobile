@@ -51,7 +51,6 @@ const ActivitySelection: React.FC = ({ children }) => {
         >
           <Pressable
             onPress={() => {
-              console.log(scrollPosition, "possss");
               scrollToRef.current?.scrollTo({
                 y: scrollPosition + 200,
                 x: scrollPosition,
