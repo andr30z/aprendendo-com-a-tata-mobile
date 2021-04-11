@@ -19,4 +19,4 @@ const Settings: React.FC<IconProps> = (props) => {
   );
 };
 
-export default Settings;
+export default Settings; 
