@@ -22,6 +22,16 @@ interface BaseActivityItemProps {
   itemIndex: number;
 }
 
+
+/**
+* Card item that represents an activity, this card will lead to another screen when pressed 
+* @param level number that represents the current level of the activity
+* @param name string that indicates the name of the activity
+* @param description string that represents the description of the item
+* @param itemIndex number that indicates the actual index of the item, this is used to provide a background color for the card
+* @param tags an array of tags that represents topics related to the activity 
+* @author andr3z0
+**/
 const ActivityItem: React.FC<ActivityItemProps & BaseActivityItemProps> = ({
   level,
   name,

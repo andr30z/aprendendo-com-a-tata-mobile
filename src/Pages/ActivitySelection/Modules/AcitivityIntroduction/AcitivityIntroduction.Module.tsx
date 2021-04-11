@@ -4,6 +4,12 @@ import { CONSTANTS } from "../../../../Constants";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { IntroductionTitle } from "./Styles";
 import IntroductionImg from "../../../../Illustrations/introduction-img.svg";
+
+
+/**
+* Activity module that is used to render a small introduction right before the activities
+* @author andr3z0
+**/
 const AcitivityIntroduction: React.FC = () => {
   return (
     <BaseContainer

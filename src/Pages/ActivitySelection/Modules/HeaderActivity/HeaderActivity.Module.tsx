@@ -6,6 +6,11 @@ import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import Icons from "../../../../Illustrations/kids.svg";
 
+
+/**
+* Activity Module that represents a header.
+* @author andr3z0
+**/
 const ActivityHeader: React.FC = () => {
   return (
     <BaseContainer align="center">

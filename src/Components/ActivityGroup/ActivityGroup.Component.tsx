@@ -14,6 +14,11 @@ interface ActivityGroupProps {
   activityGroup: ActivityGroupType;
 }
 
+/**
+* Component that represents a group of activities
+* @param activityGroup object of type ````ActivityGroupType````.
+* @author andr3z0
+**/
 const ActivityGroup: React.FC<ActivityGroupProps> = ({ activityGroup }) => {
   return (
     <BaseContainer
