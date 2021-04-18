@@ -1,5 +1,5 @@
 import React from "react";
-import { Cloud } from "../../../../Components";
+import Cloud from "../Cloud/Cloud.Component";
 import { styles } from "./Styles";
 const cloudStyle = {
   cloudHeight: "15%",
@@ -7,9 +7,9 @@ const cloudStyle = {
 };
 
 /**
-* As the name suggests, this is a container of all the clouds in the initial page
-* @author andr3z0
-**/
+ * As the name suggests, this is a container of all the clouds in the initial page
+ * @author andr3z0
+ **/
 const CloudsContainer: React.FC = () => {
   return (
     <>
@@ -56,13 +56,19 @@ const CloudsContainer: React.FC = () => {
         {...cloudStyle}
         direction="left"
         color="yellow"
-        cloudStyle={[{ bottom: "50%", left:'10%',alignSelf: "center" }, styles.baseStyle]}
+        cloudStyle={[
+          { bottom: "50%", left: "10%", alignSelf: "center" },
+          styles.baseStyle,
+        ]}
       />
-       <Cloud
+      <Cloud
         {...cloudStyle}
         direction="right"
         color="red"
-        cloudStyle={[{ bottom: "49%", right:'5%',alignSelf: "center" }, styles.baseStyle]}
+        cloudStyle={[
+          { bottom: "49%", right: "5%", alignSelf: "center" },
+          styles.baseStyle,
+        ]}
       />
     </>
   );

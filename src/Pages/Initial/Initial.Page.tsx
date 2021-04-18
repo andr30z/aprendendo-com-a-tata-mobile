@@ -5,8 +5,7 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
 import BottomImage from "../../Illustrations/turtleimg.svg";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
-import { Input, Button } from "../../Components";
-import { CloudsContainer } from "./Modules";
+import { Input, Button, CloudsContainer } from "../../Components";
 
 /**
  * When the user lauches the app, if he is unauthenticated, thats the screen he's going to see first
