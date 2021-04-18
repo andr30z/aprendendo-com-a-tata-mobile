@@ -4,12 +4,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { CONSTANTS } from "../../Constants";
 import MainBottomNavigation from "../MainBottom/MainBottom.Navigation";
 import { WithStatusBar } from "../../Components";
-import { InitialScreen } from "../../Pages";
+import { InitialScreen, SignUp } from "../../Pages";
 import { ROUTES_NAME } from "./RoutesName";
 
 const StackTab = createStackNavigator();
 
 const InitialWithStatusBar = WithStatusBar(InitialScreen, false);
+
+const SignUpWithStatusBar = WithStatusBar(SignUp);
 
 /**
  * This is the inital stack navigation container of the application.
@@ -31,6 +33,10 @@ const InitialStackNavigation: React.FC = () => {
         <StackTab.Screen
           name={ROUTES_NAME.APP_CONTENT}
           component={MainBottomNavigation}
+        />
+        <StackTab.Screen
+          name={ROUTES_NAME.SIGN_UP}
+          component={SignUpWithStatusBar}
         />
       </StackTab.Navigator>
     </NavigationContainer>
