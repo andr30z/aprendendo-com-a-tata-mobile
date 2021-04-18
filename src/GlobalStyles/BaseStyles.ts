@@ -7,9 +7,10 @@ export interface BaseTextProps {
   align?: string;
 }
 
-export interface BaseInputProps extends TextInputProps{
+export interface BaseInputProps extends TextInputProps {
   inputWidth?: number | string;
   inputHeight?: number | string;
+  borderRadius?: string;
 }
 
 export const BaseText = styled.Text<BaseTextProps>`
@@ -20,7 +21,7 @@ export const BaseText = styled.Text<BaseTextProps>`
 
 export const BaseInput = styled.TextInput<BaseInputProps>`
   padding-left: 15px;
-  border-radius: 15px;
+  border-radius: ${({ borderRadius }) => borderRadius || "15px"};
   background-color: #fff;
   width: ${({ inputWidth }) => inputWidth || "190px"};
   height: ${({ inputHeight }) => inputHeight || "13%"};
