@@ -90,7 +90,7 @@ const Initial: React.FC = ({ children }) => {
                 fontSize: "18px",
               }}
               buttonTitle="Cadastrar"
-              onPress={() => null}
+              onPress={() => navigation.navigate(ROUTES_NAME.SIGN_UP)}
               buttonWidth="49%"
               buttonHeight="100%"
             />
