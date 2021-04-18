@@ -5,7 +5,7 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import SignUpTurtle from "../../Illustrations/signup.svg";
 import { styles } from "./Styles";
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable } from "react-native";
+import { Pressable, StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
 
@@ -17,15 +17,16 @@ const Signup = () => {
   const navigation = useNavigation();
   return (
     <BaseContainer
-      style={{ backgroundColor: "#F7EFEA", position: "relative" }}
+      style={{ backgroundColor: "#FFC2C1", position: "relative" }}
       flex={1}
     >
+        <StatusBar backgroundColor="#B24846"/>
       <CloudsContainer />
       <BaseContainer flex={1} style={{ marginTop: 30 }}>
         <BaseText
           align="center"
           fontSize="20px"
-          color="#FF6765"
+          color="#fff"
           style={{ marginBottom: 15 }}
         >
           Cadastro de Usuário
@@ -59,13 +60,14 @@ const Signup = () => {
           buttonWidth="80%"
           containerStyles={{ justifyContent: "center", marginTop: 15 }}
           buttonHeight="13%"
+          backgroundColor="#FF6765"
           onPress={() => null}
         />
         <Pressable
           style={{ width: "80%", marginTop: 30 }}
           onPress={() => navigation.navigate(ROUTES_NAME.INITIAL)}
         >
-          <BaseText align="left" color="#FF6765" fontSize="17px">
+          <BaseText align="left" color="#fff" fontSize="17px">
             Já tenho conta
           </BaseText>
         </Pressable>
