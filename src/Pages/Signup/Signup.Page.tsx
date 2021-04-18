@@ -1,18 +1,36 @@
 import React from "react";
-import { Input } from "../../Components";
+import { Button, CloudsContainer, Input } from "../../Components";
+import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import SignUpTurtle from "../../Illustrations/signup.svg";
 import { styles } from "./Styles";
+import { Ionicons } from "@expo/vector-icons";
+import { Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
 
 /**
  * Signup page
  * @author andr3z0
  **/
 const Signup = () => {
+  const navigation = useNavigation();
   return (
-    <BaseContainer style={{ backgroundColor: "#F7EFEA" }} flex={1}>
-      <BaseContainer flex={1} style={{ marginTop: 50 }}>
-        <SignUpTurtle height="80%" width="100%" />
+    <BaseContainer
+      style={{ backgroundColor: "#F7EFEA", position: "relative" }}
+      flex={1}
+    >
+      <CloudsContainer />
+      <BaseContainer flex={1} style={{ marginTop: 30 }}>
+        <BaseText
+          align="center"
+          fontSize="20px"
+          color="#FF6765"
+          style={{ marginBottom: 15 }}
+        >
+          Cadastro de Usuário
+        </BaseText>
+        <SignUpTurtle height="70%" width="100%" />
       </BaseContainer>
       <BaseContainer
         flex={2}
@@ -36,6 +54,21 @@ const Signup = () => {
           style={styles.commonStyles}
         />
         <Input inputWidth="80%" placeholder="Senha" secureTextEntry />
+        <Button
+          buttonTitle="Cadastrar"
+          buttonWidth="80%"
+          containerStyles={{ justifyContent: "center", marginTop: 15 }}
+          buttonHeight="13%"
+          onPress={() => null}
+        />
+        <Pressable
+          style={{ width: "80%", marginTop: 30 }}
+          onPress={() => navigation.navigate(ROUTES_NAME.INITIAL)}
+        >
+          <BaseText align="left" color="#FF6765" fontSize="17px">
+            Já tenho conta
+          </BaseText>
+        </Pressable>
       </BaseContainer>
     </BaseContainer>
   );
