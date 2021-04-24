@@ -20,7 +20,7 @@ const Signup = () => {
       style={{ backgroundColor: "#FFC2C1", position: "relative" }}
       flex={1}
     >
-        <StatusBar backgroundColor="#B24846"/>
+      <StatusBar backgroundColor="#B24846" />
       <CloudsContainer />
       <BaseContainer flex={1} style={{ marginTop: 30 }}>
         <BaseText
