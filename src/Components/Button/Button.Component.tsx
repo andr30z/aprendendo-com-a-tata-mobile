@@ -1,13 +1,9 @@
 import React from "react";
 import {
-  View,
-  Text,
   NativeTouchEvent,
   NativeSyntheticEvent,
-  TouchableOpacityProps,
   ViewStyle,
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { BaseText, BaseTextProps } from "../../GlobalStyles/BaseStyles";
 import { BaseButton, BaseButtonProps } from "./Styles";
 
@@ -17,6 +13,15 @@ interface ButtonProps {
   textStyles?: BaseTextProps;
   containerStyles?: ViewStyle;
 }
+
+/**
+ * Generic button component, despite its name, this component uses TouchableHighlight instead of the a regular react-native button.
+ * @param buttonTitle string that will be used inside the button .
+ * @param onPress function thats going to be called whenever the button is pressed.
+ * @param textStyles style object for the buttonTitle, to learn more about this prop see ```<BaseText />``` in ```src/GlobalStyles.ts```.
+ * @param containerStyles style object for TouchableHighlight.
+ * @author andr3z0
+ **/
 const Button: React.FC<BaseButtonProps & ButtonProps> = ({
   buttonTitle,
   onPress,
