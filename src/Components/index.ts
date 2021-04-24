@@ -4,3 +4,6 @@ export { default as Input } from "./Input/Input.Component";
 export { default as Badge } from "./Badge/Badge.Component";
 export { default as ActivityItem } from "./ActivityItem/ActivityItem.Component";
 export { default as ActivityGroup } from "./ActivityGroup/ActivityGroup.Component";
+export { default as Button } from "./Button/Button.Component";
+export { default as Cloud } from "./Cloud/Cloud.Component";
+export { default as CloudsContainer } from "./CloudsContainer/CloudsContainer.Component";

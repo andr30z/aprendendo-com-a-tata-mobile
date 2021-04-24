@@ -10,6 +10,7 @@ import { Pressable, StatusBar, View, ScrollView } from "react-native";
 import { CONSTANTS } from "../../Constants";
 import { ActivityIntroduction, ActivityList, ActivityHeader } from "./Modules";
 import { LinearGradient } from "expo-linear-gradient";
+import { useKeyboardHideEvent } from "../../Hooks/useKeyboardHideEvent";
 
 /**
  * ActivitySelectionPage aka Home, thats the place where user is going to select an activity
@@ -18,6 +19,7 @@ import { LinearGradient } from "expo-linear-gradient";
 const ActivitySelection: React.FC = ({ children }) => {
   const scrollToRef = useRef<ScrollView>();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+  useKeyboardHideEvent();
 
   return (
     <ScrollContainer
@@ -51,7 +53,6 @@ const ActivitySelection: React.FC = ({ children }) => {
         >
           <Pressable
             onPress={() => {
-              console.log(scrollPosition, "possss");
               scrollToRef.current?.scrollTo({
                 y: scrollPosition + 200,
                 x: scrollPosition,

@@ -5,22 +5,29 @@ export interface PageContainerInterface {
   align?: string;
   justify?: string;
   flex?: number;
+  flexDirection?: string;
 }
 
-const align = ({ justify, align, flex }: PageContainerInterface) => {
+const align = ({
+  justify,
+  align,
+  flex,
+  flexDirection,
+}: PageContainerInterface) => {
   let centeringStyles = {
     "align-items": "",
     "justify-content": "",
+    "flex-direction": "",
     flex: 1,
   };
   if (!align && !justify) return;
 
-  if (align) {
-    centeringStyles["align-items"] = align;
-  }
-  if (justify) {
-    centeringStyles["justify-content"] = justify;
-  }
+  if (align) centeringStyles["align-items"] = align;
+
+  if (justify) centeringStyles["justify-content"] = justify;
+
+  if (flexDirection) centeringStyles["flex-direction"] = flexDirection;
+
   if (flex !== undefined) {
     centeringStyles["flex"] = flex;
   }
