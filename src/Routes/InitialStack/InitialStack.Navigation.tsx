@@ -1,8 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { CONSTANTS } from "../../Constants";
-import MainBottomNavigation from "../MainBottom/MainBottom.Navigation";
+import ActivitiesStackNavigation from "../ActivitiesStack/Activitities.Navigation";
 import { WithStatusBar } from "../../Components";
 import { InitialScreen, SignUp } from "../../Pages";
 import { ROUTES_NAME } from "./RoutesName";
@@ -32,7 +31,7 @@ const InitialStackNavigation: React.FC = () => {
         />
         <StackTab.Screen
           name={ROUTES_NAME.APP_CONTENT}
-          component={MainBottomNavigation}
+          component={ActivitiesStackNavigation}
         />
         <StackTab.Screen
           name={ROUTES_NAME.SIGN_UP}
