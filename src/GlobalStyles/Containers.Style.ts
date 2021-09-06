@@ -1,9 +1,9 @@
+import { FlexAlignType } from "react-native";
 import styled from "styled-components/native";
-
 export interface PageContainerInterface {
   backgroundColor?: string;
-  align?: string;
-  justify?: string;
+  align?: FlexAlignType;
+  justify?: "space-around" | "space-between" | "space-evenly" | "center" | "flex-end" | "flex-start" | undefined;
   flex?: number;
   flexDirection?: string;
 }
