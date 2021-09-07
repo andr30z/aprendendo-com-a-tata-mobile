@@ -1,19 +1,9 @@
-import { MutableRefObject } from "hoist-non-react-statics/node_modules/@types/react";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useMemo,
-  useRef,
-  useEffect,
-} from "react";
+import React, { Dispatch, SetStateAction, useMemo, useRef } from "react";
 import { View } from "react-native";
 import { DraxView } from "react-native-drax";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
-import {
-  ComparationBetweenObjectsActivityItem,
-  DraxViewRefsPositions,
-} from "../../../Interfaces";
+import { ComparationBetweenObjectsActivityItem } from "../../../Interfaces";
 import { ArrayBonds } from "../../Interfaces";
 
 interface ComparationDragItemProps {
@@ -28,20 +18,20 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
   currentStageBonds,
 }) => {
   const Image = comparation.image;
-  const viewRef = useRef<View | null>(null);
 
   const bond = useMemo(
     () =>
       currentStageBonds.find(
         (item) =>
-          item.senderId === comparation.id || item.receiverId === comparation.id
+          item.senderId === comparation._id ||
+          item.receiverId === comparation._id
       ),
     [currentStageBonds]
   );
   // useEffect(() => {
   //   viewRef.current?.measure((x, y) => {
   //     console.log(x, y);
-  //     refContainer.current[comparation.id] = { x, y };
+  //     refContainer.current[comparation._id] = { x, y };
   //   });
   // },[]);
   return (
@@ -57,10 +47,10 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
         if (comparation.comparationBondValue === dragged.payload)
           setCurrentStageBonds((past) => [
             ...past,
-            { senderId: bondValue, receiverId: comparation.id },
+            { senderId: bondValue, receiverId: comparation._id },
           ]);
       }}
-      payload={comparation.receiver ? undefined : comparation.id}
+      payload={comparation.receiver ? undefined : comparation._id}
     >
       <View
         style={{
@@ -69,7 +59,7 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
           height: "33%",
 
           // height: comparation.image ? 80 : 20,
-          // width: comparation.image ? 80 : 20,
+          // w_idth: comparation.image ? 80 : 20,
         }}
       >
         <BaseContainer
