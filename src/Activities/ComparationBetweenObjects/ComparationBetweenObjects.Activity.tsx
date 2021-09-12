@@ -1,12 +1,11 @@
 import React, { useMemo, useState } from "react";
-import { DraxProvider } from "react-native-drax";
 import { WithDraxProvider } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../Hooks/useStageLogic";
 import {
   ComparationBetweenObjectsActivity,
-  ComparationBetweenObjectsActivityItem,
+  ComparationBetweenObjectsActivityItem
 } from "../Interfaces";
 import { ComparationDragItem } from "./Components";
 import { ArrayBonds } from "./Interfaces";

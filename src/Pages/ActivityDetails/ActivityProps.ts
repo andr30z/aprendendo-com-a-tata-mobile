@@ -9,6 +9,7 @@ import RedRight from "../../Illustrations/cloud-red-right.svg";
 import WhiteRight from "../../Illustrations/cloud-white-right.svg";
 import YellowRight from "../../Illustrations/cloud-yellow-right.svg";
 import YellowLeft from "../../Illustrations/cloud-yellow-left.svg";
+import { NumberSequenceActivityStageInterface } from "../../Activities/Interfaces/Numbers";
 
 const comparationStages = [
   [
@@ -176,4 +177,11 @@ export const shapesAndColors: ShapesAndColorsInterface = {
   activityUtterance: "ARRASTE AS FIGURAS EM DESTAQUE PARA PINTAR",
   type: "S&C",
   stages: stageShapesAndColors,
+};
+
+export const numberSequenceProps: NumberSequenceActivityStageInterface = {
+  _id: "abc1234",
+  activityUtterance: "COMPLETE A SEQUENCIA NÚMERICA",
+  type: "NS",
+  stages: [{ sequence: [1, 2, "", 4, 5, "", 7, "", 9, ""] }],
 };

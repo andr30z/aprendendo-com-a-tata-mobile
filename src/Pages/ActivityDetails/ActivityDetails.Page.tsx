@@ -1,14 +1,14 @@
 import React from "react";
-import { ComparationBetweenObjects, ShapesAndColors } from "../../Activities";
-import { shapesAndColors } from "./ActivityProps";
+import {
+  // ComparationBetweenObjects,
+  // ShapesAndColors,
+  NumberSequence,
+} from "../../Activities";
+import { numberSequenceProps } from "./ActivityProps";
 
 const ActivityDetails = () => {
   // return <ComparationBetweenObjects activity={activityComparation} />;
-  return (
-    <ShapesAndColors
-      activity={shapesAndColors}
-    />
-  );
+  return <NumberSequence activity={numberSequenceProps} />;
 };
 
 export default ActivityDetails;
