@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { FlatList } from "react-native-gesture-handler";
 import { WithDraxProvider } from "../../../Components";
 import { BaseText } from "../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../GlobalStyles/Containers.Style";

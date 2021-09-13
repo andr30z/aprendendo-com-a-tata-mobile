@@ -1,6 +1,7 @@
 import {
   ShapesAndColorsInterface,
   ShapesAndColorsActivityStage,
+  ImagesByLettersActivityStageInterface,
 } from "../../Activities/Interfaces";
 import BlueLeft from "../../Illustrations/cloud-blue-left.svg";
 import BlueRight from "../../Illustrations/cloud-blue-right.svg";
@@ -185,3 +186,74 @@ export const numberSequenceProps: NumberSequenceActivityStageInterface = {
   type: "NS",
   stages: [{ sequence: [1, 2, "", 4, 5, "", 7, "", 9, ""] }],
 };
+
+export const learningLettersWithImages: ImagesByLettersActivityStageInterface =
+  {
+    _id: "123123123",
+    activityUtterance:
+      "SELECIONE AS IMAGENS QUE COMEÇAM COM A LETRA EM DESTAQUE",
+    stages: [
+      {
+        pressingLettersActivity: [
+          {
+            _id: "ASDASD",
+            initialLetter: "A",
+            images: [
+              {
+                _id: "1",
+                image: YellowLeft,
+                imageStartWithInitialLetter: false,
+              },
+              {
+                _id: "2",
+                image: BlueLeft,
+                imageStartWithInitialLetter: false,
+              },
+              {
+                _id: "3",
+                image: RedLeft,
+                imageStartWithInitialLetter: true,
+              },
+              {
+                _id: "4",
+                image: WhiteRight,
+                imageStartWithInitialLetter: true,
+              },
+              {
+                _id: "5",
+                image: YellowRight,
+                imageStartWithInitialLetter: true,
+              },
+            ],
+          },
+          {
+            _id: "ASDASD4444",
+            initialLetter: "B",
+            images: [
+              {
+                _id: "1",
+                image: WhiteRight,
+                imageStartWithInitialLetter: false,
+              },
+              {
+                _id: "2",
+                image: RedRight,
+                imageStartWithInitialLetter: true,
+              },
+              {
+                _id: "3",
+                image: RedLeft,
+                imageStartWithInitialLetter: false,
+              },
+              {
+                _id: "4",
+                image: BlueRight,
+                imageStartWithInitialLetter: false,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    type: "LLI",
+  };

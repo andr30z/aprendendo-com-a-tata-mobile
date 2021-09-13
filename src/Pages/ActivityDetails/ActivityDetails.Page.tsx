@@ -2,13 +2,14 @@ import React from "react";
 import {
   // ComparationBetweenObjects,
   // ShapesAndColors,
-  NumberSequence,
+  // NumberSequence,
+  ImagesByLetters,
 } from "../../Activities";
-import { numberSequenceProps } from "./ActivityProps";
+import { learningLettersWithImages } from "./ActivityProps";
 
 const ActivityDetails = () => {
   // return <ComparationBetweenObjects activity={activityComparation} />;
-  return <NumberSequence activity={numberSequenceProps} />;
+  return <ImagesByLetters activity={learningLettersWithImages} />;
 };
 
 export default ActivityDetails;
