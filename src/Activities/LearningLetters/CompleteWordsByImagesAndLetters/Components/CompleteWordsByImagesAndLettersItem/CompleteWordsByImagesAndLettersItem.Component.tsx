@@ -65,8 +65,8 @@ const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLett
                       // width="10px"
                       // height="10px"
                       style={{ borderWidth: 1, borderStyle: "solid" }}
-                      paddingHorizontal="10px"
-                      paddingVertical="10px"
+                      paddingHorizontal="20px"
+                      paddingVertical="20px"
                       backgroundColor="white"
                     />
                   </DraxView>
@@ -94,7 +94,7 @@ const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLett
           flexDirection="column"
           justify="space-evenly"
         >
-          {wordItem.optionLetters.map((option, optIndex) => (
+          {wordItem.optionLetters.map((option) => (
             <BaseContainer
               key={option}
               style={{

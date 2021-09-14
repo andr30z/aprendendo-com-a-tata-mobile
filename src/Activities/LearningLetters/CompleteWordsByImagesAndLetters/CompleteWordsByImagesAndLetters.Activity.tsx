@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { WithDraxProvider } from "../../../Components";
 import { BaseText } from "../../../GlobalStyles/BaseStyles";
-import {
-  BaseContainer,
-  ScrollContainer,
-} from "../../../GlobalStyles/Containers.Style";
+import { BaseContainer } from "../../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../../Hooks/useStageLogic";
 import { CompleteWordsByImagesAndLettersActivityStageInterface } from "../../Interfaces";
+import { DraxScrollView } from "react-native-drax";
 import { CompleteWordsByImagesAndLettersItem } from "./Components";
-
 interface ImagesByLettersProps {
   activity: CompleteWordsByImagesAndLettersActivityStageInterface;
 }
@@ -43,7 +40,8 @@ const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
     // }, []);
 
     return (
-      <BaseContainer flex={1} paddingHorizontal="3%">
+      <BaseContainer flex={1} >
+        <DraxScrollView>
           <BaseContainer
             flex={1}
             align="center"
@@ -59,6 +57,7 @@ const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
             justify="space-around"
             flexDirection="row"
             flexWrap="wrap"
+            paddingHorizontal="5%"
           >
             {currentStage.wordsToComplete.map((item, index) => (
               <CompleteWordsByImagesAndLettersItem
@@ -69,10 +68,11 @@ const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
                 wordItem={item}
               />
             ))}
-            {/* {currentStage.wordsToComplete.length % 2 !== 0 && (
+            {currentStage.wordsToComplete.length % 2 !== 0 && (
               <BaseContainer width="45%" />
-            )} */}
+            )}
           </BaseContainer>
+        </DraxScrollView>
       </BaseContainer>
     );
   }
