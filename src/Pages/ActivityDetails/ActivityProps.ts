@@ -2,6 +2,7 @@ import {
   ShapesAndColorsInterface,
   ShapesAndColorsActivityStage,
   ImagesByLettersActivityStageInterface,
+  CompleteWordsByImagesAndLettersActivityStageInterface,
 } from "../../Activities/Interfaces";
 import BlueLeft from "../../Illustrations/cloud-blue-left.svg";
 import BlueRight from "../../Illustrations/cloud-blue-right.svg";
@@ -256,4 +257,39 @@ export const learningLettersWithImages: ImagesByLettersActivityStageInterface =
       },
     ],
     type: "LLI",
+  };
+
+export const learningLettersCompleteWords: CompleteWordsByImagesAndLettersActivityStageInterface =
+  {
+    _id: "abc",
+    activityUtterance: "ARRASTE A LETRA EM DESTAQUE PARA COMPLETAR AS PALAVRAS",
+    type: "LLCW",
+    stages: [
+      {
+        _id: "asdasd",
+        wordsToComplete: [
+          {
+            _id: "123",
+            image: RedLeft,
+            optionLetters: ["A", "B", "C"],
+            keyLetter: "A",
+            wordToComplete: "*NDRE",
+          },
+          {
+            _id: "1234",
+            image: YellowLeft,
+            optionLetters: ["A", "R", "C"],
+            keyLetter: "R",
+            wordToComplete: "AND*E",
+          },
+          {
+            _id: "12389",
+            image: YellowRight,
+            optionLetters: ["Y", "O", "E"],
+            keyLetter: "O",
+            wordToComplete: "ARV*RE",
+          },
+        ],
+      },
+    ],
   };

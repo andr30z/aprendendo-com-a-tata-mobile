@@ -19,6 +19,8 @@ export interface PageContainerInterface {
   marginHorizontal?: string | undefined;
   paddingVertical?: string | undefined;
   paddingHorizontal?: string | undefined;
+  width?: string;
+  height?: string;
 }
 
 const align = ({
@@ -54,6 +56,8 @@ export const BaseContainer = styled.View<PageContainerInterface>`
       "flex-wrap": props.flexWrap,
     };
   }};
+  width: ${(props) => props.width || "auto"};
+  height: ${(props) => props.height || "auto"};
   border-radius: ${(props) => props.borderRadius || 0};
   margin-vertical: ${(props) => props.marginVertical || 0};
   margin-horizontal: ${(props) => props.marginHorizontal || 0};

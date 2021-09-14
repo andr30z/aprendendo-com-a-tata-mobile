@@ -5,6 +5,18 @@ export interface BaseTextProps {
   color?: string;
   fontSize?: string;
   align?: string;
+  fontWeight?:
+    | "bold"
+    | "normal"
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900";
 }
 
 export interface BaseInputProps extends TextInputProps {
@@ -17,6 +29,7 @@ export const BaseText = styled.Text<BaseTextProps>`
   color: ${({ color }) => color || "#fff"};
   font-size: ${({ fontSize }) => fontSize || "15px"};
   text-align: ${({ align }) => align || "auto"};
+  font-weight: ${(props) => props.fontWeight || 'normal'};
 `;
 
 export const BaseInput = styled.TextInput<BaseInputProps>`

@@ -1,7 +1,7 @@
 import {
   Dispatch,
   SetStateAction,
-} from "hoist-non-react-statics/node_modules/@types/react";
+} from "react";
 import { ActivityCommonProps } from "../../../../Interfaces/ActivityUtilsInterfaces";
 export interface ImageItemInterface {
   image: any;
