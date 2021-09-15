@@ -3,6 +3,7 @@ import {
   ShapesAndColorsActivityStage,
   ImagesByLettersActivityStageInterface,
   CompleteWordsByImagesAndLettersActivityStageInterface,
+  LearningCharacteristicsOfThingsActivityStageInterface,
 } from "../../Activities/Interfaces";
 import BlueLeft from "../../Illustrations/cloud-blue-left.svg";
 import BlueRight from "../../Illustrations/cloud-blue-right.svg";
@@ -352,7 +353,7 @@ export const learningLettersDragCompleteWords: CompleteWordsByImagesAndLettersAc
               "M",
               "N",
               "R",
-              'H'
+              "H",
             ],
             finishedWord: "ABOBRINHA",
             wordToComplete: "*BOB*IN**",
@@ -375,6 +376,115 @@ export const learningLettersDragCompleteWords: CompleteWordsByImagesAndLettersAc
             ],
             finishedWord: "ANDRE",
             wordToComplete: "AND**",
+          },
+        ],
+      },
+    ],
+  };
+
+export const learningCharacteristicsOfThingsProps: LearningCharacteristicsOfThingsActivityStageInterface =
+  {
+    _id: "abc",
+    activityUtterance: "PRESSIONE AS IMAGENS QUE TIVEREM X CARACTERISTICA",
+    type: "LCOT",
+    stages: [
+      {
+        _id: "asdasd",
+        characteristicsItems: [
+          {
+            _id: "asdasdasdasdasdasd",
+            image: BlueLeft,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "1",
+            image: WhiteRight,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "2",
+            image: YellowRight,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "3",
+            image: RedLeft,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "4",
+            image: BlueLeft,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "5",
+            image: BlueRight,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "6",
+            image: YellowLeft,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "7",
+            image: RedLeft,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "8",
+            image: WhiteRight,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "9",
+            image: RedLeft,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "10",
+            image: WhiteRight,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "11",
+            image: RedLeft,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "12",
+            image: WhiteRight,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "13",
+            image: RedLeft,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "14",
+            image: WhiteRight,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "15",
+            image: RedLeft,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "16",
+            image: WhiteRight,
+            imageIsCharacteristic: false,
+          },
+          {
+            _id: "17",
+            image: RedLeft,
+            imageIsCharacteristic: true,
+          },
+          {
+            _id: "18",
+            image: WhiteRight,
+            imageIsCharacteristic: false,
           },
         ],
       },

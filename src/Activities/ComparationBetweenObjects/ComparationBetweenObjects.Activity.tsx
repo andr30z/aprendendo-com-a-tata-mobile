@@ -5,7 +5,7 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../Hooks/useStageLogic";
 import {
   ComparationBetweenObjectsActivity,
-  ComparationBetweenObjectsActivityItem
+  ComparationBetweenObjectsActivityItem,
 } from "../Interfaces";
 import { ComparationDragItem } from "./Components";
 import { ArrayBonds } from "./Interfaces";
@@ -28,10 +28,7 @@ const ComparationBetweenObjects =
         currentStageIndex !== activity.stages.length - 1,
       () => setCurrentStageBonds([])
     );
-    const currentStage = useMemo(
-      () => activity.stages[currentStageIndex],
-      [currentStageIndex]
-    );
+    const currentStage = activity.stages[currentStageIndex];
     const columns = useMemo(() => {
       const leftColumn = currentStage.filter(filterFunction(false));
       const rightColumn = currentStage.filter(filterFunction(true));

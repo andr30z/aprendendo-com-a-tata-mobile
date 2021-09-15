@@ -5,13 +5,18 @@ import {
   // NumberSequence,
   // ImagesByLetters,
   // CompleteWordsByImagesAndLetters,
-  DragLettersToCompleteWords
+  // DragLettersToCompleteWords,
+  LearningCharacteristicsOfThings,
 } from "../../Activities";
-import { learningLettersDragCompleteWords } from "./ActivityProps";
+import { learningCharacteristicsOfThingsProps } from "./ActivityProps";
 
 const ActivityDetails = () => {
   // return <ComparationBetweenObjects activity={activityComparation} />;
-  return <DragLettersToCompleteWords activity={learningLettersDragCompleteWords} />;
+  return (
+    <LearningCharacteristicsOfThings
+      activity={learningCharacteristicsOfThingsProps}
+    />
+  );
 };
 
 export default ActivityDetails;
