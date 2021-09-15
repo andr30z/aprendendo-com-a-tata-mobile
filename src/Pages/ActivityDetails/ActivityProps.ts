@@ -307,3 +307,76 @@ export const learningLettersCompleteWords: CompleteWordsByImagesAndLettersActivi
       },
     ],
   };
+
+export const learningLettersDragCompleteWords: CompleteWordsByImagesAndLettersActivityStageInterface =
+  {
+    _id: "abc",
+    activityUtterance: "ARRASTE A LETRA EM DESTAQUE PARA COMPLETAR AS PALAVRAS",
+    type: "LLDCW",
+    stages: [
+      {
+        _id: "asdasd",
+        wordsToComplete: [
+          {
+            _id: "123",
+            image: RedLeft,
+            optionLetters: [
+              "A",
+              "R",
+              "C",
+              "D",
+              "E",
+              "G",
+              "F",
+              "L",
+              "P",
+              "M",
+              "N",
+            ],
+            finishedWord: "ANDRE",
+            wordToComplete: "*ND*E",
+          },
+          {
+            _id: "1234",
+            image: YellowRight,
+            optionLetters: [
+              "A",
+              "B",
+              "I",
+              "D",
+              "E",
+              "G",
+              "F",
+              "L",
+              "P",
+              "M",
+              "N",
+              "R",
+              'H'
+            ],
+            finishedWord: "ABOBRINHA",
+            wordToComplete: "*BOB*IN**",
+          },
+          {
+            _id: "1235",
+            image: BlueLeft,
+            optionLetters: [
+              "A",
+              "R",
+              "C",
+              "D",
+              "E",
+              "G",
+              "F",
+              "L",
+              "P",
+              "M",
+              "N",
+            ],
+            finishedWord: "ANDRE",
+            wordToComplete: "AND**",
+          },
+        ],
+      },
+    ],
+  };

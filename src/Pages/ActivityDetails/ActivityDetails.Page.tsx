@@ -4,16 +4,14 @@ import {
   // ShapesAndColors,
   // NumberSequence,
   // ImagesByLetters,
-  CompleteWordsByImagesAndLetters,
-  
+  // CompleteWordsByImagesAndLetters,
+  DragLettersToCompleteWords
 } from "../../Activities";
-import { learningLettersCompleteWords } from "./ActivityProps";
+import { learningLettersDragCompleteWords } from "./ActivityProps";
 
 const ActivityDetails = () => {
   // return <ComparationBetweenObjects activity={activityComparation} />;
-  return (
-    <CompleteWordsByImagesAndLetters activity={learningLettersCompleteWords} />
-  );
+  return <DragLettersToCompleteWords activity={learningLettersDragCompleteWords} />;
 };
 
 export default ActivityDetails;

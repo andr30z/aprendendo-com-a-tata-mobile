@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useMemo } from "react";
-import { useWindowDimensions } from "react-native";
+import React, { Dispatch, SetStateAction } from "react";
+import { useWindowDimensions, View } from "react-native";
 import { DraxView } from "react-native-drax";
 import { CONSTANTS } from "../../../../../Constants";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
@@ -18,32 +18,31 @@ interface CompleteWordsByImagesAndLettersItemProps {
  *
  * @author andr3z0
  **/
-const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLettersItemProps> =
+const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersItemProps> =
   ({ wordItem, index, completeWords, setCompleteWords }) => {
     const Image = wordItem.image;
     const { letters, onDragReceive } = useLettersItemLogic(
       completeWords[index],
       wordItem
     );
-    const { height } = useWindowDimensions();
+
+    const { height, width } = useWindowDimensions();
     return (
       <BaseContainer
+        style={{
+          height: height * 0.45,
+        }}
         width="100%"
-        height={`${(height * 20) / 100}px`}
-        marginVertical="15px"
-        flexDirection="row"
+        // backgroundColor="red"
+        marginVertical="25px"
+        paddingHorizontal="10px"
+        flexDirection="column"
       >
-        <BaseContainer
-          flex={5}
-          flexDirection="column"
-          align="center"
-          justify="space-between"
-          style={{ marginRight: 5 }}
-        >
-          <BaseContainer align="center" justify="center">
-            <Image height="180" width="110" />
+        <BaseContainer flex={2} flexDirection="column" align="center">
+          <BaseContainer flex={1} align="center" justify="center">
+            <Image height="100" width={`100`} />
           </BaseContainer>
-          <BaseContainer height="25%" flexDirection="row">
+          <BaseContainer flex={1} flexDirection="row" width={`${width}px`}>
             {letters?.map((letter, idx) => (
               <BaseContainer flex={1} align="center" justify="center" key={idx}>
                 {letter === CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG ? (
@@ -52,19 +51,22 @@ const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLett
                     onReceiveDragDrop={onDragReceive({
                       index,
                       setCompleteWords,
+                      keyLetterFormatter: () =>
+                        wordItem.finishedWord ? wordItem.finishedWord[idx] : "",
+                      positionToReplace: idx,
                     })}
                   >
                     <BaseContainer
                       style={{ borderWidth: 1, borderStyle: "solid" }}
-                      paddingHorizontal="20px"
-                      paddingVertical="20px"
+                      paddingHorizontal="15px"
+                      paddingVertical="15px"
                       backgroundColor="white"
                     />
                   </DraxView>
                 ) : (
                   <BaseText
                     color="black"
-                    fontSize="25px"
+                    // fontSize="50px"
                     fontWeight="bold"
                     style={{ marginHorizontal: 3 }}
                   >
@@ -76,39 +78,31 @@ const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLett
           </BaseContainer>
         </BaseContainer>
         <BaseContainer
-          style={{
-            borderWidth: 2,
-            borderTopWidth: 2,
-            borderBottomWidth: 0,
-          }}
-          flex={1}
-          flexDirection="column"
-          justify="space-evenly"
+          flex={2}
+          flexDirection="row"
+          flexWrap="wrap"
+          justify="center"
+          style={{ borderWidth: 1 }}
         >
           {wordItem.optionLetters.map((option, idx) => (
-            <BaseContainer
-              key={option + idx}
-              style={{
-                borderBottomWidth: 2,
-              }}
-              align="center"
-              justify="center"
-              flex={1}
+            <DraxView
+              key={String(option + "_" + idx + "_" + index)}
+              draggable
+              payload={{ option, index }}
             >
-              <DraxView
-                renderToHardwareTextureAndroid
-                draggable
-                payload={{ option, index }}
+              <BaseText
+                style={{ marginRight: 8 }}
+                fontWeight="bold"
+                color="black"
+                fontSize="23px"
               >
-                <BaseText fontWeight="bold" color="black" fontSize="40px">
-                  {option}
-                </BaseText>
-              </DraxView>
-            </BaseContainer>
+                {option}
+              </BaseText>
+            </DraxView>
           ))}
         </BaseContainer>
       </BaseContainer>
     );
   };
 
-export default CompleteWordsByImagesAndLettersItem;
+export default DragLettersToCompleteWordsItem;

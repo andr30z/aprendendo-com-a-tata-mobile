@@ -5,7 +5,7 @@ import { BaseContainer } from "../../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../../Hooks/useStageLogic";
 import { CompleteWordsByImagesAndLettersActivityStageInterface } from "../../Interfaces";
 import { DraxScrollView } from "react-native-drax";
-import { CompleteWordsByImagesAndLettersItem } from "./Components";
+import { DragLettersToCompleteWordsItem } from "./Components";
 import { useCompleteWordsLogic } from "../../Hooks";
 interface ImagesByLettersProps {
   activity: CompleteWordsByImagesAndLettersActivityStageInterface;
@@ -15,40 +15,36 @@ interface ImagesByLettersProps {
  *
  * @author andr3z0
  **/
-const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
+const DragLettersToCompleteWords = WithDraxProvider<ImagesByLettersProps>(
   ({ activity }) => {
     const { currentStageIndex } = useStageLogic(
       false,
       () => false,
       () => false
     );
-    //   useScreenOrientation(5, 2);
     const currentStage = activity.stages[currentStageIndex];
-    const { setCompleteWords, completeWords } = useCompleteWordsLogic(
+    const { completeWords, setCompleteWords } = useCompleteWordsLogic(
       currentStageIndex,
       currentStage
     );
 
     return (
       <BaseContainer flex={1}>
-        <DraxScrollView>
+        <DraxScrollView >
           <BaseContainer
             flex={1}
             align="center"
             justify="center"
             marginVertical="5px"
+            marginTop="25px"
           >
-            <BaseText align="center" color="#000">
+            <BaseText align="center" fontWeight="bold" fontSize="18px" color="#000">
               {activity.activityUtterance}
             </BaseText>
           </BaseContainer>
-          <BaseContainer
-            flex={5}
-            flexDirection="column"
-            paddingHorizontal="5%"
-          >
+          <BaseContainer flex={5} flexDirection="column">
             {currentStage.wordsToComplete.map((item, index) => (
-              <CompleteWordsByImagesAndLettersItem
+              <DragLettersToCompleteWordsItem
                 key={item._id}
                 completeWords={completeWords}
                 index={index}
@@ -56,9 +52,6 @@ const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
                 wordItem={item}
               />
             ))}
-            {/* {currentStage.wordsToComplete.length % 2 !== 0 && (
-              <BaseContainer width="45%" />
-            )} */}
           </BaseContainer>
         </DraxScrollView>
       </BaseContainer>
@@ -66,4 +59,4 @@ const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
   }
 );
 
-export default CompleteWordsByImagesAndLetters;
+export default DragLettersToCompleteWords;

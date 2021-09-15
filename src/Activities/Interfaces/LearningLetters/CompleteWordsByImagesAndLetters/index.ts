@@ -4,7 +4,8 @@ export interface WordsToCompleteItem {
   image: any;
   optionLetters: Array<string>;
   wordToComplete: string;
-  keyLetter: string;
+  keyLetter?: string;
+  finishedWord?: string;
   _id: string;
 }
 
