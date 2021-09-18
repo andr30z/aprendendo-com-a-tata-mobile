@@ -6,17 +6,14 @@ import {
   // ImagesByLetters,
   // CompleteWordsByImagesAndLetters,
   // DragLettersToCompleteWords,
-  LearningCharacteristicsOfThings,
+  // LearningCharacteristicsOfThings,
+  NumberOperations,
 } from "../../Activities";
-import { learningCharacteristicsOfThingsProps } from "./ActivityProps";
+import { numberOperations } from "./ActivityProps";
 
 const ActivityDetails = () => {
   // return <ComparationBetweenObjects activity={activityComparation} />;
-  return (
-    <LearningCharacteristicsOfThings
-      activity={learningCharacteristicsOfThingsProps}
-    />
-  );
+  return <NumberOperations activity={numberOperations} />;
 };
 
 export default ActivityDetails;

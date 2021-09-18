@@ -12,7 +12,7 @@ export interface PageContainerInterface {
     | "flex-start"
     | undefined;
   flex?: number;
-  flexDirection?: string;
+  flexDirection?: "row" | "column";
   borderRadius?: string | undefined;
   flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
   marginVertical?: string | undefined;
@@ -22,6 +22,7 @@ export interface PageContainerInterface {
   marginTop?: string | undefined;
   width?: string;
   height?: string;
+  boxShadow?: string;
 }
 
 const align = ({
@@ -65,6 +66,7 @@ export const BaseContainer = styled.View<PageContainerInterface>`
   margin-horizontal: ${(props) => props.marginHorizontal || 0};
   padding-vertical: ${(props) => props.paddingVertical || 0};
   padding-horizontal: ${(props) => props.paddingHorizontal || 0};
+  box-shadow: ${(props) => props.boxShadow || 'none'};
   ${align};
 `;
 

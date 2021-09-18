@@ -28,7 +28,7 @@ const Initial: React.FC = ({ children }) => {
           flexDirection="column"
           style={{ marginTop: 25 }}
         >
-          <BaseText>AAA</BaseText>
+          <BaseText fontSize="25px" color="black">Aprendendo com a Tatá</BaseText>
         </BaseContainer>
         <BaseContainer
           flex={4}
@@ -63,7 +63,7 @@ const Initial: React.FC = ({ children }) => {
             </BaseText>
           </Pressable>
           <Button
-            containerStyles={{ marginTop: 10 }}
+            containerStyles={{ marginTop: 10, alignItems:'center', justifyContent:'center' }}
             backgroundColor="#f7cc7f"
             buttonTitle="Entrar"
             onPress={() => null}

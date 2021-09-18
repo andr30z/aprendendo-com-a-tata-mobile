@@ -13,6 +13,7 @@ import WhiteRight from "../../Illustrations/cloud-white-right.svg";
 import YellowRight from "../../Illustrations/cloud-yellow-right.svg";
 import YellowLeft from "../../Illustrations/cloud-yellow-left.svg";
 import { NumberSequenceActivityStageInterface } from "../../Activities/Interfaces/Numbers";
+import { NumberOperationsActivityStageInterface } from "../../Activities/Interfaces/Numbers/NumberOperations";
 
 const comparationStages = [
   [
@@ -490,3 +491,65 @@ export const learningCharacteristicsOfThingsProps: LearningCharacteristicsOfThin
       },
     ],
   };
+
+export const numberOperations: NumberOperationsActivityStageInterface = {
+  _id: "abc",
+  activityUtterance: "Resolva as operações matemáticas",
+  type: "NO",
+  stages: [
+    {
+      _id: "asdasd",
+      operations: [
+        {
+          _id: "123123",
+          inputs: [
+            { _id: "12321", image: RedLeft, operation: "+" },
+            { _id: "2", image: BlueRight, operation: "+" },
+            { _id: "3", image: YellowLeft, operation: "+" },
+            { _id: "5", image: YellowRight, operation: "+" },
+            { _id: "4", image: RedRight },
+          ],
+          result: 5,
+        },
+        {
+          _id: "12312358798769068790687067",
+          inputs: [
+            { _id: "12321", image: YellowLeft, operation: "+" },
+            { _id: "423lk232", image: BlueRight, operation: "+" },
+            { _id: "3xzcvzcxv", image: RedRight, operation: "+" },
+            { _id: "5xzcv", image: WhiteRight, operation: "x" },
+            { _id: "4zasf2345234", image: BlueRight },
+          ],
+          result: 3,
+        },
+      ],
+    },
+    {
+      _id: "1",
+      operations: [
+        {
+          _id: "4566",
+          inputs: [
+            { _id: "4155151", image: YellowRight, operation: "-" },
+            { _id: "2131232", image: BlueRight, operation: "-" },
+            { _id: "44674769869000fvzvvx", image: RedRight },
+            { _id: "3asdasd34235", image: YellowLeft, operation: "-" },
+            { _id: "13124325234566486749", image: RedLeft, operation: "-" },
+          ],
+          result: 0,
+        },
+        {
+          _id: "0189346736748712",
+          inputs: [
+            { _id: "12312sdfadf", image: YellowRight, operation: "+" },
+            { _id: "adf12342315143645387694", image: BlueRight, operation: "+" },
+            { _id: "adxczczxc", image: RedRight },
+            { _id: "3asdasd34235//1/e123123", image: YellowLeft, operation: "+" },
+            { _id: "13124325234566486749=-091-02398-123", image: RedLeft, operation: "+" },
+          ],
+          result: 5,
+        },
+      ],
+    },
+  ],
+};
