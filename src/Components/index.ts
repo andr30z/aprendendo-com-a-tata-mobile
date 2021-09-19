@@ -7,3 +7,4 @@ export { default as ActivityGroup } from "./ActivityGroup/ActivityGroup.Componen
 export { default as Button } from "./Button/Button.Component";
 export { default as Cloud } from "./Cloud/Cloud.Component";
 export { default as CloudsContainer } from "./CloudsContainer/CloudsContainer.Component";
+export { default as WithDraxProvider} from './WithDraxProvider/WithDraxProvider.Component'

@@ -1,11 +1,22 @@
+import { FlexAlignType } from "react-native";
 import styled from "styled-components/native";
-
-export interface PageContainerInterface {
+import { CommonStylesInterfaces } from "../Interfaces/index";
+export interface PageContainerInterface extends CommonStylesInterfaces {
   backgroundColor?: string;
-  align?: string;
-  justify?: string;
+  align?: FlexAlignType;
+  justify?:
+    | "space-around"
+    | "space-between"
+    | "space-evenly"
+    | "center"
+    | "flex-end"
+    | "flex-start"
+    | undefined;
   flex?: number;
-  flexDirection?: string;
+  flexDirection?: "column" | "column-reverse" | "row" | "row-reverse";
+  borderRadius?: string | undefined;
+  flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
+  boxShadow?: string;
 }
 
 const align = ({
@@ -34,8 +45,42 @@ const align = ({
   return centeringStyles;
 };
 
+const marginPaddingConfig = ({
+  marginLeft,
+  marginBottom,
+  marginRight,
+  marginHorizontal,
+  marginTop,
+  marginVertical,
+  paddingHorizontal,
+  paddingVertical,
+}: PageContainerInterface) => {
+  const styles = {
+    "margin-left": marginLeft || "",
+    "margin-bottom": marginBottom || "",
+    "margin-right": marginRight || "",
+    "margin-horizontal": marginHorizontal || "",
+    "margin-top": marginTop || "",
+    "margin-vertical": marginVertical || "",
+    "padding-horizontal": paddingHorizontal || "",
+    "padding-vertical": paddingVertical || "",
+  };
+
+  return styles;
+};
+
 export const BaseContainer = styled.View<PageContainerInterface>`
   background-color: ${(props) => props.backgroundColor || "transparent"};
+  ${(props) => {
+    return {
+      "flex-wrap": props.flexWrap,
+    };
+  }};
+  width: ${(props) => props.width || "auto"};
+  height: ${(props) => props.height || "auto"};
+  border-radius: ${(props) => props.borderRadius || 0};
+  ${marginPaddingConfig}
+  box-shadow: ${(props) => props.boxShadow || "none"};
   ${align};
 `;
 

@@ -1,0 +1,1 @@
+export { default as ComparationDragItem } from './ComparationDragItem/ComparationDragItem.Component'
