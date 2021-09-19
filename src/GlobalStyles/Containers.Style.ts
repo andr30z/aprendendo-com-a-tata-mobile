@@ -1,6 +1,7 @@
 import { FlexAlignType } from "react-native";
 import styled from "styled-components/native";
-export interface PageContainerInterface {
+import { CommonStylesInterfaces } from "../Interfaces/index";
+export interface PageContainerInterface extends CommonStylesInterfaces {
   backgroundColor?: string;
   align?: FlexAlignType;
   justify?:
@@ -12,16 +13,9 @@ export interface PageContainerInterface {
     | "flex-start"
     | undefined;
   flex?: number;
-  flexDirection?: "row" | "column";
+  flexDirection?: "column" | "column-reverse" | "row" | "row-reverse";
   borderRadius?: string | undefined;
   flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
-  marginVertical?: string | undefined;
-  marginHorizontal?: string | undefined;
-  paddingVertical?: string | undefined;
-  paddingHorizontal?: string | undefined;
-  marginTop?: string | undefined;
-  width?: string;
-  height?: string;
   boxShadow?: string;
 }
 
@@ -51,6 +45,30 @@ const align = ({
   return centeringStyles;
 };
 
+const marginPaddingConfig = ({
+  marginLeft,
+  marginBottom,
+  marginRight,
+  marginHorizontal,
+  marginTop,
+  marginVertical,
+  paddingHorizontal,
+  paddingVertical,
+}: PageContainerInterface) => {
+  const styles = {
+    "margin-left": marginLeft || "",
+    "margin-bottom": marginBottom || "",
+    "margin-right": marginRight || "",
+    "margin-horizontal": marginHorizontal || "",
+    "margin-top": marginTop || "",
+    "margin-vertical": marginVertical || "",
+    "padding-horizontal": paddingHorizontal || "",
+    "padding-vertical": paddingVertical || "",
+  };
+
+  return styles;
+};
+
 export const BaseContainer = styled.View<PageContainerInterface>`
   background-color: ${(props) => props.backgroundColor || "transparent"};
   ${(props) => {
@@ -58,15 +76,11 @@ export const BaseContainer = styled.View<PageContainerInterface>`
       "flex-wrap": props.flexWrap,
     };
   }};
-  margin-top: ${(props) => props.marginTop || 0};
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
   border-radius: ${(props) => props.borderRadius || 0};
-  margin-vertical: ${(props) => props.marginVertical || 0};
-  margin-horizontal: ${(props) => props.marginHorizontal || 0};
-  padding-vertical: ${(props) => props.paddingVertical || 0};
-  padding-horizontal: ${(props) => props.paddingHorizontal || 0};
-  box-shadow: ${(props) => props.boxShadow || 'none'};
+  ${marginPaddingConfig}
+  box-shadow: ${(props) => props.boxShadow || "none"};
   ${align};
 `;
 

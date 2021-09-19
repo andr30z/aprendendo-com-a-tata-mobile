@@ -4,6 +4,7 @@ import {
   ImagesByLettersActivityStageInterface,
   CompleteWordsByImagesAndLettersActivityStageInterface,
   LearningCharacteristicsOfThingsActivityStageInterface,
+  StorytellingInterface,
 } from "../../Activities/Interfaces";
 import BlueLeft from "../../Illustrations/cloud-blue-left.svg";
 import BlueRight from "../../Illustrations/cloud-blue-right.svg";
@@ -542,14 +543,114 @@ export const numberOperations: NumberOperationsActivityStageInterface = {
           _id: "0189346736748712",
           inputs: [
             { _id: "12312sdfadf", image: YellowRight, operation: "+" },
-            { _id: "adf12342315143645387694", image: BlueRight, operation: "+" },
+            {
+              _id: "adf12342315143645387694",
+              image: BlueRight,
+              operation: "+",
+            },
             { _id: "adxczczxc", image: RedRight },
-            { _id: "3asdasd34235//1/e123123", image: YellowLeft, operation: "+" },
-            { _id: "13124325234566486749=-091-02398-123", image: RedLeft, operation: "+" },
+            {
+              _id: "3asdasd34235//1/e123123",
+              image: YellowLeft,
+              operation: "+",
+            },
+            {
+              _id: "13124325234566486749=-091-02398-123",
+              image: RedLeft,
+              operation: "+",
+            },
           ],
           result: 5,
         },
       ],
     },
   ],
+};
+
+export const storytellingProps: StorytellingInterface = {
+  _id: "abc",
+  activityUtterance: "Resolva as operações matemáticas",
+  type: "NO",
+  story: {
+    questions: [
+      {
+        _id: "123123",
+        options: [
+          {
+            _id: "123123123ADASD",
+            isCorrect: true,
+            answer:
+              "Nulla aliquet lacus id mauris gravida, nec sollicitudin lacus fermentum. Fusce at ligula dapibus, eleifend est sed, elementum quam. Integer consequat tempor nunc et tempus. Praesent accumsan non sem at facilisis. Pellentesque sit amet sapien eget augue pretium lacinia. Ut sed arcu consectetur, ultricies tellus vitae, ornare nulla. Donec sit amet ullamcorper sapien. Sed accumsan scelerisque mattis. Curabitur in erat tellus. Sed tempus elit odio, in euismod purus pretium sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vel malesuada ipsum. Vivamus porta nibh nec enim vehicula, eu vestibulum magna ultricies. Praesent at hendrerit quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubi",
+          },
+          {
+            _id: "sdfxcbxbvxc3456437373",
+            isCorrect: false,
+            answer:
+              "Nulla aliquet lacus id mauris gravida, nec sollicitudin lacus fermentum. Fusce at ligula dapibus, eleifend est sed, elementum quam. Integer consequat tempor nunc et tempus. Praesent accumsan non sem at facilisis. Pellentesque sit amet sapien eget augue pretium lacinia. Ut sed arcu consectetur, ultricies tellus vitae, ornare nulla. Donec sit amet ullamcorper sapien. Sed accumsan scelerisque mattis. Curabitur in erat tellus. Sed tempus elit odio, in euismod purus pretium sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vel malesuada ipsum. Vivamus porta nibh nec enim vehicula, eu vestibulum magna ultricies. Praesent at hendrerit quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubi",
+          },
+        ],
+        question:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem ligula, ornare non dapibus id, semper ac neque. Ut eget luctus velit?",
+      },
+      {
+        _id: "9999999",
+        options: [
+          {
+            _id: "995344",
+            isCorrect: true,
+            answer:
+              "Donec tellus justo, interdum vitae neque non, imperdiet volutpat lorem. Morbi id sem pretium, rutrum diam vitae, dictum eros. Etiam elementum viverra erat id efficitur. Nam egestas, lacus eu placerat facilisis, purus velit euismod lectus, vel varius justo elit sit amet dui. Pellentesque tincidunt sem lacus, vitae porttitor augue efficitur id.",
+          },
+          {
+            _id: "sdfx121323545709870cbxbvxc356565656456437373",
+            isCorrect: false,
+            answer:
+              "Phasellus rutrum mollis lectus lobortis mattis. Aliquam vitae convallis ipsum. Aliquam erat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+          },
+        ],
+        question:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem ligula, ornare non dapibus id, semper ac neque. Ut eget luctus velit?",
+      },
+    ],
+    storyPages: [
+      {
+        paragraphs: [
+          {
+            image: RedLeft,
+            imagePosition: "top",
+            text: "       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem ligula, ornare non dapibus id, semper ac neque. Ut eget luctus velit. Morbi pellentesque justo eget felis commodo facilisis. Ut eu eros ultricies, suscipit augue a, molestie ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus ut purus et nulla elementum pretium. Phasellus accumsan diam nec dapibus tempor. Donec volutpat ornare felis sed semper. Sed mollis commodo dolor, id mattis metus mattis ac. Duis pharetra erat turpis, non scelerisque erat ullamcorper at. In in purus dictum, imperdiet odio vitae, condimentum justo. Vestibulum aliquam, leo eu dignissim aliquet, lorem felis euismod mauris, quis rhoncus neque dui eget mi. Curabitur vestibulum, nisi a pulvinar finibus, risus mauris faucibus nisi, ut sodales sem turpis non tortor. Praesent interdum sit amet nunc eget laoreet. In hac habitasse platea dictumst.",
+            title: "AAA1",
+          },
+          {
+            text: "       Nulla aliquet lacus id mauris gravida, nec sollicitudin lacus fermentum. Fusce at ligula dapibus, eleifend est sed, elementum quam. Integer consequat tempor nunc et tempus. Praesent accumsan non sem at facilisis. Pellentesque sit amet sapien eget augue pretium lacinia. Ut sed arcu consectetur, ultricies tellus vitae, ornare nulla. Donec sit amet ullamcorper sapien. Sed accumsan scelerisque mattis. Curabitur in erat tellus. Sed tempus elit odio, in euismod purus pretium sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vel malesuada ipsum. Vivamus porta nibh nec enim vehicula, eu vestibulum magna ultricies. Praesent at hendrerit quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
+          },
+          { text: "AAAAAAAAAAAAAAAA", title: "AAA1" },
+          { text: "AAAAAAAAAAAAAAAA", title: "AAA1" },
+          { text: "AAAAAAAAAAAAAAAA", title: "AAA1" },
+        ],
+      },
+      {
+        paragraphs: [
+          {
+            image: RedLeft,
+            imagePosition: "left",
+            text: "       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem ligula, ornare non dapibus id, semper ac neque. Ut eget luctus velit. Morbi pellentesque justo eget felis commodo facilisis. Ut eu eros ultricies, suscipit augue a, molestie ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus ut purus et nulla elementum pretium. Phasellus accumsan diam nec dapibus tempor. Donec volutpat ornare felis sed semper. Sed mollis commodo dolor, id mattis metus mattis ac. Duis pharetra erat turpis, non scelerisque erat ullamcorper at. In in purus dictum, imperdiet odio vitae, condimentum justo. Vestibulum aliquam, leo eu dignissim aliquet, lorem felis euismod mauris, quis rhoncus neque dui eget mi. Curabitur vestibulum, nisi a pulvinar finibus, risus mauris faucibus nisi, ut sodales sem turpis non tortor. Praesent interdum sit amet nunc eget laoreet. In hac habitasse platea dictumst.",
+            title: "AAA2",
+          },
+          {
+            text: "       Nulla aliquet lacus id mauris gravida, nec sollicitudin lacus fermentum. Fusce at ligula dapibus, eleifend est sed, elementum quam. Integer consequat tempor nunc et tempus. Praesent accumsan non sem at facilisis. Pellentesque sit amet sapien eget augue pretium lacinia. Ut sed arcu consectetur, ultricies tellus vitae, ornare nulla. Donec sit amet ullamcorper sapien. Sed accumsan scelerisque mattis. Curabitur in erat tellus. Sed tempus elit odio, in euismod purus pretium sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vel malesuada ipsum. Vivamus porta nibh nec enim vehicula, eu vestibulum magna ultricies. Praesent at hendrerit quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
+          },
+          { text: "AAAAAAAAAAAAAAAA", title: "AAA1" },
+          { text: "AAAAAAAAAAAAAAAA", title: "AAA1" },
+          {
+            text: "       Nulla aliquet lacus id mauris gravida, nec sollicitudin lacus fermentum. Fusce at ligula dapibus, eleifend est sed, elementum quam. Integer consequat tempor nunc et tempus. Praesent accumsan non sem at facilisis. Pellentesque sit amet sapien eget augue pretium lacinia. Ut sed arcu consectetur, ultricies tellus vitae, ornare nulla. Donec sit amet ullamcorper sapien. Sed accumsan scelerisque mattis. Curabitur in erat tellus. Sed tempus elit odio, in euismod purus pretium sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vel malesuada ipsum. Vivamus porta nibh nec enim vehicula, eu vestibulum magna ultricies. Praesent at hendrerit quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
+          },
+        ],
+      },
+      { paragraphs: [{ text: "AAAAAAAAAAAAAAAA", title: "AAA1" }] },
+      { paragraphs: [{ text: "AAAAAAAAAAAAAAAA", title: "AAA1" }] },
+      { paragraphs: [{ text: "AAAAAAAAAAAAAAAA", title: "AAA1" }] },
+    ],
+    title: "Lorem Ipsum",
+  },
 };

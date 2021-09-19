@@ -7,13 +7,14 @@ import {
   // CompleteWordsByImagesAndLetters,
   // DragLettersToCompleteWords,
   // LearningCharacteristicsOfThings,
-  NumberOperations,
+  // NumberOperations,
+  Storytelling,
 } from "../../Activities";
-import { numberOperations } from "./ActivityProps";
+import { storytellingProps } from "./ActivityProps";
 
 const ActivityDetails = () => {
   // return <ComparationBetweenObjects activity={activityComparation} />;
-  return <NumberOperations activity={numberOperations} />;
+  return <Storytelling activity={storytellingProps} />;
 };
 
 export default ActivityDetails;
