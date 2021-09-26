@@ -14,7 +14,7 @@ const ActivityDetailsWithStatusBar = WithStatusBar(ActivityDetails);
 const ActivitiesStackNavigation: React.FC = () => {
   return (
     <StackTab.Navigator
-      initialRouteName={ROUTES_NAME.ACTIVITYDETAILS}
+      initialRouteName={ROUTES_NAME.MAINBOTTOM}
       screenOptions={{
         headerShown: false,
       }}
