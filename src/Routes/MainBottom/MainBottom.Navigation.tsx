@@ -7,6 +7,7 @@ import { TextBar } from "./Label";
 import { WithIconContainer, WithStatusBar } from "../../Components";
 import { CONSTANTS } from "../../Constants";
 import { useBackHandler } from "../../Hooks/useBackHandler";
+import { useWindowDimensions } from "react-native";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -14,7 +15,7 @@ export const ROUTES_NAME = {
   HOME: "ActivitySelection",
   SETTINGS: "Settings",
   USER: "User",
-  ACTIVITY:"Activity"
+  ACTIVITY: "Activity",
 };
 
 const UserPageWithStatusBar = WithStatusBar(User, true);
@@ -34,6 +35,7 @@ const UserIconWithIconContainer = WithIconContainer(UserIcon);
  **/
 const MainBottomNavigation: React.FC = () => {
   useBackHandler(false);
+  const { width } = useWindowDimensions();
   return (
     <BottomTab.Navigator
       tabBarOptions={{
@@ -42,7 +44,7 @@ const MainBottomNavigation: React.FC = () => {
           borderTopLeftRadius: 21,
           borderTopRightRadius: 21,
           position: "absolute",
-          width: CONSTANTS.DEVICE_WIDTH + 2,
+          width: width + 2,
           left: -1,
           bottom: 0,
           height: "7%",

@@ -13,3 +13,7 @@ export interface ActivityCommonProps<A> {
   stages: Array<A>;
   _id: string;
 }
+
+export interface ActivityApiResponse {
+  activities: Array<ActivityCommonProps<unknown>>;
+}
