@@ -32,6 +32,7 @@ const LearningCharacteristicsOfThings: React.FC<LearningCharacteristicsOfThingsP
             align="center"
             justify="center"
             marginTop="55px"
+            paddingHorizontal="5%"
           >
             <BaseText
               align="center"

@@ -38,7 +38,7 @@ const ImagesByLettersItem = React.memo<ImagesByLettersItemProps>(
           shadowOpacity: 0.23,
           shadowRadius: 2.62,
           borderRadius: 20,
-          elevation: 4,
+          elevation: 2,
         }}
         flex={4}
         paddingVertical="3%"

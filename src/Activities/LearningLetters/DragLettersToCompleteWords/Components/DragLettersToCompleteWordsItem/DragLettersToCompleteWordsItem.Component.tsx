@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { useWindowDimensions, View } from "react-native";
+import { Image, useWindowDimensions } from "react-native";
 import { DraxView } from "react-native-drax";
-import { CONSTANTS } from "../../../../../Constants";
+import { ACTIVITY_CONSTANTS } from "../../../../../Constants/index";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../GlobalStyles/Containers.Style";
 import { useLettersItemLogic } from "../../../../Hooks";
@@ -20,7 +20,6 @@ interface CompleteWordsByImagesAndLettersItemProps {
  **/
 const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersItemProps> =
   ({ wordItem, index, completeWords, setCompleteWords }) => {
-    const Image = wordItem.image;
     const { letters, onDragReceive } = useLettersItemLogic(
       completeWords[index],
       wordItem
@@ -40,12 +39,17 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
       >
         <BaseContainer flex={2} flexDirection="column" align="center">
           <BaseContainer flex={1} align="center" justify="center">
-            <Image height="100" width={`100`} />
+            <Image
+              style={{ height: 100, width: 100 }}
+              resizeMode="center"
+              source={{ uri: wordItem.image }}
+            />
           </BaseContainer>
           <BaseContainer flex={1} flexDirection="row" width={`${width}px`}>
             {letters?.map((letter, idx) => (
               <BaseContainer flex={1} align="center" justify="center" key={idx}>
-                {letter === CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG ? (
+                {letter ===
+                ACTIVITY_CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG ? (
                   <DraxView
                     receptive
                     onReceiveDragDrop={onDragReceive({

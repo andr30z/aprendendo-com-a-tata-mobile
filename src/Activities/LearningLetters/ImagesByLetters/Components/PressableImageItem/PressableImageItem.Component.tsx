@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Pressable } from "react-native";
+import { Pressable, Image } from "react-native";
 import {
   CommonImageItemProps,
   ImageItemInterface,
@@ -19,7 +19,6 @@ const PressableImageItem: React.FC<PressableImageItemProps> = ({
   imageItem,
   setPressedImagesId,
 }) => {
-  const Image = imageItem.image;
   const onPressValue = () => {
     if (!imageItem.imageStartWithInitialLetter) return;
     setPressedImagesId((past) => {
@@ -56,7 +55,11 @@ const PressableImageItem: React.FC<PressableImageItemProps> = ({
       key={imageItem._id}
       onPress={onPressValue}
     >
-      <Image height="100" width="100" />
+      <Image
+        resizeMode="center"
+        style={{ height: 80, width: 80 }}
+        source={{ uri: imageItem.image }}
+      />
     </Pressable>
   );
 };

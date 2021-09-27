@@ -1,6 +1,6 @@
 import { useMemo, useCallback, Dispatch, SetStateAction } from "react";
 import { DraxDragWithReceiverEventData } from "react-native-drax";
-import { CONSTANTS } from "../../Constants";
+import { ACTIVITY_CONSTANTS } from "../../Constants/index";
 import { replaceAt } from "../../Utils";
 import { WordsToCompleteItem } from "../Interfaces";
 interface OnDragReceiveParamsInterface {
@@ -30,6 +30,7 @@ export function useLettersItemLogic(
         const keyLetter = keyLetterFormatter
           ? keyLetterFormatter(payload)
           : wordInfo.keyLetter;
+
         if (payload.option !== keyLetter || payload.index !== index)
           return console.log("errou");
 
@@ -43,7 +44,7 @@ export function useLettersItemLogic(
             );
           else
             list[index] = list[index].replace(
-              CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG,
+              ACTIVITY_CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG,
               payload.option
             );
           return list;
@@ -56,7 +57,7 @@ export function useLettersItemLogic(
     () =>
       letters
         ? letters?.filter(
-            (x) => x == CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG
+            (x) => x == ACTIVITY_CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG
           ).length === 0
         : false,
     [letters]

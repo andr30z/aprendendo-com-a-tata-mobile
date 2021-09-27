@@ -1,7 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
 import Input from "../../../../Components/Input/Input.Component";
-import { CONSTANTS } from "../../../../Constants";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import Icons from "../../../../Illustrations/kids.svg";

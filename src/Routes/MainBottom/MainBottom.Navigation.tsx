@@ -1,21 +1,14 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ActivitySelection, Settings, User } from "../../Pages";
-import { Home, User as UserIcon, Settings as SettingsIcon } from "./Icons";
-import { TextBar } from "./Label";
+import React from "react";
+import { useWindowDimensions } from "react-native";
 import { WithIconContainer, WithStatusBar } from "../../Components";
-import { CONSTANTS } from "../../Constants";
 import { useBackHandler } from "../../Hooks/useBackHandler";
+import { ActivitySelection, Settings, User } from "../../Pages";
+import { Home, Settings as SettingsIcon, User as UserIcon } from "./Icons";
+import { TextBar } from "./Label";
+import { ROUTES_NAME } from "./RoutesName";
 
 const BottomTab = createBottomTabNavigator();
-
-export const ROUTES_NAME = {
-  HOME: "ActivitySelection",
-  SETTINGS: "Settings",
-  USER: "User",
-  ACTIVITY:"Activity"
-};
 
 const UserPageWithStatusBar = WithStatusBar(User, true);
 const ActivitySelectionPageWithStatusBar = WithStatusBar(
@@ -34,18 +27,20 @@ const UserIconWithIconContainer = WithIconContainer(UserIcon);
  **/
 const MainBottomNavigation: React.FC = () => {
   useBackHandler(false);
+  const { width } = useWindowDimensions();
   return (
     <BottomTab.Navigator
-      tabBarOptions={{
-        style: {
+      // defaultScreenOptions
+      screenOptions={{
+        tabBarStyle: {
           backgroundColor: "#fff",
           borderTopLeftRadius: 21,
           borderTopRightRadius: 21,
           position: "absolute",
-          width: CONSTANTS.DEVICE_WIDTH + 2,
+          width: width + 2,
           left: -1,
           bottom: 0,
-          height: "7%",
+          height: "10%",
           borderTopWidth: 0.1,
           borderLeftWidth: 0.1,
           borderRightWidth: 0.1,
@@ -53,10 +48,16 @@ const MainBottomNavigation: React.FC = () => {
           borderBottomWidth: 0,
         },
       }}
+      // tabBarOptions={{
+      //   style: {
+
+      //   },
+      // }}
       initialRouteName={ROUTES_NAME.HOME}
     >
       <BottomTab.Screen
         options={{
+          headerShown: false,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Usuário" />,
           tabBarIcon: UserIconWithIconContainer,
         }}
@@ -65,6 +66,7 @@ const MainBottomNavigation: React.FC = () => {
       />
       <BottomTab.Screen
         options={{
+          headerShown: false,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Descobrir" />,
           tabBarIcon: HomeIconWithIconContainer,
         }}
@@ -75,6 +77,7 @@ const MainBottomNavigation: React.FC = () => {
         name={ROUTES_NAME.SETTINGS}
         component={SettingsPageWithStatusBar}
         options={{
+          headerShown: false,
           tabBarIcon: SettingsIconWithIconContainer,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
         }}

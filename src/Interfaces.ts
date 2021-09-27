@@ -11,7 +11,7 @@ export interface ActivityGroup {
 
 export interface ActivityItem {
   name: string;
-  level: number;
+  dificulty: number;
   description: string;
   tags: Array<string>;
 }

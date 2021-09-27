@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
-import { Pressable, useWindowDimensions } from "react-native";
+import { Pressable, useWindowDimensions, Image } from "react-native";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { CharacteristicItem } from "../../../Interfaces";
 
@@ -16,7 +16,6 @@ interface LearningCharacteristicsOfThingsItemProps {
  **/
 const LearningCharacteristicsOfThingsItem: React.FC<LearningCharacteristicsOfThingsItemProps> =
   ({ characteristicItem, setPressedImages, pressedImages }) => {
-    const Image = characteristicItem.image;
     const findCurrentItemInPressedImages = (arr: Array<string>) =>
       arr.findIndex((x) => x === characteristicItem._id);
     const onPress = () => {
@@ -46,7 +45,11 @@ const LearningCharacteristicsOfThingsItem: React.FC<LearningCharacteristicsOfThi
           }}
           marginHorizontal="10px"
         >
-          <Image height="100" width={width * 0.25} />
+          <Image
+            resizeMode="contain"
+            style={{ height: 100, width: width * 0.24 }}
+            source={{ uri: characteristicItem.image }}
+          />
         </BaseContainer>
       </Pressable>
     );

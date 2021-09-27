@@ -7,6 +7,7 @@ import {
 import { useScreenOrientation } from "../../../../Hooks";
 import { StoryItem } from "../../../Interfaces";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { Image } from "react-native";
 
 interface PageProps {
   page: StoryItem;
@@ -54,7 +55,7 @@ const Page: React.FC<PageProps> = ({
           </BaseText>
         )}
         {page.paragraphs.map((paragraph, idx) => {
-          const Image = paragraph.image;
+          const image = paragraph.image;
           const isBottomOrTopPosition =
             paragraph.imagePosition === "bottom" ||
             paragraph.imagePosition === "top";
@@ -70,15 +71,19 @@ const Page: React.FC<PageProps> = ({
                   : paragraphImagePositions[paragraph.imagePosition]
               }
             >
-              {Image &&
+              {image &&
                 (currentOrientation ===
                   ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
                   isBottomOrTopPosition) && (
                   <Image
                     style={{
                       marginVertical: isBottomOrTopPosition ? 0 : 8,
+                      height: 200,
+                      width: "100%",
                     }}
-                    width={isBottomOrTopPosition ? "100%" : "25%"}
+                    resizeMode="contain"
+                    width={isBottomOrTopPosition ? 100 : 25}
+                    source={{ uri: image }}
                   />
                 )}
               <BaseContainer
@@ -88,12 +93,17 @@ const Page: React.FC<PageProps> = ({
                 align="flex-start"
               >
                 {paragraph.title && (
-                  <BaseText marginBottom="5px" color="#000" fontWeight="700" fontSize="20px">
+                  <BaseText
+                    marginBottom="5px"
+                    color="#000"
+                    fontWeight="700"
+                    fontSize="20px"
+                  >
                     {paragraph.title}
                   </BaseText>
                 )}
                 <BaseText
-                  style={{ lineHeight: 25, }}
+                  style={{ lineHeight: 25 }}
                   color="#000"
                   fontWeight="500"
                   fontSize="17px"

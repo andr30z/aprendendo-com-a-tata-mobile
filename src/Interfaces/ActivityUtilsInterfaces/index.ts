@@ -1,7 +1,7 @@
 export interface ActivityCommonProps<A> {
   activityUtterance: string;
   type:
-    | "S&C"
+    | "SC"
     | "CMP"
     | "NMBSQ"
     | "NS"
@@ -12,4 +12,10 @@ export interface ActivityCommonProps<A> {
     | "LCOT";
   stages: Array<A>;
   _id: string;
+  dificulty: number;
+  name: string;
+}
+
+export interface ActivityApiResponse {
+  activities: Array<ActivityCommonProps<unknown>>;
 }

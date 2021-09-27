@@ -84,7 +84,6 @@ const NumericExpression: React.FC<NumberSequenceItemProps> = React.memo(
       >
         <BaseContainer flexWrap="wrap" align="flex-start" flexDirection="row">
           {operationItem.inputs.map((input) => {
-            const Image = input.image;
             return (
               <BaseContainer
                 flexWrap="wrap"
@@ -92,8 +91,12 @@ const NumericExpression: React.FC<NumberSequenceItemProps> = React.memo(
                 flexDirection="row"
                 marginVertical="10px"
               >
-                {Image ? (
-                  <Image width="80px" height="80px" />
+                {input.image ? (
+                  <Image
+                    resizeMode="contain"
+                    style={{ height: 80, width: 80 }}
+                    source={{ uri: input.image }}
+                  />
                 ) : (
                   <BaseText
                     style={{ marginHorizontal: 10 }}

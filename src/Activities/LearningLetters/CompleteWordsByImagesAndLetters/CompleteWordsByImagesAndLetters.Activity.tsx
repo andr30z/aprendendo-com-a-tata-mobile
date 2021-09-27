@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
+import { DraxScrollView } from "react-native-drax";
 import { WithDraxProvider } from "../../../Components";
 import { BaseText } from "../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../../Hooks/useStageLogic";
-import { CompleteWordsByImagesAndLettersActivityStageInterface } from "../../Interfaces";
-import { DraxScrollView } from "react-native-drax";
-import { CompleteWordsByImagesAndLettersItem } from "./Components";
 import { useCompleteWordsLogic } from "../../Hooks";
+import { CompleteWordsByImagesAndLettersActivityStageInterface } from "../../Interfaces";
+import { CompleteWordsByImagesAndLettersItem } from "./Components";
 interface ImagesByLettersProps {
   activity: CompleteWordsByImagesAndLettersActivityStageInterface;
 }
@@ -37,6 +37,8 @@ const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
             align="center"
             justify="center"
             marginVertical="5px"
+            paddingHorizontal="1%"
+            marginTop="15px"
           >
             <BaseText align="center" color="#000">
               {activity.activityUtterance}
