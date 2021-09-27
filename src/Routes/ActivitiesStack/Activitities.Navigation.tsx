@@ -2,11 +2,12 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import MainBottomNavigation from "../MainBottom/MainBottom.Navigation";
 import { ROUTES_NAME } from "./RoutesName";
-import { ActivityDetails } from "../../Pages";
+import { ActivityDetails, ActivityPlay } from "../../Pages";
 import { WithStatusBar } from "../../Components";
 
 const StackTab = createStackNavigator();
 const ActivityDetailsWithStatusBar = WithStatusBar(ActivityDetails);
+const ActivityPlayWithStatusBar = WithStatusBar(ActivityPlay);
 /**
  * This is the Activities stack navigation container of the application.
  * @author andr3z0
@@ -26,6 +27,10 @@ const ActivitiesStackNavigation: React.FC = () => {
       <StackTab.Screen
         name={ROUTES_NAME.ACTIVITYDETAILS}
         component={ActivityDetailsWithStatusBar}
+      />
+      <StackTab.Screen
+        name={ROUTES_NAME.ACTIVITYPLAY}
+        component={ActivityPlayWithStatusBar}
       />
     </StackTab.Navigator>
   );

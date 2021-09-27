@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import { DraxView } from "react-native-drax";
 import {
   ShapesAndColorsActivityStageItem,
@@ -29,14 +29,11 @@ const ShapesAndColorsItem: React.FC<ShapesAndColorsItemProps> = ({
     () => taggedItems.find((item) => item.receiverId === _id),
     [taggedItems]
   );
-  const Image = taggedItem ? imageAfterColoring : initialImage;
+  const image = taggedItem ? imageAfterColoring : initialImage;
   return (
     <>
       <DraxView
         draggable={isHeadImage}
-        onDragStart={() => {
-          console.log("COMEÇOU CARAIADKLASJDKLALSDKLASJD");
-        }}
         onReceiveDragDrop={({ dragged }) => {
           if (
             dragged.payload.columnIndex !== columnIndex ||
@@ -56,7 +53,11 @@ const ShapesAndColorsItem: React.FC<ShapesAndColorsItemProps> = ({
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <Image height="80" width="80" />
+          <Image
+            resizeMode="contain"
+            style={{ height: 80, width: "95%" }}
+            source={{ uri: image }}
+          />
         </View>
       </DraxView>
       {itemIndex === 0 && (

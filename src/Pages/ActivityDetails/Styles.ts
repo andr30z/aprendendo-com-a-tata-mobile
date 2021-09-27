@@ -1,12 +1,13 @@
 import styled from "styled-components/native";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
-export const DraggableText = styled(BaseContainer)<{
-  viewMarginLeft?: boolean;
-}>`
-  height: 70px;
-  width: 70px;
-  margin-left: ${({ viewMarginLeft }) => (viewMarginLeft ? "10px" : "0")};
+export const ButtonBeginActivty = styled.TouchableOpacity`
+  background-color: #FF4C4C;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
-  borderRadius: 25px;
+  padding: 3%;
+  border-radius: 35px;
+  width: 70%;
+  height: 60px;
 `;

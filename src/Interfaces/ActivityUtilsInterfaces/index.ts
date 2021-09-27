@@ -1,7 +1,7 @@
 export interface ActivityCommonProps<A> {
   activityUtterance: string;
   type:
-    | "S&C"
+    | "SC"
     | "CMP"
     | "NMBSQ"
     | "NS"

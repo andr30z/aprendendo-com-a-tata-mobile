@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useMemo, useRef } from "react";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import { DraxView } from "react-native-drax";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
@@ -17,8 +17,6 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
   setCurrentStageBonds,
   currentStageBonds,
 }) => {
-  const Image = comparation.image;
-
   const bond = useMemo(
     () =>
       currentStageBonds.find(
@@ -28,21 +26,14 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
       ),
     [currentStageBonds]
   );
-  // useEffect(() => {
-  //   viewRef.current?.measure((x, y) => {
-  //     console.log(x, y);
-  //     refContainer.current[comparation._id] = { x, y };
-  //   });
-  // },[]);
+
   return (
     <DraxView
       draggable={comparation.receiver === false && bond === undefined}
-      onDragStart={() => {
-        console.log("start drag");
-      }}
       onReceiveDragDrop={({ dragged }) => {
         // console.log(comparation.comparationBondValue, dragged);
         if (!comparation.receiver) return;
+        console.log(comparation.comparationBondValue, dragged.payload);
         const bondValue = comparation.comparationBondValue;
         if (comparation.comparationBondValue === dragged.payload)
           setCurrentStageBonds((past) => [
@@ -57,9 +48,6 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
           alignItems: "center",
           justifyContent: "center",
           height: "33%",
-
-          // height: comparation.image ? 80 : 20,
-          // w_idth: comparation.image ? 80 : 20,
         }}
       >
         <BaseContainer
@@ -73,7 +61,13 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
             }
           }
         >
-          {Image && <Image height="80" width="80" />}
+          {comparation.image && (
+            <Image
+              resizeMode="contain"
+              style={{ height: 80, width: 80 }}
+              source={{ uri: comparation.image }}
+            />
+          )}
           {comparation.imageText && (
             <BaseText fontSize="20px" color="black">
               {comparation.imageText}

@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
-import ActivityGroup from "../../../../Components/ActivityGroup/ActivityGroup.Component";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useCallback, useEffect, useState } from "react";
+import { ActivityItem } from "../../../../Components";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
-import { ActivityListProps } from "../../../../Interfaces";
-import { baseApi, baseApiRoutes } from "../../../../Services/BaseApi";
-import { GridContainer } from "./Styles";
 import {
   ActivityApiResponse,
   ActivityCommonProps,
 } from "../../../../Interfaces/index";
-import { ActivityItem } from "../../../../Components";
-
+import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/ActivitiesStack/RoutesName";
+import { ROUTES_NAME as initialRoutesName } from "../../../../Routes/InitialStack/RoutesName";
+import { baseApi, baseApiRoutes } from "../../../../Services/BaseApi";
+import { GridContainer } from "./Styles";
+import { StackParamList } from "../../../../Routes/ActivitiesStack/Interfaces";
 interface ActivityListOtherProps {
   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
 }
+
+type StackProps = StackNavigationProp<any>;
 
 /**
  * Activity module that contain the list of activities from the api.
@@ -23,6 +27,7 @@ interface ActivityListOtherProps {
 const ActivityList: React.FC<ActivityListOtherProps> = ({
   setScrollPosition,
 }) => {
+  const navigation = useNavigation<StackProps>();
   const [activities, setActivities] = useState<
     Array<ActivityCommonProps<unknown>>
   >([]);
@@ -36,6 +41,18 @@ const ActivityList: React.FC<ActivityListOtherProps> = ({
       .catch((e) => console.log(e));
   }, []);
 
+  const onPressActivityItem = useCallback(
+    (activity: ActivityCommonProps<unknown>) => {
+      navigation.navigate(initialRoutesName.APP_CONTENT, {
+        screen: activityRoutesName.ACTIVITYDETAILS,
+        params: {
+          activity,
+        },
+      });
+    },
+    []
+  );
+
   return (
     <BaseContainer>
       <GridContainer
@@ -44,7 +61,12 @@ const ActivityList: React.FC<ActivityListOtherProps> = ({
         }}
       >
         {activities.map((activity, index) => (
-          <ActivityItem itemIndex={index} {...activity} key={activity._id} />
+          <ActivityItem
+            onPress={onPressActivityItem}
+            itemIndex={index}
+            {...activity}
+            key={activity._id}
+          />
         ))}
       </GridContainer>
     </BaseContainer>

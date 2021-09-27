@@ -57,6 +57,7 @@ const MainBottomNavigation: React.FC = () => {
     >
       <BottomTab.Screen
         options={{
+          headerShown: false,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Usuário" />,
           tabBarIcon: UserIconWithIconContainer,
         }}
@@ -65,6 +66,7 @@ const MainBottomNavigation: React.FC = () => {
       />
       <BottomTab.Screen
         options={{
+          headerShown: false,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Descobrir" />,
           tabBarIcon: HomeIconWithIconContainer,
         }}
@@ -75,6 +77,7 @@ const MainBottomNavigation: React.FC = () => {
         name={ROUTES_NAME.SETTINGS}
         component={SettingsPageWithStatusBar}
         options={{
+          headerShown: false,
           tabBarIcon: SettingsIconWithIconContainer,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
         }}

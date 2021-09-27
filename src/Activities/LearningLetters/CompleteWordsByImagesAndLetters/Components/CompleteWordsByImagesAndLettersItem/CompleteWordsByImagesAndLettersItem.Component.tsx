@@ -1,7 +1,7 @@
-import React, { Dispatch, SetStateAction, useMemo } from "react";
-import { useWindowDimensions } from "react-native";
+import React, { Dispatch, SetStateAction } from "react";
+import { useWindowDimensions, Image } from "react-native";
 import { DraxView } from "react-native-drax";
-import { CONSTANTS } from "../../../../../Constants";
+import { ACTIVITY_CONSTANTS } from "../../../../../Constants/index";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../GlobalStyles/Containers.Style";
 import { useLettersItemLogic } from "../../../../Hooks";
@@ -20,7 +20,6 @@ interface CompleteWordsByImagesAndLettersItemProps {
  **/
 const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLettersItemProps> =
   ({ wordItem, index, completeWords, setCompleteWords }) => {
-    const Image = wordItem.image;
     const { letters, onDragReceive } = useLettersItemLogic(
       completeWords[index],
       wordItem
@@ -29,7 +28,7 @@ const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLett
     return (
       <BaseContainer
         width="100%"
-        height={`${(height * 20) / 100}px`}
+        height={`${(height * 25) / 100}px`}
         marginVertical="15px"
         flexDirection="row"
       >
@@ -40,13 +39,18 @@ const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLett
           justify="space-between"
           style={{ marginRight: 5 }}
         >
-          <BaseContainer align="center" justify="center">
-            <Image height="180" width="110" />
+          <BaseContainer align="center" justify="center" marginBottom="20px">
+            <Image
+              resizeMode="center"
+              style={{ height: 180, width: 110 }}
+              source={{ uri: wordItem.image }}
+            />
           </BaseContainer>
           <BaseContainer height="25%" flexDirection="row">
             {letters?.map((letter, idx) => (
               <BaseContainer flex={1} align="center" justify="center" key={idx}>
-                {letter === CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG ? (
+                {letter ===
+                ACTIVITY_CONSTANTS.ACTIVITY_WORD_RECEPTIVE_BOX_FLAG ? (
                   <DraxView
                     receptive
                     onReceiveDragDrop={onDragReceive({

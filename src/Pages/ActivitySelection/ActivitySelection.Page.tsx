@@ -1,22 +1,16 @@
 import React, { useRef, useState } from "react";
-import { Entypo } from "@expo/vector-icons";
 import {
-  BaseContainer,
-  ScrollContainer,
-} from "../../GlobalStyles/Containers.Style";
-import { Mockup } from "./ApiMockup.constant";
+  ScrollView, StatusBar,
 
-import {
-  Pressable,
-  StatusBar,
-  View,
-  ScrollView,
-  useWindowDimensions,
+
+  useWindowDimensions
 } from "react-native";
-import { CONSTANTS } from "../../Constants";
-import { ActivityIntroduction, ActivityList, ActivityHeader } from "./Modules";
-import { LinearGradient } from "expo-linear-gradient";
+import {
+  ScrollContainer
+} from "../../GlobalStyles/Containers.Style";
 import { useKeyboardHideEvent } from "../../Hooks/useKeyboardHideEvent";
+import { ActivityList } from "./Modules";
+
 
 /**
  * ActivitySelectionPage aka Home, thats the place where user is going to select an activity

@@ -17,6 +17,7 @@ const backgroundColor = [
 
 interface BaseActivityItemProps {
   itemIndex: number;
+  onPress: (activity: ActivityCommonProps<unknown>) => void;
 }
 
 /**
@@ -29,7 +30,7 @@ interface BaseActivityItemProps {
  **/
 const ActivityItem: React.FC<
   ActivityCommonProps<unknown> & BaseActivityItemProps
-> = ({ dificulty, name, itemIndex }) => {
+> = ({ dificulty, name, itemIndex, onPress, ...rest }) => {
   const stars = useMemo(() => Array.from({ length: dificulty }), []);
   const randomInt = useMemo(() => getRandomInt(0, 5), []);
   const { height } = useWindowDimensions();
@@ -38,6 +39,7 @@ const ActivityItem: React.FC<
       backgroundColor={backgroundColor[randomInt]}
       height={`${height * 0.2}px`}
       width="40%"
+      onPress={() => onPress({ ...rest, dificulty, name })}
       activeOpacity={0.83}
     >
       <BaseContainer
