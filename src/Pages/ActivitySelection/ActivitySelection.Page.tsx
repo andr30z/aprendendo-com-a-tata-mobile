@@ -6,7 +6,13 @@ import {
 } from "../../GlobalStyles/Containers.Style";
 import { Mockup } from "./ApiMockup.constant";
 
-import { Pressable, StatusBar, View, ScrollView } from "react-native";
+import {
+  Pressable,
+  StatusBar,
+  View,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
 import { CONSTANTS } from "../../Constants";
 import { ActivityIntroduction, ActivityList, ActivityHeader } from "./Modules";
 import { LinearGradient } from "expo-linear-gradient";
@@ -20,7 +26,7 @@ const ActivitySelection: React.FC = ({ children }) => {
   const scrollToRef = useRef<ScrollView>();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   useKeyboardHideEvent();
-
+  const { height, width } = useWindowDimensions();
   return (
     <ScrollContainer
       style={{ height: "100%" }}
@@ -29,56 +35,9 @@ const ActivitySelection: React.FC = ({ children }) => {
       ref={scrollToRef as any}
     >
       <StatusBar backgroundColor="#8078cc" translucent />
-      <BaseContainer
-        style={{
-          marginTop: 30,
-          height: (CONSTANTS.DEVICE_HEIGHT * 75) / 100,
-          flex: 1,
-          flexDirection: "column",
-          backgroundColor: "#8F86E3",
-          position: "relative",
-        }}
-      >
-        {children}
-        <ActivityHeader />
-        <View
-          style={{
-            position: "absolute",
-            bottom: -29,
-            left: 0,
-            right: 0,
-            width: CONSTANTS.DEVICE_WIDTH,
-            alignItems: "center",
-          }}
-        >
-          <Pressable
-            onPress={() => {
-              scrollToRef.current?.scrollTo({
-                y: scrollPosition + 200,
-                x: scrollPosition,
-                animated: true,
-              });
-            }}
-          >
-            <LinearGradient
-              colors={["#8078cc", "#8F86E3"]}
-              style={{
-                borderRadius: 60 / 2,
-                height: 60,
-                width: 60,
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#fff",
-              }}
-              locations={[0.5, 0.5]}
-            >
-              <Entypo name="chevron-down" size={44} color="#f7cc7f" />
-            </LinearGradient>
-          </Pressable>
-        </View>
-      </BaseContainer>
-      <ActivityIntroduction />
-      <ActivityList setScrollPosition={setScrollPosition} activities={Mockup} />
+      {children}
+      {/* <ActivityIntroduction /> */}
+      <ActivityList setScrollPosition={setScrollPosition} />
     </ScrollContainer>
   );
 };

@@ -10,11 +10,12 @@ import {
   // NumberOperations,
   Storytelling,
 } from "../../Activities";
-import { storytellingProps } from "./ActivityProps";
+// import { storytellingProps } from "./ActivityProps";
 
 const ActivityDetails = () => {
   // return <ComparationBetweenObjects activity={activityComparation} />;
-  return <Storytelling activity={storytellingProps} />;
+  // return <Storytelling activity={storytellingProps} />;
+  return null
 };
 
 export default ActivityDetails;

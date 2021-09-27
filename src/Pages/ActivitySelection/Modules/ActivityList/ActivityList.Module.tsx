@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ActivityGroup from "../../../../Components/ActivityGroup/ActivityGroup.Component";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { ActivityListProps } from "../../../../Interfaces";
 import { baseApi, baseApiRoutes } from "../../../../Services/BaseApi";
 import { GridContainer } from "./Styles";
-import { ActivityApiResponse } from "../../../../Interfaces/index";
+import {
+  ActivityApiResponse,
+  ActivityCommonProps,
+} from "../../../../Interfaces/index";
+import { ActivityItem } from "../../../../Components";
 
 interface ActivityListOtherProps {
   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
@@ -16,15 +20,18 @@ interface ActivityListOtherProps {
  * @param setScrollPosition React setState function that will be used to discover where the is the actual activities location on the screen
  * @author andr3z0
  **/
-const ActivityList: React.FC<ActivityListProps & ActivityListOtherProps> = ({
-  activities,
+const ActivityList: React.FC<ActivityListOtherProps> = ({
   setScrollPosition,
 }) => {
+  const [activities, setActivities] = useState<
+    Array<ActivityCommonProps<unknown>>
+  >([]);
   useEffect(() => {
     baseApi
       .get<ActivityApiResponse>(baseApiRoutes.ACTIVITIES)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data.activities);
+        setActivities(res.data.activities);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -36,8 +43,8 @@ const ActivityList: React.FC<ActivityListProps & ActivityListOtherProps> = ({
           setScrollPosition(e.nativeEvent.layout.y);
         }}
       >
-        {activities.map((group, index) => (
-          <ActivityGroup key={index} activityGroup={group} />
+        {activities.map((activity, index) => (
+          <ActivityItem itemIndex={index} {...activity} key={activity._id} />
         ))}
       </GridContainer>
     </BaseContainer>

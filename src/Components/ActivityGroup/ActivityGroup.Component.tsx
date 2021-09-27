@@ -46,7 +46,7 @@ const ActivityGroup: React.FC<ActivityGroupProps> = ({ activityGroup }) => {
         </GroupLevelInnerContainer>
       </BaseContainer>
       <BaseContainer style={{ marginTop: 40 }}>
-        {activityGroup.activities.map((activity, index) => {
+        {/* {activityGroup.activities.map((activity, index) => {
           return (
             <ActivityItem
               key={String(index + activity.name)}
@@ -54,7 +54,7 @@ const ActivityGroup: React.FC<ActivityGroupProps> = ({ activityGroup }) => {
               {...activity}
             />
           );
-        })}
+        })} */}
       </BaseContainer>
     </BaseContainer>
   );
