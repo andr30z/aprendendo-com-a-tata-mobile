@@ -43,7 +43,7 @@ const ActivityList: React.FC<ActivityListOtherProps> = ({
 
   const onPressActivityItem = useCallback(
     (activity: ActivityCommonProps<unknown>) => {
-      navigation.navigate(initialRoutesName.APP_CONTENT, {
+      navigation.navigate(initialRoutesName.ACTIVITIES_STACK, {
         screen: activityRoutesName.ACTIVITYDETAILS,
         params: {
           activity,
