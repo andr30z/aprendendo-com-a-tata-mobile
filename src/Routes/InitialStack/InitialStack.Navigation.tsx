@@ -27,7 +27,7 @@ const InitialStackNavigation: React.FC = () => {
         }}
       >
         <StackTab.Screen
-          name={ROUTES_NAME.INITIAL as any}
+          name={ROUTES_NAME.INITIAL}
           component={InitialWithStatusBar}
         />
         <StackTab.Screen

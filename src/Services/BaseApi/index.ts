@@ -6,4 +6,5 @@ export const baseApi = Axios.create({
 
 export const baseApiRoutes = {
   ACTIVITIES: "/v1/activities",
+  LOGIN: "/v1/authentication/login",
 };
