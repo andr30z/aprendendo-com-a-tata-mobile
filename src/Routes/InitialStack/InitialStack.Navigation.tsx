@@ -5,8 +5,9 @@ import ActivitiesStackNavigation from "../ActivitiesStack/Activitities.Navigatio
 import { WithStatusBar } from "../../Components";
 import { InitialScreen, SignUp } from "../../Pages";
 import { ROUTES_NAME } from "./RoutesName";
+import { InitialStackParamsList, KeysOfInitialStackParamsList } from "./Interfaces";
 
-const StackTab = createStackNavigator();
+const StackTab = createStackNavigator<InitialStackParamsList>();
 
 const InitialWithStatusBar = WithStatusBar(InitialScreen, false);
 
@@ -26,11 +27,11 @@ const InitialStackNavigation: React.FC = () => {
         }}
       >
         <StackTab.Screen
-          name={ROUTES_NAME.INITIAL}
+          name={ROUTES_NAME.INITIAL as any}
           component={InitialWithStatusBar}
         />
         <StackTab.Screen
-          name={ROUTES_NAME.APP_CONTENT}
+          name={ROUTES_NAME.ACTIVITIES_STACK}
           component={ActivitiesStackNavigation}
         />
         <StackTab.Screen

@@ -6,13 +6,16 @@ import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
 import BottomImage from "../../Illustrations/turtleimg.svg";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { Input, Button, CloudsContainer } from "../../Components";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { InitialStackParamsList } from "../../Routes/InitialStack/Interfaces";
 
 /**
  * When the user lauches the app, if he is unauthenticated, thats the screen he's going to see first
  * @author andr3z0
  **/
 const Initial: React.FC = ({ children }) => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<StackNavigationProp<InitialStackParamsList>>();
   return (
     <>
       <BaseContainer
@@ -28,7 +31,9 @@ const Initial: React.FC = ({ children }) => {
           flexDirection="column"
           style={{ marginTop: 25 }}
         >
-          <BaseText fontSize="25px" color="black">Aprendendo com a Tatá</BaseText>
+          <BaseText fontSize="25px" color="black">
+            Aprendendo com a Tatá
+          </BaseText>
         </BaseContainer>
         <BaseContainer
           flex={4}
@@ -63,7 +68,11 @@ const Initial: React.FC = ({ children }) => {
             </BaseText>
           </Pressable>
           <Button
-            containerStyles={{ marginTop: 10, alignItems:'center', justifyContent:'center' }}
+            containerStyles={{
+              marginTop: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
             backgroundColor="#f7cc7f"
             buttonTitle="Entrar"
             onPress={() => null}
@@ -73,7 +82,7 @@ const Initial: React.FC = ({ children }) => {
             <Button
               backgroundColor="#fff"
               buttonTitle="Convidado"
-              onPress={() => navigation.navigate(ROUTES_NAME.APP_CONTENT)}
+              onPress={() => navigation.navigate(ROUTES_NAME.ACTIVITIES_STACK)}
               buttonWidth="49%"
               buttonHeight="100%"
               textStyles={{
