@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { useCallback, useEffect } from "react";
-import { Keyboard, Text } from "react-native";
+import { Keyboard } from "react-native";
 
 /**
  *

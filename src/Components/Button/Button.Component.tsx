@@ -30,7 +30,10 @@ const Button: React.FC<BaseButtonProps & ButtonProps> = ({
   ...rest
 }) => {
   return (
-    <BaseButton onPress={onPress} {...(rest as any)} style={containerStyles}>
+    <BaseButton onPress={onPress} {...(rest as any)} style={[containerStyles, {
+      alignItems: "center",
+      justifyContent: "center",
+    }]}>
       <BaseText fontSize="20px" align="center" {...textStyles}>
         {buttonTitle}
       </BaseText>

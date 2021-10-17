@@ -1,21 +1,25 @@
-import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { Pressable, StatusBar, View } from "react-native";
-import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
-import BottomImage from "../../Illustrations/turtleimg.svg";
+import { Button, CloudsContainer, Input, Toast } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
-import { Input, Button, CloudsContainer } from "../../Components";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { InitialStackParamsList } from "../../Routes/InitialStack/Interfaces";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
+import BottomImage from "../../Illustrations/turtleimg.svg";
+import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
+import { useInitialPageLogic } from "./Hooks";
 
 /**
  * When the user lauches the app, if he is unauthenticated, thats the screen he's going to see first
  * @author andr3z0
  **/
-const Initial: React.FC = ({ children }) => {
-  const navigation =
-    useNavigation<StackNavigationProp<InitialStackParamsList>>();
+const Initial: React.FC = () => {
+  const {
+    errorToast,
+    navigation,
+    onChange,
+    onSubmit,
+    setErrorToast,
+    loginCredentials,
+  } = useInitialPageLogic();
   return (
     <>
       <BaseContainer
@@ -46,14 +50,22 @@ const Initial: React.FC = ({ children }) => {
         >
           <Input
             inputWidth="100%"
-            placeholder="Nome de usuário"
+            placeholder="Email"
             borderRadius="30px"
+            style={{ fontSize: 18 }}
+            value={loginCredentials.email}
+            onChangeText={onChange("email")}
+            autoCapitalize="none"
           />
           <Input
             inputWidth="100%"
-            style={{ marginTop: 15 }}
+            style={{ marginTop: 15, fontSize: 18 }}
             placeholder="Senha"
             borderRadius="30px"
+            autoCapitalize="none"
+            value={loginCredentials.password}
+            onChangeText={onChange("password")}
+            secureTextEntry
           />
           <Pressable
             onPress={() => null}
@@ -70,39 +82,23 @@ const Initial: React.FC = ({ children }) => {
           <Button
             containerStyles={{
               marginTop: 10,
-              alignItems: "center",
-              justifyContent: "center",
             }}
             backgroundColor="#f7cc7f"
             buttonTitle="Entrar"
-            onPress={() => null}
+            onPress={onSubmit}
             buttonWidth="100%"
           />
-          <BaseContainer style={{ marginTop: 10 }} flexDirection="row">
-            <Button
-              backgroundColor="#fff"
-              buttonTitle="Convidado"
-              onPress={() => navigation.navigate(ROUTES_NAME.ACTIVITIES_STACK)}
-              buttonWidth="49%"
-              buttonHeight="100%"
-              textStyles={{
-                fontSize: "18px",
-                color: "#8F86E3",
-              }}
-            />
-            <Button
-              containerStyles={{ marginLeft: 5 }}
-              backgroundColor="#fff"
-              textStyles={{
-                color: "#f7cc7f",
-                fontSize: "18px",
-              }}
-              buttonTitle="Cadastrar"
-              onPress={() => navigation.navigate(ROUTES_NAME.SIGN_UP)}
-              buttonWidth="49%"
-              buttonHeight="100%"
-            />
-          </BaseContainer>
+          <Button
+            containerStyles={{ marginTop: 15 }}
+            backgroundColor="#fff"
+            textStyles={{
+              color: "#f7cc7f",
+              fontSize: "18px",
+            }}
+            buttonTitle="Cadastrar"
+            onPress={() => navigation.navigate(ROUTES_NAME.SIGN_UP)}
+            buttonWidth="100%"
+          />
         </BaseContainer>
         <BaseContainer
           flex={2}

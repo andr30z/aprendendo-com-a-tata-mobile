@@ -11,10 +11,19 @@
     "plugins": [
       {
         "name": "typescript-styled-plugin",
-        "lint":{
-          "validProperties":["margin-vertical", "padding-vertical", "padding-horizontal", "margin-horizontal", "resize-mode", "text-align-vertical"]
+        "lint": {
+          "validProperties": [
+            "margin-vertical",
+            "padding-vertical",
+            "padding-horizontal",
+            "margin-horizontal",
+            "resize-mode",
+            "text-align-vertical",
+            "elevation"
+          ]
         }
       }
     ]
-  }
+  },
+  "extends": "expo/tsconfig.base"
 }
