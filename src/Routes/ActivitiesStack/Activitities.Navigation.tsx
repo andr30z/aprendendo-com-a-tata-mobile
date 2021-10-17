@@ -4,8 +4,9 @@ import MainBottomNavigation from "../MainBottom/MainBottom.Navigation";
 import { ROUTES_NAME } from "./RoutesName";
 import { ActivityDetails, ActivityPlay } from "../../Pages";
 import { WithStatusBar } from "../../Components";
+import { ActivitiesStackParamList } from "./Interfaces";
 
-const StackTab = createStackNavigator();
+const StackTab = createStackNavigator<ActivitiesStackParamList>();
 const ActivityDetailsWithStatusBar = WithStatusBar(ActivityDetails);
 const ActivityPlayWithStatusBar = WithStatusBar(ActivityPlay);
 /**
@@ -13,23 +14,24 @@ const ActivityPlayWithStatusBar = WithStatusBar(ActivityPlay);
  * @author andr3z0
  **/
 const ActivitiesStackNavigation: React.FC = () => {
+  
   return (
     <StackTab.Navigator
-      initialRouteName={ROUTES_NAME.MAINBOTTOM}
+      initialRouteName={ROUTES_NAME.MAIN_BOTTOM}
       screenOptions={{
         headerShown: false,
       }}
     >
       <StackTab.Screen
-        name={ROUTES_NAME.MAINBOTTOM}
+        name={ROUTES_NAME.MAIN_BOTTOM}
         component={MainBottomNavigation}
       />
       <StackTab.Screen
-        name={ROUTES_NAME.ACTIVITYDETAILS}
+        name={ROUTES_NAME.DETAILS}
         component={ActivityDetailsWithStatusBar}
       />
       <StackTab.Screen
-        name={ROUTES_NAME.ACTIVITYPLAY}
+        name={ROUTES_NAME.ACTIVITY_PLAY}
         component={ActivityPlayWithStatusBar}
       />
     </StackTab.Navigator>

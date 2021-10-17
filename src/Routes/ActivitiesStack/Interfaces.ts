@@ -1,10 +1,14 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ActivityCommonProps } from "../../Interfaces/index";
+import { ActivityCommonProps, KeyOfNavigationList } from "../../Interfaces/index";
 type ParamsType = { activity: ActivityCommonProps<unknown> };
-export type StackParamList = {
-  Details: ParamsType;
-  ActivityPlay: ParamsType;
+
+
+export type ActivitiesStackParamList = {
+  DETAILS: ParamsType;
+  ACTIVITY_PLAY: ParamsType;
+  MAIN_BOTTOM: undefined;
 };
 
-export type Props = NativeStackScreenProps<StackParamList, "Details">;
+export type KeysOfActivitiesStackParamList = KeyOfNavigationList<ActivitiesStackParamList>;
 
+export type Props = NativeStackScreenProps<ActivitiesStackParamList, "DETAILS">;

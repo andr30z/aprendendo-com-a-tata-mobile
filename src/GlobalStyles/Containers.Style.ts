@@ -17,6 +17,11 @@ export interface PageContainerInterface extends CommonStylesInterfaces {
   borderRadius?: string | undefined;
   flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
   boxShadow?: string;
+  position?: "absolute" | "relative";
+  top?: number | string;
+  bottom?: number | string;
+  right?: number | string;
+  left?: number | string;
 }
 
 const align = ({
@@ -69,6 +74,22 @@ const marginPaddingConfig = ({
   return styles;
 };
 
+const positionAbsoluteAlign = ({
+  top,
+  bottom,
+  right,
+  left,
+  position
+}: PageContainerInterface) => {
+  return {
+    top,
+    bottom,
+    right,
+    left,
+    position
+  };
+};
+
 export const BaseContainer = styled.View<PageContainerInterface>`
   background-color: ${(props) => props.backgroundColor || "transparent"};
   ${(props) => {
@@ -82,6 +103,7 @@ export const BaseContainer = styled.View<PageContainerInterface>`
   ${marginPaddingConfig}
   box-shadow: ${(props) => props.boxShadow || "none"};
   ${align};
+  ${positionAbsoluteAlign}
 `;
 
 export const ScrollContainer = styled.ScrollView<PageContainerInterface>`

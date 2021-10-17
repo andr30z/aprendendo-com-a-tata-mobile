@@ -1,4 +1,4 @@
-import { TextInputProps, TextStyle } from "react-native";
+import { TextInputProps, TextStyle, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { CommonStylesInterfaces } from "../Interfaces/index";
 
@@ -24,6 +24,9 @@ export interface BaseInputProps extends TextInputProps {
   inputWidth?: number | string;
   inputHeight?: number | string;
   borderRadius?: string;
+  withWrapper?: boolean;
+  wrapperStyles?: ViewStyle;
+  appendComponent?: React.ReactNode;
 }
 const marginPaddingConfig = ({
   marginLeft,
