@@ -5,7 +5,8 @@ import { UserInterface } from "../../Interfaces/index";
 import { ASYNC_STORAGE_COOKIE_KEY } from "../../Services";
 
 /**
- * Create token and credntials from user inside AsyncStorage.
+ * Create token and credentials from user inside AsyncStorage.
+ * @poram res Axios response object.
  * @author andr3z0
  **/
 export function setTokenAndCredentialsOnAsyncStorage(
