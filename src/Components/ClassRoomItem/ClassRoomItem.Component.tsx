@@ -72,7 +72,7 @@ const ClassRoomItem: React.FC<ClassRoomItemProps> = ({ classRoom }) => {
             {classRoom.tags.map((tag, index) => (
               <Badge
                 pill
-                extraContainerStyles={{ marginLeft: 5 }}
+                extraContainerStyles={{ marginLeft: index === 0 ? 0 : 5 }}
                 textColor="white"
                 shouldLimitSize={false}
                 backgroundColor={backgroundColor[index] || "white"}
