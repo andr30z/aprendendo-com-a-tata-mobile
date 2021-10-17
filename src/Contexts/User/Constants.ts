@@ -1,0 +1,1 @@
+export const USER_ASYNC_STORAGE_KEY = "user_data_storage";

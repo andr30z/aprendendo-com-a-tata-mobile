@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useMemo, useRef } from "react";
-import { View, Image } from "react-native";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
+import { Image, View } from "react-native";
 import { DraxView } from "react-native-drax";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";

@@ -1,9 +1,24 @@
-import { MotiView } from "moti";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 
-export const ToastContainer = styled(MotiView)`
-  position: absolute;
+
+export const PressableChildrenContainer = styled.Pressable`
   width: 100%;
-  right: 0;
-  top: -100px;
+  height: 100%;
 `;
+export const toastStyles = StyleSheet.create({
+  toastContainer: {
+    position: "absolute",
+    top: -100,
+    zIndex: 1000,
+    borderRadius: 8,
+    alignSelf: "center",
+    alignItems: "baseline",
+    justifyContent: "center",
+    flexDirection:'row',
+    padding: 8,
+  },
+});
+
+
+

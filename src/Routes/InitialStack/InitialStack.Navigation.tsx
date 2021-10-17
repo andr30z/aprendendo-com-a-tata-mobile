@@ -1,11 +1,12 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import ActivitiesStackNavigation from "../ActivitiesStack/Activitities.Navigation";
+import React from "react";
 import { WithStatusBar } from "../../Components";
+import { useUserContext } from "../../Contexts";
 import { InitialScreen, SignUp } from "../../Pages";
+import ActivitiesStackNavigation from "../ActivitiesStack/Activitities.Navigation";
+import { InitialStackParamsList } from "./Interfaces";
 import { ROUTES_NAME } from "./RoutesName";
-import { InitialStackParamsList, KeysOfInitialStackParamsList } from "./Interfaces";
 
 const StackTab = createStackNavigator<InitialStackParamsList>();
 
@@ -18,6 +19,7 @@ const SignUpWithStatusBar = WithStatusBar(SignUp);
  * @author andr3z0
  **/
 const InitialStackNavigation: React.FC = () => {
+  const { user } = useUserContext();
   return (
     <NavigationContainer>
       <StackTab.Navigator
@@ -26,18 +28,23 @@ const InitialStackNavigation: React.FC = () => {
           headerShown: false,
         }}
       >
-        <StackTab.Screen
-          name={ROUTES_NAME.INITIAL}
-          component={InitialWithStatusBar}
-        />
-        <StackTab.Screen
-          name={ROUTES_NAME.ACTIVITIES_STACK}
-          component={ActivitiesStackNavigation}
-        />
-        <StackTab.Screen
-          name={ROUTES_NAME.SIGN_UP}
-          component={SignUpWithStatusBar}
-        />
+        {!user ? (
+          <StackTab.Group>
+            <StackTab.Screen
+              name={ROUTES_NAME.INITIAL}
+              component={InitialWithStatusBar}
+            />
+            <StackTab.Screen
+              name={ROUTES_NAME.SIGN_UP}
+              component={SignUpWithStatusBar}
+            />
+          </StackTab.Group>
+        ) : (
+          <StackTab.Screen
+            name={ROUTES_NAME.ACTIVITIES_STACK}
+            component={ActivitiesStackNavigation}
+          />
+        )}
       </StackTab.Navigator>
     </NavigationContainer>
   );
