@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { TextInputProps } from "react-native";
+import React from "react";
 import { BaseInput, BaseInputProps } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 

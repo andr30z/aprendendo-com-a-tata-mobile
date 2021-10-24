@@ -14,7 +14,6 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
   const { userIsTeacher } = useUserContext();
   const openCreatePostModal =
     (sheetRef: React.RefObject<BottomSheetModalMethods>) => () => {
-      console.log(sheetRef)
       sheetRef.current?.present();
     };
 
@@ -25,6 +24,7 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
           {(ref) => (
             <PostModuleContainer
               backgroundColor="white"
+              paddingVertical="10px"
               align="center"
               justify="center"
               flexDirection="column"
