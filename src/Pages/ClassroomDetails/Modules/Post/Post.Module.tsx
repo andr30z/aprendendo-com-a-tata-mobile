@@ -1,65 +1,90 @@
+import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import React, { useState } from "react";
-import { Badge } from "../../../../Components";
+import { Pressable } from "react-native";
+import { Badge, CreatePost } from "../../../../Components";
 import { useUserContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { ClassRoomInterface } from "../../../../Interfaces/index";
 import { PostModuleContainer, PostText, ProfileImage, styles } from "./Styles";
-import { FontAwesome } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 interface PostProps {
   classroom: ClassRoomInterface;
 }
 const Post: React.FC<PostProps> = ({ classroom }) => {
-  const [openCreatePost, setOpenCreatePost] = useState(false);
   const { userIsTeacher } = useUserContext();
+  const openCreatePostModal =
+    (sheetRef: React.RefObject<BottomSheetModalMethods>) => () => {
+      console.log(sheetRef)
+      sheetRef.current?.present();
+    };
+
   return (
     <BaseContainer backgroundColor="#d6d6d6" paddingVertical="20px">
       {userIsTeacher && (
-        <PostModuleContainer
-          backgroundColor="white"
-          align="center"
-          justify="center"
-          flexDirection="column"
-          height="100px"
-          width="100%"
-        >
-          <BaseContainer flex={1} flexDirection="row" align="center">
-            <ProfileImage source={{ uri: "https://imgur.com/H5PWtBp.png" }} />
-            <PostText align="left" color="black">
-              Escreva algo...
-            </PostText>
-          </BaseContainer>
-          <BaseContainer
-            flex={0.5}
-            justify="center"
-            flexDirection="row"
-            width="100%"
-          >
-            <Badge
-              extraContainerStyles={styles.badgeContainerStyles}
-              extraTextStyles={styles.badgeTextStyles}
-              textAlign="center"
-              pill
-              shouldLimitSize={false}
-              backgroundColor="green"
+        <CreatePost>
+          {(ref) => (
+            <PostModuleContainer
+              backgroundColor="white"
+              align="center"
+              justify="center"
+              flexDirection="column"
+              height="100px"
+              width="100%"
             >
-              Nova Atividade
-            </Badge>
-            <Badge
-              extraContainerStyles={{
-                ...styles.badgeContainerStyles,
-                marginLeft: 4,
-              }}
-              extraTextStyles={styles.badgeTextStyles}
-              pill
-              shouldLimitSize={false}
-              backgroundColor="green"
-            >
-              Novo Post
-            </Badge>
-          </BaseContainer>
-        </PostModuleContainer>
+              <BaseContainer
+                width="100%"
+                flex={2}
+                flexDirection="row"
+                justify="center"
+                align="center"
+              >
+                <ProfileImage
+                  size={35}
+                  source={{ uri: "https://imgur.com/H5PWtBp.png" }}
+                />
+                <Pressable
+                  style={{ flex: 1, height: 40 }}
+                  onPress={openCreatePostModal(ref)}
+                >
+                  <PostText align="left" color="black">
+                    Escreva algo...
+                  </PostText>
+                </Pressable>
+              </BaseContainer>
+
+              <BaseContainer
+                flex={1}
+                justify="center"
+                align="center"
+                flexDirection="row"
+                width="100%"
+              >
+                <Badge
+                  extraContainerStyles={styles.badgeContainerStyles}
+                  extraTextStyles={styles.badgeTextStyles}
+                  textAlign="center"
+                  pill
+                  shouldLimitSize={false}
+                  backgroundColor="green"
+                >
+                  Nova Atividade
+                </Badge>
+                <Badge
+                  extraContainerStyles={{
+                    ...styles.badgeContainerStyles,
+                    marginLeft: 4,
+                  }}
+                  extraTextStyles={styles.badgeTextStyles}
+                  pill
+                  shouldLimitSize={false}
+                  backgroundColor="green"
+                >
+                  Novo Post
+                </Badge>
+              </BaseContainer>
+            </PostModuleContainer>
+          )}
+        </CreatePost>
       )}
       {classroom.posts.length === 0 ? (
         <BaseContainer

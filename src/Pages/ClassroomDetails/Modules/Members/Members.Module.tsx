@@ -10,7 +10,7 @@ interface MembersProps {
   members: Array<Member>;
 }
 /**
- *
+ * @param members class members array.
  * @author andr3z0
  **/
 const Members: React.FC<MembersProps> = ({ members }) => {

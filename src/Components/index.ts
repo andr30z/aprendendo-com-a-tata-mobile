@@ -10,3 +10,4 @@ export { default as CloudsContainer } from "./CloudsContainer/CloudsContainer.Co
 export { default as WithDraxProvider } from "./WithDraxProvider/WithDraxProvider.Component";
 export { default as Toast } from "./Toast/Toast.Component";
 export { default as ProfilePhoto } from "./ProfilePhoto/ProfilePhoto.Component";
+export { default as CreatePost } from "./CreatePost/CreatePost.Component";
