@@ -4,7 +4,7 @@ import React from "react";
 import { WithStatusBar } from "../../Components";
 import { useUserContext } from "../../Contexts";
 import { InitialScreen, SignUp } from "../../Pages";
-import ActivitiesStackNavigation from "../ActivitiesStack/Activitities.Navigation";
+import MainStackNavigation from "../MainStackNavigation/MainStackNavigation.Navigation";
 import { InitialStackParamsList } from "./Interfaces";
 import { ROUTES_NAME } from "./RoutesName";
 
@@ -41,8 +41,8 @@ const InitialStackNavigation: React.FC = () => {
           </StackTab.Group>
         ) : (
           <StackTab.Screen
-            name={ROUTES_NAME.ACTIVITIES_STACK}
-            component={ActivitiesStackNavigation}
+            name={ROUTES_NAME.MAIN_STACK}
+            component={MainStackNavigation}
           />
         )}
       </StackTab.Navigator>

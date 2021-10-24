@@ -7,11 +7,11 @@ import {
   ActivityApiResponse,
   ActivityCommonProps,
 } from "../../../../Interfaces/index";
-import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/ActivitiesStack/RoutesName";
+import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/MainStackNavigation/RoutesName";
 import { ROUTES_NAME as initialRoutesName } from "../../../../Routes/InitialStack/RoutesName";
 import { baseApi, baseApiRoutes } from "../../../../Services/BaseApi";
 import { GridContainer } from "./Styles";
-import { StackParamList } from "../../../../Routes/ActivitiesStack/Interfaces";
+import { StackParamList } from "../../../../Routes/MainStackNavigation/Interfaces";
 interface ActivityListOtherProps {
   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
 }

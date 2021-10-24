@@ -2,19 +2,19 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import MainBottomNavigation from "../MainBottom/MainBottom.Navigation";
 import { ROUTES_NAME } from "./RoutesName";
-import { ActivityDetails, ActivityPlay } from "../../Pages";
+import { ActivityDetails, ActivityPlay, ClassroomDetails } from "../../Pages";
 import { WithStatusBar } from "../../Components";
-import { ActivitiesStackParamList } from "./Interfaces";
+import { MainStackParamList } from "./Interfaces";
 
-const StackTab = createStackNavigator<ActivitiesStackParamList>();
+const StackTab = createStackNavigator<MainStackParamList>();
 const ActivityDetailsWithStatusBar = WithStatusBar(ActivityDetails);
 const ActivityPlayWithStatusBar = WithStatusBar(ActivityPlay);
+const ClassroomDetailsWithStatusBar = WithStatusBar(ClassroomDetails);
 /**
- * This is the Activities stack navigation container of the application.
+ * This is the Main stack navigation container of the application.
  * @author andr3z0
  **/
-const ActivitiesStackNavigation: React.FC = () => {
-  
+const MainStackNavigation: React.FC = () => {
   return (
     <StackTab.Navigator
       initialRouteName={ROUTES_NAME.MAIN_BOTTOM}
@@ -34,8 +34,12 @@ const ActivitiesStackNavigation: React.FC = () => {
         name={ROUTES_NAME.ACTIVITY_PLAY}
         component={ActivityPlayWithStatusBar}
       />
+      <StackTab.Screen
+        name={ROUTES_NAME.CLASSROOM_DETAILS}
+        component={ClassroomDetailsWithStatusBar}
+      />
     </StackTab.Navigator>
   );
 };
 
-export default ActivitiesStackNavigation;
+export default MainStackNavigation;

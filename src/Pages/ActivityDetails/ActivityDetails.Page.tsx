@@ -3,8 +3,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { StackParamList } from "../../Routes/ActivitiesStack/Interfaces";
-import { ROUTES_NAME } from "../../Routes/ActivitiesStack/RoutesName";
+import { StackParamList } from "../../Routes/MainStackNavigation/Interfaces";
+import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 import { ButtonBeginActivty } from "./Styles";
 type Props = NativeStackScreenProps<StackParamList, "Details">;
 

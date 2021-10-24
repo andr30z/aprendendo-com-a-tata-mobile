@@ -13,9 +13,9 @@ import {
   Storytelling,
 } from "../../Activities";
 import { ACTIVITY_CONSTANTS } from "../../Constants";
-import { StackParamList } from "../../Routes/ActivitiesStack/Interfaces";
+import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 
-type Props = NativeStackScreenProps<StackParamList, "ActivityPlay">;
+type Props = NativeStackScreenProps<MainStackParamList, "ACTIVITY_PLAY">;
 
 /**
  *

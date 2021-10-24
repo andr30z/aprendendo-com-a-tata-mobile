@@ -1,6 +1,6 @@
 export type InitialStackParamsList = {
     INITIAL: undefined,
-    ACTIVITIES_STACK: undefined,
+    MAIN_STACK: undefined,
     SIGN_UP: undefined,
 };
 

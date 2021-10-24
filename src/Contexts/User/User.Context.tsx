@@ -1,15 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { SetStateInterface, UserInterface } from "../../Interfaces/index";
 import {
-    ASYNC_STORAGE_COOKIE_KEY,
-    baseApi,
-    baseApiRoutes,
-    DEFAULT_URL
+  SetStateInterface,
+  UserInterface,
+  UserType,
+} from "../../Interfaces/index";
+import {
+  ASYNC_STORAGE_COOKIE_KEY,
+  baseApi,
+  baseApiRoutes,
+  DEFAULT_URL,
 } from "../../Services";
-import {
-    setTokenAndCredentialsOnAsyncStorage
-} from "../../Utils";
+import { setTokenAndCredentialsOnAsyncStorage } from "../../Utils";
 import { USER_ASYNC_STORAGE_KEY } from "./Constants";
 type UserComposition = UserInterface | null;
 interface UserContextInterface {
@@ -98,5 +100,16 @@ export const UserProvider: React.FC = ({ children }) => {
 };
 
 export function useUserContext() {
-  return useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
+  const userIsTeacher = user?.type === UserType.T;
+  const userIsChild = user?.type === UserType.C;
+  const userIsResponsable = user?.type === UserType.R;
+
+  return {
+    user,
+    setUser,
+    userIsChild,
+    userIsResponsable,
+    userIsTeacher,
+  };
 }

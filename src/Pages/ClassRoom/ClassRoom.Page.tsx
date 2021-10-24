@@ -62,8 +62,7 @@ const CLASSROOMLISTING: Array<ClassRoomInterface> = [
  **/
 const ClassRoom: React.FC = () => {
   const { height } = useWindowDimensions();
-  const { user } = useUserContext();
-  const userIsTeacher = user?.type === UserType.T;
+  const { userIsTeacher } = useUserContext();
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: height * 0.3 }}

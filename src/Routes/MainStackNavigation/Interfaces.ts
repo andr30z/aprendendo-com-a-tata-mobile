@@ -3,12 +3,14 @@ import { ActivityCommonProps, KeyOfNavigationList } from "../../Interfaces/index
 type ParamsType = { activity: ActivityCommonProps<unknown> };
 
 
-export type ActivitiesStackParamList = {
+
+export type MainStackParamList = {
   DETAILS: ParamsType;
   ACTIVITY_PLAY: ParamsType;
   MAIN_BOTTOM: undefined;
+  CLASSROOM_DETAILS: undefined;
 };
 
-export type KeysOfActivitiesStackParamList = KeyOfNavigationList<ActivitiesStackParamList>;
+export type KeysOfActivitiesStackParamList = KeyOfNavigationList<MainStackParamList>;
 
-export type Props = NativeStackScreenProps<ActivitiesStackParamList, "DETAILS">;
+export type Props = NativeStackScreenProps<MainStackParamList, "DETAILS">;

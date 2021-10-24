@@ -7,6 +7,10 @@ import { ClassRoomInterface, UserType } from "../../Interfaces/index";
 import { TouchableClassContainer } from "./Styles";
 import { FontAwesome } from "@expo/vector-icons";
 import Badge from "../Badge/Badge.Component";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
+import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 
 interface ClassRoomItemProps {
   classRoom: ClassRoomInterface;
@@ -28,11 +32,14 @@ const backgroundColor = [
  **/
 const ClassRoomItem: React.FC<ClassRoomItemProps> = ({ classRoom }) => {
   const { textColor, teacher } = classRoom;
-  const { user } = useUserContext();
-  const userIsNotTeacher = user?.type !== UserType.T;
+  const { userIsTeacher } = useUserContext();
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const textStyleColor = textColor || "white";
   return (
-    <TouchableClassContainer onPress={() => null} activeOpacity={0.83}>
+    <TouchableClassContainer
+      onPress={() => navigation.navigate(ROUTES_NAME.CLASSROOM_DETAILS)}
+      activeOpacity={0.83}
+    >
       <BaseContainer
         flex={1}
         borderRadius={"20px"}
@@ -50,7 +57,7 @@ const ClassRoomItem: React.FC<ClassRoomItemProps> = ({ classRoom }) => {
             flex={1}
           >
             <BaseText fontSize={"20px"} color={textStyleColor}>
-              {classRoom.name} {userIsNotTeacher && `Prof: ${teacher.name}`}
+              {classRoom.name} {!userIsTeacher && `Prof: ${teacher.name}`}
             </BaseText>
             <BaseContainer flexDirection="row">
               <FontAwesome name="child" size={20} color={textStyleColor} />

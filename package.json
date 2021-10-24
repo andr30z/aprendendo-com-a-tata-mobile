@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@expo/metro-config": "^0.1.60",
+    "@gorhom/bottom-sheet": "^4",
     "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-native-community/checkbox": "^0.5.8",
     "@react-native-community/masked-view": "0.1.10",
@@ -33,6 +34,7 @@
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+    "react-native-sticky-parallax-header": "^0.4.1",
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
