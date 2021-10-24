@@ -21,7 +21,68 @@ const classRoom = {
   color: "#8078cc",
   textColor: "#fff",
   posts: [],
-  members: [],
+  members: [
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+    {
+      _id: "6148afdf043c9d06cdc1bcce",
+      type: "C",
+      email: "eitaporra@mail.com",
+      name: "André Luiz",
+    },
+  ] as any,
 };
 
 /**
@@ -36,7 +97,10 @@ const ClassroomDetails: React.FC<Props> = ({ navigation }) => {
       parallaxHeight={190}
       bounces={true}
       decelerationRate={5}
-      contentContainerStyles={{ backgroundColor: "#d6d6d6" }}
+      contentContainerStyles={{
+        backgroundColor: "#d6d6d6",
+        paddingVertical: 50,
+      }}
       foregroundImage={{ uri: "https://imgur.com/H5PWtBp.png" }}
       backgroundColor={classRoom.color}
       headerType="TabbedHeader"

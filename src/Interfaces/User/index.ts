@@ -9,6 +9,7 @@ export interface UserInterface {
   type: UserType;
   email: string;
   name: string;
+  profilePhoto?: string;
   createdAt: Date;
   updatedAt: Date;
 }
