@@ -25,7 +25,6 @@ interface PostItemProps {
  **/
 const PostItem: React.FC<PostItemProps> = ({ post }) => {
   const { height } = useWindowDimensions();
-  const { value: isClosed } = useBoolean(false);
   return (
     <PostItemContainer deviceHeight={height}>
       <BaseContainer flexDirection="row" align="center" justify="space-between">
@@ -40,7 +39,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
         </BaseContainer>
         <Entypo name="dots-three-horizontal" size={20} color="#c3c3c3" />
       </BaseContainer>
-      <TextPostContainer isClosed={isClosed}>
+      <TextPostContainer>
         <ReadMore numberOfLines={4} seeLessText="Ver menos" seeMoreText="Ver mais" >
           {post.content}
         </ReadMore >

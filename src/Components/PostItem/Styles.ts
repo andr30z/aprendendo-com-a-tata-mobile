@@ -16,8 +16,7 @@ export const PostItemContainer = styled(BaseContainer)<PostItemContainerProps>`
   min-height: ${({ deviceHeight }) => deviceHeight * 0.3 + "px"};
 `;
 
-export const TextPostContainer = styled(BaseContainer)<{ isClosed: boolean }>`
-  flex: ${({ isClosed }) => (isClosed ? 0.5 : 1)};
+export const TextPostContainer = styled(BaseContainer)`
   padding-vertical: 5%;
 `;
 
