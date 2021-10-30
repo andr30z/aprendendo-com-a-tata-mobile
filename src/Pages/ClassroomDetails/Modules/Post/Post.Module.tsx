@@ -1,7 +1,7 @@
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import React, { useState } from "react";
+import React from "react";
 import { Pressable } from "react-native";
-import { Badge, CreatePost } from "../../../../Components";
+import { Badge, CreatePost , PostItem} from "../../../../Components";
 import { useUserContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
@@ -14,7 +14,7 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
   const { userIsTeacher } = useUserContext();
   const openCreatePostModal =
     (sheetRef: React.RefObject<BottomSheetModalMethods>) => () => {
-      sheetRef.current?.present();
+      if (sheetRef.current) sheetRef.current.present();
     };
 
   return (
@@ -99,8 +99,8 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
           <BaseText color="black">Sem posts por aqui...</BaseText>
         </BaseContainer>
       ) : (
-        classroom.posts.map((p) => (
-          <BaseText key={p.content}>{p.content}</BaseText>
+        classroom.posts.map((post) => (
+          <PostItem key={post._id} post={post}/>
         ))
       )}
     </BaseContainer>

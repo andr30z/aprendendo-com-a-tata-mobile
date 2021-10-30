@@ -12,6 +12,7 @@ export const ProfileImage = styled(ProfilePhoto)`
 
 export const PostModuleContainer = styled(BaseContainer)`
   padding-horizontal: 5%;
+  margin-bottom: 25px;
 `;
 
 export const PostText = styled(BaseText)`

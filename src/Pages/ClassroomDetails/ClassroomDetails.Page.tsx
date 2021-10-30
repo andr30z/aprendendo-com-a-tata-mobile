@@ -9,9 +9,10 @@ import { Feather } from "@expo/vector-icons";
 import { Badge } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { Members, Post } from "./Modules";
+import { ClassRoomInterface } from "../../Interfaces/index";
 
 type Props = NativeStackScreenProps<MainStackParamList, "CLASSROOM_DETAILS">;
-const classRoom = {
+const classRoom: ClassRoomInterface = {
   _id: "1",
   teacher: { name: "André" },
   tags: ["Leitura", "Números"],
@@ -20,7 +21,21 @@ const classRoom = {
   code: "123123123",
   color: "#8078cc",
   textColor: "#fff",
-  posts: [],
+  posts: [
+    {
+      _id: "123",
+      activities: [],
+      author: {
+        _id: "6148afdf043c9d06cdc1bcce",
+        type: "C",
+        email: "eitaporra@mail.com",
+        name: "André Luiz",
+      } as  any,
+      allowComments:true,
+      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat ac tincidunt vitae semper quis lectus nulla. Pretium lectus quam id leo in vitae turpis massa. Enim ut sem viverra aliquet eget sit amet tellus. Orci eu lobortis elementum nibh tellus molestie. Rhoncus mattis rhoncus urna neque. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Elit duis tristique sollicitudin nibh sit amet commodo nulla. Semper quis lectus nulla at volutpat diam.",
+      postLikes:[]
+    },
+  ],
   members: [
     {
       _id: "6148afdf043c9d06cdc1bcce",

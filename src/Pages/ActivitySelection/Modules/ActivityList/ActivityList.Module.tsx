@@ -5,13 +5,12 @@ import { ActivityItem } from "../../../../Components";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import {
   ActivityApiResponse,
-  ActivityCommonProps,
+  ActivityCommonProps
 } from "../../../../Interfaces/index";
-import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/MainStackNavigation/RoutesName";
 import { ROUTES_NAME as initialRoutesName } from "../../../../Routes/InitialStack/RoutesName";
+import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/MainStackNavigation/RoutesName";
 import { baseApi, baseApiRoutes } from "../../../../Services/BaseApi";
 import { GridContainer } from "./Styles";
-import { StackParamList } from "../../../../Routes/MainStackNavigation/Interfaces";
 interface ActivityListOtherProps {
   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -44,7 +43,7 @@ const ActivityList: React.FC<ActivityListOtherProps> = ({
   const onPressActivityItem = useCallback(
     (activity: ActivityCommonProps<unknown>) => {
       navigation.navigate(initialRoutesName.ACTIVITIES_STACK, {
-        screen: activityRoutesName.ACTIVITYDETAILS,
+        screen: activityRoutesName.DETAILS,
         params: {
           activity,
         },
