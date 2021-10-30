@@ -17,7 +17,7 @@ export function useBackHandler(allow: boolean, callback?: () => boolean) {
 
   const holdBackHandler = useCallback(() => {
     BackHandler.addEventListener("hardwareBackPress", backPress);
-  }, [allow]);
+  }, [allow, callback]);
 
   useEffect(() => {
     holdBackHandler();

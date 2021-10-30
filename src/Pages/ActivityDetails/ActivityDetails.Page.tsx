@@ -3,10 +3,10 @@ import { AntDesign } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { StackParamList } from "../../Routes/MainStackNavigation/Interfaces";
+import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 import { ButtonBeginActivty } from "./Styles";
-type Props = NativeStackScreenProps<StackParamList, "Details">;
+type Props = NativeStackScreenProps<MainStackParamList, "DETAILS">;
 
 const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
   const { activity } = route.params;
@@ -27,7 +27,7 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
       </BaseText>
       <ButtonBeginActivty
         onPress={() =>
-          navigation.navigate(ROUTES_NAME.ACTIVITYPLAY as any, {
+          navigation.navigate(ROUTES_NAME.ACTIVITY_PLAY, {
             activity,
           })
         }

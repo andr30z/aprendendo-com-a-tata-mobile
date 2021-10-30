@@ -26,7 +26,7 @@ interface CreatePostProps {
 }
 
 /**
- * Component resposable for class post creation.
+ * Component resposable for handling class post creation.
  * It uses @gorhom/portal and react-native-bottom-sheet.
  * @param children render children using a function that receives a Ref, this ref is the actual bottom sheet presentation.
  * @author andr3z0
