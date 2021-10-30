@@ -12,12 +12,10 @@ export function useBackHandler(allow: boolean, callback?: () => boolean) {
     return callback ? callback() : allow;
   };
   const releaseBackHandler = useCallback(() => {
-    console.log("release")
     BackHandler.removeEventListener("hardwareBackPress", backPress);
   }, [allow, callback]);
 
   const holdBackHandler = useCallback(() => {
-    console.log("hold")
     BackHandler.addEventListener("hardwareBackPress", backPress);
   }, [allow]);
 
