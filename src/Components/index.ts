@@ -12,3 +12,4 @@ export { default as Toast } from "./Toast/Toast.Component";
 export { default as ProfilePhoto } from "./ProfilePhoto/ProfilePhoto.Component";
 export { default as CreatePost } from "./CreatePost/CreatePost.Component";
 export { default as PostItem } from "./PostItem/PostItem.Component";
+export { default as ActivityPostListing } from "./ActivityPostListing/ActivityPostListing.Component";

@@ -3,9 +3,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityItem } from "../../../../Components";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
+import { useActivityList } from "../../../../Hooks";
 import {
   ActivityApiResponse,
-  ActivityCommonProps
+  ActivityCommonProps,
 } from "../../../../Interfaces/index";
 import { ROUTES_NAME as initialRoutesName } from "../../../../Routes/InitialStack/RoutesName";
 import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/MainStackNavigation/RoutesName";
@@ -27,18 +28,7 @@ const ActivityList: React.FC<ActivityListOtherProps> = ({
   setScrollPosition,
 }) => {
   const navigation = useNavigation<StackProps>();
-  const [activities, setActivities] = useState<
-    Array<ActivityCommonProps<unknown>>
-  >([]);
-  useEffect(() => {
-    baseApi
-      .get<ActivityApiResponse>(baseApiRoutes.ACTIVITIES)
-      .then((res) => {
-        // console.log(res.data.activities);
-        setActivities(res.data.activities);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  const { activities } = useActivityList();
 
   const onPressActivityItem = useCallback(
     (activity: ActivityCommonProps<unknown>) => {

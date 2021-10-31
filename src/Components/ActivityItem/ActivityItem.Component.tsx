@@ -1,10 +1,10 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useMemo } from "react";
-import { useWindowDimensions, View } from "react-native";
+import { StyleProp, useWindowDimensions, View, ViewStyle } from "react-native";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { ActivityCommonProps } from "../../Interfaces/index";
 import { getRandomInt } from "../../Utils";
-import { ButtonContainer, ItemTitle } from "./Styles";
+import { ButtonActivityItem, ButtonContainer, ItemTitle } from "./Styles";
 
 const backgroundColor = [
   "#83CAF6",
@@ -18,6 +18,11 @@ const backgroundColor = [
 interface BaseActivityItemProps {
   itemIndex: number;
   onPress: (activity: ActivityCommonProps<unknown>) => void;
+  roundedBorders?: boolean;
+  boxWidth?: string;
+  containerHeight?: string;
+  marginTop?: string;
+  buttonContainerStyles?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -30,75 +35,94 @@ interface BaseActivityItemProps {
  **/
 const ActivityItem: React.FC<
   ActivityCommonProps<unknown> & BaseActivityItemProps
-> = ({ dificulty, name, itemIndex, onPress, ...rest }) => {
+> = ({
+  dificulty,
+  name,
+  itemIndex,
+  onPress,
+  boxWidth = "40%",
+  roundedBorders = true,
+  containerHeight,
+  marginTop = "20px",
+  buttonContainerStyles,
+  children,
+  ...rest
+}) => {
   const stars = useMemo(() => Array.from({ length: dificulty }), []);
   const randomInt = useMemo(() => getRandomInt(0, 5), []);
   const { height } = useWindowDimensions();
   return (
     <ButtonContainer
+      marginTop={marginTop}
       backgroundColor={backgroundColor[randomInt]}
-      height={`${height * 0.2}px`}
-      width="40%"
-      onPress={() => onPress({ ...rest, dificulty, name })}
-      activeOpacity={0.83}
+      height={`${containerHeight ? containerHeight : height * 0.2}px`}
+      width={boxWidth}
+      roundedBorders={roundedBorders}
+      style={buttonContainerStyles}
     >
-      <BaseContainer
-        height="100%"
-        width="100%"
-        flexDirection="column"
-        style={{
-          position: "relative",
-        }}
+      <ButtonActivityItem
+        onPress={() => onPress({ ...rest, dificulty, name })}
+        activeOpacity={0.1}
       >
-        <BaseContainer align="center" justify="center">
-          <ItemTitle>{name}</ItemTitle>
-          {/* <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        <BaseContainer
+          height="100%"
+          width="100%"
+          flexDirection="column"
+          // style={{
+          //   position: "relative",
+          // }}
+        >
+          <BaseContainer align="center" justify="center">
+            <ItemTitle>{name}</ItemTitle>
+            {/* <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
               {tags.map((tag, index) => {
                 return (
                   <Badge
-                    key={tag}
-                    pill
-                    text={tag}
-                    extraContainerStyles={{
-                      marginLeft: index === 0 ? 0 : 5,
-                      marginTop: 5,
-                    }}
+                  key={tag}
+                  pill
+                  text={tag}
+                  extraContainerStyles={{
+                    marginLeft: index === 0 ? 0 : 5,
+                    marginTop: 5,
+                  }}
+                  />
+                  );
+                })}
+              </View> */}
+          </BaseContainer>
+          <BaseContainer
+            flexDirection="row"
+            style={{
+              position: "absolute",
+              top: 0,
+              right: -10,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              {stars.map((_, position) => {
+                return (
+                  <AntDesign
+                    key={String(itemIndex + "/" + position)}
+                    name="star"
+                    size={12}
+                    color="#e5e500"
+                    style={{ alignSelf: "center" }}
                   />
                 );
               })}
-            </View> */}
+            </View>
+          </BaseContainer>
         </BaseContainer>
-        <BaseContainer
-          flexDirection="row"
-          style={{
-            position: "absolute",
-            top: -5,
-            right: 0,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
-            {stars.map((_, position) => {
-              return (
-                <AntDesign
-                  key={String(itemIndex + "/" + position)}
-                  name="star"
-                  size={12}
-                  color="#e5e500"
-                  style={{ alignSelf: "center" }}
-                />
-              );
-            })}
-          </View>
-        </BaseContainer>
-      </BaseContainer>
-      {/* <BaseContainer justify="center" align="flex-start">
+        {/* <BaseContainer justify="center" align="flex-start">
           <BaseText align="left">{name}</BaseText>
         </BaseContainer> */}
+      </ButtonActivityItem>
+      {children}
     </ButtonContainer>
   );
 };

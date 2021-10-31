@@ -1,4 +1,6 @@
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
 export const ItemTitle = styled.Text`
   color: #fff;
@@ -7,16 +9,17 @@ export const ItemTitle = styled.Text`
   text-align: center;
 `;
 
-export const ButtonContainer = styled.TouchableOpacity<{
-  backgroundColor: string;
-  height: string;
-  width:string
+export const ButtonContainer = styled(BaseContainer)<{
+  roundedBorders: boolean;
 }>`
-  margin-top: 20px;
-  height: ${(props) => props.height};
-  width: ${(props) => props.width};
-  background-color: ${(props) => props.backgroundColor};
-  border-radius: 30px;
+  border-radius: ${({ roundedBorders }) => (roundedBorders ? "30px" : 0)};
+
+  z-index: 20;
+`;
+
+export const ButtonActivityItem = styled(TouchableOpacity)`
+  width: 100%;
+  height: 100%;
   padding-vertical: 5%;
   padding-horizontal: 20px;
 `;

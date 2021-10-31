@@ -12,6 +12,10 @@ export const styles = StyleSheet.create({
     paddingLeft: 0,
     fontSize: 20,
   },
+  scrollViewContentContainerStyle: {
+    paddingBottom: 30,
+    flexGrow: 1
+  },
 });
 
 const baseAlign = css`
