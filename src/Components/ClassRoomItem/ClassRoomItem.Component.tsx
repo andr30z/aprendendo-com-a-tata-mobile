@@ -37,7 +37,11 @@ const ClassRoomItem: React.FC<ClassRoomItemProps> = ({ classRoom }) => {
   const textStyleColor = textColor || "white";
   return (
     <TouchableClassContainer
-      onPress={() => navigation.navigate(ROUTES_NAME.CLASSROOM_DETAILS)}
+      onPress={() =>
+        navigation.navigate(ROUTES_NAME.CLASSROOM_DETAILS, {
+          classId: classRoom._id,
+        })
+      }
       activeOpacity={0.83}
     >
       <BaseContainer

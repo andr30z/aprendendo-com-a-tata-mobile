@@ -1,17 +1,30 @@
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable } from "react-native";
-import { Badge, CreatePost , PostItem} from "../../../../Components";
+import { Badge, CreatePost, PostItem } from "../../../../Components";
 import { useUserContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
-import { ClassRoomInterface } from "../../../../Interfaces/index";
+import { ClassRoomInterface, Post as PostInterface } from "../../../../Interfaces/index";
+import { baseApi, baseApiRoutes } from "../../../../Services";
 import { PostModuleContainer, PostText, ProfileImage, styles } from "./Styles";
 interface PostProps {
   classroom: ClassRoomInterface;
 }
+
+interface GetPostsApiRespose {
+  posts: Array<PostInterface>;
+}
 const Post: React.FC<PostProps> = ({ classroom }) => {
-  const { userIsTeacher } = useUserContext();
+  const { userIsTeacher, user } = useUserContext();
+  const [posts, setPosts] = useState<Array<PostInterface>>([]);
+  useEffect(() => {
+    baseApi
+      .get<GetPostsApiRespose>(baseApiRoutes.POSTS_BY_CLASSES(classroom._id))
+      .then((res) => {
+        setPosts(res.data.posts);
+      });
+  }, []);
   const openCreatePostModal =
     (sheetRef: React.RefObject<BottomSheetModalMethods>) => () => {
       if (sheetRef.current) sheetRef.current.present();
@@ -40,7 +53,9 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
               >
                 <ProfileImage
                   size={35}
-                  source={{ uri: "https://imgur.com/H5PWtBp.png" }}
+                  source={{
+                    uri: user?.profilePhoto || "https://imgur.com/H5PWtBp.png",
+                  }}
                 />
                 <Pressable
                   style={{ flex: 1, height: 40 }}
@@ -86,7 +101,7 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
           )}
         </CreatePost>
       )}
-      {classroom.posts.length === 0 ? (
+      {posts.length === 0 ? (
         <BaseContainer
           height="200px"
           align="center"
@@ -99,9 +114,7 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
           <BaseText color="black">Sem posts por aqui...</BaseText>
         </BaseContainer>
       ) : (
-        classroom.posts.map((post) => (
-          <PostItem key={post._id} post={post}/>
-        ))
+        posts.map((post: any) => <PostItem key={post._id} post={post} />)
       )}
     </BaseContainer>
   );

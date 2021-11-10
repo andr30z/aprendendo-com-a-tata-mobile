@@ -18,6 +18,10 @@ export const styles = StyleSheet.create({
     width: "30%",
   },
   profileStyles: {
-    marginBottom: 10,
+    marginBottom: 20,
+  },
+  badgeMemberFontStyle: {
+    fontSize: 13,
+    padding: 3,
   },
 });

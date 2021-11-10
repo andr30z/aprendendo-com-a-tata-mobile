@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, useWindowDimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Input } from "../../Components";
@@ -7,54 +7,11 @@ import ClassRoomItem from "../../Components/ClassRoomItem/ClassRoomItem.Componen
 import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { ClassRoomInterface, UserType } from "../../Interfaces/index";
+import { baseApi, baseApiRoutes } from "../../Services";
 import { ClassRoomBaseContainer, styles } from "./Styles";
-const CLASSROOMLISTING: Array<ClassRoomInterface> = [
-  {
-    _id: "1",
-    teacher: { name: "André" },
-    tags: ["Leitura", "Números"],
-    name: "Sala 1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    members: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-    code: "123123123",
-    color: "#8078cc",
-    textColor: "white",
-  },
-  {
-    _id: "2",
-    teacher: { name: "André" },
-    name: "Sala 2",
-    tags: ["Leitura", "Números"],
-    description:
-      "Sed nec venenatis tortor, at ultricies elit. Aliquam interdum id lacus sed bibendum. ",
-    members: [{}, {}, {}, {}, {}, {}],
-    code: "123123123",
-    color: "#f7cc7f",
-  },
-  {
-    _id: "3",
-    tags: ["Leitura", "Números"],
-    teacher: { name: "André" },
-    name: "Sala 3",
-    description:
-      "Sed nec venenatis tortor, at ultricies elit. Aliquam interdum id lacus sed bibendum. ",
-    members: [{}, {}, {}],
-    code: "123123123",
-    color: "red",
-  },
-  {
-    _id: "4",
-    tags: ["Leitura", "Números"],
-    teacher: { name: "André" },
-    name: "Sala 4",
-    description:
-      "Sed nec venenatis tortor, at ultricies elit. Aliquam interdum id lacus sed bibendum. ",
-    members: [{}, {}, {}, {}, {}],
-    code: "123123123",
-    color: "#f7cc7f",
-  },
-];
-
+interface ClassesApiResponse {
+  classrooms: Array<ClassRoomInterface>;
+}
 /**
  * Class page, both childs and teachers.
  * @author andr3z0
@@ -62,7 +19,19 @@ const CLASSROOMLISTING: Array<ClassRoomInterface> = [
  **/
 const ClassRoom: React.FC = () => {
   const { height } = useWindowDimensions();
-  const { userIsTeacher } = useUserContext();
+  const [classrooms, setClassrooms] = useState<Array<ClassRoomInterface>>([]);
+  const { userIsTeacher, user } = useUserContext();
+  useEffect(() => {
+    baseApi
+      .get<ClassesApiResponse>(
+        baseApiRoutes.CLASSES_BY_USERS +
+          `/${user?._id}?isTeacher=${userIsTeacher}`
+      )
+      .then((res) => {
+        console.log(res.data)
+        setClassrooms(res.data.classrooms);
+      });
+  }, []);
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: height * 0.3 }}
@@ -99,7 +68,7 @@ const ClassRoom: React.FC = () => {
         )}
       </ClassRoomBaseContainer>
       <ClassRoomBaseContainer noElevation marginTop="15px">
-        {CLASSROOMLISTING.map((x) => (
+        {classrooms.map((x) => (
           <ClassRoomItem key={x._id} classRoom={x} />
         ))}
       </ClassRoomBaseContainer>

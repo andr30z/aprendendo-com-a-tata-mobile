@@ -41,7 +41,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
       </BaseContainer>
       <TextPostContainer>
         <ReadMore numberOfLines={4} seeLessText="Ver menos" seeMoreText="Ver mais" >
-          {post.content}
+          {post.text}
         </ReadMore >
       </TextPostContainer>
       <PostFooterContainer flex={1}>

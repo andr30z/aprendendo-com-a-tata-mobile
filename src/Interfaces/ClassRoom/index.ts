@@ -12,7 +12,7 @@ export interface PostLikesItemInterface {
 export interface Member extends UserInterface {}
 export interface Post {
   _id: string;
-  content: string;
+  text: string;
   author: UserInterface;
   allowComments: boolean;
   activities: Array<ActivityCommonProps<unknown>>;
@@ -28,6 +28,6 @@ export interface ClassRoomInterface {
   code: string;
   color: string;
   tags: Array<string>;
+  classPhoto?: string;
   textColor?: string;
-  posts: Array<Post>;
 }
