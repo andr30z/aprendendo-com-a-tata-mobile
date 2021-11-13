@@ -1,14 +1,13 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Pressable } from "react-native";
 import StickyParallaxHeader from "react-native-sticky-parallax-header";
+import { ClassroomProvider, useClassroomContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { ClassRoomInterface } from "../../Interfaces/index";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
-import { baseApi, baseApiRoutes } from "../../Services";
 import { Members, Post } from "./Modules";
 
 type Props = NativeStackScreenProps<
@@ -16,21 +15,20 @@ type Props = NativeStackScreenProps<
   ROUTES_NAME.CLASSROOM_DETAILS
 >;
 
+export const ClassroomDetails: React.FC<Props> = (props) => {
+  return (
+    <ClassroomProvider classId={props.route.params.classId}>
+      <ClassroomDetailsInitial {...props}></ClassroomDetailsInitial>
+    </ClassroomProvider>
+  );
+};
+
 /**
  * Details componente of the classroom page.
  * @author andr3z0
  **/
-const ClassroomDetails: React.FC<Props> = ({ navigation, route }) => {
-  const [classroom, setClassroom] = useState<ClassRoomInterface>();
-  useEffect(() => {
-    baseApi
-      .get<ClassRoomInterface>(
-        baseApiRoutes.CLASSROOMS + "/" + route.params.classId
-      )
-      .then((res) => {
-        setClassroom(res.data);
-      });
-  }, []);
+const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
+  const { classroom } = useClassroomContext();
   if (!classroom) return null;
   return (
     <StickyParallaxHeader
@@ -47,7 +45,7 @@ const ClassroomDetails: React.FC<Props> = ({ navigation, route }) => {
       backgroundColor={classroom.color}
       headerType="TabbedHeader"
       tabs={[
-        { content: <Post classroom={classroom} />, title: "Posts" },
+        { content: <Post />, title: "Posts" },
         { content: <Members members={classroom.members} />, title: "Membros" },
       ]}
       header={() => (

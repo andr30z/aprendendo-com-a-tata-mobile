@@ -16,6 +16,7 @@ import ActivityItem from "../ActivityItem/ActivityItem.Component";
 interface ActivityPostListingProps {
   setSelectedActivities: SetStateInterface<Array<ActivityCommonProps<unknown>>>;
   selectedActivities: Array<ActivityCommonProps<unknown>>;
+  isInputFocused: boolean;
 }
 
 const gridContainerStyles = {
@@ -36,6 +37,7 @@ const gridItemWidth = "31.5%";
 const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
   selectedActivities,
   setSelectedActivities,
+  isInputFocused
 }) => {
   const { activities, isLoading } = useActivityList();
   const onPressActivity = (activity: ActivityCommonProps<unknown>) => () =>
@@ -55,6 +57,7 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
   const skeletonArray = useMemo(() => [...Array(9)], []);
   const { height } = useWindowDimensions();
   const hasSelectedItem = selectedActivities.length > 0;
+  if (isInputFocused) return null;
   return (
     <>
       <BaseContainer
@@ -118,14 +121,10 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
                 height: height * 0.2,
                 marginTop: 3,
               }}
-              Animation={(props) => (
-                <Fade {...props} duration={900} />
-              )}
+              Animation={(props) => <Fade {...props} duration={900} />}
               key={index}
             >
-              <PlaceholderMedia
-                style={{ width: "100%", height: "100%" }}
-              />
+              <PlaceholderMedia style={{ width: "100%", height: "100%" }} />
             </Placeholder>
           ))}
         </BaseContainer>

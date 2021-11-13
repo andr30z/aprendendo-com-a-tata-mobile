@@ -1,16 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { ActivityItem } from "../../../../Components";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { useActivityList } from "../../../../Hooks";
 import {
-  ActivityApiResponse,
-  ActivityCommonProps,
+  ActivityCommonProps
 } from "../../../../Interfaces/index";
 import { ROUTES_NAME as initialRoutesName } from "../../../../Routes/InitialStack/RoutesName";
 import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/MainStackNavigation/RoutesName";
-import { baseApi, baseApiRoutes } from "../../../../Services/BaseApi";
 import { GridContainer } from "./Styles";
 interface ActivityListOtherProps {
   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;

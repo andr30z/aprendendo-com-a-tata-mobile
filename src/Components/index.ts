@@ -13,3 +13,4 @@ export { default as ProfilePhoto } from "./ProfilePhoto/ProfilePhoto.Component";
 export { default as CreatePost } from "./CreatePost/CreatePost.Component";
 export { default as PostItem } from "./PostItem/PostItem.Component";
 export { default as ActivityPostListing } from "./ActivityPostListing/ActivityPostListing.Component";
+export { default as ConfirmationModal } from "./ConfirmationModal/ConfirmationModal.Component";

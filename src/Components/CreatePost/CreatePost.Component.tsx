@@ -15,7 +15,11 @@ import Toast from "react-native-toast-message";
 import { PORTAL_HOSTS } from "../../Constants";
 import { useUserContext } from "../../Contexts";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useBackHandler, useBoolean } from "../../Hooks";
+import {
+  useBackHandler,
+  useBoolean,
+  useKeyboardHideOrShowEvent,
+} from "../../Hooks";
 import {
   ActivityCommonProps,
   ClassRoomInterface,
@@ -56,6 +60,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
   const [postText, setPostText] = useState("");
   const [isTextEmpty, setIsTextEmpty] = useState(false);
   const [inputHeight, setInputHeight] = useState(35);
+  const { value: isFocusedOnInput, setFalse, setTrue } = useBoolean();
   const [selectedActivities, setSelectedActivities] = useState<
     Array<ActivityCommonProps<unknown>>
   >([]);
@@ -67,8 +72,10 @@ const CreatePost: React.FC<CreatePostProps> = ({
   const onDismiss = useCallback(() => {
     if (isSubmitting) return null;
     setSelectedActivities([]);
+    setFalse();
     setPostText("");
   }, [isSubmitting]);
+  useKeyboardHideOrShowEvent({ onHide: setFalse, onShow: setTrue });
   const { user } = useUserContext();
   const onSubmit = () => {
     if (postText.trim().length === 0) return setIsTextEmpty(true);
@@ -85,12 +92,13 @@ const CreatePost: React.FC<CreatePostProps> = ({
             ? selectedActivities.map((x) => x._id)
             : null,
       })
-      .then((res) => {
+      .then(() => {
         Toast.show({
           text1: "Post criado com sucesso!",
         });
         toggle();
         onPostCreation();
+        setFalse();
         if (bottomSheetModalRef.current) bottomSheetModalRef.current.close();
       })
       .catch((e) => {
@@ -172,7 +180,6 @@ const CreatePost: React.FC<CreatePostProps> = ({
               </BaseContainer>
               <Input
                 onChangeText={onChange}
-                keyboardType="visible-password"
                 onFocus={onFocus}
                 // I don't know why, but when I use the prop value that shit starts flickering
                 defaultValue={postText}
@@ -190,6 +197,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
                 multiline={true}
               />
               <ActivityPostListing
+                isInputFocused={isFocusedOnInput}
                 selectedActivities={selectedActivities}
                 setSelectedActivities={setSelectedActivities}
               />

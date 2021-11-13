@@ -18,6 +18,7 @@ export const PostItemContainer = styled(BaseContainer)<PostItemContainerProps>`
 
 export const TextPostContainer = styled(BaseContainer)`
   padding-vertical: 5%;
+  z-index:-1;
 `;
 
 export const PostFooterContainer = styled(BaseContainer)`
@@ -34,16 +35,17 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
   },
   iconDots: {
-    marginTop: 8,
+     marginTop: 8,
   },
   dotsContainer: {
-    position: "absolute",
-    zIndex: 3,
-    height: 30,
+    flex: 1,
     top: 5,
+    position: "absolute",
+    zIndex:3,
     right: 5,
-    padding: 5,
+    padding: 2.7,
     width: 40,
+    height: 170,
     overflow: "hidden",
     borderRadius: 30,
     alignItems: "center",

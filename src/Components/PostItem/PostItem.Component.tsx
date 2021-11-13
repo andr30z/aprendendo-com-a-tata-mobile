@@ -4,16 +4,21 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import ReadMore from "@fawazahmed/react-native-read-more";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { MotiView } from "@motify/components";
 import { useAnimationState } from "@motify/core";
 import { formatRelative } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import React, { useMemo } from "react";
-import { Pressable, useWindowDimensions } from "react-native";
-import { useUserContext } from "../../Contexts";
+import React, { useMemo, useRef } from "react";
+import { useWindowDimensions } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
+import { useClassroomContext, useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { Post } from "../../Interfaces/index";
+import { baseApi, baseApiRoutes } from "../../Services";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component";
 import ProfilePhoto from "../ProfilePhoto/ProfilePhoto.Component";
 import {
   PostFooterContainer,
@@ -24,13 +29,30 @@ import {
 
 interface PostItemProps {
   post: Post;
+  getPosts: () => void;
 }
+
+const IconWithTouchable: React.FC<{
+  onPress: () => void;
+  textTheme?: string;
+  iconName: string;
+  hideStyles?: boolean;
+}> = ({ onPress, textTheme, hideStyles = false, iconName }) => (
+  <TouchableWithoutFeedback onPress={onPress}>
+    <MaterialCommunityIcons
+      name={iconName as any}
+      size={25}
+      style={hideStyles ? undefined : styles.iconDots}
+      color={textTheme || "white"}
+    />
+  </TouchableWithoutFeedback>
+);
 
 /**
  * Post item listing component.
  * @author andr3z0
  **/
-const PostItem: React.FC<PostItemProps> = ({ post }) => {
+const PostItem: React.FC<PostItemProps> = ({ post, getPosts }) => {
   const { height, width } = useWindowDimensions();
 
   const postDate = useMemo(
@@ -40,13 +62,23 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
       }),
     [post.createdAt]
   );
+
+  const deletePost = () => {
+    return baseApi.delete(baseApiRoutes.POSTS + "/" + post._id).then((res) => {
+      Toast.show({
+        text1: "Post deletado com sucesso",
+      });
+      return getPosts();
+    });
+  };
+  const { primaryTheme, textTheme } = useClassroomContext();
   const { user, userIsTeacher } = useUserContext();
   const dotsAnimationState = useAnimationState({
     closed: {
       height: 30,
     },
     open: {
-      height: 100,
+      height: 105,
     },
     from: {
       height: 30,
@@ -60,8 +92,14 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
         : "closed"
     );
   };
+  const sheetRef = useRef<BottomSheetModal | null>(null);
   return (
     <PostItemContainer deviceHeight={height}>
+      <ConfirmationModal
+        confirmationQuestion="Deseja realmente deletar este post?"
+        onConfirm={deletePost}
+        modalRef={sheetRef}
+      />
       <BaseContainer
         flexDirection="row"
         align="center"
@@ -89,30 +127,29 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
             </BaseText>
           </BaseContainer>
         </BaseContainer>
-        <MotiView
-          style={[styles.dotsContainer, { backgroundColor: "blue" }]}
-          state={dotsAnimationState}
-        >
-          <Pressable onPress={toggleDotsAnimation}>
-            <MaterialCommunityIcons
-              name="dots-horizontal"
-              size={24}
-              color="#c3c3c3"
+        {(userIsTeacher || user?._id === post.author._id) && (
+          <MotiView
+            style={{ ...styles.dotsContainer, backgroundColor: primaryTheme }}
+            state={dotsAnimationState}
+          >
+            <IconWithTouchable
+              onPress={toggleDotsAnimation}
+              iconName="dots-horizontal"
+              hideStyles
+              textTheme={textTheme}
             />
-          </Pressable>
-          <MaterialCommunityIcons
-            name="circle-edit-outline"
-            size={24}
-            style={styles.iconDots}
-            color="yellow"
-          />
-          <MaterialCommunityIcons
-            style={styles.iconDots}
-            name="delete"
-            size={24}
-            color="red"
-          />
-        </MotiView>
+            <IconWithTouchable
+              onPress={() => null}
+              iconName="circle-edit-outline"
+              textTheme={textTheme}
+            />
+            <IconWithTouchable
+              iconName="delete"
+              textTheme={textTheme}
+              onPress={() => sheetRef.current?.present()}
+            />
+          </MotiView>
+        )}
       </BaseContainer>
       <TextPostContainer>
         <ReadMore
