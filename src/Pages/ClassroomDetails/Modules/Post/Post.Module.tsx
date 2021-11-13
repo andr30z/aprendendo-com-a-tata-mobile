@@ -1,11 +1,15 @@
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import React, { useEffect, useState } from "react";
-import { Pressable } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { ActivityIndicator, Pressable } from "react-native";
 import { Badge, CreatePost, PostItem } from "../../../../Components";
 import { useUserContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
-import { ClassRoomInterface, Post as PostInterface } from "../../../../Interfaces/index";
+import { useBoolean, useCancellablePromise } from "../../../../Hooks";
+import {
+  ClassRoomInterface,
+  Post as PostInterface,
+} from "../../../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../../../Services";
 import { PostModuleContainer, PostText, ProfileImage, styles } from "./Styles";
 interface PostProps {
@@ -17,23 +21,35 @@ interface GetPostsApiRespose {
 }
 const Post: React.FC<PostProps> = ({ classroom }) => {
   const { userIsTeacher, user } = useUserContext();
+  const { value: isLoadingPosts, setTrue, setFalse } = useBoolean();
+  const { cancellablePromise } = useCancellablePromise();
   const [posts, setPosts] = useState<Array<PostInterface>>([]);
   useEffect(() => {
-    baseApi
-      .get<GetPostsApiRespose>(baseApiRoutes.POSTS_BY_CLASSES(classroom._id))
-      .then((res) => {
-        setPosts(res.data.posts);
-      });
+    getPosts();
   }, []);
   const openCreatePostModal =
     (sheetRef: React.RefObject<BottomSheetModalMethods>) => () => {
       if (sheetRef.current) sheetRef.current.present();
     };
 
+  const getPosts = useCallback(() => {
+    setTrue();
+
+    cancellablePromise(
+      baseApi.get<GetPostsApiRespose>(
+        baseApiRoutes.POSTS_BY_CLASSES(classroom._id)
+      )
+    )
+      .then((res) => {
+        setPosts(res.data.posts.reverse());
+        setFalse();
+      })
+      .catch(setFalse);
+  }, [classroom._id]);
   return (
     <BaseContainer backgroundColor="#d6d6d6" paddingVertical="20px">
       {userIsTeacher && (
-        <CreatePost>
+        <CreatePost onPostCreation={getPosts} classroom={classroom}>
           {(ref) => (
             <PostModuleContainer
               backgroundColor="white"
@@ -101,7 +117,9 @@ const Post: React.FC<PostProps> = ({ classroom }) => {
           )}
         </CreatePost>
       )}
-      {posts.length === 0 ? (
+      {isLoadingPosts ? (
+        <ActivityIndicator size={50} color={classroom.color} />
+      ) : posts.length === 0 ? (
         <BaseContainer
           height="200px"
           align="center"

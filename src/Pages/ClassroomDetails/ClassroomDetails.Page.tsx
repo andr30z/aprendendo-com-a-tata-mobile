@@ -11,8 +11,12 @@ import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { Members, Post } from "./Modules";
 import { ClassRoomInterface } from "../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../Services";
+import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 
-type Props = NativeStackScreenProps<MainStackParamList, "CLASSROOM_DETAILS">;
+type Props = NativeStackScreenProps<
+  MainStackParamList,
+  ROUTES_NAME.CLASSROOM_DETAILS
+>;
 
 /**
  * Details componente of the classroom page.

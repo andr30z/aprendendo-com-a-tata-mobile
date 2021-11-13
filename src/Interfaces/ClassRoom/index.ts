@@ -9,6 +9,12 @@ export interface PostLikesItemInterface {
   _id: string;
   user: UserInterface;
 }
+
+export enum PostTypes {
+  A = "A",
+  N = "N",
+}
+
 export interface Member extends UserInterface {}
 export interface Post {
   _id: string;

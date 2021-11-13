@@ -13,7 +13,7 @@ export function setTokenAndCredentialsOnAsyncStorage(
   res: AxiosResponse<UserInterface>
 ) {
   const authCookies = res.request.responseHeaders["Set-Cookie"];
-  console.log(authCookies);
+  // console.log(authCookies);
   AsyncStorage.setItem(ASYNC_STORAGE_COOKIE_KEY, authCookies);
   AsyncStorage.setItem(USER_ASYNC_STORAGE_KEY, JSON.stringify(res.data));
 }

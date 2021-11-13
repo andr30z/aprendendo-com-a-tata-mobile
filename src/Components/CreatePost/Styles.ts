@@ -14,7 +14,12 @@ export const styles = StyleSheet.create({
   },
   scrollViewContentContainerStyle: {
     paddingBottom: 30,
-    flexGrow: 1
+    flexGrow: 1,
+  },
+  inputStyles: {
+    paddingLeft: 15,
+    borderRadius: 15,
+    backgroundColor: "#fff",
   },
 });
 

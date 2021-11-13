@@ -13,6 +13,7 @@ const Input: React.FC<BaseInputProps> = (props) => {
       ? `${inputOrHeight}px`
       : inputOrHeight;
   };
+  const CustomInput = props.customComponent;
   if (withWrapper)
     return (
       <BaseContainer
@@ -25,11 +26,15 @@ const Input: React.FC<BaseInputProps> = (props) => {
           wrapperStyles,
         ]}
       >
-        <BaseInput {...(props as any)} inputWidth="100%" inputHeight="100%" />
+        {CustomInput ? (
+          CustomInput
+        ) : (
+          <BaseInput {...(props as any)} inputWidth="100%" inputHeight="100%" />
+        )}
         {appendComponent}
       </BaseContainer>
     );
-  return <BaseInput {...(props as any)} />;
+  return CustomInput ? <>{CustomInput}</> : <BaseInput {...(props as any)} />;
 };
 
 export default Input;

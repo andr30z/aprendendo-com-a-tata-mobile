@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   SetStateInterface,
@@ -47,16 +48,14 @@ export const UserProvider: React.FC = ({ children }) => {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-        console.log("begin error handling");
         // Prevent infinite loops
         if (
           error.response.status === 401 &&
-          originalRequest.url === DEFAULT_URL + baseApiRoutes.REFRESH
+          originalRequest.url === baseApiRoutes.REFRESH
         ) {
           setUser(null);
           return Promise.reject(error);
         }
-        console.log();
         if (error.response.status === 401) {
           const tokens = await AsyncStorage.getItem(ASYNC_STORAGE_COOKIE_KEY);
 
@@ -66,7 +65,7 @@ export const UserProvider: React.FC = ({ children }) => {
               .then((res) => {
                 setTokenAndCredentialsOnAsyncStorage(res);
                 setUser(res.data);
-                return baseApi(originalRequest);
+                return axios(originalRequest);
               })
               .catch((err) => {
                 console.log(err.response, "REFRESHerror");

@@ -18,13 +18,15 @@ export const baseApiRoutes = {
   ME: "v1/users/me",
   CLASSROOMS: "v1/classrooms",
   CLASSES_BY_USERS: "v1/classrooms/users",
+  POSTS: "v1/posts",
   POSTS_BY_CLASSES: (classId: string) => `v1/classrooms/${classId}/posts`,
 };
 
 //set cookie authentication on every request
 baseApi.interceptors.request.use(async (config) => {
   const cookies = await AsyncStorage.getItem(ASYNC_STORAGE_COOKIE_KEY);
-  console.log(cookies?.split("Refresh"));
+  // console.log(cookies?.split("Refresh"),config);
+  console.log(config.url)
   if (cookies) {
     return {
       ...config,
