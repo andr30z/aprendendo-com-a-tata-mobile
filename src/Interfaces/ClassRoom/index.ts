@@ -23,6 +23,7 @@ export interface Post {
   allowComments: boolean;
   activities: Array<ActivityCommonProps<unknown>>;
   postLikes: Array<PostLikesItemInterface>;
+  createdAt: string;
 }
 
 export interface ClassRoomInterface {

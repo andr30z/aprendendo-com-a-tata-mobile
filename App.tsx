@@ -6,12 +6,15 @@ import { InitialStackNavigation } from "./src/Routes";
 import Toast from "react-native-toast-message";
 export default function App() {
   return (
-    <UserProvider>
+    <>
+      <UserProvider>
+        <PortalProvider>
+          <InitialStackNavigation />
+          <PortalHost name={PORTAL_HOSTS.ROOT_PORTAL} />
+        </PortalProvider>
+      </UserProvider>
+      {/* THIS SHOULD STAY HERE AS THE LAST CHILD */}
       <Toast />
-      <PortalProvider>
-        <InitialStackNavigation />
-        <PortalHost name={PORTAL_HOSTS.ROOT_PORTAL} />
-      </PortalProvider>
-    </UserProvider>
+    </>
   );
 }

@@ -6,7 +6,7 @@ import { Input } from "../../Components";
 import ClassRoomItem from "../../Components/ClassRoomItem/ClassRoomItem.Component";
 import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
-import { ClassRoomInterface, UserType } from "../../Interfaces/index";
+import { ClassRoomInterface } from "../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { ClassRoomBaseContainer, styles } from "./Styles";
 interface ClassesApiResponse {

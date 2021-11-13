@@ -29,9 +29,23 @@ export const PostFooterContainer = styled(BaseContainer)`
   flex-direction: row;
 `;
 
-
 export const styles = StyleSheet.create({
-  iconComment:{
-    marginLeft:10
-  }
-})
+  iconComment: {
+    marginLeft: 10,
+  },
+  iconDots: {
+    marginTop: 8,
+  },
+  dotsContainer: {
+    position: "absolute",
+    zIndex: 3,
+    height: 30,
+    top: 5,
+    right: 5,
+    padding: 5,
+    width: 40,
+    overflow: "hidden",
+    borderRadius: 30,
+    alignItems: "center",
+  },
+});

@@ -1,17 +1,15 @@
+import { Feather, Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import { Text, Animated, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import StickyParallaxHeader from "react-native-sticky-parallax-header";
-import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
-import { Ionicons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import { Badge } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
-import { Members, Post } from "./Modules";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { ClassRoomInterface } from "../../Interfaces/index";
-import { baseApi, baseApiRoutes } from "../../Services";
+import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
+import { baseApi, baseApiRoutes } from "../../Services";
+import { Members, Post } from "./Modules";
 
 type Props = NativeStackScreenProps<
   MainStackParamList,

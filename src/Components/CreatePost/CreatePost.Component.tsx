@@ -86,14 +86,12 @@ const CreatePost: React.FC<CreatePostProps> = ({
             : null,
       })
       .then((res) => {
+        Toast.show({
+          text1: "Post criado com sucesso!",
+        });
         toggle();
         onPostCreation();
         if (bottomSheetModalRef.current) bottomSheetModalRef.current.close();
-        Toast.show({
-          type: "success",
-          text1: "Post criado com sucesso!",
-          visibilityTime: 7000,
-        });
       })
       .catch((e) => {
         toggle();
