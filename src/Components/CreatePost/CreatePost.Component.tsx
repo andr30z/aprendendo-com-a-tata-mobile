@@ -184,7 +184,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
                 // I don't know why, but when I use the prop value that shit starts flickering
                 defaultValue={postText}
                 placeholder="Digite sua mensagem"
-                maxLength={500}
+                maxLength={350}
                 onContentSizeChange={onContentChange}
                 style={[
                   styles.textInputStyles,

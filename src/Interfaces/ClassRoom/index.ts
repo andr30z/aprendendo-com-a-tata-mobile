@@ -16,6 +16,7 @@ export enum PostTypes {
 }
 
 export interface Member extends UserInterface {}
+
 export interface Post {
   _id: string;
   text: string;
@@ -24,6 +25,7 @@ export interface Post {
   activities: Array<ActivityCommonProps<unknown>>;
   postLikes: Array<PostLikesItemInterface>;
   createdAt: string;
+  type: PostTypes;
 }
 
 export interface ClassRoomInterface {

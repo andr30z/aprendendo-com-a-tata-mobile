@@ -21,6 +21,15 @@ export const TextPostContainer = styled(BaseContainer)`
   z-index:-1;
 `;
 
+
+export const ActivityContainer = styled(BaseContainer)`
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 110px;
+`;
+
 export const PostFooterContainer = styled(BaseContainer)`
   border-top-width: 1px;
   border-top-color: #c3c3c3;

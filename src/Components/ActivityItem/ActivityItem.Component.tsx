@@ -23,6 +23,7 @@ interface BaseActivityItemProps {
   containerHeight?: string;
   marginTop?: string;
   buttonContainerStyles?: StyleProp<ViewStyle>;
+  marginHorizontal?: string;
 }
 
 /**
@@ -46,9 +47,10 @@ const ActivityItem: React.FC<
   marginTop = "20px",
   buttonContainerStyles,
   children,
+  marginHorizontal,
   ...rest
 }) => {
-  const stars = useMemo(() => Array.from({ length: dificulty }), []);
+  const stars = useMemo(() => Array.from({ length: dificulty }), [dificulty]);
   const randomInt = useMemo(() => getRandomInt(0, 5), []);
   const { height } = useWindowDimensions();
   return (
@@ -57,6 +59,7 @@ const ActivityItem: React.FC<
       backgroundColor={backgroundColor[randomInt]}
       height={`${containerHeight ? containerHeight : height * 0.2}px`}
       width={boxWidth}
+      marginHorizontal={marginHorizontal}
       roundedBorders={roundedBorders}
       style={buttonContainerStyles}
     >

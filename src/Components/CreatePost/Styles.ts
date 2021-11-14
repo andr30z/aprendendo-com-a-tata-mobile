@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
   },
   inputStyles: {
-    paddingLeft: 15,
+    paddingLeft: 4,
     borderRadius: 15,
     backgroundColor: "#fff",
   },

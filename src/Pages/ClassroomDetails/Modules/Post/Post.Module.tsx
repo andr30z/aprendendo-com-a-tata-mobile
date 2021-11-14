@@ -17,7 +17,7 @@ interface GetPostsApiRespose {
   posts: Array<PostInterface>;
 }
 const Post: React.FC = () => {
-  const { classroom } = useClassroomContext();
+  const { classroom, primaryTheme, textTheme } = useClassroomContext();
   const { userIsTeacher, user } = useUserContext();
   const { value: isLoadingPosts, setTrue, setFalse } = useBoolean();
   const { cancellablePromise } = useCancellablePromise();
@@ -130,7 +130,15 @@ const Post: React.FC = () => {
           <BaseText color="black">Sem posts por aqui...</BaseText>
         </BaseContainer>
       ) : (
-        posts.map((post: any) => <PostItem getPosts={getPosts} key={post._id} post={post} />)
+        posts.map((post: any) => (
+          <PostItem
+            primaryTheme={primaryTheme as string}
+            textTheme={textTheme as string}
+            getPosts={getPosts}
+            key={post._id}
+            post={post}
+          />
+        ))
       )}
     </BaseContainer>
   );

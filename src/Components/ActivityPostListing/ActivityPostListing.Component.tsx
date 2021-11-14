@@ -37,7 +37,7 @@ const gridItemWidth = "31.5%";
 const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
   selectedActivities,
   setSelectedActivities,
-  isInputFocused
+  isInputFocused,
 }) => {
   const { activities, isLoading } = useActivityList();
   const onPressActivity = (activity: ActivityCommonProps<unknown>) => () =>
@@ -57,7 +57,7 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
   const skeletonArray = useMemo(() => [...Array(9)], []);
   const { height } = useWindowDimensions();
   const hasSelectedItem = selectedActivities.length > 0;
-  if (isInputFocused) return null;
+  if (isInputFocused) return <BaseContainer height="350px"/>;
   return (
     <>
       <BaseContainer
