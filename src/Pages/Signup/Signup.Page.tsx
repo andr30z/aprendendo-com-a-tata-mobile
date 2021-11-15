@@ -8,13 +8,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { Pressable, StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { InitialStackParamsList } from "../../Routes/InitialStack/Interfaces";
 
 /**
  * Signup page
  * @author andr3z0
  **/
 const Signup = () => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<StackNavigationProp<InitialStackParamsList>>();
   return (
     <BaseContainer
       style={{ backgroundColor: "#FFC2C1", position: "relative" }}

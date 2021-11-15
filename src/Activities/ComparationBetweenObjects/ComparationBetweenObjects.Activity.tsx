@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { WithDraxProvider } from "../../Components";
+import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../Hooks/useStageLogic";
@@ -21,13 +22,29 @@ const filterFunction =
 const ComparationBetweenObjects =
   WithDraxProvider<ComparationBetweenObjectsActivity>(({ activity }) => {
     const [currentStageBonds, setCurrentStageBonds] = useState<ArrayBonds>([]);
+    const { onEndActivity, setActivityAnswers } = useActivityPlayContext();
     const { currentStageIndex } = useStageLogic(
       currentStageBonds,
       () =>
         currentStageBonds.length === columns.left.length &&
         currentStageIndex !== activity.stages.length - 1,
-      () => setCurrentStageBonds([])
+      () => {
+        setActivityAnswers((past) => [
+          ...past,
+          { activity: currentStageBonds },
+        ]);
+        setCurrentStageBonds([]);
+      }
     );
+
+    useEffect(() => {
+      //user has ended activity
+      console.log(currentStageIndex, activity.stages.length-1);
+      if (currentStageIndex === activity.stages.length) {
+        onEndActivity();
+      }
+    }, [currentStageIndex]);
+
     const currentStage = activity.stages[currentStageIndex];
     const columns = useMemo(() => {
       const leftColumn = currentStage.filter(filterFunction(false));

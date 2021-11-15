@@ -7,3 +7,4 @@ export { default as ActivityDetails } from "./ActivityDetails/ActivityDetails.Pa
 export { default as ActivityPlay } from "./ActivityPlay/ActivityPlay.Page";
 export { default as ClassRoom } from "./ClassRoom/ClassRoom.Page";
 export { default as ClassroomDetails } from "./ClassroomDetails/ClassroomDetails.Page";
+export { default as PostDetails } from "./PostDetails/PostDetails.Page";

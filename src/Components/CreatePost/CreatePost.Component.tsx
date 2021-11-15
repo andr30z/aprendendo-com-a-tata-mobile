@@ -66,7 +66,10 @@ const CreatePost: React.FC<CreatePostProps> = ({
   >([]);
   const { value: isSubmitting, toggle } = useBoolean();
   useBackHandler(false, () => {
-    if (!isSubmitting) bottomSheetModalRef.current?.close();
+    if (!isSubmitting) {
+      bottomSheetModalRef.current?.close();
+    }
+
     return true;
   });
   const onDismiss = useCallback(() => {

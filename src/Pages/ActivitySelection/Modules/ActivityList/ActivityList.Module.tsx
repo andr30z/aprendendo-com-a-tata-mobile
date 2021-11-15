@@ -4,17 +4,16 @@ import React, { useCallback } from "react";
 import { ActivityItem } from "../../../../Components";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { useActivityList } from "../../../../Hooks";
-import {
-  ActivityCommonProps
-} from "../../../../Interfaces/index";
+import { ActivityCommonProps } from "../../../../Interfaces/index";
 import { ROUTES_NAME as initialRoutesName } from "../../../../Routes/InitialStack/RoutesName";
+import { MainStackParamList } from "../../../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/MainStackNavigation/RoutesName";
 import { GridContainer } from "./Styles";
 interface ActivityListOtherProps {
   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 
-type StackProps = StackNavigationProp<any>;
+type StackProps = StackNavigationProp<MainStackParamList>;
 
 /**
  * Activity module that contain the list of activities from the api.
@@ -30,11 +29,8 @@ const ActivityList: React.FC<ActivityListOtherProps> = ({
 
   const onPressActivityItem = useCallback(
     (activity: ActivityCommonProps<unknown>) => {
-      navigation.navigate(initialRoutesName.MAIN_STACK, {
-        screen: activityRoutesName.DETAILS,
-        params: {
-          activity,
-        },
+      navigation.navigate(activityRoutesName.DETAILS, {
+        activityId: activity._id,
       });
     },
     []

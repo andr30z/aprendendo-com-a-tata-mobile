@@ -7,6 +7,8 @@ import ReadMore from "@fawazahmed/react-native-read-more";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { MotiView } from "@motify/components";
 import { useAnimationState } from "@motify/core";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { formatRelative } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import React, { useCallback, useMemo, useRef } from "react";
@@ -17,23 +19,27 @@ import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { Post, PostTypes } from "../../Interfaces/index";
+import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
+import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 import { baseApi, baseApiRoutes } from "../../Services";
+import ActivityItem from "../ActivityItem/ActivityItem.Component";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component";
 import ProfilePhoto from "../ProfilePhoto/ProfilePhoto.Component";
-import ActivityItem from "../ActivityItem/ActivityItem.Component";
 import {
   ActivityContainer,
   PostFooterContainer,
   PostItemContainer,
   styles,
   TextPostContainer,
+  TouchableHeader,
 } from "./Styles";
 
 interface PostItemProps {
   post: Post;
-  getPosts: () => void;
+  getPosts?: () => void;
   primaryTheme: string;
   textTheme: string;
+  isRenderedInPostDetailsPage?: boolean;
 }
 
 const IconWithTouchable: React.FC<{
@@ -61,9 +67,31 @@ const PostItem: React.FC<PostItemProps> = ({
   getPosts,
   primaryTheme,
   textTheme,
+  isRenderedInPostDetailsPage = false,
 }) => {
   const { height, width } = useWindowDimensions();
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
+  const { user, userIsTeacher } = useUserContext();
+  const goToPostDetails = useCallback(() => {
+    navigation.navigate(ROUTES_NAME.POST_DETAILS, {
+      post,
+      primaryTheme,
+      textTheme,
+    });
+  }, [post]);
 
+  const goToActivityDetails = (activityId: string) => {
+    console.log(post.postActivityResult);
+    const userPostActivityResult = post.postActivityResult?.find(
+      (x) => x.user._id === user?._id
+    );
+
+    navigation.navigate(ROUTES_NAME.DETAILS, {
+      activityId,
+      postActivityResult: userPostActivityResult,
+      postId: post._id,
+    });
+  };
   const postDate = useMemo(
     () =>
       formatRelative(new Date(post.createdAt), new Date(), {
@@ -77,10 +105,10 @@ const PostItem: React.FC<PostItemProps> = ({
       Toast.show({
         text1: "Post deletado com sucesso",
       });
-      return getPosts();
+      if (getPosts) return getPosts();
     });
   }, []);
-  const { user, userIsTeacher } = useUserContext();
+
   const dotsAnimationState = useAnimationState({
     closed: {
       height: 30,
@@ -114,27 +142,36 @@ const PostItem: React.FC<PostItemProps> = ({
         justify="space-between"
         position="relative"
       >
-        <BaseContainer align="center" flexDirection="row">
-          <ProfilePhoto
-            size={40}
-            source={{
-              uri: post.author.profilePhoto || "https://imgur.com/H5PWtBp.png",
-            }}
-          />
-          <BaseContainer width={`${width * 0.7}px`} flexDirection="column">
-            <BaseText
-              ellipsizeMode="tail"
-              numberOfLines={1}
-              marginLeft="13px"
-              color="black"
-            >
-              {post.author.name}
-            </BaseText>
-            <BaseText marginLeft="13px" fontSize="13px" color="grey">
-              {postDate}
-            </BaseText>
-          </BaseContainer>
-        </BaseContainer>
+        <TouchableHeader
+          deviceWidth={width}
+          onPress={goToPostDetails}
+          activeOpacity={0.1}
+          underlayColor="#dddd"
+          delayLongPress={500}
+        >
+          <>
+            <ProfilePhoto
+              size={40}
+              source={{
+                uri:
+                  post.author.profilePhoto || "https://imgur.com/H5PWtBp.png",
+              }}
+            />
+            <BaseContainer width={`${width * 0.7}px`} flexDirection="column">
+              <BaseText
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                marginLeft="13px"
+                color="black"
+              >
+                {post.author.name}
+              </BaseText>
+              <BaseText marginLeft="13px" fontSize="13px" color="grey">
+                {postDate}
+              </BaseText>
+            </BaseContainer>
+          </>
+        </TouchableHeader>
         {(userIsTeacher || user?._id === post.author._id) && (
           <MotiView
             style={{ ...styles.dotsContainer, backgroundColor: primaryTheme }}
@@ -161,7 +198,7 @@ const PostItem: React.FC<PostItemProps> = ({
       </BaseContainer>
       <TextPostContainer>
         <ReadMore
-          numberOfLines={4}
+          numberOfLines={isRenderedInPostDetailsPage ? 100 : 4}
           seeLessText="Ver menos"
           seeMoreText="Ver mais"
         >
@@ -169,8 +206,8 @@ const PostItem: React.FC<PostItemProps> = ({
         </ReadMore>
       </TextPostContainer>
       {post.type === PostTypes.A && post.activities && (
-        <BaseContainer>
-          <BaseText color="black">Atividades: </BaseText>
+        <BaseContainer paddingHorizontal="3%">
+          <BaseText color="black">Atividades:</BaseText>
           <ActivityContainer>
             {post.activities.map((a, index) => (
               <ActivityItem
@@ -179,7 +216,7 @@ const PostItem: React.FC<PostItemProps> = ({
                 marginTop="10px"
                 marginHorizontal="5px"
                 containerHeight="90"
-                onPress={() => null}
+                onPress={() => goToActivityDetails(a._id)}
                 itemIndex={index}
                 {...a}
                 key={a._id}
@@ -188,15 +225,18 @@ const PostItem: React.FC<PostItemProps> = ({
           </ActivityContainer>
         </BaseContainer>
       )}
-      <PostFooterContainer flex={1}>
-        <AntDesign name="like2" size={25} color="#c3c3c3" />
-        <FontAwesome5
-          style={styles.iconComment}
-          name="comment"
-          size={25}
-          color="#c3c3c3"
-        />
-      </PostFooterContainer>
+      {!isRenderedInPostDetailsPage && (
+        <PostFooterContainer flex={1}>
+          <AntDesign name="like2" size={25} color="#c3c3c3" />
+          <FontAwesome5
+            style={styles.iconComment}
+            name="comment"
+            size={25}
+            onPress={goToPostDetails}
+            color="#c3c3c3"
+          />
+        </PostFooterContainer>
+      )}
     </PostItemContainer>
   );
 };

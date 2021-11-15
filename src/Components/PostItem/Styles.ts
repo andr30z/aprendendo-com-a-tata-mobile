@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { TouchableHighlight } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
@@ -8,7 +9,7 @@ interface PostItemContainerProps {
 
 export const PostItemContainer = styled(BaseContainer)<PostItemContainerProps>`
   width: 100%;
-  padding-horizontal: 5%;
+  /* padding-horizontal: 3%; */
   padding-vertical: 2%;
   justify-content: center;
   margin-top: 10px;
@@ -18,9 +19,9 @@ export const PostItemContainer = styled(BaseContainer)<PostItemContainerProps>`
 
 export const TextPostContainer = styled(BaseContainer)`
   padding-vertical: 5%;
-  z-index:-1;
+  padding-horizontal: 3%;
+  z-index: -1;
 `;
-
 
 export const ActivityContainer = styled(BaseContainer)`
   flex-wrap: wrap;
@@ -35,8 +36,20 @@ export const PostFooterContainer = styled(BaseContainer)`
   border-top-color: #c3c3c3;
   margin-top: 10px;
   padding-top: 5px;
+  padding-horizontal: 3%;
   width: 100%;
   flex-direction: row;
+`;
+
+export const TouchableHeader = styled(TouchableHighlight)<{
+  deviceWidth: number;
+}>`
+  flex-direction: row;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+  padding-horizontal: 3%;
+  width: ${({ deviceWidth }) => deviceWidth + "px"};
 `;
 
 export const styles = StyleSheet.create({
@@ -44,14 +57,14 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
   },
   iconDots: {
-     marginTop: 8,
+    marginTop: 8,
   },
   dotsContainer: {
     flex: 1,
-    top: 5,
+    top: 10,
     position: "absolute",
-    zIndex:3,
-    right: 5,
+    zIndex: 3,
+    right: 15,
     padding: 2.7,
     width: 40,
     height: 170,

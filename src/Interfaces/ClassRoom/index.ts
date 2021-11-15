@@ -17,12 +17,34 @@ export enum PostTypes {
 
 export interface Member extends UserInterface {}
 
+export interface ActivityAnswers {
+  _id: string;
+  activity: Array<any>;
+}
+export interface ActivityResult<A = unknown> {
+  _id: string;
+  user: UserInterface;
+  finished: boolean;
+  activity: Omit<
+    ActivityCommonProps<A>,
+    "stages" | "activityUtterance" | "difficulty"
+  >;
+  result: number;
+  activityAnswers: Array<ActivityAnswers>;
+}
+export interface PostActivityResult {
+  _id: string;
+  activitiesResult: Array<ActivityResult>;
+  user: UserInterface;
+  activity: ActivityCommonProps<unknown>;
+}
 export interface Post {
   _id: string;
   text: string;
   author: UserInterface;
   allowComments: boolean;
-  activities: Array<ActivityCommonProps<unknown>>;
+  activities?: Array<ActivityCommonProps<unknown>>;
+  postActivityResult?: Array<PostActivityResult>;
   postLikes: Array<PostLikesItemInterface>;
   createdAt: string;
   type: PostTypes;

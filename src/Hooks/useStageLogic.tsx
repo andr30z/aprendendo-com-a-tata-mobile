@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
  * @author andr3z0
  **/
 export function useStageLogic(
-   useEffectListenerProp: any, 
+  useEffectListenerProp: any,
   validationCallback: () => boolean,
   onPassStageCallback: () => void
 ) {
@@ -18,5 +18,6 @@ export function useStageLogic(
       onPassStageCallback();
     }
   }, [useEffectListenerProp]);
+
   return { currentStageIndex, setCurrentStageIndex };
 }
