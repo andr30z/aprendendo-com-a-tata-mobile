@@ -23,6 +23,7 @@ export function useBackHandler(allow?: boolean, callback?: () => boolean | null 
     holdBackHandler();
     return () => releaseBackHandler();
   }, [allow]);
+  
 
   return { releaseBackHandler, holdBackHandler };
 }

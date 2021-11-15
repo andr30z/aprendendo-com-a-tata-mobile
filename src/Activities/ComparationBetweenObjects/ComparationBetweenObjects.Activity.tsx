@@ -39,11 +39,12 @@ const ComparationBetweenObjects =
 
     useEffect(() => {
       //user has ended activity
-      console.log(currentStageIndex, activity.stages.length-1);
-      if (currentStageIndex === activity.stages.length) {
+      if (
+        currentStageIndex === activity.stages.length - 1 &&
+        currentStageBonds.length === columns.left.length
+      )
         onEndActivity();
-      }
-    }, [currentStageIndex]);
+    }, [currentStageIndex, currentStageBonds]);
 
     const currentStage = activity.stages[currentStageIndex];
     const columns = useMemo(() => {

@@ -4,23 +4,26 @@ import {
   KeyOfNavigationList,
   Post,
   PostActivityResult,
-  ActivityResult
+  ActivityResult,
 } from "../../Interfaces/index";
-type ActivityPlayParamsType = {
+
+export type ActivityPostParams = { routeIndexToReturnOnFinish?: number };
+interface ActivityPlayParamsType extends ActivityPostParams {
   activity: ActivityCommonProps<unknown>;
   activityResult?: ActivityResult;
-};
-type ActivityDetailsParamsType = {
+}
+
+interface ActivityDetailsParamsType extends ActivityPostParams {
   activityId: string;
   postId?: string;
   postActivityResult?: PostActivityResult;
-};
+}
 export interface ClassParamType {
   classId: string;
   postActivityResult?: PostActivityResult;
 }
 
-export interface PostDetailsParamsType {
+export interface PostDetailsParamsType extends ActivityPostParams {
   post: Post;
   primaryTheme: string;
   textTheme: string;

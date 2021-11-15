@@ -20,7 +20,7 @@ interface StartPostActivityResponse {
   message: string;
 }
 const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
-  const { activityId, postActivityResult, postId } = route.params;
+  const { activityId, postActivityResult, postId, routeIndexToReturnOnFinish } = route.params;
   const [activity, setActivity] = useState<
     ActivityCommonProps<unknown> | undefined
   >(undefined);
@@ -29,7 +29,7 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
   const { cancellablePromise } = useCancellablePromise();
   useBackHandler(undefined, () => {
     navigation.goBack();
-    return undefined;
+    return true;
   });
 
   const startActivity = async () => {
@@ -46,7 +46,6 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
       )
     )
       .then((res) => {
-        console.log(res.data);
         setFalse();
         return res.data.activityResult;
       })
@@ -78,7 +77,6 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
   }, []);
   const resolveActivityStart = async () => {
     const activityResult = await startActivity();
-    console.log(activityResult);
     if (!isFromType<ActivityResult>(activityResult, "_id")) {
       Toast.show({
         type: "error",
@@ -89,6 +87,7 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
     navigation.navigate(ROUTES_NAME.ACTIVITY_PLAY, {
       activity: activity as any,
       activityResult,
+      routeIndexToReturnOnFinish
     });
   };
   return (
@@ -114,6 +113,7 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
           if (postActivityResult || postId) return resolveActivityStart();
           navigation.navigate(ROUTES_NAME.ACTIVITY_PLAY, {
             activity,
+            routeIndexToReturnOnFinish
           });
         }}
       >

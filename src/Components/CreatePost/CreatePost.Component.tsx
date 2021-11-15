@@ -15,11 +15,7 @@ import Toast from "react-native-toast-message";
 import { PORTAL_HOSTS } from "../../Constants";
 import { useUserContext } from "../../Contexts";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import {
-  useBackHandler,
-  useBoolean,
-  useKeyboardHideOrShowEvent,
-} from "../../Hooks";
+import { useBoolean, useKeyboardHideOrShowEvent } from "../../Hooks";
 import {
   ActivityCommonProps,
   ClassRoomInterface,
@@ -65,23 +61,18 @@ const CreatePost: React.FC<CreatePostProps> = ({
     Array<ActivityCommonProps<unknown>>
   >([]);
   const { value: isSubmitting, toggle } = useBoolean();
-  useBackHandler(false, () => {
-    if (!isSubmitting) {
-      bottomSheetModalRef.current?.close();
-    }
-
-    return true;
-  });
   const onDismiss = useCallback(() => {
     if (isSubmitting) return null;
     setSelectedActivities([]);
     setFalse();
+    setIsTextEmpty(false);
     setPostText("");
   }, [isSubmitting]);
   useKeyboardHideOrShowEvent({ onHide: setFalse, onShow: setTrue });
   const { user } = useUserContext();
   const onSubmit = () => {
-    if (postText.trim().length === 0) return setIsTextEmpty(true);
+    if (isTextEmpty || postText.trim().length === 0)
+      return setIsTextEmpty(true);
     toggle();
     baseApi
       .post(baseApiRoutes.POSTS, {
@@ -187,7 +178,8 @@ const CreatePost: React.FC<CreatePostProps> = ({
                 // I don't know why, but when I use the prop value that shit starts flickering
                 defaultValue={postText}
                 placeholder="Digite sua mensagem"
-                maxLength={350}
+                maxLength={430}
+                autoCorrect={!isTextEmpty}
                 onContentSizeChange={onContentChange}
                 style={[
                   styles.textInputStyles,
@@ -200,7 +192,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
                 multiline={true}
               />
               <ActivityPostListing
-                isInputFocused={isFocusedOnInput}
+                isInputFocused={isFocusedOnInput || isTextEmpty}
                 selectedActivities={selectedActivities}
                 setSelectedActivities={setSelectedActivities}
               />

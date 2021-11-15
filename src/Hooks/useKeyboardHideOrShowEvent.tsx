@@ -1,5 +1,4 @@
-import { useNavigation } from "@react-navigation/core";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { Keyboard } from "react-native";
 interface KeyboardHideOrShowProps {
   onShow?: () => void;
@@ -13,19 +12,6 @@ export function useKeyboardHideOrShowEvent({
   onHide,
   onShow,
 }: KeyboardHideOrShowProps = {}) {
-  // const navigation = useNavigation();
-  // const _keyboardDidShow = useCallback(() => {
-  //   navigation.setOptions({
-  //     tabBarVisible: false,
-  //   });
-  // }, [navigation]);
-
-  // const _keyboardDidHide = useCallback(() => {
-  //   navigation.setOptions({
-  //     tabBarVisible: true,
-  //   });
-  // }, [navigation]);
-
   useEffect(() => {
     if (onShow) Keyboard.addListener("keyboardDidShow", onShow);
     if (onHide) Keyboard.addListener("keyboardDidHide", onHide);

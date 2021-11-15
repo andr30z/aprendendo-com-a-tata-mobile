@@ -17,7 +17,6 @@ export function useActivityList() {
     baseApi
       .get<ActivityApiResponse>(baseApiRoutes.ACTIVITIES)
       .then((res) => {
-        console.log("fazendo a requisição");
         setActivities(res.data.activities);
       })
       .catch((e) => console.log(e))

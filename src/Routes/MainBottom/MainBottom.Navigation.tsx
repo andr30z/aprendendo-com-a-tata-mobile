@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { useWindowDimensions } from "react-native";
 import { WithIconContainer, WithStatusBar } from "../../Components";
-import { useBackHandler } from "../../Hooks/useBackHandler";
 import { ActivitySelection, ClassRoom, Settings, User } from "../../Pages";
 import {
   ClassRoom as ClassRoomIcon, Home,
@@ -32,7 +31,6 @@ const ClassRoomIconWithIconContainer = WithIconContainer(ClassRoomIcon);
  * @author andr3z0
  **/
 const MainBottomNavigation: React.FC = () => {
-  useBackHandler(false);
   const { width } = useWindowDimensions();
   return (
     <BottomTab.Navigator

@@ -1,12 +1,12 @@
+import { useIsFocused } from "@react-navigation/core";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
-import { View, Text } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useEffect, useState } from "react";
 import { PostItem } from "../../Components";
-import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useBackHandler } from "../../Hooks";
+import { Post } from "../../Interfaces/index";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
+import { baseApi, baseApiRoutes } from "../../Services";
 import { PostDetailsScrollView } from "./Styles";
 
 type Props = NativeStackScreenProps<
@@ -21,18 +21,25 @@ const PostDetails: React.FC<Props> = ({ navigation, route }) => {
   const {
     params: { post, primaryTheme, textTheme },
   } = route;
-  console.log(navigation.isFocused())
+  const [currentPost, setCurrentPost] = useState<Post | null>(null);
+  useEffect(() => {
+    baseApi.get<Post>(baseApiRoutes.POSTS + "/" + post._id).then((res) => {
+      console.log(res.data);
+      setCurrentPost(res.data);
+    });
+  }, []);
+  const focused = useIsFocused();
+  console.log(focused, "focused");
   useBackHandler(undefined, () => {
-    // console.log(navigation)
-    if (navigation.isFocused()) navigation.goBack();
-    return undefined;
+    navigation.goBack();
+    return true;
   });
   return (
-    <PostDetailsScrollView>
+    <PostDetailsScrollView contentContainerStyle={{ paddingBottom: 50 }}>
       <PostItem
         primaryTheme={primaryTheme}
         textTheme={textTheme}
-        post={post}
+        post={currentPost || post}
         isRenderedInPostDetailsPage
       />
     </PostDetailsScrollView>

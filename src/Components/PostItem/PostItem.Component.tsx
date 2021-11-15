@@ -81,7 +81,6 @@ const PostItem: React.FC<PostItemProps> = ({
   }, [post]);
 
   const goToActivityDetails = (activityId: string) => {
-    console.log(post.postActivityResult);
     const userPostActivityResult = post.postActivityResult?.find(
       (x) => x.user._id === user?._id
     );
@@ -90,6 +89,7 @@ const PostItem: React.FC<PostItemProps> = ({
       activityId,
       postActivityResult: userPostActivityResult,
       postId: post._id,
+      routeIndexToReturnOnFinish: 2,
     });
   };
   const postDate = useMemo(
