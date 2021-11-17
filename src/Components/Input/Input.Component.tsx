@@ -29,12 +29,12 @@ const Input: React.FC<BaseInputProps> = (props) => {
         {CustomInput ? (
           CustomInput
         ) : (
-          <BaseInput {...(props as any)} inputWidth="100%" inputHeight="100%" />
+          <BaseInput {...(props as any)} inputWidth="100%" inputHeight="100%"  ref={props.inputRef} />
         )}
         {appendComponent}
       </BaseContainer>
     );
-  return CustomInput ? <>{CustomInput}</> : <BaseInput {...(props as any)} />;
+  return CustomInput ? <>{CustomInput}</> : <BaseInput {...(props as any)} ref={props.inputRef} />;
 };
 
 export default Input;

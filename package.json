@@ -31,6 +31,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-freeze": "^1.0.0",
+    "react-hook-form": "^7.19.5",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-drax": "^0.7.2",
     "react-native-gesture-handler": "~1.10.2",

@@ -28,6 +28,8 @@ export interface BaseInputProps extends TextInputProps {
   wrapperStyles?: ViewStyle;
   appendComponent?: React.ReactNode;
   customComponent?: React.ReactNode;
+  inputRef?: React.Ref<TextInput>;
+  elevation?: number;
 }
 const marginPaddingConfig = ({
   marginLeft,
@@ -62,4 +64,5 @@ export const BaseInput = styled(TextInput)<BaseInputProps>`
   background-color: #fff;
   width: ${({ inputWidth }) => inputWidth || "190px"};
   height: ${({ inputHeight }) => inputHeight || "13%"};
+  elevation: ${({ elevation }) => (elevation ? elevation : 0)};
 `;

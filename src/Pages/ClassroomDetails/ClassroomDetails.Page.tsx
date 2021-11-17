@@ -1,8 +1,10 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useRef } from "react";
 import { Pressable } from "react-native";
 import StickyParallaxHeader from "react-native-sticky-parallax-header";
+import { ClassroomForm } from "../../Components";
 import { ClassroomProvider, useClassroomContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
@@ -29,6 +31,7 @@ export const ClassroomDetails: React.FC<Props> = (props) => {
  **/
 const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
   const { classroom } = useClassroomContext();
+  const modalRef = useRef<BottomSheetModal>(null);
   if (!classroom) return null;
   return (
     <StickyParallaxHeader
@@ -70,7 +73,12 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
                 color={classroom.textColor}
               />
             </Pressable>
-            <Feather name="settings" size={30} color={classroom.textColor} />
+            <Feather
+              onPress={() => modalRef.current?.present()}
+              name="settings"
+              size={30}
+              color={classroom.textColor}
+            />
           </BaseContainer>
           <BaseText
             style={{ flex: 1, alignSelf: "center" }}
@@ -79,6 +87,7 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
           >
             Prof: {classroom.teacher.name}
           </BaseText>
+          <ClassroomForm modalSheetRef={modalRef} />
         </BaseContainer>
       )}
     />

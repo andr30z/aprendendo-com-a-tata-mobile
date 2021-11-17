@@ -14,3 +14,5 @@ export { default as CreatePost } from "./CreatePost/CreatePost.Component";
 export { default as PostItem } from "./PostItem/PostItem.Component";
 export { default as ActivityPostListing } from "./ActivityPostListing/ActivityPostListing.Component";
 export { default as ConfirmationModal } from "./ConfirmationModal/ConfirmationModal.Component";
+export { default as WithModal } from "./WithModal/WithModal.Component";
+export { default as ClassroomForm } from "./ClassroomForm/ClassroomForm.Component";
