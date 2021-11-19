@@ -16,10 +16,14 @@ export const Overlay = styled.View`
 export const styles = StyleSheet.create({
   container: {
     overflow: "hidden",
-    elevation: 0.5,
+    shadowColor: '#000',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 20
   },
   icon: {
-    flex: 1,
+    flex: 1
   },
   profile: {
     borderRadius: 0,

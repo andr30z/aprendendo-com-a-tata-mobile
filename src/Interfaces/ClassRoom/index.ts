@@ -2,9 +2,7 @@ import { FileType } from "../CommonInterfaces";
 import { ActivityCommonProps } from "../ActivityUtilsInterfaces";
 import { UserInterface } from "../User";
 
-export interface Teacher {
-  name: string;
-}
+export interface Teacher extends UserInterface {}
 
 export interface PostLikesItemInterface {
   _id: string;
@@ -16,7 +14,7 @@ export enum PostTypes {
   N = "N",
 }
 
-export interface Member extends UserInterface {}
+export interface Member extends UserInterface { }
 
 export interface ActivityAnswers {
   _id: string;

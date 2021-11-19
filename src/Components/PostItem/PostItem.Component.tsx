@@ -22,6 +22,7 @@ import { Post, PostTypes } from "../../Interfaces/index";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 import { baseApi, baseApiRoutes } from "../../Services";
+import { formatFilePathUrl } from "../../Utils";
 import ActivityItem from "../ActivityItem/ActivityItem.Component";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component";
 import ProfilePhoto from "../ProfilePhoto/ProfilePhoto.Component";
@@ -154,7 +155,7 @@ const PostItem: React.FC<PostItemProps> = ({
               size={40}
               source={{
                 uri:
-                  post.author.profilePhoto?.filePreview || "https://imgur.com/H5PWtBp.png",
+                  formatFilePathUrl(post.author.profilePhoto?.path) || "https://imgur.com/H5PWtBp.png",
               }}
             />
             <BaseContainer width={`${width * 0.7}px`} flexDirection="column">

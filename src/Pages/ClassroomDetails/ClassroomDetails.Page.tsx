@@ -1,7 +1,7 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useRef } from "react";
+import React, { useRef, useMemo, useCallback } from "react";
 import { Pressable } from "react-native";
 import StickyParallaxHeader from "react-native-sticky-parallax-header";
 import { ClassroomForm } from "../../Components";
@@ -33,6 +33,18 @@ export const ClassroomDetails: React.FC<Props> = (props) => {
 const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
   const { classroom } = useClassroomContext();
   const modalRef = useRef<BottomSheetModal>(null);
+  const classroomEditObject = useMemo(
+    () => ({
+      ...classroom,
+      devicePhotoURI: "",
+      teacherId:classroom?.teacher._id,
+      classPhoto: classroom?.classPhoto?.path || "",
+    }),
+    [classroom]
+  );
+  const onSuccessSaveCallback = useCallback(() => {
+    modalRef.current?.close();
+  }, []);
   if (!classroom) return null;
   console.log(classroom?.classPhoto);
   return (
@@ -95,7 +107,11 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
           >
             Prof: {classroom.teacher.name}
           </BaseText>
-          <ClassroomForm modalSheetRef={modalRef} />
+          <ClassroomForm
+            classroom={classroomEditObject as any}
+            onSuccessSave={onSuccessSaveCallback}
+            modalSheetRef={modalRef}
+          />
         </BaseContainer>
       )}
     />

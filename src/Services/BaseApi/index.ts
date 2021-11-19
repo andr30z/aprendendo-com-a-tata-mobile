@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Axios from "axios";
 
-export const DEFAULT_URL = "http://192.168.1.64:8080/api";
+export const DEFAULT_URL = "http://192.168.1.3:8080/api";
 
 export const ASYNC_STORAGE_COOKIE_KEY = "app_auth_cookies";
 export const baseApi = Axios.create({

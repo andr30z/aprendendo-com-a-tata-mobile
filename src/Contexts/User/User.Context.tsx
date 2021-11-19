@@ -47,9 +47,6 @@ export const UserProvider: React.FC = ({ children }) => {
     baseApi.interceptors.response.use(
       (response) => response,
       async (error) => {
-        // return Promise.reject(error);
-        console.log(error.response+"PORRRAAA");
-        
         const originalRequest = error?.config;
         // Prevent infinite loops
         if (

@@ -2,11 +2,7 @@ import React, { useMemo } from "react";
 import { useWindowDimensions } from "react-native";
 import {
   Fade,
-  Placeholder,
-  PlaceholderLine,
-  PlaceholderMedia,
-  Shine,
-  ShineOverlay,
+  Placeholder, PlaceholderMedia
 } from "rn-placeholder";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";

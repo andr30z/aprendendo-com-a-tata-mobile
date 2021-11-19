@@ -22,6 +22,7 @@ import {
   PostTypes,
 } from "../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../Services";
+import { formatFilePathUrl } from "../../Utils";
 import ActivityPostListing from "../ActivityPostListing/ActivityPostListing.Component";
 import Button from "../Button/Button.Component";
 import Input from "../Input/Input.Component";
@@ -143,7 +144,8 @@ const CreatePost: React.FC<CreatePostProps> = ({
                     size={50}
                     source={{
                       uri:
-                        user?.profilePhoto || "https://imgur.com/H5PWtBp.png",
+                        formatFilePathUrl(user?.profilePhoto?.path) ||
+                        "https://imgur.com/H5PWtBp.png",
                     }}
                   />
                   <BaseTextWithCenterAlign
