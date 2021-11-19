@@ -16,3 +16,4 @@ export { default as ActivityPostListing } from "./ActivityPostListing/ActivityPo
 export { default as ConfirmationModal } from "./ConfirmationModal/ConfirmationModal.Component";
 export { default as WithModal } from "./WithModal/WithModal.Component";
 export { default as ClassroomForm } from "./ClassroomForm/ClassroomForm.Component";
+export { default as ProfilePhotoWithOverlay } from "./ProfilePhotoWithOverlay/ProfilePhotoWithOverlay.Component";

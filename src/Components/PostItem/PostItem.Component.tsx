@@ -154,7 +154,7 @@ const PostItem: React.FC<PostItemProps> = ({
               size={40}
               source={{
                 uri:
-                  post.author.profilePhoto || "https://imgur.com/H5PWtBp.png",
+                  post.author.profilePhoto?.filePreview || "https://imgur.com/H5PWtBp.png",
               }}
             />
             <BaseContainer width={`${width * 0.7}px`} flexDirection="column">

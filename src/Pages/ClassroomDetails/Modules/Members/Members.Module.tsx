@@ -85,7 +85,7 @@ const Members: React.FC<MembersProps> = ({ members }) => {
                   size={80}
                   style={[styles.alignSelf, styles.profileStyles]}
                   source={{
-                    uri: member.profilePhoto || "https://imgur.com/H5PWtBp.png",
+                    uri: member.profilePhoto?.filePreview || "https://imgur.com/H5PWtBp.png",
                   }}
                 />
                 <Badge extraTextStyles={styles.badgeMemberFontStyle} pill textColor="#f7cc7f" textAlign="center">

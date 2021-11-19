@@ -1,3 +1,4 @@
+import { FileType } from "../CommonInterfaces";
 import { ActivityCommonProps } from "../ActivityUtilsInterfaces";
 import { UserInterface } from "../User";
 
@@ -59,6 +60,6 @@ export interface ClassRoomInterface {
   code: string;
   color: string;
   tags: Array<string>;
-  classPhoto?: string;
+  classPhoto?: FileType;
   textColor?: string;
 }

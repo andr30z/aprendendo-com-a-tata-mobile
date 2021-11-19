@@ -47,16 +47,19 @@ export const UserProvider: React.FC = ({ children }) => {
     baseApi.interceptors.response.use(
       (response) => response,
       async (error) => {
-        const originalRequest = error.config;
+        // return Promise.reject(error);
+        console.log(error.response+"PORRRAAA");
+        
+        const originalRequest = error?.config;
         // Prevent infinite loops
         if (
-          error.response.status === 401 &&
-          originalRequest.url === baseApiRoutes.REFRESH
+          error?.response?.status === 401 &&
+          originalRequest?.url === baseApiRoutes.REFRESH
         ) {
           setUser(null);
           return Promise.reject(error);
         }
-        if (error.response.status === 401) {
+        if (error?.response?.status === 401) {
           const tokens = await AsyncStorage.getItem(ASYNC_STORAGE_COOKIE_KEY);
 
           if (tokens) {

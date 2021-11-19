@@ -22,6 +22,8 @@ export const baseApiRoutes = {
   START_POST_ACTIVITY: (postId: string) => `v1/posts/${postId}/start-activity`,
   POSTS: "v1/posts",
   POSTS_BY_CLASSES: (classId: string) => `v1/classrooms/${classId}/posts`,
+  FILE_PREVIEW: "v1/files?path=",
+  FILE_UPLOAD: "v1/files/upload",
 };
 
 //set cookie authentication on every request

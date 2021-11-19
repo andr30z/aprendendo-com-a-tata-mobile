@@ -2,7 +2,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosResponse } from "axios";
 import { USER_ASYNC_STORAGE_KEY } from "../../Contexts/User/Constants";
 import { UserInterface } from "../../Interfaces/index";
-import { ASYNC_STORAGE_COOKIE_KEY } from "../../Services";
+import {
+  ASYNC_STORAGE_COOKIE_KEY,
+  baseApiRoutes,
+  DEFAULT_URL,
+} from "../../Services";
 
 /**
  * Create token and credentials from user inside AsyncStorage.
@@ -23,4 +27,9 @@ export async function clearTokenAndCredentials() {
     ASYNC_STORAGE_COOKIE_KEY,
     USER_ASYNC_STORAGE_KEY,
   ]);
+}
+
+export function formatFilePathUrl(path?: string) {
+  if (!path) return;
+  return DEFAULT_URL + "/" + baseApiRoutes.FILE_PREVIEW + path;
 }

@@ -1,13 +1,18 @@
 import { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   BaseContainer,
   ScrollContainer,
 } from "../../GlobalStyles/Containers.Style";
 import { SharedWithModalProps } from "../../Interfaces/WithModal";
+import { formatFilePathUrl } from "../../Utils";
 import Input from "../Input/Input.Component";
+import ProfilePhotoWithOverlay from "../ProfilePhotoWithOverlay/ProfilePhotoWithOverlay.Component";
 import WithModal from "../WithModal/WithModal.Component";
+import { styles } from "./Styles";
+import * as ImagePicker from "expo-image-picker";
+import { baseApi, baseApiRoutes } from "../../Services";
 interface ClassroomProps extends SharedWithModalProps {}
 interface FormFields {
   teacherId: string;
@@ -16,14 +21,15 @@ interface FormFields {
   description: string;
   color: string;
   textColor: string;
+  devicePhotoURI: string;
   //   tags: Array<string>;
 }
 const ClassroomFormWithModal = WithModal(({ modalSheetRef }) => {
   const {
-    register,
     setValue,
     control,
     getValues,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<FormFields>({
@@ -32,11 +38,43 @@ const ClassroomFormWithModal = WithModal(({ modalSheetRef }) => {
       textColor: "#fff",
       name: "",
       description: "",
+      classPhoto: "",
+      devicePhotoURI: "",
     },
   });
+  const onPressProfilePhoto = useCallback(async () => {
+    const file = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (file.cancelled) return;
+    console.log(file);
+    const formData = new FormData();
+    const name = file.uri.split("/").pop();
+    if (!name) return;
+    formData.append("file", {
+      uri: file.uri,
+      name,
+      type: "multipart/form-data",
+    } as any);
+    baseApi
+      .post<{ path: string }>(baseApiRoutes.FILE_UPLOAD, formData)
+      .then((res) => {
+        setValue("devicePhotoURI", file.uri, { shouldValidate: true });
+        setValue("classPhoto", res.data.path);
+        console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e + "EEEEEE");
+      });
+  }, []);
 
   const classColor = getValues("color");
-
+  const classPhoto = getValues("classPhoto");
+  const deviceUri = getValues("devicePhotoURI");
+  console.log(deviceUri);
   return (
     <ScrollContainer style={{ paddingBottom: 30 }}>
       <BaseContainer
@@ -50,15 +88,21 @@ const ClassroomFormWithModal = WithModal(({ modalSheetRef }) => {
           borderTopLeftRadius: 15,
         }}
       >
+        <ProfilePhotoWithOverlay
+          onPress={onPressProfilePhoto}
+          size={100}
+          source={{ uri: deviceUri }}
+        />
         <Controller
           control={control}
           name="name"
           render={({ field: { ref, ...rest } }) => (
             <Input
               elevation={4}
-              inputHeight={"40px"}
+              inputHeight={"33px"}
               inputWidth={"65%"}
               {...rest}
+              style={styles.classNameInput}
               inputRef={ref}
               placeholder="Nome da classe"
             />

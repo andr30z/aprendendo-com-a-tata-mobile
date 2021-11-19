@@ -10,6 +10,7 @@ import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
+import { baseApiRoutes, DEFAULT_URL } from "../../Services";
 import { Members, Post } from "./Modules";
 
 type Props = NativeStackScreenProps<
@@ -33,6 +34,7 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
   const { classroom } = useClassroomContext();
   const modalRef = useRef<BottomSheetModal>(null);
   if (!classroom) return null;
+  console.log(classroom?.classPhoto);
   return (
     <StickyParallaxHeader
       title={classroom.name}
@@ -44,7 +46,13 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
         backgroundColor: "#d6d6d6",
         paddingVertical: 50,
       }}
-      foregroundImage={{ uri: classroom.classPhoto }}
+      foregroundImage={{
+        uri:
+          DEFAULT_URL +
+          "/" +
+          baseApiRoutes.FILE_PREVIEW +
+          classroom.classPhoto?.path,
+      }}
       backgroundColor={classroom.color}
       headerType="TabbedHeader"
       tabs={[

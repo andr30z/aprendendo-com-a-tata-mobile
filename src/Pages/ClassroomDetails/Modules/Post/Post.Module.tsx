@@ -68,7 +68,7 @@ const Post: React.FC = () => {
                 <ProfileImage
                   size={35}
                   source={{
-                    uri: user?.profilePhoto || "https://imgur.com/H5PWtBp.png",
+                    uri: user?.profilePhoto?.filePreview || "https://imgur.com/H5PWtBp.png",
                   }}
                 />
                 <Pressable
