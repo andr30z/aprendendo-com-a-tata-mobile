@@ -8,35 +8,39 @@ export const TouchableClassContainer = styled.TouchableOpacity`
 `;
 
 export const styles = StyleSheet.create({
-    classNameInput: {
-        marginTop: 10,
+  classNameInput: {
+    marginTop: 10,
+  },
+  baseContainer: {
+    borderRadius: 0,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
+  },
+  closeIcon: {
+    top: 10,
+    zIndex: 20,
+    left: 10,
+    position: "absolute",
+  },
+  btnSubmitContainer: {
+    bottom: 10,
+    zIndex: 20,
+    position: "absolute",
+  },
+  btnSubmit: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    baseContainer: {
-        borderRadius: 0,
-        borderTopRightRadius: 15,
-        borderTopLeftRadius: 15,
-    },
-    closeIcon: {
-        top: 10,
-        zIndex: 20,
-        left: 10,
-        position: "absolute",
-    },
-    btnSubmitContainer: {
-        bottom: 10,
-        zIndex: 20,
-        position: "absolute",
-    },
-    btnSubmit: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 5,
-
-    }
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  iconDelete: {
+    position: "absolute",
+    right: 13,
+    top: 10,
+    zIndex:5
+  },
 });

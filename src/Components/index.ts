@@ -20,3 +20,4 @@ export { default as ClassroomFormFields } from "./ClassroomFormFields/ClassroomF
 export { default as ProfilePhotoWithOverlay } from "./ProfilePhotoWithOverlay/ProfilePhotoWithOverlay.Component";
 export { default as WithSpinner } from "./WithSpinner/WithSpinner.Component";
 export { default as ColorSelect } from "./ColorSelect/ColorSelect.Component";
+export { default as ErrorComponent } from "./ErrorComponent/ErrorComponent.Component";

@@ -1,23 +1,32 @@
 import { EvilIcons } from "@expo/vector-icons";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import * as ImagePicker from "expo-image-picker";
-import React, { useCallback } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { ActivityIndicator } from "react-native";
+import Toast from "react-native-toast-message";
 import { Fade, Placeholder, PlaceholderMedia } from "rn-placeholder";
-import Button from "../Button/Button.Component";
+import * as yup from "yup";
+import { useUserContext } from "../../Contexts";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useBoolean, useCancellablePromise } from "../../Hooks";
+import { useFileUpload } from "../../Hooks";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { formatFilePathUrl } from "../../Utils";
+import Button from "../Button/Button.Component";
 import ColorSelect, {
   defaultColorSelectItems,
 } from "../ColorSelect/ColorSelect.Component";
+import ErrorComponent from "../ErrorComponent/ErrorComponent.Component";
 import Input from "../Input/Input.Component";
 import ProfilePhotoWithOverlay from "../ProfilePhotoWithOverlay/ProfilePhotoWithOverlay.Component";
 import WithModal from "../WithModal/WithModal.Component";
 import WithSpinner from "../WithSpinner/WithSpinner.Component";
 import { styles } from "./Styles";
-
+const schema = yup.object().shape({
+  classPhoto: yup.string().required("A foto da classe é obrigatória!"),
+  description: yup.string().required("A descrição é obrigatória!"),
+  name: yup.string().required("O nome da classe é obrigatório!"),
+});
 export interface FormFields {
   teacherId: string;
   name: string;
@@ -31,6 +40,7 @@ export interface FormFields {
 export interface ClassroomFormFieldsProps {
   classroom?: FormFields;
   onSuccessSave?: () => void;
+  onSuccessDelete?: () => void;
 }
 
 const ProfilePhotoWithSpinner = WithSpinner(ProfilePhotoWithOverlay, () => (
@@ -47,13 +57,14 @@ const ProfilePhotoWithSpinner = WithSpinner(ProfilePhotoWithOverlay, () => (
   </Placeholder>
 ));
 const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
-  ({ modalSheetRef, classroom, onSuccessSave }) => {
+  ({ modalSheetRef, classroom, onSuccessSave, onSuccessDelete }) => {
+    const { user } = useUserContext();
     const {
       setValue,
       control,
       getValues,
       handleSubmit,
-      formState: { errors },
+      formState: { errors, isSubmitting },
     } = useForm<FormFields>({
       defaultValues: classroom || {
         color: "#9188E5",
@@ -62,41 +73,29 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
         description: "",
         classPhoto: "",
         devicePhotoURI: "",
+        teacherId: user?._id,
       },
+      mode: "all",
+      resolver: yupResolver(schema),
     });
-    const { cancellablePromise } = useCancellablePromise();
-    const { setTrue, setFalse, value } = useBoolean(false);
-    const onPressProfilePhoto = useCallback(async () => {
-      const file = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-      if (file.cancelled) return;
-      const formData = new FormData();
-      const name = file.uri.split("/").pop();
-      if (!name) return;
-      formData.append("file", {
-        uri: file.uri,
-        name,
-        type: "multipart/form-data",
-      } as any);
-      setTrue();
-      cancellablePromise(
-        baseApi.post<{ path: string }>(baseApiRoutes.FILE_UPLOAD, formData)
-      )
-        .then((res) => {
-          setValue("devicePhotoURI", file.uri, { shouldValidate: true });
-          setValue("classPhoto", res.data.path);
-          console.log(res.data);
-          setFalse();
+    const { onSubmitUpload, isLoadingFile } = useFileUpload((res, file) => {
+      setValue("devicePhotoURI", file.uri, { shouldValidate: true });
+      setValue("classPhoto", res.data.path);
+    });
+    const onDelete = () => {
+      baseApi
+        .delete(baseApiRoutes.CLASSROOMS + "/" + _id)
+        .then((_) => {
+          Toast.show({ text1: "Classe deletada com sucesso!" });
+          if (onSuccessDelete) onSuccessDelete();
         })
-        .catch((e) => {
-          setFalse();
-        });
-    }, []);
-
+        .catch((e) =>
+          Toast.show({
+            type: "error",
+            text1: "Ocorreu um erro ao deletar a classe",
+          })
+        );
+    };
     const onSubmit = (fields: FormFields) => {
       const route = fields._id
         ? baseApiRoutes.CLASSROOMS + "/" + fields._id
@@ -112,7 +111,7 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
           console.log(res.data);
         })
         .catch((e) => {
-          console.log(e.response);
+          console.log(e.response.data, "ON SUB");
         });
     };
 
@@ -120,11 +119,12 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
       setValue(key as any, color, { shouldValidate: true });
     };
 
-    const { classPhoto, devicePhotoURI, color, textColor } = getValues();
+    const { classPhoto, devicePhotoURI, color, textColor, _id } = getValues();
     const uri =
       classPhoto && !devicePhotoURI
         ? formatFilePathUrl(classPhoto)
         : devicePhotoURI;
+    console.log(errors, getValues());
     return (
       <BaseContainer flex={1}>
         <EvilIcons
@@ -134,31 +134,52 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
           size={50}
           color="#fff"
         />
+        {_id && (
+          <EvilIcons
+            style={styles.iconDelete}
+            name="trash"
+            size={50}
+            onPress={onDelete}
+            color="#fff"
+          />
+        )}
         <BottomSheetScrollView style={[{ paddingBottom: 100 }]}>
           <BaseContainer
-            height="200px"
+            height="260px"
             style={styles.baseContainer}
             align="center"
             justify="center"
             flexDirection="column"
             backgroundColor={color}
           >
-            <ProfilePhotoWithSpinner
-              isLoading={value}
-              spinnerSize={100}
-              spinnerColor="#fff"
-              onPress={onPressProfilePhoto}
-              size={100}
-              source={{ uri: uri }}
-            />
+            <BaseContainer
+              height="110px"
+              flex={0.5}
+              flexDirection="column"
+              justify="center"
+              align="center"
+            >
+              <ProfilePhotoWithSpinner
+                isLoading={isLoadingFile}
+                onPress={onSubmitUpload}
+                spinnerSize={100}
+                spinnerColor="#fff"
+                size={100}
+                source={{ uri: uri }}
+              />
+              <ErrorComponent error={errors.classPhoto?.message} />
+            </BaseContainer>
             <Controller
               control={control}
               name="name"
-              render={({ field: { ref, ...rest } }) => (
+              render={({ field: { ref, onChange, ...rest } }) => (
                 <Input
                   elevation={4}
+                  error={errors.name?.message}
                   inputHeight={"33px"}
+                  withWrapper
                   inputWidth={"65%"}
+                  onChangeText={(text) => onChange(text)}
                   {...rest}
                   style={styles.classNameInput}
                   inputRef={ref}
@@ -171,10 +192,14 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
             <Controller
               control={control}
               name="description"
-              render={({ field: { ref, ...rest } }) => (
+              render={({ field: { ref, onChange, ...rest } }) => (
                 <Input
                   elevation={4}
+                  withWrapper
+                  error={errors.description?.message}
+                  wrapperStyles={{ flexDirection: "column" }}
                   inputHeight={"40px"}
+                  onChangeText={(text) => onChange(text)}
                   inputWidth={"100%"}
                   {...rest}
                   inputRef={ref}
@@ -207,12 +232,17 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
           style={styles.btnSubmitContainer}
         >
           <Button
+            disabled={isSubmitting}
             containerStyles={styles.btnSubmit}
             onPress={handleSubmit(onSubmit)}
             buttonHeight="40px"
-            buttonTitle="Salvar"
             backgroundColor={color}
-          />
+            buttonTitle={isSubmitting ? undefined : "Publicar"}
+          >
+            {isSubmitting && (
+              <ActivityIndicator color={color || "white"} size={20} />
+            )}
+          </Button>
         </BaseContainer>
       </BaseContainer>
     );

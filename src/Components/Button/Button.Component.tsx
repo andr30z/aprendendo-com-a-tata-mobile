@@ -12,6 +12,7 @@ interface ButtonProps {
   onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
   textStyles?: BaseTextProps;
   containerStyles?: ViewStyle;
+  disabled?: boolean;
 }
 
 /**
@@ -28,11 +29,13 @@ const Button: React.FC<BaseButtonProps & ButtonProps> = ({
   textStyles,
   containerStyles,
   children,
+  disabled,
   ...rest
 }) => {
   return (
     <BaseButton
       onPress={onPress}
+      disabled={disabled}
       {...(rest as any)}
       style={[
         containerStyles,

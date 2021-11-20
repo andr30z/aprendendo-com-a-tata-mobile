@@ -15,6 +15,7 @@ const ClassroomForm: React.FC<ClassroomProps & ClassroomFormFieldsProps> = ({
   children,
   classroom,
   onSuccessSave,
+  onSuccessDelete
 }) => {
   const props = useMemo(
     () => ({
@@ -44,6 +45,7 @@ const ClassroomForm: React.FC<ClassroomProps & ClassroomFormFieldsProps> = ({
       classroom={classroom}
       onSuccessSave={onSuccessSave}
       withModalProps={props}
+      onSuccessDelete={onSuccessDelete}
     />
   );
 };

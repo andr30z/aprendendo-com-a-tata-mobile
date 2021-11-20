@@ -25,7 +25,7 @@ const Post: React.FC = () => {
   const [posts, setPosts] = useState<Array<PostInterface>>([]);
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [classroom]);
   const openCreatePostModal =
     (sheetRef: React.RefObject<BottomSheetModalMethods>) => () => {
       if (sheetRef.current) sheetRef.current.present();
@@ -40,11 +40,12 @@ const Post: React.FC = () => {
       )
     )
       .then((res) => {
+        console.log(res.data+"post");
         setPosts(res.data.posts.reverse());
         setFalse();
       })
       .catch(setFalse);
-  }, [classroom?._id]);
+  }, [classroom]);
   return (
     <BaseContainer backgroundColor="#d6d6d6" paddingVertical="20px">
       {userIsTeacher && (
@@ -68,7 +69,9 @@ const Post: React.FC = () => {
                 <ProfileImage
                   size={40}
                   source={{
-                    uri: formatFilePathUrl(user?.profilePhoto?.path) || "https://imgur.com/H5PWtBp.png",
+                    uri:
+                      formatFilePathUrl(user?.profilePhoto?.path) ||
+                      "https://imgur.com/H5PWtBp.png",
                   }}
                 />
                 <Pressable
@@ -80,7 +83,6 @@ const Post: React.FC = () => {
                   </PostText>
                 </Pressable>
               </BaseContainer>
-
             </PostModuleContainer>
           )}
         </CreatePost>

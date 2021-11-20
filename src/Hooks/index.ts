@@ -5,3 +5,4 @@ export { useScreenOrientation } from "./useScreenOrientation";
 export { useBoolean } from "./useBoolean";
 export { useActivityList } from "./useActivityList";
 export * from "./useCancellablePromise";
+export * from "./useFileUpload";

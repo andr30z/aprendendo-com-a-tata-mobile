@@ -1,16 +1,17 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useRef, useMemo, useCallback } from "react";
-import { Pressable } from "react-native";
+import React, { useCallback, useMemo, useRef } from "react";
+import { Pressable, RefreshControl } from "react-native";
 import StickyParallaxHeader from "react-native-sticky-parallax-header";
 import { ClassroomForm } from "../../Components";
 import { ClassroomProvider, useClassroomContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
+import { useBoolean } from "../../Hooks";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
-import { baseApiRoutes, DEFAULT_URL } from "../../Services";
+import { formatFilePathUrl } from "../../Utils";
 import { Members, Post } from "./Modules";
 
 type Props = NativeStackScreenProps<
@@ -31,20 +32,24 @@ export const ClassroomDetails: React.FC<Props> = (props) => {
  * @author andr3z0
  **/
 const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
-  const { classroom } = useClassroomContext();
+  const { classroom, getClassroom, textTheme, primaryTheme } =
+    useClassroomContext();
   const modalRef = useRef<BottomSheetModal>(null);
   const classroomEditObject = useMemo(
     () => ({
       ...classroom,
       devicePhotoURI: "",
-      teacherId:classroom?.teacher._id,
+      teacherId: classroom?.teacher._id,
       classPhoto: classroom?.classPhoto?.path || "",
     }),
     [classroom]
   );
+  const { value: isRefreshing, setTrue, setFalse } = useBoolean();
   const onSuccessSaveCallback = useCallback(() => {
+    getClassroom();
     modalRef.current?.close();
-  }, []);
+  }, [getClassroom]);
+  const onDelete = useCallback(() => navigation.goBack(), []);
   if (!classroom) return null;
   console.log(classroom?.classPhoto);
   return (
@@ -54,19 +59,30 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
       parallaxHeight={190}
       bounces={true}
       decelerationRate={5}
+      refreshControl={
+        <RefreshControl
+          colors={[primaryTheme] as any}
+          refreshing={isRefreshing}
+          onRefresh={() => {
+            setTrue();
+            getClassroom(setFalse);
+          }}
+        />
+      }
       contentContainerStyles={{
         backgroundColor: "#d6d6d6",
         paddingVertical: 50,
       }}
       foregroundImage={{
-        uri:
-          DEFAULT_URL +
-          "/" +
-          baseApiRoutes.FILE_PREVIEW +
-          classroom.classPhoto?.path,
+        uri: formatFilePathUrl(classroom.classPhoto?.path),
       }}
       backgroundColor={classroom.color}
       headerType="TabbedHeader"
+      tabTextActiveStyle={{
+        backgroundColor: textTheme,
+        color: primaryTheme,
+        borderRadius: 20,
+      }}
       tabs={[
         { content: <Post />, title: "Posts" },
         { content: <Members members={classroom.members} />, title: "Membros" },
@@ -111,6 +127,7 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
             classroom={classroomEditObject as any}
             onSuccessSave={onSuccessSaveCallback}
             modalSheetRef={modalRef}
+            onSuccessDelete={onDelete}
           />
         </BaseContainer>
       )}

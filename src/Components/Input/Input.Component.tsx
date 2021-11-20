@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorComponent from "../ErrorComponent/ErrorComponent.Component";
 import { BaseInput, BaseInputProps } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
@@ -7,7 +8,7 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
  * @author andr3z0
  **/
 const Input: React.FC<BaseInputProps> = (props) => {
-  const { withWrapper, wrapperStyles, appendComponent } = props;
+  const { withWrapper, wrapperStyles, appendComponent, error } = props;
   const defineWidthAndHeight = (inputOrHeight: string | number | undefined) => {
     return typeof inputOrHeight === "number"
       ? `${inputOrHeight}px`
@@ -29,12 +30,22 @@ const Input: React.FC<BaseInputProps> = (props) => {
         {CustomInput ? (
           CustomInput
         ) : (
-          <BaseInput {...(props as any)} inputWidth="100%" inputHeight="100%"  ref={props.inputRef} />
+          <BaseInput
+            {...(props as any)}
+            inputWidth="100%"
+            inputHeight="100%"
+            ref={props.inputRef}
+          />
         )}
         {appendComponent}
+        <ErrorComponent error={error} />
       </BaseContainer>
     );
-  return CustomInput ? <>{CustomInput}</> : <BaseInput {...(props as any)} ref={props.inputRef} />;
+  return CustomInput ? (
+    <>{CustomInput}</>
+  ) : (
+    <BaseInput {...(props as any)} ref={props.inputRef} />
+  );
 };
 
 export default Input;

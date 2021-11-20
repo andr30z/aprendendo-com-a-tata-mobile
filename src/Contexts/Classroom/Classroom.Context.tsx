@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import {
   ClassRoomInterface,
   SetStateInterface,
@@ -9,6 +15,7 @@ type ClassRoomComposition = ClassRoomInterface | null;
 interface ClassroomContextInterface {
   classroom: ClassRoomComposition;
   setClassroom: SetStateInterface<ClassRoomComposition>;
+  getClassroom: (onFinishCallback?: () => void) => void;
 }
 
 const ClassroomContext = createContext<ClassroomContextInterface>(
@@ -20,12 +27,19 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
   classId,
 }) => {
   const [classroom, setClassroom] = useState<ClassRoomComposition>(null);
+  const getClassroom = useCallback(
+    (onFinishCallback?: () => void) => {
+      baseApi
+        .get<ClassRoomInterface>(baseApiRoutes.CLASSROOMS + "/" + classId)
+        .then((res) => {
+          setClassroom(res.data);
+          if (onFinishCallback) onFinishCallback();
+        });
+    },
+    [classId]
+  );
   useEffect(() => {
-    baseApi
-      .get<ClassRoomInterface>(baseApiRoutes.CLASSROOMS + "/" + classId)
-      .then((res) => {
-        setClassroom(res.data);
-      });
+    getClassroom();
   }, []);
 
   return (
@@ -33,6 +47,7 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
       value={{
         classroom,
         setClassroom,
+        getClassroom,
       }}
     >
       {children}
@@ -41,7 +56,8 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
 };
 
 export function useClassroomContext() {
-  const { classroom, setClassroom } = useContext(ClassroomContext);
+  const { classroom, setClassroom, getClassroom } =
+    useContext(ClassroomContext);
   const primaryTheme = classroom?.color;
   const textTheme = classroom?.textColor;
 
@@ -50,5 +66,6 @@ export function useClassroomContext() {
     setClassroom,
     primaryTheme,
     textTheme,
+    getClassroom,
   };
 }

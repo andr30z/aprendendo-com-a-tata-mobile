@@ -1,16 +1,17 @@
+import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { TouchableHighlight } from "react-native-gesture-handler";
 import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { ClassRoomInterface, UserType } from "../../Interfaces/index";
-import { TouchableClassContainer } from "./Styles";
-import { FontAwesome } from "@expo/vector-icons";
-import Badge from "../Badge/Badge.Component";
-import { useNavigation } from "@react-navigation/core";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { ClassRoomInterface } from "../../Interfaces/index";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
+import { formatFilePathUrl } from "../../Utils";
+import Badge from "../Badge/Badge.Component";
+import ProfilePhoto from "../ProfilePhoto/ProfilePhoto.Component";
+import { TouchableClassContainer } from "./Styles";
 
 interface ClassRoomItemProps {
   classRoom: ClassRoomInterface;
@@ -60,15 +61,25 @@ const ClassRoomItem: React.FC<ClassRoomItemProps> = ({ classRoom }) => {
             justify="space-between"
             flex={1}
           >
-            <BaseText fontSize={"20px"} color={textStyleColor}>
-              {classRoom.name} {!userIsTeacher && `Prof: ${teacher.name}`}
-            </BaseText>
+            <BaseContainer flexDirection="row" align="center">
+              <ProfilePhoto
+                size={50}
+                source={{ uri: formatFilePathUrl(classRoom.classPhoto?.path) }}
+              />
+              <BaseText
+                marginLeft="15px"
+                fontSize={"20px"}
+                color={textStyleColor}
+              >
+                {classRoom.name} {!userIsTeacher && `Prof: ${teacher.name}`}
+              </BaseText>
+            </BaseContainer>
             <BaseContainer flexDirection="row">
               <FontAwesome name="child" size={20} color={textStyleColor} />
               <BaseText marginLeft="7px" color={textStyleColor}>
                 {classRoom.members.length}
               </BaseText>
-              <FontAwesome
+              {/* <FontAwesome
                 style={{ marginLeft: 10 }}
                 name="wpforms"
                 size={22}
@@ -76,7 +87,7 @@ const ClassRoomItem: React.FC<ClassRoomItemProps> = ({ classRoom }) => {
               />
               <BaseText marginLeft="7px" color={textStyleColor}>
                 {classRoom.members.length}
-              </BaseText>
+              </BaseText> */}
             </BaseContainer>
           </BaseContainer>
           <BaseContainer flexDirection={"row"} width="100%">
@@ -100,7 +111,13 @@ const ClassRoomItem: React.FC<ClassRoomItemProps> = ({ classRoom }) => {
           marginTop="10px"
           marginBottom="10px"
         >
-          <BaseText color={textStyleColor}>{classRoom.description}</BaseText>
+          <BaseText
+            numberOfLines={2.5}
+            ellipsizeMode="tail"
+            color={textStyleColor}
+          >
+            {classRoom.description}
+          </BaseText>
         </BaseContainer>
         <BaseContainer bottom={10} right="10px" position="absolute">
           <BaseText color={textStyleColor} fontSize={"11.4px"}>

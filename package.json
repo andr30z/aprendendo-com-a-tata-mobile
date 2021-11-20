@@ -12,6 +12,7 @@
     "@fawazahmed/react-native-read-more": "^2.2.0",
     "@gorhom/bottom-sheet": "^4",
     "@gorhom/portal": "^1.0.11",
+    "@hookform/resolvers": "^2.8.3",
     "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-native-community/checkbox": "^0.5.8",
     "@react-native-community/masked-view": "0.1.10",
@@ -28,6 +29,7 @@
     "expo-linear-gradient": "~9.2.0",
     "expo-screen-orientation": "~3.3.0",
     "expo-status-bar": "~1.0.4",
+    "lodash": "^4.17.21",
     "lottie-react-native": "4.0.2",
     "moti": "^0.16.0",
     "react": "16.13.1",
@@ -47,11 +49,13 @@
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
     "rn-placeholder": "^3.0.3",
-    "styled-components": "^5.2.3"
+    "styled-components": "^5.2.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@babel/preset-typescript": "^7.15.0",
+    "@types/lodash": "^4.14.177",
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",

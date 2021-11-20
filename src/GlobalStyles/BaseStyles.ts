@@ -30,6 +30,7 @@ export interface BaseInputProps extends TextInputProps {
   customComponent?: React.ReactNode;
   inputRef?: React.Ref<TextInput>;
   elevation?: number;
+  error?: string;
 }
 const marginPaddingConfig = ({
   marginLeft,
