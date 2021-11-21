@@ -12,6 +12,7 @@ export interface UserInterface {
   email: string;
   name: string;
   profilePhoto?: FileType;
+  code: string;
   createdAt: Date;
   updatedAt: Date;
 }

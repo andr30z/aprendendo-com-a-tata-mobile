@@ -237,7 +237,7 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
             onPress={handleSubmit(onSubmit)}
             buttonHeight="40px"
             backgroundColor={color}
-            buttonTitle={isSubmitting ? undefined : "Publicar"}
+            buttonTitle={isSubmitting ? undefined : "Salvar"}
           >
             {isSubmitting && (
               <ActivityIndicator color={color || "white"} size={20} />

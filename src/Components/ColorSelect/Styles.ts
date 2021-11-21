@@ -21,7 +21,7 @@ export const TouchableColor = styled(TouchableOpacity) <TouchableColorInterface>
     box-shadow: 10px 5px 5px black;
     height: ${({ height }) => height + "px"};
     width: ${({ width }) => width + "px"};
-    borderRadius:${({ width }) => width / 2 + "px"}
+    borderRadius:${({ width }) => width / 2 + "px"};
     background-color: ${({ backgroundColor }) => backgroundColor}
 `;
 

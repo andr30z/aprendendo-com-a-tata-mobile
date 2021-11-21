@@ -21,3 +21,5 @@ export { default as ProfilePhotoWithOverlay } from "./ProfilePhotoWithOverlay/Pr
 export { default as WithSpinner } from "./WithSpinner/WithSpinner.Component";
 export { default as ColorSelect } from "./ColorSelect/ColorSelect.Component";
 export { default as ErrorComponent } from "./ErrorComponent/ErrorComponent.Component";
+export { default as UserForm } from "./UserForm/UserForm.Component";
+export { default as CardSelect } from "./CardSelect/CardSelect.Component";
