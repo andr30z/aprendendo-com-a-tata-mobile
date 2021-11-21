@@ -1,6 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import {
   SetStateInterface,
   UserInterface,
@@ -18,6 +24,7 @@ type UserComposition = UserInterface | null;
 interface UserContextInterface {
   user: UserComposition;
   setUser: SetStateInterface<UserComposition>;
+  logoutUser: () => void;
 }
 
 const UserContext = createContext<UserContextInterface>(
@@ -86,11 +93,18 @@ export const UserProvider: React.FC = ({ children }) => {
     getUserDataFromLocalStorage();
   }, []);
 
+  const logoutUser = useCallback(async () => {
+    baseApi.delete(baseApiRoutes.LOGOUT);
+    await AsyncStorage.removeItem(ASYNC_STORAGE_COOKIE_KEY);
+    setUser(null);
+  }, [user]);
+
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
+        logoutUser,
       }}
     >
       {children}
@@ -99,7 +113,7 @@ export const UserProvider: React.FC = ({ children }) => {
 };
 
 export function useUserContext() {
-  const { setUser, user } = useContext(UserContext);
+  const { setUser, user, logoutUser } = useContext(UserContext);
   const userIsTeacher = user?.type === UserType.T;
   const userIsChild = user?.type === UserType.C;
   const userIsResponsable = user?.type === UserType.R;
@@ -110,5 +124,6 @@ export function useUserContext() {
     userIsChild,
     userIsResponsable,
     userIsTeacher,
+    logoutUser,
   };
 }

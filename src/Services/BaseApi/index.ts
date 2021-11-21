@@ -16,6 +16,7 @@ export const baseApiRoutes = {
   LOGIN: "/v1/authentication/login",
   REFRESH: "/v1/authentication/refresh",
   REGISTER: "/v1/authentication/register",
+  LOGOUT:"/v1/authentication/logout",
   USERS: "/v1/users",
   ME: "v1/users/me",
   CLASSROOMS: "v1/classrooms",

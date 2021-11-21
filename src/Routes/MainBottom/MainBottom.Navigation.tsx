@@ -4,9 +4,10 @@ import { useWindowDimensions } from "react-native";
 import { WithIconContainer, WithStatusBar } from "../../Components";
 import { ActivitySelection, ClassRoom, Settings, User } from "../../Pages";
 import {
-  ClassRoom as ClassRoomIcon, Home,
+  ClassRoom as ClassRoomIcon,
+  Home,
   Settings as SettingsIcon,
-  User as UserIcon
+  User as UserIcon,
 } from "./Icons";
 import { MainBottomParamList } from "./Interfaces";
 import { TextBar } from "./Label";
@@ -19,7 +20,7 @@ const ActivitySelectionPageWithStatusBar = WithStatusBar(
   ActivitySelection,
   true
 );
-const SettingsPageWithStatusBar = WithStatusBar(Settings, true);
+const SettingsPageWithStatusBar = WithStatusBar(Settings);
 const ClassRoomWithStatusBar = WithStatusBar(ClassRoom, true);
 const HomeIconWithIconContainer = WithIconContainer(Home);
 const SettingsIconWithIconContainer = WithIconContainer(SettingsIcon);
@@ -56,20 +57,21 @@ const MainBottomNavigation: React.FC = () => {
       <BottomTab.Screen
         options={{
           headerShown: false,
-          tabBarLabel: (props) => <TextBar {...props} textLabel="Usuário" />,
-          tabBarIcon: UserIconWithIconContainer,
-        }}
-        name={ROUTES_NAME.USER}
-        component={UserPageWithStatusBar}
-      />
-      <BottomTab.Screen
-        options={{
-          headerShown: false,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Descobrir" />,
           tabBarIcon: HomeIconWithIconContainer,
         }}
         name={ROUTES_NAME.HOME}
         component={ActivitySelectionPageWithStatusBar}
+      />
+
+      <BottomTab.Screen
+        name={ROUTES_NAME.CLASS_ROOM}
+        component={ClassRoomWithStatusBar}
+        options={{
+          headerShown: false,
+          tabBarIcon: ClassRoomIconWithIconContainer,
+          tabBarLabel: (props) => <TextBar {...props} textLabel="Salas" />,
+        }}
       />
       <BottomTab.Screen
         name={ROUTES_NAME.SETTINGS}
@@ -80,15 +82,15 @@ const MainBottomNavigation: React.FC = () => {
           tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
         }}
       />
-      <BottomTab.Screen
-        name={ROUTES_NAME.CLASS_ROOM}
-        component={ClassRoomWithStatusBar}
+      {/* <BottomTab.Screen
         options={{
           headerShown: false,
-          tabBarIcon: ClassRoomIconWithIconContainer,
-          tabBarLabel: (props) => <TextBar {...props} textLabel="Salas" />,
+          tabBarLabel: (props) => <TextBar {...props} textLabel="Perfil" />,
+          tabBarIcon: UserIconWithIconContainer,
         }}
-      />
+        name={ROUTES_NAME.USER}
+        component={UserPageWithStatusBar}
+      /> */}
     </BottomTab.Navigator>
   );
 };

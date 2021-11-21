@@ -23,3 +23,4 @@ export { default as ColorSelect } from "./ColorSelect/ColorSelect.Component";
 export { default as ErrorComponent } from "./ErrorComponent/ErrorComponent.Component";
 export { default as UserForm } from "./UserForm/UserForm.Component";
 export { default as CardSelect } from "./CardSelect/CardSelect.Component";
+export { default as SettingsOptionsItem } from "./SettingsOptionsItem/SettingsOptionsItem.Component";
