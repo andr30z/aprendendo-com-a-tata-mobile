@@ -35,6 +35,7 @@ import ProfilePhotoWithOverlay from "../ProfilePhotoWithOverlay/ProfilePhotoWith
 import WithSpinner from "../WithSpinner/WithSpinner.Component";
 import { styles } from "./Styles";
 import { format } from "date-fns";
+import Toast from "react-native-toast-message";
 
 export interface UserFormProps {
   onSuccessSave?: () => void;
@@ -116,7 +117,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
   const { value: isKeyboardShowing, toggle } = useBoolean();
   useKeyboardHideOrShowEvent({ onHide: toggle, onShow: toggle });
   const onSubmit = (fields: UserFormFields) => {
-    console.log(fields)
+    console.log(fields);
     baseApi
       .post(baseApiRoutes.REGISTER, fields)
       .then((res) => {
@@ -125,7 +126,12 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
         console.log(res.data);
       })
       .catch((e) => {
-        console.log(e.response.data, "ON SUB");
+        Toast.show({
+          type: "error",
+          text1:
+            e?.response?.data?.message ||
+            "Erro ao cadastrar tente novamente mais tarde",
+        });
       });
   };
 
