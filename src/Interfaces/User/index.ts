@@ -13,6 +13,7 @@ export interface UserInterface {
   name: string;
   profilePhoto?: FileType;
   code: string;
-  createdAt: Date;
-  updatedAt: Date;
+  birthday: string;
+  createdAt: string;
+  updatedAt: string;
 }

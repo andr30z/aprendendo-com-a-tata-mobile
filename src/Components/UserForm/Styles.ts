@@ -21,6 +21,9 @@ export const styles = StyleSheet.create({
     position: "absolute",
   },
   btnSubmitContainer: {
+    bottom: 15,
+    zIndex: 20,
+    position: "absolute",
   },
   btnSubmit: {
     shadowColor: "#000",

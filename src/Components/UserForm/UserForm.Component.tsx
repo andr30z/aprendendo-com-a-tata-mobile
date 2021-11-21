@@ -1,16 +1,29 @@
 import {
-  AntDesign, FontAwesome5,Feather,
-  MaterialCommunityIcons
+  FontAwesome5,
+  Feather,
+  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/core";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { ActivityIndicator, ScrollView } from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  Pressable,
+  ScrollView,
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { Fade, Placeholder, PlaceholderMedia } from "rn-placeholder";
 import * as yup from "yup";
+import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useFileUpload } from "../../Hooks";
+import {
+  useBoolean,
+  useFileUpload,
+  useKeyboardHideOrShowEvent,
+} from "../../Hooks";
 import { UserInterface, UserType } from "../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { formatFilePathUrl } from "../../Utils";
@@ -21,16 +34,19 @@ import Input from "../Input/Input.Component";
 import ProfilePhotoWithOverlay from "../ProfilePhotoWithOverlay/ProfilePhotoWithOverlay.Component";
 import WithSpinner from "../WithSpinner/WithSpinner.Component";
 import { styles } from "./Styles";
+import { format } from "date-fns";
 
 export interface UserFormProps {
   onSuccessSave?: () => void;
 }
 
-interface UserFormFields extends Omit<UserInterface, "profilePhoto"> {
+interface UserFormFields
+  extends Omit<UserInterface, "profilePhoto" | "birthday"> {
   devicePhotoURI?: string;
   profilePhoto: string;
   password: string;
   passwordConfirmation: string;
+  birthday: Date;
 }
 
 const schema = yup.object().shape({
@@ -46,6 +62,10 @@ const schema = yup.object().shape({
   passwordConfirmation: yup
     .string()
     .oneOf([yup.ref("password"), null], "As senhas devem ser iguais!"),
+  birthday: yup
+    .date()
+    .required("A data é requerida!")
+    .typeError("Verifique a data informada"),
 });
 
 const ProfilePhotoWithSpinner = WithSpinner(ProfilePhotoWithOverlay, () => (
@@ -62,7 +82,8 @@ const ProfilePhotoWithSpinner = WithSpinner(ProfilePhotoWithOverlay, () => (
   </Placeholder>
 ));
 const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
-  const color = "#9188E5";
+  // const color = "#9188E5";
+  const color = "#f7cc7f";
   const {
     setValue,
     control,
@@ -78,20 +99,26 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
       type: UserType.C,
       passwordConfirmation: "",
       password: "",
+      birthday: "" as any,
     },
     mode: "all",
     resolver: yupResolver(schema),
   });
+  const {
+    value: showDatePicker,
+    setTrue,
+    setValue: setShowDatePicker,
+  } = useBoolean();
   const { onSubmitUpload, isLoadingFile } = useFileUpload((res, file) => {
     setValue("devicePhotoURI", file.uri, { shouldValidate: true });
     setValue("profilePhoto", res.data.path);
   });
+  const { value: isKeyboardShowing, toggle } = useBoolean();
+  useKeyboardHideOrShowEvent({ onHide: toggle, onShow: toggle });
   const onSubmit = (fields: UserFormFields) => {
-    const promise = fields._id
-      ? baseApi.put(baseApiRoutes.USERS + "/" + fields._id, fields)
-      : baseApi.post(baseApiRoutes.USERS, fields);
-
-    promise
+    console.log(fields)
+    baseApi
+      .post(baseApiRoutes.REGISTER, fields)
       .then((res) => {
         if (onSuccessSave) onSuccessSave();
 
@@ -118,9 +145,11 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
         color="#fff"
       />
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: isKeyboardShowing ? 200 : 100 }}
+      >
         <BaseContainer
-          height="260px"
+          height="300px"
           style={styles.baseContainer}
           align="center"
           justify="center"
@@ -128,8 +157,17 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
           backgroundColor={color}
         >
           <BaseContainer
+            justify="center"
+            align="center"
+            width="100%"
+            height="15px"
+            flex={0.3}
+          >
+            <BaseText fontSize="20px">Cadastrar Usuário</BaseText>
+          </BaseContainer>
+          <BaseContainer
             height="110px"
-            flex={0.5}
+            flex={1}
             flexDirection="column"
             justify="center"
             align="center"
@@ -183,7 +221,48 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
               />
             )}
           />
+          <Controller
+            control={control}
+            name="birthday"
+            render={({ field: { ref, onChange, value, ...rest } }) => (
+              <>
+                <Pressable
+                  style={{ width: "100%", marginTop: 20 }}
+                  onPress={setTrue}
+                >
+                  <Input
+                    elevation={4}
+                    withWrapper
+                    editable={false}
+                    error={errors.birthday?.message}
+                    style={{ color: "black" }}
+                    wrapperStyles={{
+                      flexDirection: "column",
+                    }}
+                    inputHeight={"40px"}
+                    inputWidth={"100%"}
+                    value={value ? format(value, "dd/MM/yyyy") : ""}
+                    inputRef={ref}
+                    placeholder="Data de nascimento"
+                  />
+                </Pressable>
+                {showDatePicker && (
+                  <DateTimePicker
+                    is24Hour={true}
+                    display="default"
+                    mode="date"
+                    value={value ? value : new Date()}
+                    onChange={(_: any, date: any) => {
+                      setShowDatePicker(Platform.OS === "ios");
+                      onChange(date);
+                    }}
+                  />
+                )}
+              </>
+            )}
+          />
           <CardSelect
+            marginVertical="25px"
             selectedItemValue={type}
             primaryColor={color}
             activeColor={"green"}
@@ -218,7 +297,6 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
               <Input
                 elevation={4}
                 withWrapper
-                keyboardType="email-address"
                 error={errors.password?.message}
                 secureTextEntry
                 wrapperStyles={{
@@ -244,7 +322,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
                 withWrapper
                 secureTextEntry
                 error={errors.passwordConfirmation?.message}
-                wrapperStyles={{ flexDirection: "column", marginBottom: 20 }}
+                wrapperStyles={{ flexDirection: "column", marginTop: 20 }}
                 inputHeight={"40px"}
                 onChangeText={(text) => onChange(text)}
                 inputWidth={"100%"}
@@ -255,27 +333,27 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
             )}
           />
         </BaseContainer>
-
-        <BaseContainer
-          align="center"
-          justify="center"
-          width="100%"
-          style={styles.btnSubmitContainer}
-        >
-          <Button
-            disabled={isSubmitting}
-            containerStyles={styles.btnSubmit}
-            onPress={handleSubmit(onSubmit)}
-            buttonHeight="40px"
-            backgroundColor={color}
-            buttonTitle={isSubmitting ? undefined : "Salvar"}
-          >
-            {isSubmitting && (
-              <ActivityIndicator color={color || "white"} size={20} />
-            )}
-          </Button>
-        </BaseContainer>
       </ScrollView>
+
+      <BaseContainer
+        align="center"
+        justify="center"
+        width="100%"
+        style={styles.btnSubmitContainer}
+      >
+        <Button
+          disabled={isSubmitting}
+          containerStyles={styles.btnSubmit}
+          onPress={handleSubmit(onSubmit)}
+          buttonHeight="40px"
+          backgroundColor={color}
+          buttonTitle={isSubmitting ? undefined : "Salvar"}
+        >
+          {isSubmitting && (
+            <ActivityIndicator color={color || "white"} size={20} />
+          )}
+        </Button>
+      </BaseContainer>
     </BaseContainer>
   );
 };

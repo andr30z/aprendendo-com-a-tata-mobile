@@ -16,6 +16,7 @@ interface CardSelectProps {
   primaryColor: string;
   activeColor: string;
   selectedItemValue?: any;
+  marginVertical?: string;
 }
 
 /**
@@ -27,12 +28,16 @@ const CardSelect: React.FC<CardSelectProps> = ({
   selectLabel,
   cardItems,
   selectedItemValue,
-  children,
   primaryColor,
   activeColor,
+  marginVertical,
 }) => {
   return (
-    <BaseContainer flexDirection="column" align="flex-start">
+    <BaseContainer
+      marginVertical={marginVertical}
+      flexDirection="column"
+      align="flex-start"
+    >
       {selectLabel && (
         <BaseText color={primaryColor} fontSize="20px" align="center">
           {selectLabel}

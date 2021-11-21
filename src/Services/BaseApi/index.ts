@@ -15,6 +15,7 @@ export const baseApiRoutes = {
   ACTIVITIES: "/v1/activities",
   LOGIN: "/v1/authentication/login",
   REFRESH: "/v1/authentication/refresh",
+  REGISTER: "/v1/authentication/register",
   USERS: "/v1/users",
   ME: "v1/users/me",
   CLASSROOMS: "v1/classrooms",
