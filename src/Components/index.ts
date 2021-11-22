@@ -24,3 +24,4 @@ export { default as ErrorComponent } from "./ErrorComponent/ErrorComponent.Compo
 export { default as UserForm } from "./UserForm/UserForm.Component";
 export { default as CardSelect } from "./CardSelect/CardSelect.Component";
 export { default as SettingsOptionsItem } from "./SettingsOptionsItem/SettingsOptionsItem.Component";
+export { default as ClassroomMemberDetailsModal } from "./ClassroomMemberDetailsModal/ClassroomMemberDetailsModal.Component";

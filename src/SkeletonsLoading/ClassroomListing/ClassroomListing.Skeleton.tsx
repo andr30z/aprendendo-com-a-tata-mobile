@@ -29,7 +29,10 @@ const ClassroomListingSkeleton: React.FC = () => (
           align="center"
         >
           <PlaceholderMedia style={{ borderRadius: 20 }} />
-          <PlaceholderLine style={{ width: "100%", marginLeft: 10 }} />
+          <BaseContainer marginTop="10px" width="100%" flexDirection="column">
+            <PlaceholderLine style={{ width: "30%", marginLeft: 10 }} />
+            <PlaceholderLine style={{ width: "30%", marginLeft: 10 }} />
+          </BaseContainer>
         </BaseContainer>
         <BaseContainer marginTop="15px">
           <PlaceholderLine style={{ width: "100%" }} />

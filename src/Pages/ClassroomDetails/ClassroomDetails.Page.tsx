@@ -1,7 +1,11 @@
-import { Feather, Ionicons } from "@expo/vector-icons";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import {
+  Feather,
+  Ionicons,
+  MaterialIcons,
+  AntDesign,
+} from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Pressable, RefreshControl } from "react-native";
 import StickyParallaxHeader from "react-native-sticky-parallax-header";
 import { ClassroomForm, ConfirmationModal } from "../../Components";
@@ -16,7 +20,7 @@ import { useBoolean, useModalSheetRef } from "../../Hooks";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 import { formatFilePathUrl } from "../../Utils";
-import { Members, Post } from "./Modules";
+import { JoinRequests, Members, Post } from "./Modules";
 type Props = NativeStackScreenProps<
   MainStackParamList,
   ROUTES_NAME.CLASSROOM_DETAILS
@@ -47,6 +51,7 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
     }),
     [classroom]
   );
+
   const { userIsTeacher } = useUserContext();
   const { value: isRefreshing, setTrue, setFalse } = useBoolean();
   const onSuccessSaveCallback = useCallback(() => {
@@ -55,13 +60,58 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
   }, [getClassroom]);
   const exitClassroom = useCallback(async () => {}, [classroom]);
   const onDelete = useCallback(() => navigation.goBack(), []);
+  const tabs = useMemo(() => {
+    const pendingJoinRequests = userIsTeacher
+      ? [
+          {
+            content: (
+              <JoinRequests
+                pendingJoinRequests={classroom?.pendingJoinRequests as any}
+              />
+            ),
+            title: "Pedidos",
+            icon: (isActive: boolean) => (
+              <BaseContainer flex={1} position="relative">
+                <MaterialIcons
+                  name="notifications-on"
+                  size={22}
+                  style={{
+                    marginRight: 0,
+                    marginLeft: 5,
+                  }}
+                  color={isActive ? primaryTheme : textTheme}
+                />
+                {classroom?.pendingJoinRequests &&
+                  classroom.pendingJoinRequests.length > 0 && (
+                    <AntDesign
+                      style={{ position: "absolute", top: -3, right: -3 }}
+                      name="star"
+                      size={13}
+                      color="#ff333d"
+                    />
+                  )}
+              </BaseContainer>
+            ),
+          },
+        ]
+      : [];
+    return [
+      { content: <Post />, title: "Posts" },
+      {
+        content: <Members members={classroom?.members as any} />,
+        title: "Membros",
+      },
+      ...pendingJoinRequests,
+    ];
+  }, [classroom, classroom, userIsTeacher]);
   if (!classroom) return null;
   return (
     <StickyParallaxHeader
       title={classroom.name}
       headerHeight={110}
-      parallaxHeight={190}
+      parallaxHeight={200}
       bounces={true}
+      titleStyle={{ fontSize: 37, color: textTheme, fontWeight: "900" }}
       decelerationRate={5}
       refreshControl={
         <RefreshControl
@@ -87,10 +137,8 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
         color: primaryTheme,
         borderRadius: 20,
       }}
-      tabs={[
-        { content: <Post />, title: "Posts" },
-        { content: <Members members={classroom.members} />, title: "Membros" },
-      ]}
+      tabTextContainerActiveStyle={{ backgroundColor: textTheme }}
+      tabs={tabs}
       header={() => (
         <BaseContainer
           align="center"
@@ -110,7 +158,7 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
               <Ionicons
                 name="ios-arrow-back-outline"
                 size={30}
-                color={classroom.textColor}
+                color={textTheme}
               />
             </Pressable>
             {userIsTeacher ? (
@@ -118,14 +166,14 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
                 onPress={open}
                 name="settings"
                 size={30}
-                color={classroom.textColor}
+                color={textTheme}
               />
             ) : (
               <Ionicons
                 name="md-exit-outline"
                 size={30}
                 onPress={open}
-                color={classroom.textColor}
+                color={textTheme}
               />
             )}
           </BaseContainer>
@@ -133,6 +181,7 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
             style={{ flex: 1, alignSelf: "center" }}
             align="center"
             fontSize="25px"
+            color={textTheme}
           >
             Prof: {classroom.teacher.name}
           </BaseText>

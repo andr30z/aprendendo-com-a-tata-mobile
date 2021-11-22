@@ -106,13 +106,24 @@ const ClassRoomItem = React.memo<ClassRoomItemProps>(
                     uri: formatFilePathUrl(classRoom.classPhoto?.path),
                   }}
                 />
-                <BaseText
-                  marginLeft="15px"
-                  fontSize={"20px"}
-                  color={textStyleColor}
-                >
-                  {classRoom.name} {!userIsTeacher && `Prof: ${teacher.name}`}
-                </BaseText>
+                <BaseContainer>
+                  <BaseText
+                    marginLeft="15px"
+                    fontSize={"20px"}
+                    color={textStyleColor}
+                  >
+                    {classRoom.name}
+                  </BaseText>
+                  {!userIsTeacher && (
+                    <BaseText
+                      marginLeft="15px"
+                      fontSize={"20px"}
+                      color={textStyleColor}
+                    >
+                      Prof: {teacher.name}
+                    </BaseText>
+                  )}
+                </BaseContainer>
               </BaseContainer>
               <BaseContainer flexDirection="row">
                 <FontAwesome name="child" size={20} color={textStyleColor} />

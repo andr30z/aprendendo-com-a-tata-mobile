@@ -1,6 +1,5 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
-
 interface WithSpinnerProps {
   isLoading: boolean;
   spinnerSize?: number;
@@ -22,7 +21,6 @@ function WithSpinner<K>(
     spinnerSize = 23,
     ...props
   }: K & WithSpinnerProps) => {
-    console.log(isLoading, CustomLoadingComponent)
     return isLoading ? (
       <>
         {CustomLoadingComponent ? (

@@ -23,10 +23,9 @@ const ClassroomForm: React.FC<ClassroomProps & ClassroomFormFieldsProps> = ({
       modalSheetRef,
       children,
       style: {
-        marginHorizontal: 10,
         backgroundColor: "transparent",
-        elevation: 10,
-        position: "relative",
+        // elevation: 10,
+        position: "absolute",
       },
       backdropComponent: (props: any) => (
         <BottomSheetBackdrop

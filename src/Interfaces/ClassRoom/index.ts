@@ -2,7 +2,7 @@ import { FileType } from "../CommonInterfaces";
 import { ActivityCommonProps } from "../ActivityUtilsInterfaces";
 import { UserInterface } from "../User";
 
-export interface Teacher extends UserInterface {}
+export interface Teacher extends UserInterface { }
 
 export interface PostLikesItemInterface {
   _id: string;
@@ -58,6 +58,7 @@ export interface ClassRoomInterface {
   code: string;
   color: string;
   tags: Array<string>;
+  pendingJoinRequests: Array<UserInterface>;
   classPhoto?: FileType;
   textColor?: string;
 }

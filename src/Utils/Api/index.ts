@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosResponse } from "axios";
+import Toast from "react-native-toast-message";
 import { USER_ASYNC_STORAGE_KEY } from "../../Contexts/User/Constants";
 import { UserInterface } from "../../Interfaces/index";
 import {
@@ -32,4 +33,9 @@ export async function clearTokenAndCredentials() {
 export function formatFilePathUrl(path?: string) {
   if (!path) return;
   return DEFAULT_URL + "/" + baseApiRoutes.FILE_PREVIEW + path;
+}
+
+
+export function showError(error: any) {
+  Toast.show({ type: "error", text1: "Erro", text2: error?.response?.data?.message || "Erro ao realizar a ação, tente novamente mais tarde." })
 }

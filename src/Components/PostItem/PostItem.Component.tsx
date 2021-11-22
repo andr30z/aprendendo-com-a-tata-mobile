@@ -142,6 +142,7 @@ const PostItem: React.FC<PostItemProps> = ({
         align="center"
         justify="space-between"
         position="relative"
+        flex={1}
       >
         <TouchableHeader
           deviceWidth={width}
@@ -152,10 +153,11 @@ const PostItem: React.FC<PostItemProps> = ({
         >
           <>
             <ProfilePhoto
-              size={40}
+              size={50}
               source={{
                 uri:
-                  formatFilePathUrl(post.author.profilePhoto?.path) || "https://imgur.com/H5PWtBp.png",
+                  formatFilePathUrl(post.author.profilePhoto?.path) ||
+                  "https://imgur.com/H5PWtBp.png",
               }}
             />
             <BaseContainer width={`${width * 0.7}px`} flexDirection="column">

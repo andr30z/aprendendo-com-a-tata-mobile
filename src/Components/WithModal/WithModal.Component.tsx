@@ -35,12 +35,12 @@ function WithModal<P = {}>(
         <BottomSheetModal
           ref={modalSheetRef}
           bottomInset={withModalRest.bottomInset || 46}
+          {...withModalRest}
           detached={
             typeof withModalRest.detached === "boolean"
               ? withModalRest.detached
               : true
           }
-          {...withModalRest}
         >
           <Component
             modalSheetRef={modalSheetRef}

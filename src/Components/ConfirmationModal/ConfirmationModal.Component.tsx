@@ -5,7 +5,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import { Portal } from "@gorhom/portal";
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleProp, ViewStyle } from "react-native";
 import { PORTAL_HOSTS } from "../../Constants";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
@@ -21,6 +21,9 @@ interface ConfirmationModalProps {
   confirmationButtonTitle?: string;
   cancelButtonTitle?: string;
   cancelButtonColor?: string;
+  portalLocation?: string;
+  bottomInset?: number;
+  sheetStyle?: StyleProp<ViewStyle>;
 }
 /**
  * Generic confirmation modal component.
@@ -36,10 +39,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   confirmationButtonTitle,
   cancelButtonTitle,
   cancelButtonColor,
+  portalLocation = PORTAL_HOSTS.ROOT_PORTAL,
+  bottomInset = 46,
+  sheetStyle,
 }) => {
   const { value: isConfirmationBeingExecuted, setFalse } = useBoolean();
   return (
-    <Portal hostName={PORTAL_HOSTS.ROOT_PORTAL}>
+    <Portal hostName={portalLocation}>
       <BottomSheetModalProvider>
         <BottomSheetModal
           ref={modalRef}
@@ -51,12 +57,16 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               {...props}
               disappearsOnIndex={-1}
               appearsOnIndex={0}
+              style={[props.style, sheetStyle]}
               pressBehavior={isConfirmationBeingExecuted ? "none" : "close"}
             />
           )}
           // add bottom inset to elevate the sheet
-          bottomInset={46}
-          style={{ marginHorizontal: 10 }}
+          bottomInset={bottomInset}
+          style={{
+            marginHorizontal: 10,
+            zIndex: 99999,
+          }}
           detached
           // set `detached` to true
         >

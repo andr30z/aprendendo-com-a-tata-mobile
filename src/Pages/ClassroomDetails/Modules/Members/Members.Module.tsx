@@ -6,6 +6,8 @@ import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { Member } from "../../../../Interfaces/index";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./Styles";
+import { useClassroomContext } from "../../../../Contexts";
+import { formatFilePathUrl } from "../../../../Utils";
 interface MembersProps {
   members: Array<Member>;
 }
@@ -15,6 +17,7 @@ interface MembersProps {
  **/
 const Members: React.FC<MembersProps> = ({ members }) => {
   const { width } = useWindowDimensions();
+  const { primaryTheme, textTheme } = useClassroomContext();
 
   if (members.length === 0)
     return (
@@ -25,26 +28,18 @@ const Members: React.FC<MembersProps> = ({ members }) => {
         justify="center"
         align="center"
         style={styles.emptyContainerStyle}
-        backgroundColor="white"
+        backgroundColor={primaryTheme}
       >
         <BaseText
           fontWeight="bold"
-          color="#f7cc7f"
+          color={textTheme}
           align="center"
           fontSize="20px"
           marginBottom="10px"
         >
           Esta sala não possui nenhum membro
         </BaseText>
-        <MaterialIcons name="child-care" size={80} color="#f7cc7f" />
-        <Button
-          containerStyles={styles.buttonStyles}
-          buttonWidth="70%"
-          buttonHeight="50px"
-          backgroundColor="#f7cc7f"
-          onPress={() => null}
-          buttonTitle="Adicionar crianças"
-        />
+        <MaterialIcons name="child-care" size={80} color={textTheme} />
       </BaseContainer>
     );
   return (
@@ -54,7 +49,7 @@ const Members: React.FC<MembersProps> = ({ members }) => {
         fontWeight="bold"
         fontSize="20px"
         align="center"
-        color="#f7cc7f"
+        color={primaryTheme}
         marginBottom="18px"
       >
         {members.length} alunos
@@ -66,6 +61,7 @@ const Members: React.FC<MembersProps> = ({ members }) => {
         flexWrap="wrap"
         style={styles.alignSelf}
         paddingHorizontal="1%"
+        marginTop="15px"
       >
         {members.map((member, index) => (
           <Pressable onPress={() => null} key={index}>
@@ -85,10 +81,18 @@ const Members: React.FC<MembersProps> = ({ members }) => {
                   size={80}
                   style={[styles.alignSelf, styles.profileStyles]}
                   source={{
-                    uri: member.profilePhoto?.filePreview || "https://imgur.com/H5PWtBp.png",
+                    uri:
+                      formatFilePathUrl(member.profilePhoto?.path )||
+                      "https://imgur.com/H5PWtBp.png",
                   }}
                 />
-                <Badge extraTextStyles={styles.badgeMemberFontStyle} pill textColor="#f7cc7f" textAlign="center">
+                <Badge
+                  extraTextStyles={styles.badgeMemberFontStyle}
+                  pill
+                  textColor={textTheme}
+                  backgroundColor={primaryTheme}
+                  textAlign="center"
+                >
                   {member.name}
                 </Badge>
               </BaseContainer>

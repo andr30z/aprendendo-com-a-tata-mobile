@@ -9,19 +9,21 @@ import { Fade, Placeholder, PlaceholderMedia } from "rn-placeholder";
 import * as yup from "yup";
 import { useUserContext } from "../../Contexts";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useFileUpload } from "../../Hooks";
+import { useFileUpload, useModalSheetRef } from "../../Hooks";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { formatFilePathUrl } from "../../Utils";
 import Button from "../Button/Button.Component";
 import ColorSelect, {
   defaultColorSelectItems,
 } from "../ColorSelect/ColorSelect.Component";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component";
 import ErrorComponent from "../ErrorComponent/ErrorComponent.Component";
 import Input from "../Input/Input.Component";
 import ProfilePhotoWithOverlay from "../ProfilePhotoWithOverlay/ProfilePhotoWithOverlay.Component";
 import WithModal from "../WithModal/WithModal.Component";
 import WithSpinner from "../WithSpinner/WithSpinner.Component";
 import { styles } from "./Styles";
+import { Portal, PortalHost } from "@gorhom/portal";
 const schema = yup.object().shape({
   classPhoto: yup.string().required("A foto da classe é obrigatória!"),
   description: yup.string().required("A descrição é obrigatória!"),
@@ -78,12 +80,13 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
       mode: "all",
       resolver: yupResolver(schema),
     });
+    const { sheetRef, open, close } = useModalSheetRef();
     const { onSubmitUpload, isLoadingFile } = useFileUpload((res, file) => {
       setValue("devicePhotoURI", file.uri, { shouldValidate: true });
       setValue("classPhoto", res.data.path);
     });
-    const onDelete = () => {
-      baseApi
+    const onDelete = async () => {
+      return baseApi
         .delete(baseApiRoutes.CLASSROOMS + "/" + _id)
         .then((_) => {
           Toast.show({ text1: "Classe deletada com sucesso!" });
@@ -94,7 +97,8 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
             type: "error",
             text1: "Ocorreu um erro ao deletar a classe",
           })
-        );
+        )
+        .finally(close);
     };
     const onSubmit = (fields: FormFields) => {
       const route = fields._id
@@ -124,23 +128,31 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
       classPhoto && !devicePhotoURI
         ? formatFilePathUrl(classPhoto)
         : devicePhotoURI;
-    console.log(errors, getValues());
+    const portalKey = "INNER_MODAL_CLASSROOM";
     return (
       <BaseContainer flex={1}>
+        <ConfirmationModal
+          modalRef={sheetRef}
+          confirmationQuestion="Deseja realmente deletar a classe?"
+          onConfirm={onDelete}
+          portalLocation={portalKey}
+          sheetStyle={{ zIndex: 100 }}
+        />
+        <PortalHost name={portalKey} />
         <EvilIcons
           onPress={() => modalSheetRef.current?.close()}
           style={styles.closeIcon}
           name="close"
           size={50}
-          color="#fff"
+          color={textColor}
         />
         {_id && (
           <EvilIcons
             style={styles.iconDelete}
             name="trash"
             size={50}
-            onPress={onDelete}
-            color="#fff"
+            onPress={open}
+            color={textColor}
           />
         )}
         <BottomSheetScrollView style={[{ paddingBottom: 100 }]}>

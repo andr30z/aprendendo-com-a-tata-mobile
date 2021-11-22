@@ -7,7 +7,7 @@ interface PostItemContainerProps {
   deviceHeight: number;
 }
 
-export const PostItemContainer = styled(BaseContainer)<PostItemContainerProps>`
+export const PostItemContainer = styled(BaseContainer) <PostItemContainerProps>`
   width: 100%;
   /* padding-horizontal: 3%; */
   padding-vertical: 2%;
@@ -21,6 +21,7 @@ export const TextPostContainer = styled(BaseContainer)`
   padding-vertical: 5%;
   padding-horizontal: 3%;
   z-index: -1;
+  flex:10;
 `;
 
 export const ActivityContainer = styled(BaseContainer)`
@@ -34,14 +35,14 @@ export const ActivityContainer = styled(BaseContainer)`
 export const PostFooterContainer = styled(BaseContainer)`
   border-top-width: 1px;
   border-top-color: #c3c3c3;
-  margin-top: 10px;
   padding-top: 5px;
+  max-height:35px;
   padding-horizontal: 3%;
   width: 100%;
   flex-direction: row;
 `;
 
-export const TouchableHeader = styled(TouchableHighlight)<{
+export const TouchableHeader = styled(TouchableHighlight) <{
   deviceWidth: number;
 }>`
   flex-direction: row;
