@@ -1,6 +1,11 @@
 import React from "react";
 import { Pressable, useWindowDimensions } from "react-native";
-import { Badge, Button, ProfilePhoto } from "../../../../Components";
+import {
+  Badge,
+  Button,
+  MembersItem,
+  ProfilePhoto,
+} from "../../../../Components";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { Member } from "../../../../Interfaces/index";
@@ -63,41 +68,8 @@ const Members: React.FC<MembersProps> = ({ members }) => {
         paddingHorizontal="1%"
         marginTop="15px"
       >
-        {members.map((member, index) => (
-          <Pressable onPress={() => null} key={index}>
-            <BaseContainer
-              width={`${width * 0.25}px`}
-              height="100px"
-              marginHorizontal="8px"
-              marginVertical="8px"
-            >
-              <BaseContainer
-                flex={1}
-                align="center"
-                flexDirection="column"
-                justify="space-evenly"
-              >
-                <ProfilePhoto
-                  size={80}
-                  style={[styles.alignSelf, styles.profileStyles]}
-                  source={{
-                    uri:
-                      formatFilePathUrl(member.profilePhoto?.path )||
-                      "https://imgur.com/H5PWtBp.png",
-                  }}
-                />
-                <Badge
-                  extraTextStyles={styles.badgeMemberFontStyle}
-                  pill
-                  textColor={textTheme}
-                  backgroundColor={primaryTheme}
-                  textAlign="center"
-                >
-                  {member.name}
-                </Badge>
-              </BaseContainer>
-            </BaseContainer>
-          </Pressable>
+        {members.map((member) => (
+          <MembersItem member={member} key={member._id} />
         ))}
       </BaseContainer>
     </>

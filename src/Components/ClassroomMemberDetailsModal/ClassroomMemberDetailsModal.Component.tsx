@@ -8,7 +8,7 @@ import WithModal from "../WithModal/WithModal.Component";
 import { formatFilePathUrl, showError } from "../../Utils";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { AntDesign } from "@expo/vector-icons";
-import { useModalSheetRef } from "../../Hooks";
+import { useCancellablePromise, useModalSheetRef } from "../../Hooks";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component";
 import { baseApi, baseApiRoutes } from "../../Services";
 import Toast from "react-native-toast-message";
@@ -17,6 +17,7 @@ import { PortalHost } from "@gorhom/portal";
 interface ClassroomMemberDetailsModalProps {
   child: UserInterface;
   classroom: ClassRoomInterface;
+  onRemove: () => void;
 }
 function getAge(dateString: string) {
   var today = new Date();
@@ -29,54 +30,73 @@ function getAge(dateString: string) {
   return age;
 }
 /**
- * Classroom members details 
+ * Classroom members details
  * @author andr30z
  **/
 const ClassroomMemberDetailsModal = WithModal<ClassroomMemberDetailsModalProps>(
-  ({ child, classroom }) => {
+  ({ child, classroom, onRemove }) => {
     const { sheetRef, open } = useModalSheetRef();
+    const { cancellablePromise } = useCancellablePromise();
     const onConfirmDelete = useCallback(async () => {
-      baseApi
-        .delete(baseApiRoutes.CLASSROOMS_USERS(classroom._id, child._id))
+      return cancellablePromise(
+        baseApi.delete(baseApiRoutes.CLASSROOMS_USERS(classroom._id, child._id))
+      )
         .then(() => {
           Toast.show({ text1: "A criança foi removida da sala com sucesso." });
+          onRemove();
         })
         .catch(showError);
     }, [child, classroom]);
     const portalLocation = "INNER_PORTAL_DETAILS";
     return (
-      <BaseContainer flexDirection="column" justify="center" align="center">
+      <BaseContainer
+        backgroundColor={classroom.textColor}
+        // borderRadius="10px"
+        flexDirection="column"
+        justify="center"
+        align="center"
+      >
         <PortalHost name={portalLocation} />
         <ConfirmationModal
           confirmationQuestion="Deseja realmente remover a criança desta sala?"
           modalRef={sheetRef}
           onConfirm={onConfirmDelete}
+          sheetStyle={{ zIndex: 20 }}
+          bottomInset={50}
+          snapPoints={["50%"]}
           portalLocation={portalLocation}
         />
-        <ProfilePhoto
-          size={30}
-          source={{
-            uri:
-              formatFilePathUrl(child.profilePhoto?.path) ||
-              "https://imgur.com/H5PWtBp.png",
-          }}
-        />
-        <BaseContainer flexDirection="column">
-          <BaseText numberOfLines={2} color={classroom.textColor}>
+        <BaseContainer justify="center" flex={1}>
+          <ProfilePhoto
+            size={100}
+            source={{
+              uri:
+                formatFilePathUrl(child.profilePhoto?.path) ||
+                "https://imgur.com/H5PWtBp.png",
+            }}
+          />
+        </BaseContainer>
+        <BaseContainer
+          flex={0.9}
+          align="center"
+          justify="space-evenly"
+          flexDirection="column"
+        >
+          <BaseText fontSize="20px" numberOfLines={2} color={classroom.color}>
             {child.name}
           </BaseText>
-          <BaseText numberOfLines={2} color={classroom.textColor}>
+          <BaseText fontSize="20px" numberOfLines={2} color={classroom.color}>
             {child.email}
           </BaseText>
-          <BaseText color={classroom.textColor}>
-            Idade: {getAge(child.birthday)}
+          <BaseText fontSize="20px" color={classroom.color}>
+            Idade: {getAge(child.birthday)} anos
           </BaseText>
         </BaseContainer>
-        <BaseContainer>
+        <BaseContainer flex={0.5} marginTop="10px">
           <AntDesign
             onPress={open}
             name="deleteuser"
-            size={30}
+            size={40}
             color={classroom.color}
           />
         </BaseContainer>
