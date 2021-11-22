@@ -1,22 +1,40 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { debounce } from "lodash";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Pressable,
   RefreshControl,
-  useWindowDimensions,
   ScrollView,
+  useWindowDimensions,
 } from "react-native";
-import { ClassroomForm, Input } from "../../Components";
+import { ClassroomForm, Input, WithSpinner } from "../../Components";
 import ClassRoomItem from "../../Components/ClassRoomItem/ClassRoomItem.Component";
 import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useBoolean } from "../../Hooks";
+import { useBoolean, useModalSheetRef } from "../../Hooks";
 import { ClassRoomInterface } from "../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../Services";
+import { ClassroomListingSkeleton } from "../../SkeletonsLoading";
 import { ClassRoomBaseContainer, styles } from "./Styles";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { debounce } from "lodash";
+
+const ListingWithSpinner = WithSpinner<{
+  classrooms: Array<ClassRoomInterface>;
+  isSearchClassrooms: boolean;
+}>(
+  ({ classrooms, isSearchClassrooms }) => (
+    <ClassRoomBaseContainer noElevation marginTop="15px">
+      {classrooms.map((x) => (
+        <ClassRoomItem
+          key={x._id}
+          classRoom={x}
+          askToJoinOnPress={isSearchClassrooms}
+        />
+      ))}
+    </ClassRoomBaseContainer>
+  ),
+  ClassroomListingSkeleton
+);
 interface ClassesApiResponse {
   classrooms: Array<ClassRoomInterface>;
 }
@@ -30,12 +48,18 @@ const ClassRoom: React.FC = () => {
   const [classrooms, setClassrooms] = useState<Array<ClassRoomInterface>>([]);
   const { userIsTeacher, user } = useUserContext();
   const { value: isRefreshing, setTrue, setFalse } = useBoolean();
+  const {
+    value: isLoading,
+    setTrue: setTrueIsLoading,
+    setFalse: setFalseIsLoading,
+  } = useBoolean();
   const [searchCode, setSearchCode] = useState("");
   const getCodeRoute = (text: string) => {
     return text ? baseApiRoutes.CLASSROOMS + "?code=" + text : undefined;
   };
   const getAllClasses = (onRefreshCallback?: () => void, route?: string) => {
     if (onRefreshCallback) setTrue();
+    setTrueIsLoading();
     baseApi
       .get<ClassesApiResponse>(
         route ||
@@ -46,7 +70,10 @@ const ClassRoom: React.FC = () => {
         setClassrooms(res.data.classrooms);
       })
       .catch((e) => console.log(e))
-      .finally(() => onRefreshCallback && onRefreshCallback());
+      .finally(() => {
+        if (onRefreshCallback) onRefreshCallback();
+        setFalseIsLoading();
+      });
   };
   const debouncedSearch = useCallback(
     debounce((text: string) => {
@@ -54,18 +81,19 @@ const ClassRoom: React.FC = () => {
     }, 1000),
     []
   );
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const { sheetRef, close, open } = useModalSheetRef();
   useEffect(() => {
     getAllClasses();
   }, []);
+  const onSuccessSaveClassroom = useCallback(() => {
+    getAllClasses();
+    close();
+  }, [close]);
   return (
     <BaseContainer flex={1}>
       <ClassroomForm
-        onSuccessSave={() => {
-          getAllClasses();
-          bottomSheetRef.current?.close();
-        }}
-        modalSheetRef={bottomSheetRef}
+        onSuccessSave={onSuccessSaveClassroom}
+        modalSheetRef={sheetRef}
       />
       <ScrollView
         removeClippedSubviews
@@ -87,10 +115,11 @@ const ClassRoom: React.FC = () => {
           align="center"
           justify="space-evenly"
         >
-          <BaseText fontSize="18px">{userIsTeacher ? "Suas" : ""} Salas de Aula</BaseText>
-
+          <BaseText fontSize="18px">
+            {userIsTeacher ? "Suas" : ""} Salas de Aula
+          </BaseText>
           {userIsTeacher ? (
-            <Pressable onPress={() => bottomSheetRef.current?.present()}>
+            <Pressable onPress={open}>
               <AntDesign
                 style={{ backgroundColor: "white", borderRadius: 15 }}
                 name="plus"
@@ -116,17 +145,17 @@ const ClassRoom: React.FC = () => {
                   style={styles.inputSearchAppendStyles}
                   name="search1"
                   size={15}
-                  color="#8078cc"
+                  color="#f7cc7f"
                 />
               }
             />
           )}
         </ClassRoomBaseContainer>
-        <ClassRoomBaseContainer noElevation marginTop="15px">
-          {classrooms.map((x) => (
-            <ClassRoomItem key={x._id} classRoom={x} />
-          ))}
-        </ClassRoomBaseContainer>
+        <ListingWithSpinner
+          isSearchClassrooms={searchCode.length > 0}
+          isLoading={isLoading}
+          classrooms={classrooms}
+        />
       </ScrollView>
     </BaseContainer>
   );

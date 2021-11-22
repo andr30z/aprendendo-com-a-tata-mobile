@@ -215,6 +215,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
               <Input
                 elevation={4}
                 withWrapper
+                autoCapitalize="none"
                 keyboardType="email-address"
                 error={errors.email?.message}
                 wrapperStyles={{ flexDirection: "column", marginBottom: 20 }}

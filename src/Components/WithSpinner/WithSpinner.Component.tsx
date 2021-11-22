@@ -22,13 +22,15 @@ function WithSpinner<K>(
     spinnerSize = 23,
     ...props
   }: K & WithSpinnerProps) => {
-    const loadingComponent = CustomLoadingComponent ? (
-      <CustomLoadingComponent />
-    ) : (
-      <ActivityIndicator size={spinnerSize} color={spinnerColor} />
-    );
+    console.log(isLoading, CustomLoadingComponent)
     return isLoading ? (
-      <>{loadingComponent}</>
+      <>
+        {CustomLoadingComponent ? (
+          <CustomLoadingComponent />
+        ) : (
+          <ActivityIndicator size={spinnerSize} color={spinnerColor} />
+        )}
+      </>
     ) : (
       <Component {...(props as any)} />
     );

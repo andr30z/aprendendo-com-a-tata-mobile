@@ -19,6 +19,8 @@ interface ConfirmationModalProps {
   confirmationQuestion: string;
   buttonConfirmationColor?: string;
   confirmationButtonTitle?: string;
+  cancelButtonTitle?: string;
+  cancelButtonColor?: string;
 }
 /**
  * Generic confirmation modal component.
@@ -32,6 +34,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   confirmationQuestion,
   buttonConfirmationColor,
   confirmationButtonTitle,
+  cancelButtonTitle,
+  cancelButtonColor,
 }) => {
   const { value: isConfirmationBeingExecuted, setFalse } = useBoolean();
   return (
@@ -57,7 +61,12 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           // set `detached` to true
         >
           <BaseContainer align="center" flexDirection="column">
-            <BaseContainer flex={1} justify="center">
+            <BaseContainer
+              flex={1}
+              justify="center"
+              width="100%"
+              paddingHorizontal="3%"
+            >
               <BaseText align="left" fontSize="20px" color="black">
                 {confirmationQuestion}
               </BaseText>
@@ -73,9 +82,9 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                 onPress={() =>
                   isConfirmationBeingExecuted ? null : modalRef.current?.close()
                 }
-                buttonTitle="Cancelar"
+                buttonTitle={cancelButtonTitle || "Cancelar"}
                 buttonWidth="100px"
-                backgroundColor="grey"
+                backgroundColor={cancelButtonColor || "grey"}
                 containerStyles={{ marginRight: 10 }}
                 textStyles={{ fontSize: "15px" }}
               />

@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Axios from "axios";
 
-// export const DEFAULT_URL = "http://192.168.1.3:8080/api";
-export const DEFAULT_URL = "http://192.168.1.64:8080/api";
+export const DEFAULT_URL = "http://192.168.1.3:8080/api";
+// export const DEFAULT_URL = "http://192.168.1.64:8080/api";
 
 export const ASYNC_STORAGE_COOKIE_KEY = "app_auth_cookies";
 export const baseApi = Axios.create({
@@ -16,11 +16,12 @@ export const baseApiRoutes = {
   LOGIN: "/v1/authentication/login",
   REFRESH: "/v1/authentication/refresh",
   REGISTER: "/v1/authentication/register",
-  LOGOUT:"/v1/authentication/logout",
+  LOGOUT: "/v1/authentication/logout",
   USERS: "/v1/users",
   ME: "v1/users/me",
   CLASSROOMS: "v1/classrooms",
   CLASSES_BY_USERS: "v1/classrooms/users",
+  CLASSROOM_JOIN_REQUEST: (classId: string) => `v1/classrooms/${classId}/join-request`,
   ACTIVITY_RESULT_USERS: "v1/activities-results/users",
   START_POST_ACTIVITY: (postId: string) => `v1/posts/${postId}/start-activity`,
   POSTS: "v1/posts",
