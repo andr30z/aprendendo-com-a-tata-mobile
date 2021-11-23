@@ -8,7 +8,6 @@ export { default as Button } from "./Button/Button.Component";
 export { default as Cloud } from "./Cloud/Cloud.Component";
 export { default as CloudsContainer } from "./CloudsContainer/CloudsContainer.Component";
 export { default as WithDraxProvider } from "./WithDraxProvider/WithDraxProvider.Component";
-export { default as Toast } from "./Toast/Toast.Component";
 export { default as ProfilePhoto } from "./ProfilePhoto/ProfilePhoto.Component";
 export { default as CreatePost } from "./CreatePost/CreatePost.Component";
 export { default as PostItem } from "./PostItem/PostItem.Component";

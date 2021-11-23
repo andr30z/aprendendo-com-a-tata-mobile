@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
     zIndex: 3,
     right: 15,
     padding: 2.7,
-    width: 40,
+    width: 55,
     height: 170,
     overflow: "hidden",
     borderRadius: 30,

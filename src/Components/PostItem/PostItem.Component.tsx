@@ -15,6 +15,7 @@ import React, { useCallback, useMemo, useRef } from "react";
 import { useWindowDimensions } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
+import CreatePost from "../CreatePost/CreatePost.Component";
 import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
@@ -34,12 +35,14 @@ import {
   TextPostContainer,
   TouchableHeader,
 } from "./Styles";
+import { ClassRoomInterface } from "../../Interfaces/index";
 
 interface PostItemProps {
   post: Post;
   getPosts?: () => void;
   primaryTheme: string;
   textTheme: string;
+  classroom: ClassRoomInterface;
   isRenderedInPostDetailsPage?: boolean;
 }
 
@@ -69,6 +72,7 @@ const PostItem: React.FC<PostItemProps> = ({
   primaryTheme,
   textTheme,
   isRenderedInPostDetailsPage = false,
+  classroom,
 }) => {
   const { height, width } = useWindowDimensions();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
@@ -78,8 +82,9 @@ const PostItem: React.FC<PostItemProps> = ({
       post,
       primaryTheme,
       textTheme,
+      classroom,
     });
-  }, [post]);
+  }, [post, classroom, primaryTheme, textTheme]);
 
   const goToActivityDetails = (activityId: string) => {
     const userPostActivityResult = post.postActivityResult?.find(
@@ -186,11 +191,19 @@ const PostItem: React.FC<PostItemProps> = ({
               hideStyles
               textTheme={textTheme}
             />
-            <IconWithTouchable
-              onPress={() => null}
-              iconName="circle-edit-outline"
-              textTheme={textTheme}
-            />
+            <CreatePost
+              classroom={classroom}
+              initialValues={post}
+              onPostCreation={getPosts as any}
+            >
+              {(ref) => (
+                <IconWithTouchable
+                  onPress={() => ref.current?.present()}
+                  iconName="circle-edit-outline"
+                  textTheme={textTheme}
+                />
+              )}
+            </CreatePost>
             <IconWithTouchable
               iconName="delete"
               textTheme={textTheme}
@@ -230,13 +243,13 @@ const PostItem: React.FC<PostItemProps> = ({
       )}
       {!isRenderedInPostDetailsPage && (
         <PostFooterContainer flex={1}>
-          <AntDesign name="like2" size={25} color="#c3c3c3" />
+          <AntDesign name="like2" size={25} color={primaryTheme} />
           <FontAwesome5
             style={styles.iconComment}
             name="comment"
             size={25}
             onPress={goToPostDetails}
-            color="#c3c3c3"
+            color={primaryTheme}
           />
         </PostFooterContainer>
       )}

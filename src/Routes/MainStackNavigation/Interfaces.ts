@@ -6,6 +6,7 @@ import {
   PostActivityResult,
   ActivityResult,
 } from "../../Interfaces/index";
+import { ClassRoomInterface } from '../../Interfaces/index'
 
 export type ActivityPostParams = { routeIndexToReturnOnFinish?: number };
 interface ActivityPlayParamsType extends ActivityPostParams {
@@ -27,6 +28,7 @@ export interface PostDetailsParamsType extends ActivityPostParams {
   post: Post;
   primaryTheme: string;
   textTheme: string;
+  classroom: ClassRoomInterface;
 }
 
 export type MainStackParamList = {
