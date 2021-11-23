@@ -21,6 +21,7 @@ export function useCreatePostLogic({
   initialValues,
 }: Omit<CreatePostProps, "children">) {
   const { sheetRef, close, open } = useModalSheetRef();
+
   const [postText, setPostText] = useState(initialValues?.text || "");
   const [isTextEmpty, setIsTextEmpty] = useState(false);
   const [inputHeight, setInputHeight] = useState(35);
@@ -31,12 +32,22 @@ export function useCreatePostLogic({
   >(initialValues?.activities || []);
   const { value: isSubmitting, toggle } = useBoolean();
   const onDismiss = useCallback(() => {
-    if (isSubmitting) return null;
+    if (isSubmitting || initialValues) return null;
     setSelectedActivities([]);
     setFalse();
     setIsTextEmpty(false);
     setPostText("");
-  }, [isSubmitting]);
+  }, [isSubmitting, initialValues]);
+  // useEffect(() => {
+  //   if (selectedActivities.length > 0 && initialValues) {
+  //     setTrue();
+  //     console.log("AAAAA");
+  //     const timeout = setTimeout(setFalse, 1000);
+  //     return () => {
+  //       clearTimeout(timeout);
+  //     };
+  //   }
+  // }, [selectedActivities, initialValues]);
   useKeyboardHideOrShowEvent({ onHide: setFalse, onShow: setTrue });
   const { user } = useUserContext();
   const onSubmit = () => {
@@ -65,8 +76,8 @@ export function useCreatePostLogic({
             : "Post criado com sucesso!",
         });
         toggle();
-        onPostCreation();
         setFalse();
+        onPostCreation();
         if (sheetRef.current) close();
       })
       .catch((e) => {

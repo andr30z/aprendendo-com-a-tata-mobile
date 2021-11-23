@@ -1,13 +1,11 @@
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
-  BottomSheetScrollView
+  BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import { Portal } from "@gorhom/portal";
 import React from "react";
-import {
-  ActivityIndicator
-} from "react-native";
+import { ActivityIndicator } from "react-native";
 import { PORTAL_HOSTS } from "../../Constants";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { formatFilePathUrl } from "../../Utils";
@@ -18,7 +16,7 @@ import { CreatePostProps } from "./Interfaces";
 import {
   BaseTextWithCenterAlign,
   ProfilePhotoWithCenterAlign,
-  styles
+  styles,
 } from "./Styles";
 import { useCreatePostLogic } from "./useCreatePostLogic";
 const snapPoints = ["93%"];
@@ -31,7 +29,7 @@ const snapPoints = ["93%"];
  * @author andr3z0
  **/
 const CreatePost: React.FC<CreatePostProps> = (props) => {
-  const { children, classroom, onPostCreation, initialValues } = props;
+  const { children, classroom, initialValues } = props;
   const {
     onDismiss,
     inputHeight,
@@ -59,8 +57,6 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
             onDismiss={onDismiss}
             style={{ paddingHorizontal: 10, flex: 1 }}
             snapPoints={snapPoints}
-
-            // onChange={handleSheetChanges}
           >
             <BottomSheetScrollView
               contentContainerStyle={styles.scrollViewContentContainerStyle}

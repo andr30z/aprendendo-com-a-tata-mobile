@@ -1,13 +1,14 @@
 import {
+  AntDesign,
   Feather,
   Ionicons,
   MaterialIcons,
-  AntDesign,
 } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useCallback, useMemo } from "react";
 import { Pressable, RefreshControl } from "react-native";
 import StickyParallaxHeader from "react-native-sticky-parallax-header";
+import Toast from "react-native-toast-message";
 import { ClassroomForm, ConfirmationModal } from "../../Components";
 import {
   ClassroomProvider,
@@ -19,7 +20,8 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useBoolean, useModalSheetRef } from "../../Hooks";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
-import { formatFilePathUrl } from "../../Utils";
+import { baseApi, baseApiRoutes } from "../../Services";
+import { formatFilePathUrl, showError } from "../../Utils";
 import { JoinRequests, Members, Post } from "./Modules";
 type Props = NativeStackScreenProps<
   MainStackParamList,
@@ -58,7 +60,16 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
     getClassroom();
     close();
   }, [getClassroom]);
-  const exitClassroom = useCallback(async () => {}, [classroom]);
+  const exitClassroom = useCallback(async () => {
+    baseApi
+      .delete(baseApiRoutes.CLASS_USER(classroom?._id as string))
+      .then(() => {
+        Toast.show({ text1: "Você saiu da sala " + classroom?.name });
+        navigation.goBack();
+      })
+      .catch(showError);
+  }, [classroom]);
+
   const onDelete = useCallback(() => navigation.goBack(), []);
   const tabs = useMemo(() => {
     const pendingJoinRequests = userIsTeacher

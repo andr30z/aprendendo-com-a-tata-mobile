@@ -135,6 +135,7 @@ const PostItem: React.FC<PostItemProps> = ({
     );
   };
   const sheetRef = useRef<BottomSheetModal | null>(null);
+  const userIsAuthor = user?._id === post.author._id;
   return (
     <PostItemContainer deviceHeight={height}>
       <ConfirmationModal
@@ -180,7 +181,7 @@ const PostItem: React.FC<PostItemProps> = ({
             </BaseContainer>
           </>
         </TouchableHeader>
-        {(userIsTeacher || user?._id === post.author._id) && (
+        {(userIsTeacher || userIsAuthor) && (
           <MotiView
             style={{ ...styles.dotsContainer, backgroundColor: primaryTheme }}
             state={dotsAnimationState}
@@ -191,19 +192,21 @@ const PostItem: React.FC<PostItemProps> = ({
               hideStyles
               textTheme={textTheme}
             />
-            <CreatePost
-              classroom={classroom}
-              initialValues={post}
-              onPostCreation={getPosts as any}
-            >
-              {(ref) => (
-                <IconWithTouchable
-                  onPress={() => ref.current?.present()}
-                  iconName="circle-edit-outline"
-                  textTheme={textTheme}
-                />
-              )}
-            </CreatePost>
+            {userIsAuthor && (
+              <CreatePost
+                classroom={classroom}
+                initialValues={post}
+                onPostCreation={getPosts as any}
+              >
+                {(ref) => (
+                  <IconWithTouchable
+                    onPress={() => ref.current?.present()}
+                    iconName="circle-edit-outline"
+                    textTheme={textTheme}
+                  />
+                )}
+              </CreatePost>
+            )}
             <IconWithTouchable
               iconName="delete"
               textTheme={textTheme}
