@@ -4,6 +4,7 @@ import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../Hooks/useStageLogic";
+import { useOnEndActivity } from "../Hooks";
 import {
   ComparationBetweenObjectsActivity,
   ComparationBetweenObjectsActivityItem,
@@ -37,15 +38,6 @@ const ComparationBetweenObjects =
       }
     );
 
-    useEffect(() => {
-      //user has ended activity
-      if (
-        currentStageIndex === activity.stages.length - 1 &&
-        currentStageBonds.length === columns.left.length
-      )
-        onEndActivity();
-    }, [currentStageIndex, currentStageBonds]);
-
     const currentStage = activity.stages[currentStageIndex];
     const columns = useMemo(() => {
       const leftColumn = currentStage.filter(filterFunction(false));
@@ -55,6 +47,12 @@ const ComparationBetweenObjects =
         right: rightColumn,
       };
     }, [currentStage]);
+    
+    useOnEndActivity(
+      currentStageIndex === activity.stages.length - 1 &&
+        currentStageBonds.length === columns.left.length,
+      [currentStageIndex, currentStageBonds]
+    );
 
     return (
       <BaseContainer flex={1}>

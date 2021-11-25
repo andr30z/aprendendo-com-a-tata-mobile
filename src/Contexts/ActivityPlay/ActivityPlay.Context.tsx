@@ -1,30 +1,29 @@
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
-import { Portal } from "@gorhom/portal";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, {
   createContext,
   useCallback,
   useContext,
+  useMemo,
   useState,
-  useRef,
 } from "react";
-import Button from "../../Components/Button/Button.Component";
-import { PORTAL_HOSTS } from "../../Constants";
-import { BaseText } from "../../GlobalStyles/BaseStyles";
-import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useBackHandler } from "../../Hooks";
-import { ActivityAnswers, ActivityResult } from "../../Interfaces/index";
+import ShowActivityResultModal from "../../Components/ShowActivityResultModal/ShowActivityResultModal.Component";
+import { useBackHandler, useModalSheetRef } from "../../Hooks";
+import {
+  ActivityAnswers,
+  ActivityCommonProps,
+  ActivityResult,
+} from "../../Interfaces/index";
 import {
   ActivityPostParams,
   MainStackParamList,
 } from "../../Routes/MainStackNavigation/Interfaces";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { useUserContext } from "../User/User.Context";
-import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
+import { Platform, StatusBar } from "react-native";
 type NewActivityAnswers = Omit<ActivityAnswers, "_id">;
 interface ActivityPlayContextInterface {
   onEndActivity: () => void;
@@ -32,10 +31,13 @@ interface ActivityPlayContextInterface {
   setActivityAnswers: React.Dispatch<
     React.SetStateAction<NewActivityAnswers[]>
   >;
+  currentStageIndex: number;
+  setCurrentStageIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface ActivityPlayProviderProps extends ActivityPostParams {
   activityResult?: ActivityResult;
+  activity: ActivityCommonProps<unknown>;
 }
 
 const ActivityPlayContext = createContext<ActivityPlayContextInterface>(
@@ -46,12 +48,15 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
   children,
   activityResult,
   routeIndexToReturnOnFinish,
+  activity,
 }) => {
   const [activityAnswers, setActivityAnswers] = useState<
     Array<NewActivityAnswers>
   >([]);
   const { user } = useUserContext();
-  const sheetRef = useRef<BottomSheetModal>(null);
+  const { sheetRef, close } = useModalSheetRef();
+  const [currentStageIndex, setCurrentStageIndex] = useState(0);
+
   useBackHandler(false);
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const [completedActivityResult, setCompletedActivityResult] =
@@ -76,58 +81,55 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
         console.log(error.response);
       });
   }, [activityResult, activityAnswers]);
+  const withModalProps = useMemo(
+    () => ({
+      modalSheetRef: sheetRef,
+      snapPoints: ["5%"],
+      handleComponent: () => (
+        <AntDesign
+          name="star"
+          size={30}
+          color="#e5e500"
+          style={{ alignSelf: "center", marginVertical: 4 }}
+        />
+      ),
+      children: null,
+      enablePanDownToClose: false,
+      detached: true,
+      style: { marginHorizontal: 10 },
+      bottomInset: 50,
+    }),
+    []
+  );
   return (
     <ActivityPlayContext.Provider
-      value={{ onEndActivity, activityAnswers, setActivityAnswers }}
+      value={{
+        onEndActivity,
+        activityAnswers,
+        setActivityAnswers,
+        currentStageIndex,
+        setCurrentStageIndex,
+      }}
     >
       {children}
-      <Portal hostName={PORTAL_HOSTS.ROOT_PORTAL}>
-        <BottomSheetModalProvider>
-          <BottomSheetModal
-            ref={sheetRef}
-            snapPoints={["85%"]}
-            handleComponent={() => (
-              <AntDesign
-                name="star"
-                size={30}
-                color="#e5e500"
-                style={{ alignSelf: "center", marginVertical: 4 }}
-              />
-            )}
-            enablePanDownToClose={false}
-            detached
-            style={{ marginHorizontal: 10 }}
-            bottomInset={50}
-          >
-            {completedActivityResult && (
-              <BaseContainer
-                flex={1}
-                align="center"
-                justify="center"
-                flexDirection="column"
-              >
-                <BaseText fontSize="15px" color="#000">
-                  Atividade concluída com sucesso!
-                </BaseText>
-                <BaseText marginVertical="9px" fontSize="15px" color="#000">
-                  {completedActivityResult.activity.name}
-                </BaseText>
-                <BaseText marginBottom="9px" fontSize="20px" color="#000">
-                  Resultado: {completedActivityResult.result}
-                </BaseText>
-                <Button
-                  buttonTitle="Voltar"
-                  buttonHeight="55px"
-                  buttonWidth="130px"
-                  onPress={() => {
-                    navigation.pop(routeIndexToReturnOnFinish || 1);
-                  }}
-                />
-              </BaseContainer>
-            )}
-          </BottomSheetModal>
-        </BottomSheetModalProvider>
-      </Portal>
+      <ShowActivityResultModal
+        withModalProps={withModalProps}
+        routeIndexToReturnOnFinish={routeIndexToReturnOnFinish}
+        completedActivityResult={completedActivityResult}
+      />
+      <BaseContainer
+        style={{
+          zIndex: 50,
+          marginTop: Platform.OS === "ios" ? 20 + 1 : StatusBar.currentHeight,
+        }}
+        position="absolute"
+        top={10}
+        right={10}
+        flexDirection="row"
+      >
+        <MaterialIcons name="arrow-back-ios" size={24} color="black" />
+        <MaterialIcons name="arrow-forward-ios" size={24} color="black" />
+      </BaseContainer>
     </ActivityPlayContext.Provider>
   );
 };

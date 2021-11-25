@@ -29,7 +29,7 @@ type Props = NativeStackScreenProps<
 const ActivityPlay: React.FC<Props> = ({ route, navigation }) => {
   const { activity, activityResult, routeIndexToReturnOnFinish } = route.params;
   return (
-    <ActivityPlayProvider activityResult={activityResult} routeIndexToReturnOnFinish={routeIndexToReturnOnFinish}>
+    <ActivityPlayProvider activityResult={activityResult} activity={activity} routeIndexToReturnOnFinish={routeIndexToReturnOnFinish}>
       {(() => {
         switch (activity?.type) {
           case ACTIVITY_CONSTANTS.CMP:
