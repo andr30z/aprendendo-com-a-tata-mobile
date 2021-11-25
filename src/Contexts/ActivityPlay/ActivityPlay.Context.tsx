@@ -1,6 +1,4 @@
-import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/core";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import React, {
   createContext,
   useCallback,
@@ -8,22 +6,18 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { Platform, StatusBar } from "react-native";
 import ShowActivityResultModal from "../../Components/ShowActivityResultModal/ShowActivityResultModal.Component";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useBackHandler, useModalSheetRef } from "../../Hooks";
 import {
   ActivityAnswers,
   ActivityCommonProps,
   ActivityResult,
 } from "../../Interfaces/index";
-import {
-  ActivityPostParams,
-  MainStackParamList,
-} from "../../Routes/MainStackNavigation/Interfaces";
+import { ActivityPostParams } from "../../Routes/MainStackNavigation/Interfaces";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { useUserContext } from "../User/User.Context";
-import { MaterialIcons } from "@expo/vector-icons";
-import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { Platform, StatusBar } from "react-native";
 type NewActivityAnswers = Omit<ActivityAnswers, "_id">;
 interface ActivityPlayContextInterface {
   onEndActivity: () => void;
@@ -58,7 +52,7 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
 
   useBackHandler(false);
-  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
+  // const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const [completedActivityResult, setCompletedActivityResult] =
     useState<ActivityResult | null>(null);
   const onEndActivity = useCallback(() => {
@@ -117,19 +111,21 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
         routeIndexToReturnOnFinish={routeIndexToReturnOnFinish}
         completedActivityResult={completedActivityResult}
       />
-      <BaseContainer
-        style={{
-          zIndex: 50,
-          marginTop: Platform.OS === "ios" ? 20 + 1 : StatusBar.currentHeight,
-        }}
-        position="absolute"
-        top={10}
-        right={10}
-        flexDirection="row"
-      >
-        <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-        <MaterialIcons name="arrow-forward-ios" size={24} color="black" />
-      </BaseContainer>
+      {activity.stages && (
+        <BaseContainer
+          style={{
+            zIndex: 50,
+            marginTop: Platform.OS === "ios" ? 20 + 1 : StatusBar.currentHeight,
+          }}
+          position="absolute"
+          top={10}
+          right={10}
+          flexDirection="row"
+        >
+          <MaterialIcons name="arrow-back-ios" size={24} color="black" />
+          <MaterialIcons name="arrow-forward-ios" size={24} color="black" />
+        </BaseContainer>
+      )}
     </ActivityPlayContext.Provider>
   );
 };
