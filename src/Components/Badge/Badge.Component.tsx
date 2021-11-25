@@ -63,6 +63,8 @@ const Badge: React.FC<BadgeProps & BadgeComponentProps> = ({
               ...extraTextStyles,
             } as any
           }
+          ellipsizeMode="tail"
+          numberOfLines={shouldLimitSize ? 1 : undefined}
         >
           {text}
           {children}

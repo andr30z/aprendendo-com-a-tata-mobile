@@ -5,12 +5,15 @@ import React, {
   useState,
   useCallback,
 } from "react";
+import { useUserContext } from "../User/User.Context";
 import {
   ClassRoomInterface,
   SetStateInterface,
   UserType,
 } from "../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../Services";
+import { useNavigation } from "@react-navigation/core";
+import Toast from "react-native-toast-message";
 type ClassRoomComposition = ClassRoomInterface | null;
 interface ClassroomContextInterface {
   classroom: ClassRoomComposition;
@@ -27,6 +30,8 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
   classId,
 }) => {
   const [classroom, setClassroom] = useState<ClassRoomComposition>(null);
+  const { user } = useUserContext();
+  const navigation = useNavigation();
   const getClassroom = useCallback(
     (onFinishCallback?: () => void) => {
       baseApi
@@ -41,6 +46,17 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
   useEffect(() => {
     getClassroom();
   }, []);
+
+  useEffect(() => {
+    if (!classroom) return;
+    if (
+      classroom.teacher._id === user?._id ||
+      classroom.members.find((x) => x._id === user?._id)
+    )
+      return;
+    Toast.show({ type: "error", text1: "Você não faz parte dessa sala." });
+    navigation.goBack();
+  }, [classroom, user]);
 
   return (
     <ClassroomContext.Provider

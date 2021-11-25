@@ -1,9 +1,6 @@
 import React, { useMemo } from "react";
 import { useWindowDimensions } from "react-native";
-import {
-  Fade,
-  Placeholder, PlaceholderMedia
-} from "rn-placeholder";
+import { Fade, Placeholder, PlaceholderMedia } from "rn-placeholder";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useActivityList } from "../../Hooks";
@@ -53,7 +50,7 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
   const skeletonArray = useMemo(() => [...Array(9)], []);
   const { height } = useWindowDimensions();
   const hasSelectedItem = selectedActivities.length > 0;
-  if (isInputFocused) return <BaseContainer height="350px"/>;
+  if (isInputFocused) return <BaseContainer height="350px" />;
   return (
     <>
       <BaseContainer
@@ -64,26 +61,29 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
           Atividades
         </BaseText>
       </BaseContainer>
-      {hasSelectedItem && (
+
+      {!isLoading ? (
         <>
-          <BaseContainer flexDirection="column">
-            <BaseText color="black" align="left">
-              Atividades Selecionadas:
-            </BaseText>
-            <BaseContainer {...(gridContainerStyles as any)} marginTop="10px">
-              {selectedActivities.map((activity, index) => (
-                <ActivityItem
-                  roundedBorders={false}
-                  boxWidth={gridItemWidth}
-                  marginTop="3px"
-                  onPress={removeActivity(index)}
-                  key={activity._id}
-                  itemIndex={index}
-                  {...activity}
-                />
-              ))}
+          {hasSelectedItem && (
+            <BaseContainer flexDirection="column">
+              <BaseText color="black" align="left">
+                Atividades Selecionadas:
+              </BaseText>
+              <BaseContainer {...(gridContainerStyles as any)} marginTop="10px">
+                {selectedActivities.map((activity, index) => (
+                  <ActivityItem
+                    roundedBorders={false}
+                    boxWidth={gridItemWidth}
+                    marginTop="3px"
+                    onPress={removeActivity(index)}
+                    key={activity._id}
+                    itemIndex={index}
+                    {...activity}
+                  />
+                ))}
+              </BaseContainer>
             </BaseContainer>
-          </BaseContainer>
+          )}
           <BaseContainer
             style={{
               borderWidth: 1,
@@ -92,22 +92,25 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
             }}
             width="100%"
           />
+          <BaseContainer
+            onLayout={(e) => {
+              console.log(e.nativeEvent.layout);
+            }}
+            {...(gridContainerStyles as any)}
+          >
+            {activities.map((activity, index) => (
+              <ActivityItem
+                roundedBorders={false}
+                boxWidth={gridItemWidth}
+                marginTop="3px"
+                onPress={onPressActivity(activity)}
+                key={activity._id}
+                itemIndex={index}
+                {...activity}
+              />
+            ))}
+          </BaseContainer>
         </>
-      )}
-      {!isLoading ? (
-        <BaseContainer {...(gridContainerStyles as any)}>
-          {activities.map((activity, index) => (
-            <ActivityItem
-              roundedBorders={false}
-              boxWidth={gridItemWidth}
-              marginTop="3px"
-              onPress={onPressActivity(activity)}
-              key={activity._id}
-              itemIndex={index}
-              {...activity}
-            />
-          ))}
-        </BaseContainer>
       ) : (
         <BaseContainer {...(gridContainerStyles as any)}>
           {skeletonArray.map((_, index) => (

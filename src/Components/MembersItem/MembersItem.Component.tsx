@@ -1,15 +1,15 @@
 import React, { useCallback } from "react";
-import { Pressable, useWindowDimensions } from "react-native";
-import ProfilePhoto from "../ProfilePhoto/ProfilePhoto.Component";
-import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { UserInterface, ClassRoomInterface } from "../../Interfaces/index";
-import { formatFilePathUrl } from "../../Utils";
-import { useClassroomContext } from "../../Contexts";
-import Badge from "../Badge/Badge.Component";
-import { styles } from "./Styles";
-import ClassroomMemberDetailsModal from "../ClassroomMemberDetailsModal/ClassroomMemberDetailsModal.Component";
-import { useModalSheetRef } from "../../Hooks";
+import { useWindowDimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useClassroomContext } from "../../Contexts";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
+import { useModalSheetRef } from "../../Hooks";
+import { ClassRoomInterface, UserInterface } from "../../Interfaces/index";
+import { formatFilePathUrl } from "../../Utils";
+import Badge from "../Badge/Badge.Component";
+import ClassroomMemberDetailsModal from "../ClassroomMemberDetailsModal/ClassroomMemberDetailsModal.Component";
+import ProfilePhoto from "../ProfilePhoto/ProfilePhoto.Component";
+import { styles } from "./Styles";
 
 interface MembersItemProps {
   member: UserInterface;
@@ -45,7 +45,7 @@ const MembersItem: React.FC<MembersItemProps> = ({ member }) => {
       />
       <BaseContainer
         width={`${width * 0.25}px`}
-        height="100px"
+        height="150px"
         marginHorizontal="8px"
         marginVertical="8px"
       >

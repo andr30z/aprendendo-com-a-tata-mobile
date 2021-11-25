@@ -13,6 +13,7 @@ import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component"
 import { baseApi, baseApiRoutes } from "../../Services";
 import Toast from "react-native-toast-message";
 import { PortalHost } from "@gorhom/portal";
+import { useUserContext } from "../../Contexts";
 
 interface ClassroomMemberDetailsModalProps {
   child: UserInterface;
@@ -36,6 +37,7 @@ function getAge(dateString: string) {
 const ClassroomMemberDetailsModal = WithModal<ClassroomMemberDetailsModalProps>(
   ({ child, classroom, onRemove }) => {
     const { sheetRef, open } = useModalSheetRef();
+    const { userIsTeacher } = useUserContext();
     const { cancellablePromise } = useCancellablePromise();
     const onConfirmDelete = useCallback(async () => {
       return cancellablePromise(
@@ -68,7 +70,7 @@ const ClassroomMemberDetailsModal = WithModal<ClassroomMemberDetailsModalProps>(
         />
         <BaseContainer justify="center" flex={1}>
           <ProfilePhoto
-            size={100}
+            size={200}
             source={{
               uri:
                 formatFilePathUrl(child.profilePhoto?.path) ||
@@ -92,14 +94,16 @@ const ClassroomMemberDetailsModal = WithModal<ClassroomMemberDetailsModalProps>(
             Idade: {getAge(child.birthday)} anos
           </BaseText>
         </BaseContainer>
-        <BaseContainer flex={0.5} marginTop="10px">
-          <AntDesign
-            onPress={open}
-            name="deleteuser"
-            size={40}
-            color={classroom.color}
-          />
-        </BaseContainer>
+        {userIsTeacher && (
+          <BaseContainer flex={0.5} marginTop="10px">
+            <AntDesign
+              onPress={open}
+              name="deleteuser"
+              size={60}
+              color={classroom.color}
+            />
+          </BaseContainer>
+        )}
       </BaseContainer>
     );
   }

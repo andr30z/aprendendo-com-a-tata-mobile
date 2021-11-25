@@ -40,7 +40,7 @@ const Post: React.FC = () => {
       )
     )
       .then((res) => {
-        console.log(res.data+"post");
+        console.log(res.data + "post");
         setPosts(res.data.posts.reverse());
         setFalse();
       })
@@ -104,6 +104,7 @@ const Post: React.FC = () => {
       ) : (
         posts.map((post: any) => (
           <PostItem
+            classroom={classroom as ClassRoomInterface}
             primaryTheme={primaryTheme as string}
             textTheme={textTheme as string}
             getPosts={getPosts}

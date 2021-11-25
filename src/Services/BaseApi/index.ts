@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Axios from "axios";
 
-// export const DEFAULT_URL = "http://192.168.1.3:8080/api";
-export const DEFAULT_URL = "http://192.168.1.64:8080/api";
+export const DEFAULT_URL = "http://192.168.1.3:8080/api";
+// export const DEFAULT_URL = "http://192.168.1.64:8080/api";
 
 export const ASYNC_STORAGE_COOKIE_KEY = "app_auth_cookies";
 export const baseApi = Axios.create({
@@ -10,6 +10,8 @@ export const baseApi = Axios.create({
   withCredentials: true,
   headers: {},
 });
+
+const classUserRoute = (classId: string) => `v1/classrooms/${classId}/users`
 
 export const baseApiRoutes = {
   ACTIVITIES: "/v1/activities",
@@ -21,7 +23,8 @@ export const baseApiRoutes = {
   ME: "v1/users/me",
   CLASSROOMS: "v1/classrooms",
   CLASSES_BY_USERS: "v1/classrooms/users",
-  CLASSROOMS_USERS: (classId: string, userId: string) => `v1/classrooms/${classId}/users/${userId}`,
+  CLASS_USER: classUserRoute,
+  CLASSROOMS_USERS: (classId: string, userId: string) => `${classUserRoute(classId)}/${userId}`,
   CLASSROOM_JOIN_REQUEST: (classId: string) => `v1/classrooms/${classId}/join-request`,
   CLASSROOM_JOIN_REQUEST_RESOLVE: (classId: string, userId: string) => `v1/classrooms/${classId}/join-request/${userId}`,
   ACTIVITY_RESULT_USERS: "v1/activities-results/users",

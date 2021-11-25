@@ -3,43 +3,23 @@ import {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { Portal } from "@gorhom/portal";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  NativeSyntheticEvent,
-  TextInputContentSizeChangeEventData,
-} from "react-native";
-import Toast from "react-native-toast-message";
+import React from "react";
+import { ActivityIndicator } from "react-native";
 import { PORTAL_HOSTS } from "../../Constants";
-import { useUserContext } from "../../Contexts";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useBoolean, useKeyboardHideOrShowEvent } from "../../Hooks";
-import {
-  ActivityCommonProps,
-  ClassRoomInterface,
-  PostTypes,
-} from "../../Interfaces/index";
-import { baseApi, baseApiRoutes } from "../../Services";
 import { formatFilePathUrl } from "../../Utils";
 import ActivityPostListing from "../ActivityPostListing/ActivityPostListing.Component";
 import Button from "../Button/Button.Component";
 import Input from "../Input/Input.Component";
+import { CreatePostProps } from "./Interfaces";
 import {
   BaseTextWithCenterAlign,
   ProfilePhotoWithCenterAlign,
   styles,
 } from "./Styles";
+import { useCreatePostLogic } from "./useCreatePostLogic";
 const snapPoints = ["93%"];
-
-interface CreatePostProps {
-  children: (
-    sheetRef: React.RefObject<BottomSheetModalMethods>
-  ) => React.ReactNode;
-  classroom: ClassRoomInterface;
-  onPostCreation: () => void;
-}
 
 /**
  * Component resposable for handling class post creation.
@@ -48,92 +28,35 @@ interface CreatePostProps {
  * @param classroom the actual classroom that this post component is being rendered.
  * @author andr3z0
  **/
-const CreatePost: React.FC<CreatePostProps> = ({
-  children,
-  classroom,
-  onPostCreation,
-}) => {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const [postText, setPostText] = useState("");
-  const [isTextEmpty, setIsTextEmpty] = useState(false);
-  const [inputHeight, setInputHeight] = useState(35);
-  const { value: isFocusedOnInput, setFalse, setTrue } = useBoolean();
-  const [selectedActivities, setSelectedActivities] = useState<
-    Array<ActivityCommonProps<unknown>>
-  >([]);
-  const { value: isSubmitting, toggle } = useBoolean();
-  const onDismiss = useCallback(() => {
-    if (isSubmitting) return null;
-    setSelectedActivities([]);
-    setFalse();
-    setIsTextEmpty(false);
-    setPostText("");
-  }, [isSubmitting]);
-  useKeyboardHideOrShowEvent({ onHide: setFalse, onShow: setTrue });
-  const { user } = useUserContext();
-  const onSubmit = () => {
-    if (isTextEmpty || postText.trim().length === 0)
-      return setIsTextEmpty(true);
-    toggle();
-    baseApi
-      .post(baseApiRoutes.POSTS, {
-        authorId: user?._id,
-        classroomId: classroom._id,
-        text: postText,
-        allowComments: false,
-        type: selectedActivities.length > 0 ? PostTypes.A : PostTypes.N,
-        activities:
-          selectedActivities.length > 0
-            ? selectedActivities.map((x) => x._id)
-            : null,
-      })
-      .then(() => {
-        Toast.show({
-          text1: "Post criado com sucesso!",
-        });
-        toggle();
-        onPostCreation();
-        setFalse();
-        if (bottomSheetModalRef.current) bottomSheetModalRef.current.close();
-      })
-      .catch((e) => {
-        toggle();
-      });
-  };
-
-  const onChange = useCallback((e: string) => {
-    setPostText(e);
-  }, []);
-  useEffect(() => {
-    if (isTextEmpty) setPostText("Digite uma mensagem!");
-  }, [isTextEmpty]);
-
-  const onFocus = useCallback(() => {
-    if (isTextEmpty) {
-      setIsTextEmpty(false);
-      setPostText("");
-    }
-  }, [isTextEmpty]);
-
-  const onContentChange = useCallback(
-    (event: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => {
-      setInputHeight(event.nativeEvent.contentSize.height);
-    },
-    []
-  );
+const CreatePost: React.FC<CreatePostProps> = (props) => {
+  const { children, classroom, initialValues } = props;
+  const {
+    onDismiss,
+    inputHeight,
+    isFocusedOnInput,
+    isTextEmpty,
+    onChange,
+    onContentChange,
+    onFocus,
+    onSubmit,
+    postText,
+    selectedActivities,
+    setSelectedActivities,
+    sheetRef,
+    isSubmitting,
+    user,
+  } = useCreatePostLogic(props);
   return (
     <>
       <Portal hostName={PORTAL_HOSTS.ROOT_PORTAL}>
         <BottomSheetModalProvider>
           <BottomSheetModal
-            ref={bottomSheetModalRef}
+            ref={sheetRef}
             index={0}
             enablePanDownToClose={!isSubmitting}
             onDismiss={onDismiss}
             style={{ paddingHorizontal: 10, flex: 1 }}
             snapPoints={snapPoints}
-
-            // onChange={handleSheetChanges}
           >
             <BottomSheetScrollView
               contentContainerStyle={styles.scrollViewContentContainerStyle}
@@ -163,7 +86,13 @@ const CreatePost: React.FC<CreatePostProps> = ({
                     buttonHeight="35px"
                     backgroundColor={classroom.color}
                     onPress={onSubmit}
-                    buttonTitle={isSubmitting ? undefined : "Publicar"}
+                    buttonTitle={
+                      isSubmitting
+                        ? undefined
+                        : initialValues?._id
+                        ? "Atualizar"
+                        : "Publicar"
+                    }
                   >
                     {isSubmitting && (
                       <ActivityIndicator
@@ -205,7 +134,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
         </BottomSheetModalProvider>
       </Portal>
 
-      {children(bottomSheetModalRef)}
+      {children(sheetRef)}
     </>
   );
 };

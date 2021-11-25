@@ -130,15 +130,6 @@ const ClassRoomItem = React.memo<ClassRoomItemProps>(
                 <BaseText marginLeft="7px" color={textStyleColor}>
                   {classRoom.members.length}
                 </BaseText>
-                {/* <FontAwesome
-                style={{ marginLeft: 10 }}
-                name="wpforms"
-                size={22}
-                color={textStyleColor}
-              />
-              <BaseText marginLeft="7px" color={textStyleColor}>
-                {classRoom.members.length}
-              </BaseText> */}
               </BaseContainer>
             </BaseContainer>
             <BaseContainer flexDirection={"row"} width="100%">

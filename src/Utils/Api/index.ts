@@ -11,7 +11,7 @@ import {
 
 /**
  * Create token and credentials from user inside AsyncStorage.
- * @poram res Axios response object.
+ * @param res Axios response object.
  * @author andr3z0
  **/
 export function setTokenAndCredentialsOnAsyncStorage(

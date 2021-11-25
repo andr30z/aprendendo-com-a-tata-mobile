@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/core";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PostItem } from "../../Components";
 import { useBackHandler } from "../../Hooks";
 import { Post } from "../../Interfaces/index";
@@ -19,14 +19,17 @@ type Props = NativeStackScreenProps<
  **/
 const PostDetails: React.FC<Props> = ({ navigation, route }) => {
   const {
-    params: { post, primaryTheme, textTheme },
+    params: { post, primaryTheme, textTheme, classroom },
   } = route;
   const [currentPost, setCurrentPost] = useState<Post | null>(null);
-  useEffect(() => {
+  const getPost = useCallback(() => {
     baseApi.get<Post>(baseApiRoutes.POSTS + "/" + post._id).then((res) => {
       console.log(res.data);
       setCurrentPost(res.data);
     });
+  }, [post]);
+  useEffect(() => {
+    getPost();
   }, []);
   const focused = useIsFocused();
   console.log(focused, "focused");
@@ -37,10 +40,12 @@ const PostDetails: React.FC<Props> = ({ navigation, route }) => {
   return (
     <PostDetailsScrollView contentContainerStyle={{ paddingBottom: 50 }}>
       <PostItem
+        classroom={classroom}
         primaryTheme={primaryTheme}
         textTheme={textTheme}
         post={currentPost || post}
         isRenderedInPostDetailsPage
+        getPosts={getPost}
       />
     </PostDetailsScrollView>
   );
