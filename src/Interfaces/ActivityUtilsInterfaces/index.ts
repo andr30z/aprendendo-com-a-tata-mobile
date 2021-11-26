@@ -13,6 +13,7 @@ export interface ActivityCommonProps<A> {
   stages: Array<A>;
   _id: string;
   difficulty: number;
+  color?: string;
   name: string;
 }
 

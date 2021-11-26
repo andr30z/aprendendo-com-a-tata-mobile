@@ -1,3 +1,3 @@
 export { useCompleteWordsLogic } from "./useCompleteWordsLogic";
 export { useLettersItemLogic } from "./useLettersItemLogic";
-export { useOnEndActivity } from "./useOnEndActivity";
+export { useOnChangeStage } from "./useOnChangeStage";

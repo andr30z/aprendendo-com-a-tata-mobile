@@ -26,3 +26,4 @@ export { default as SettingsOptionsItem } from "./SettingsOptionsItem/SettingsOp
 export { default as ClassroomMemberDetailsModal } from "./ClassroomMemberDetailsModal/ClassroomMemberDetailsModal.Component";
 export { default as MembersItem } from "./MembersItem/MembersItem.Component";
 export { default as ShowActivityResultModal } from "./ShowActivityResultModal/ShowActivityResultModal.Component";
+export { default as OnFinishActivityModal } from "./OnFinishActivityModal/OnFinishActivityModal.Component";

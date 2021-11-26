@@ -55,6 +55,7 @@ export const UserProvider: React.FC = ({ children }) => {
       (response) => response,
       async (error) => {
         const originalRequest = error?.config;
+        console.log(error)
         // Prevent infinite loops
         if (
           error?.response?.status === 401 &&

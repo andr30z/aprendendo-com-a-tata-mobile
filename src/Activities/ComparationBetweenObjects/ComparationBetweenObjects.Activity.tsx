@@ -4,7 +4,7 @@ import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../Hooks/useStageLogic";
-import { useOnEndActivity } from "../Hooks";
+import { useOnChangeStage } from "../Hooks";
 import {
   ComparationBetweenObjectsActivity,
   ComparationBetweenObjectsActivityItem,
@@ -23,20 +23,17 @@ const filterFunction =
 const ComparationBetweenObjects =
   WithDraxProvider<ComparationBetweenObjectsActivity>(({ activity }) => {
     const [currentStageBonds, setCurrentStageBonds] = useState<ArrayBonds>([]);
-    const { onEndActivity, setActivityAnswers } = useActivityPlayContext();
-    const { currentStageIndex } = useStageLogic(
-      currentStageBonds,
-      () =>
-        currentStageBonds.length === columns.left.length &&
-        currentStageIndex !== activity.stages.length - 1,
-      () => {
-        setActivityAnswers((past) => [
-          ...past,
-          { activity: currentStageBonds },
-        ]);
-        setCurrentStageBonds([]);
-      }
-    );
+    const { currentStageIndex } = useActivityPlayContext();
+    // const { currentStageIndex } = useStageLogic(
+    //   currentStageBonds,
+    //   () =>
+    //     currentStageBonds.length === columns.left.length &&
+    //     currentStageIndex !== activity.stages.length - 1,
+    //   () => {
+    //     setCurrentStageBonds([]);
+    //   }
+    // );
+    useOnChangeStage(currentStageBonds, setCurrentStageBonds);
 
     const currentStage = activity.stages[currentStageIndex];
     const columns = useMemo(() => {
@@ -47,12 +44,6 @@ const ComparationBetweenObjects =
         right: rightColumn,
       };
     }, [currentStage]);
-    
-    useOnEndActivity(
-      currentStageIndex === activity.stages.length - 1 &&
-        currentStageBonds.length === columns.left.length,
-      [currentStageIndex, currentStageBonds]
-    );
 
     return (
       <BaseContainer flex={1}>

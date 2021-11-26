@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/core";
+import React from "react"
 import Button from "../Button/Button.Component";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
@@ -9,14 +9,14 @@ import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces"
 interface ShowActivityResultModalProps {
   completedActivityResult: ActivityResult | null;
   routeIndexToReturnOnFinish?: number;
+  navigation: StackNavigationProp<MainStackParamList, keyof MainStackParamList>;
 }
 /**
  *
  * @author andr3z0
  **/
 export const ShowActivityResultModal = WithModal<ShowActivityResultModalProps>(
-  ({ completedActivityResult, routeIndexToReturnOnFinish }) => {
-    const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
+  ({ completedActivityResult, routeIndexToReturnOnFinish, navigation }) => {
     return (
       <>
         {completedActivityResult && (
