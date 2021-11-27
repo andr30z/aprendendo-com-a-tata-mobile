@@ -1,4 +1,6 @@
-import React, { useCallback, useRef, useState } from "react";
+import { FontAwesome } from "@expo/vector-icons";
+import React, { useCallback, useState } from "react";
+import { Pressable } from "react-native";
 import PagerView from "react-native-pager-view";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import {
@@ -6,12 +8,14 @@ import {
   ScrollContainer,
 } from "../../../../GlobalStyles/Containers.Style";
 import { SetStateInterface } from "../../../../Interfaces/index";
+import { usePageViewerLogic } from "../../../Hooks";
 import {
   QuestionOptionItem,
   StoryActivityAnswer,
   StoryQuestionsItem,
 } from "../../../Interfaces";
 import QuestionOption from "../QuestionOption/QuestionOption.Component";
+import QuestionsController from "../QuestionsController/QuestionsController.Component";
 import { CloseIconContainer } from "./Styles";
 
 interface QuestionsProps {
@@ -20,8 +24,6 @@ interface QuestionsProps {
   storyActivityAnswer: StoryActivityAnswer;
   onCloseAction: () => void;
 }
-import { FontAwesome } from "@expo/vector-icons";
-import { Pressable } from "react-native";
 /**
  *
  * @author andr3z0
@@ -32,8 +34,13 @@ const Questions: React.FC<QuestionsProps> = ({
   storyActivityAnswer,
   onCloseAction,
 }) => {
+  const {
+    setCurrentPosition,
+    currentPageControllerPosition,
+    onPageChange,
+    pageViewRef,
+  } = usePageViewerLogic();
   const [isScrolling, setIsScrolling] = useState(false);
-  const pageViewRef = useRef<PagerView>(null);
   const onClickAnswer = useCallback(
     (option: QuestionOptionItem, questionId: string) => {
       setStoryActivityAnswer((past) => {
@@ -66,13 +73,18 @@ const Questions: React.FC<QuestionsProps> = ({
         pageMargin={10}
         orientation={"horizontal"}
         scrollEnabled
+        onPageSelected={onPageChange}
         ref={pageViewRef}
         style={{ flex: 1 }}
         initialPage={0}
       >
         {questions.map((q, index) => (
           <ScrollContainer
-            contentContainerStyle={{ paddingHorizontal: 30, paddingTop: 30 }}
+            contentContainerStyle={{
+              paddingHorizontal: 30,
+              paddingTop: 30,
+              paddingBottom: 200,
+            }}
             key={q._id}
             onScrollBeginDrag={() => setIsScrolling(true)}
             onScrollEndDrag={() => setIsScrolling(false)}
@@ -97,6 +109,12 @@ const Questions: React.FC<QuestionsProps> = ({
           </ScrollContainer>
         ))}
       </PagerView>
+      <QuestionsController
+        storyActivityAnswer={storyActivityAnswer}
+        questionPosition={currentPageControllerPosition + 1}
+        setCurrentPagePosition={setCurrentPosition}
+        questionLimit={questions.length}
+      />
     </BaseContainer>
   );
 };

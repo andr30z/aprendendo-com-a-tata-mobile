@@ -34,6 +34,8 @@ interface ActivityPlayContextInterface {
   setCurrentStageIndex: React.Dispatch<React.SetStateAction<number>>;
   hasFinishedActivity: boolean;
   activityStageLength?: number;
+  onEndActivity: () => void;
+  setHasFinishedActivity: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ActivityPlayProviderProps extends ActivityPostParams {
@@ -60,7 +62,6 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   useBackHandler(false);
-  // const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const [completedActivityResult, setCompletedActivityResult] =
     useState<ActivityResult | null>(null);
   const onEndActivity = useCallback(() => {
@@ -122,10 +123,12 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
     <ActivityPlayContext.Provider
       value={{
         hasFinishedActivity,
+        setHasFinishedActivity,
         activityAnswers,
         oldStageIndex,
         currentStageIndex,
         setCurrentStageIndex,
+        onEndActivity,
         activityStageLength: activity?.stages?.length,
       }}
     >
@@ -171,14 +174,14 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
               color={activity.color || "red"}
             />
           )}
-          <OnFinishActivityModal
-            modalRef={activityModalEndRef}
-            finished={hasFinishedActivity}
-            setFinished={setHasFinishedActivity}
-            onSubmit={onEndActivity}
-          />
         </BaseContainer>
       )}
+      <OnFinishActivityModal
+        modalRef={activityModalEndRef}
+        finished={hasFinishedActivity}
+        setFinished={setHasFinishedActivity}
+        onSubmit={onEndActivity}
+      />
     </ActivityPlayContext.Provider>
   );
 };

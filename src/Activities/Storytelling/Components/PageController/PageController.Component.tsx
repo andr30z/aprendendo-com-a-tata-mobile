@@ -7,7 +7,7 @@ import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { ButtonActivity, LinearGradientButtonContainer } from "./Styles";
 
 type SetPageCallbackType = (currentPage: number) => number;
-interface NextPageDraggableItemProps {
+interface PageControllerProps {
   pagePosition: number;
   setCurrentPagePosition: (cb: SetPageCallbackType) => void;
   pageLimit: number;
@@ -19,7 +19,7 @@ interface NextPageDraggableItemProps {
  *
  * @author andr3z0
  **/
-const NextPageDraggableItem = React.memo<NextPageDraggableItemProps>(
+const PageController = React.memo<PageControllerProps>(
   ({
     pagePosition,
     setCurrentPagePosition,
@@ -39,7 +39,7 @@ const NextPageDraggableItem = React.memo<NextPageDraggableItemProps>(
           right: 25,
 
           padding: 4,
-          opacity: showActionButtons ? 1 : 0.4,
+          opacity: showActionButtons ? 1 : 0.1,
         }}
         width="160px"
         flexDirection="column"
@@ -87,4 +87,4 @@ const NextPageDraggableItem = React.memo<NextPageDraggableItemProps>(
   }
 );
 
-export default NextPageDraggableItem;
+export default PageController;

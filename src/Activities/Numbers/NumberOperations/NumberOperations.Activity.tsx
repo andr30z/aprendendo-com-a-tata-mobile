@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import { DraxScrollView } from "react-native-drax";
 import { WithDraxProvider } from "../../../Components";
+import { useActivityPlayContext } from "../../../Contexts";
 import { BaseText } from "../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../../Hooks/useStageLogic";
+import { useOnChangeStage } from "../../Hooks";
 import {
   NumberOperationsActivityStageInterface,
   OperationResult,
@@ -24,18 +26,13 @@ const NumberOperations = WithDraxProvider<NumberOperationsProps>(
     const [operationsResults, setOperationsResults] = useState<OperationResult>(
       []
     );
-    const { currentStageIndex } = useStageLogic(
-      operationsResults,
-      () =>
-        activity.stages[currentStageIndex].operations.length ===
-        operationsResults.length,
-      () => setOperationsResults([])
-    );
+    const { currentStageIndex } = useActivityPlayContext();
+    useOnChangeStage(operationsResults, setOperationsResults);
     const currentStage = activity.stages[currentStageIndex];
     const { height } = useWindowDimensions();
     return (
       <BaseContainer flex={1}>
-        <DraxScrollView style={{ height }}>
+        <DraxScrollView style={{ height, paddingBottom: 20 }}>
           <BaseContainer flex={1} marginTop="25px">
             <BaseText align="center" color="black" fontSize="25px">
               {activity.activityUtterance}
