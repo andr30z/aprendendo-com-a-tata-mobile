@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useActivityPlayContext } from "../../../Contexts";
 import { BaseText } from "../../../GlobalStyles/BaseStyles";
 import {
   BaseContainer,
@@ -6,6 +7,7 @@ import {
 } from "../../../GlobalStyles/Containers.Style";
 import { useScreenOrientation } from "../../../Hooks/useScreenOrientation";
 import { useStageLogic } from "../../../Hooks/useStageLogic";
+import { useOnChangeStage } from "../../Hooks";
 import {
   ImagesByLettersActivityStageInterface,
   PressedImagesInterface,
@@ -21,16 +23,16 @@ interface ImagesByLettersProps {
  * @author andr3z0
  **/
 const ImagesByLetters: React.FC<ImagesByLettersProps> = ({ activity }) => {
-  const { currentStageIndex } = useStageLogic(
-    false,
-    () => false,
-    () => false
-  );
-  useScreenOrientation(5, 2);
-  const currentStage = activity.stages[currentStageIndex];
+  
   const [pressedImagesId, setPressedImagesId] =
-    useState<PressedImagesInterface>([]);
+  useState<PressedImagesInterface>([]);
+  
+  const { currentStageIndex } = useActivityPlayContext();
+  const currentStage = activity.stages[currentStageIndex];
+  
+  useOnChangeStage(pressedImagesId, setPressedImagesId);
 
+  useScreenOrientation(5, 2);
   useEffect(() => {
     setPressedImagesId(
       currentStage.pressingLettersActivity.map((item) => ({

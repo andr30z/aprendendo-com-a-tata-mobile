@@ -1,9 +1,8 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import { WithDraxProvider } from "../../Components";
 import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useStageLogic } from "../../Hooks/useStageLogic";
 import { useOnChangeStage } from "../Hooks";
 import {
   ComparationBetweenObjectsActivity,
@@ -24,15 +23,7 @@ const ComparationBetweenObjects =
   WithDraxProvider<ComparationBetweenObjectsActivity>(({ activity }) => {
     const [currentStageBonds, setCurrentStageBonds] = useState<ArrayBonds>([]);
     const { currentStageIndex } = useActivityPlayContext();
-    // const { currentStageIndex } = useStageLogic(
-    //   currentStageBonds,
-    //   () =>
-    //     currentStageBonds.length === columns.left.length &&
-    //     currentStageIndex !== activity.stages.length - 1,
-    //   () => {
-    //     setCurrentStageBonds([]);
-    //   }
-    // );
+
     useOnChangeStage(currentStageBonds, setCurrentStageBonds);
 
     const currentStage = activity.stages[currentStageIndex];

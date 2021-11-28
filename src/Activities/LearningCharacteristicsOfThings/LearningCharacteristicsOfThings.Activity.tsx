@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import {
   BaseContainer,
   ScrollContainer,
 } from "../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../Hooks";
+import { useOnChangeStage } from "../Hooks";
 import { LearningCharacteristicsOfThingsActivityStageInterface } from "../Interfaces";
 import { LearningCharacteristicsOfThingsItem } from "./Components";
 
@@ -18,13 +20,10 @@ interface LearningCharacteristicsOfThingsProps {
  **/
 const LearningCharacteristicsOfThings: React.FC<LearningCharacteristicsOfThingsProps> =
   ({ activity }) => {
-    const { currentStageIndex } = useStageLogic(
-      false,
-      () => false,
-      () => false
-    );
-    const currentStage = activity.stages[currentStageIndex];
     const [pressedImages, setPressedImages] = useState<Array<string>>([]);
+    const { currentStageIndex } = useActivityPlayContext();
+    useOnChangeStage(pressedImages, setPressedImages);
+    const currentStage = activity.stages[currentStageIndex];
     return (
       <BaseContainer flex={1}>
         <ScrollContainer>
@@ -43,7 +42,13 @@ const LearningCharacteristicsOfThings: React.FC<LearningCharacteristicsOfThingsP
               {activity.activityUtterance}
             </BaseText>
           </BaseContainer>
-          <BaseContainer marginTop="55px" align="center" justify="center" flexDirection="row" flexWrap="wrap">
+          <BaseContainer
+            marginTop="55px"
+            align="center"
+            justify="center"
+            flexDirection="row"
+            flexWrap="wrap"
+          >
             {currentStage.characteristicsItems.map((item, index) => (
               <LearningCharacteristicsOfThingsItem
                 key={item._id}

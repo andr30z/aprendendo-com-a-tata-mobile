@@ -5,8 +5,7 @@ import { WithDraxProvider } from "../../Components";
 import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useStageLogic } from "../../Hooks/useStageLogic";
-import { useOnEndActivity } from "../Hooks";
+import { useOnChangeStage } from "../Hooks";
 import { ShapesAndColorsInterface, TaggedItems } from "../Interfaces";
 import { ShapesAndColorsItem } from "./Components";
 import { FlatListContainer } from "./Styles";
@@ -22,17 +21,9 @@ interface ShapesAndColorsProps {
 const ShapesAndColors = WithDraxProvider<ShapesAndColorsProps>(
   ({ activity }) => {
     const [taggedItems, setTaggedItems] = useState<TaggedItems>([]);
-    const { setActivityAnswers } = useActivityPlayContext();
-    const { currentStageIndex } = useStageLogic(
-      taggedItems,
-      () => taggedItems.length > 3,
-      () => {
-        setActivityAnswers((past) => [...past, { activity: taggedItems }]);
-        setTaggedItems([]);
-      }
-    );
+    const { currentStageIndex } = useActivityPlayContext();
+    useOnChangeStage(taggedItems, setTaggedItems);
     const currentStage = activity.stages[currentStageIndex];
-    // useOnEndActivity(taggedItems.length > 3, []);
     const { width } = useWindowDimensions();
 
     return (

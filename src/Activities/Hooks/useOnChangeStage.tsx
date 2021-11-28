@@ -16,24 +16,27 @@ export function useOnChangeStage<S>(
     hasFinishedActivity,
     activityStageLength,
   } = useActivityPlayContext();
+  console.log(state);
   //   const oldIndex = useMemo(() => currentStageIndex, [activityAnswers]);
   useEffect(() => {
     const onEffectReturn = (index: number = oldStageIndex.current) => {
       const activityAnswersCurrent = activityAnswers.current;
-      //   console.log(currentStageIndex, activityAnswersCurrent, "RETURN");
-      //   console.log("-------END-UPDATE-------");
       const list = [...activityAnswersCurrent];
       list[index] = { activity: state };
       activityAnswers.current = list;
     };
     if (activityStageLength === undefined) return;
-    if (hasFinishedActivity) return onEffectReturn(oldStageIndex.current + 1);
+    if (hasFinishedActivity)
+      return onEffectReturn(
+        oldStageIndex.current === currentStageIndex
+          ? currentStageIndex
+          : oldStageIndex.current + 1
+      );
     const activityAnswersCurrent = activityAnswers.current;
 
-    if (activityAnswersCurrent[oldStageIndex.current]) {
-      console.log(activityAnswersCurrent[oldStageIndex.current], "AAAAA");
+    if (activityAnswersCurrent[oldStageIndex.current])
       setState(activityAnswersCurrent[oldStageIndex.current]?.activity || []);
-    }
+
     return onEffectReturn;
   }, [currentStageIndex, hasFinishedActivity]);
 }
