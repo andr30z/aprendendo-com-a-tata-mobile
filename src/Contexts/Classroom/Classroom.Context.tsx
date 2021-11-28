@@ -12,7 +12,7 @@ import {
   UserType,
 } from "../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../Services";
-import { useNavigation } from "@react-navigation/core";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
 import Toast from "react-native-toast-message";
 type ClassRoomComposition = ClassRoomInterface | null;
 interface ClassroomContextInterface {
@@ -32,6 +32,7 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
   const [classroom, setClassroom] = useState<ClassRoomComposition>(null);
   const { user } = useUserContext();
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const getClassroom = useCallback(
     (onFinishCallback?: () => void) => {
       baseApi
@@ -43,9 +44,10 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
     },
     [classId]
   );
+  
   useEffect(() => {
     getClassroom();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     if (!classroom) return;

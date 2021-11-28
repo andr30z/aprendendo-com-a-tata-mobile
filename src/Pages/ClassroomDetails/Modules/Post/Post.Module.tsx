@@ -1,7 +1,7 @@
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Pressable } from "react-native";
-import { Badge, CreatePost, PostItem } from "../../../../Components";
+import { CreatePost, PostItem } from "../../../../Components";
 import { useClassroomContext, useUserContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
@@ -12,7 +12,7 @@ import {
 } from "../../../../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../../../../Services";
 import { formatFilePathUrl } from "../../../../Utils";
-import { PostModuleContainer, PostText, ProfileImage, styles } from "./Styles";
+import { PostModuleContainer, PostText, ProfileImage } from "./Styles";
 
 interface GetPostsApiRespose {
   posts: Array<PostInterface>;
@@ -33,14 +33,12 @@ const Post: React.FC = () => {
 
   const getPosts = useCallback(() => {
     setTrue();
-
     cancellablePromise(
       baseApi.get<GetPostsApiRespose>(
         baseApiRoutes.POSTS_BY_CLASSES(String(classroom?._id))
       )
     )
       .then((res) => {
-        console.log(res.data + "post");
         setPosts(res.data.posts.reverse());
         setFalse();
       })
