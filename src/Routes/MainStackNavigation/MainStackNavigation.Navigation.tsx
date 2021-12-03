@@ -7,6 +7,7 @@ import {
   ActivityPlay,
   ClassroomDetails,
   PostDetails,
+  TeacherActivityResult,
 } from "../../Pages";
 import { WithStatusBar } from "../../Components";
 import { MainStackParamList } from "./Interfaces";
@@ -44,7 +45,7 @@ const MainStackNavigation: React.FC = () => {
               onPress={onPress}
               name="arrowleft"
               size={24}
-              style={{ marginLeft: 15, marginTop:5 }}
+              style={{ marginLeft: 15, marginTop: 5 }}
               color="black"
             />
           ),
@@ -72,7 +73,7 @@ const MainStackNavigation: React.FC = () => {
               onPress={onPress}
               name="arrowleft"
               size={24}
-              style={{ marginLeft: 15, marginTop:5 }}
+              style={{ marginLeft: 15, marginTop: 5 }}
               color="black"
             />
           ),
@@ -80,6 +81,27 @@ const MainStackNavigation: React.FC = () => {
         }}
         name={ROUTES_NAME.POST_DETAILS}
         component={PostDetails}
+      />
+      <StackTab.Screen
+        options={{
+          headerTitle: ({ tintColor }) => (
+            <BaseText fontSize={"18px"} color={tintColor || "black"}>
+              Resultados de Atividades
+            </BaseText>
+          ),
+          headerLeft: ({ onPress }) => (
+            <AntDesign
+              onPress={onPress}
+              name="arrowleft"
+              size={24}
+              style={{ marginLeft: 15, marginTop: 5 }}
+              color="black"
+            />
+          ),
+          headerShown: true,
+        }}
+        name={ROUTES_NAME.TEACHER_ACTIVITY_RESULT_LISTING}
+        component={TeacherActivityResult}
       />
     </StackTab.Navigator>
   );

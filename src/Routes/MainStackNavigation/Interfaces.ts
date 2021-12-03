@@ -6,7 +6,7 @@ import {
   PostActivityResult,
   ActivityResult,
 } from "../../Interfaces/index";
-import { ClassRoomInterface } from '../../Interfaces/index'
+import { ClassRoomInterface, UserInterface } from "../../Interfaces/index";
 
 export type ActivityPostParams = { routeIndexToReturnOnFinish?: number };
 interface ActivityPlayParamsType extends ActivityPostParams {
@@ -31,12 +31,20 @@ export interface PostDetailsParamsType extends ActivityPostParams {
   classroom: ClassRoomInterface;
 }
 
+interface TeacherActivityResultListingParams {
+  members: Array<UserInterface>;
+  postActivityResult: Array<PostActivityResult>;
+  primaryTheme: string;
+  textTheme: string;
+}
+
 export type MainStackParamList = {
   DETAILS: ActivityDetailsParamsType;
   ACTIVITY_PLAY: ActivityPlayParamsType;
   MAIN_BOTTOM: undefined;
   CLASSROOM_DETAILS: ClassParamType;
   POST_DETAILS: PostDetailsParamsType;
+  TEACHER_ACTIVITY_RESULT_LISTING: TeacherActivityResultListingParams;
 };
 
 export type KeysOfActivitiesStackParamList =

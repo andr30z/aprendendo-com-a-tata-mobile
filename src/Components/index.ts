@@ -27,3 +27,4 @@ export { default as ClassroomMemberDetailsModal } from "./ClassroomMemberDetails
 export { default as MembersItem } from "./MembersItem/MembersItem.Component";
 export { default as ShowActivityResultModal } from "./ShowActivityResultModal/ShowActivityResultModal.Component";
 export { default as OnFinishActivityModal } from "./OnFinishActivityModal/OnFinishActivityModal.Component";
+export { default as ChildrenCardItem } from "./ChildrenCardItem/ChildrenCardItem.Component";

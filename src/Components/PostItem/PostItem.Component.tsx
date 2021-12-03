@@ -1,16 +1,11 @@
-import {
-  AntDesign,
-  FontAwesome5,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
 import ReadMore from "@fawazahmed/react-native-read-more";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useCallback, useRef } from "react";
 import { useWindowDimensions } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
+import Button from "../Button/Button.Component";
 import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
@@ -23,10 +18,9 @@ import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component"
 import { PostHeader } from "./Modules";
 import {
   ActivityContainer,
-  PostFooterContainer,
   PostItemContainer,
-  styles,
   TextPostContainer,
+  PostFooterContainer,
 } from "./Styles";
 
 interface PostItemProps {
@@ -52,7 +46,7 @@ const PostItem: React.FC<PostItemProps> = ({
 }) => {
   const { height } = useWindowDimensions();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
-  const { user } = useUserContext();
+  const { user, userIsTeacher } = useUserContext();
   const goToPostDetails = useCallback(() => {
     navigation.navigate(ROUTES_NAME.POST_DETAILS, {
       post,
@@ -83,7 +77,7 @@ const PostItem: React.FC<PostItemProps> = ({
       if (getPosts) return getPosts();
     });
   }, []);
-
+  const isPostActivity = post.type === PostTypes.A;
   const sheetRef = useRef<BottomSheetModal | null>(null);
   return (
     <PostItemContainer deviceHeight={height}>
@@ -110,7 +104,7 @@ const PostItem: React.FC<PostItemProps> = ({
           {post.text}
         </ReadMore>
       </TextPostContainer>
-      {post.type === PostTypes.A && post.activities && (
+      {isPostActivity && post.activities && (
         <BaseContainer paddingHorizontal="3%">
           <BaseText color="black">Atividades:</BaseText>
           <ActivityContainer>
@@ -130,15 +124,23 @@ const PostItem: React.FC<PostItemProps> = ({
           </ActivityContainer>
         </BaseContainer>
       )}
-      {!isRenderedInPostDetailsPage && (
+      {userIsTeacher && isPostActivity && (
         <PostFooterContainer flex={1}>
-          <AntDesign name="like2" size={25} color={primaryTheme} />
-          <FontAwesome5
-            style={styles.iconComment}
-            name="comment"
-            size={25}
-            onPress={goToPostDetails}
-            color={primaryTheme}
+          <Button
+            hasElevation={false}
+            buttonWidth="140px"
+            textStyles={{ fontSize: "16px" }}
+            onPress={() =>
+              navigation.navigate(ROUTES_NAME.TEACHER_ACTIVITY_RESULT_LISTING, {
+                postActivityResult: post.postActivityResult as any,
+                members: classroom.members,
+                primaryTheme,
+                textTheme,
+              })
+            }
+            backgroundColor={primaryTheme}
+            buttonHeight="30px"
+            buttonTitle="Ver respostas"
           />
         </PostFooterContainer>
       )}
