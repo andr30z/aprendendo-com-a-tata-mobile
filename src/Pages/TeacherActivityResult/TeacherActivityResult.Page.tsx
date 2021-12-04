@@ -3,6 +3,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { ChildrenCardItem } from "../../Components";
 import { useUserContext } from "../../Contexts";
+import { BaseText } from "../../GlobalStyles/BaseStyles";
 import {
   BaseContainer,
   ScrollContainer,
@@ -10,7 +11,8 @@ import {
 import { UserInterface } from "../../Interfaces/index";
 import { MainStackParamList } from "../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
-
+import { ActivityResultListingItem } from "./Modules";
+import EmptyMembers from "../../Illustrations/eco-education-bro.svg";
 type Props = NativeStackScreenProps<
   MainStackParamList,
   ROUTES_NAME.TEACHER_ACTIVITY_RESULT_LISTING
@@ -30,13 +32,23 @@ const TeacherActivityResult: React.FC<Props> = ({ route: { params } }) => {
     setSelectedChild(child);
   }, []);
   const userActivities = useMemo(
-    () => postActivityResult.filter((x) => x.user._id === selectedChild?._id),
+    () => postActivityResult.find((x) => x.user._id === selectedChild?._id),
     [selectedChild]
   );
   console.log(userActivities);
   return (
-    <ScrollContainer style={{ paddingBottom: 80 }}>
-      <BaseContainer marginTop="10px" height="150px">
+    <ScrollContainer contentContainerStyle={{ paddingBottom: 80 }}>
+      <BaseContainer
+        paddingHorizontal="2%"
+        marginTop="10px"
+        height="173px"
+        flexDirection="column"
+      >
+        <BaseContainer>
+          <BaseText marginVertical="5px" fontSize="22px" color="black">
+            Membros da sala
+          </BaseText>
+        </BaseContainer>
         <FlatList
           horizontal
           data={membersArray}
@@ -52,6 +64,32 @@ const TeacherActivityResult: React.FC<Props> = ({ route: { params } }) => {
           )}
         />
       </BaseContainer>
+      {userActivities && userActivities.activitiesResult.length === 0 ? (
+        <BaseContainer flexDirection="column" height="500px" width="100%">
+          <EmptyMembers style={{ height: 300 }} />
+          <BaseText align="center" fontSize="23px" color="black">
+            Este aluno não enviou nenhuma atividade
+          </BaseText>
+        </BaseContainer>
+      ) : !userActivities ? null : (
+        <BaseContainer
+          paddingHorizontal="2%"
+          flexDirection="column"
+          width="100%"
+        >
+          <BaseContainer marginVertical="15px">
+            <BaseText fontSize="22px" color="black">
+              Atividades da criança
+            </BaseText>
+          </BaseContainer>
+          {userActivities?.activitiesResult.map((activityResult) => (
+            <ActivityResultListingItem
+              key={activityResult._id}
+              activityResult={activityResult}
+            />
+          ))}
+        </BaseContainer>
+      )}
     </ScrollContainer>
   );
 };

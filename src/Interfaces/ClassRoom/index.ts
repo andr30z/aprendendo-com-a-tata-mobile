@@ -26,7 +26,7 @@ export interface ActivityResult<A = unknown> {
   finished: boolean;
   activity: Omit<
     ActivityCommonProps<A>,
-    "stages" | "activityUtterance" | "difficulty"
+    "stages" | "activityUtterance" 
   >;
   result: number;
   activityAnswers: Array<ActivityAnswers>;
@@ -35,7 +35,6 @@ export interface PostActivityResult {
   _id: string;
   activitiesResult: Array<ActivityResult>;
   user: UserInterface;
-  activity: ActivityCommonProps<unknown>;
 }
 export interface Post {
   _id: string;
