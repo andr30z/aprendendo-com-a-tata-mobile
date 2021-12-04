@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Image, useWindowDimensions } from "react-native";
 import { DraxView } from "react-native-drax";
 import { ACTIVITY_CONSTANTS } from "../../../../../Constants/index";
+import { useActivityPlayContext } from "../../../../../Contexts";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../GlobalStyles/Containers.Style";
 import { useLettersItemLogic } from "../../../../Hooks";
@@ -24,7 +25,7 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
       completeWords[index],
       wordItem
     );
-
+    const { isActivityResultView } = useActivityPlayContext();
     const { height, width } = useWindowDimensions();
     return (
       <BaseContainer
@@ -91,7 +92,7 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
           {wordItem.optionLetters.map((option, idx) => (
             <DraxView
               key={String(option + "_" + idx + "_" + index)}
-              draggable
+              draggable={!isActivityResultView}
               payload={{ option, index }}
             >
               <BaseText

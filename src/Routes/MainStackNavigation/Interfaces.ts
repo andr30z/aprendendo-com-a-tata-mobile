@@ -12,6 +12,7 @@ export type ActivityPostParams = { routeIndexToReturnOnFinish?: number };
 interface ActivityPlayParamsType extends ActivityPostParams {
   activity: ActivityCommonProps<unknown>;
   activityResult?: ActivityResult;
+  isActivityResultView?: boolean;
 }
 
 interface ActivityDetailsParamsType extends ActivityPostParams {

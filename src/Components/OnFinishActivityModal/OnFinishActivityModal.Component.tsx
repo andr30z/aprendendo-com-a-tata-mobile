@@ -70,7 +70,6 @@ const OnFinishActivityModal: React.FC<OnFinishActivityModalProps> = (props) => {
     []
   );
   useEffect(() => {
-    console.log(finished);
     if (finished) modalRef.current?.present();
   }, [finished]);
   return <Modal withModalProps={withModalProps} {...props} />;

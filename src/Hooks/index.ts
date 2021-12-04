@@ -7,3 +7,4 @@ export { useActivityList } from "./useActivityList";
 export * from "./useCancellablePromise";
 export * from "./useFileUpload";
 export * from "./useModalSheetRef";
+export * from "./useGetActivity";

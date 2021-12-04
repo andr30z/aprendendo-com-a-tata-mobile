@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useCancellablePromise } from "./useCancellablePromise";
 import { ActivityApiResponse, ActivityCommonProps } from "../Interfaces/index";
 import { baseApi, baseApiRoutes } from "../Services";
+import { showError } from "../Utils";
 
 /**
  * This hook handle the logic for listing activites.
@@ -12,15 +14,21 @@ export function useActivityList() {
     Array<ActivityCommonProps<unknown>>
   >([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { cancellablePromise } = useCancellablePromise();
   useEffect(() => {
     setIsLoading(true);
-    baseApi
-      .get<ActivityApiResponse>(baseApiRoutes.ACTIVITIES)
+    cancellablePromise(
+      baseApi.get<ActivityApiResponse>(baseApiRoutes.ACTIVITIES),
+      false
+    )
       .then((res) => {
         setActivities(res.data.activities);
+        setIsLoading(false);
       })
-      .catch((e) => console.log(e))
-      .finally(() => setIsLoading(false));
+      .catch((e) => {
+        setIsLoading(false);
+        showError(e);
+      });
   }, []);
 
   return { activities, setActivities, isLoading, setIsLoading };

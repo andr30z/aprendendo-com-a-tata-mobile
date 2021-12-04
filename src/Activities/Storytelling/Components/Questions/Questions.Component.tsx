@@ -2,6 +2,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import React, { useCallback, useState } from "react";
 import { Pressable } from "react-native";
 import PagerView from "react-native-pager-view";
+import { useActivityPlayContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import {
   BaseContainer,
@@ -41,8 +42,10 @@ const Questions: React.FC<QuestionsProps> = ({
     pageViewRef,
   } = usePageViewerLogic();
   const [isScrolling, setIsScrolling] = useState(false);
+  const { isActivityResultView } = useActivityPlayContext();
   const onClickAnswer = useCallback(
     (option: QuestionOptionItem, questionId: string) => {
+      if (isActivityResultView) return;
       setStoryActivityAnswer((past) => {
         const list = [...past];
         const itemPosition = list.findIndex(
@@ -55,7 +58,7 @@ const Questions: React.FC<QuestionsProps> = ({
         return filtered;
       });
     },
-    []
+    [isActivityResultView]
   );
 
   return (
@@ -114,6 +117,7 @@ const Questions: React.FC<QuestionsProps> = ({
         questionPosition={currentPageControllerPosition + 1}
         setCurrentPagePosition={setCurrentPosition}
         questionLimit={questions.length}
+        showBtnSendActivity={!isActivityResultView}
       />
     </BaseContainer>
   );

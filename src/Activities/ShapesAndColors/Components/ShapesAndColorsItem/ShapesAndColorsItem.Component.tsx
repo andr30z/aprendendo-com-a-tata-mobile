@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { View, Image } from "react-native";
 import { DraxView } from "react-native-drax";
+import { useActivityPlayContext } from "../../../../Contexts";
 import {
   ShapesAndColorsActivityStageItem,
   TaggedItems,
@@ -29,11 +30,12 @@ const ShapesAndColorsItem: React.FC<ShapesAndColorsItemProps> = ({
     () => taggedItems.find((item) => item.receiverId === _id),
     [taggedItems]
   );
+  const { isActivityResultView } = useActivityPlayContext();
   const image = taggedItem ? imageAfterColoring : initialImage;
   return (
     <>
       <DraxView
-        draggable={isHeadImage}
+        draggable={isHeadImage && !isActivityResultView}
         onReceiveDragDrop={({ dragged }) => {
           if (
             dragged.payload.columnIndex !== columnIndex ||

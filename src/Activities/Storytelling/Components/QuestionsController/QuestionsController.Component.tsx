@@ -13,6 +13,7 @@ interface QuestionsControllerProps {
   setCurrentPagePosition: (cb: SetPageCallbackType) => void;
   questionLimit: number;
   storyActivityAnswer: StoryActivityAnswer;
+  showBtnSendActivity?: boolean;
 }
 
 /**
@@ -25,6 +26,7 @@ const QuestionsController = React.memo<QuestionsControllerProps>(
     setCurrentPagePosition,
     questionLimit,
     storyActivityAnswer,
+    showBtnSendActivity = true,
   }) => {
     const onPressChevron = (position: "left" | "right") => () =>
       setCurrentPagePosition((past) =>
@@ -76,28 +78,31 @@ const QuestionsController = React.memo<QuestionsControllerProps>(
             <Entypo name="chevron-right" size={45} color="#afafaf" />
           </Pressable>
         </BaseContainer>
-        {(questionLimit === questionPosition || hasAnsweredAllQuestions) && (
-          <LinearGradientButtonContainer
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            colors={["#0093E9", "#80D0C7"]}
-          >
-            <ButtonActivity
-              onPress={() => {
-                if (hasAnsweredAllQuestions) {
-                  console.log("PASSEI", rest);
-                  activityAnswers.current = [{ activity: storyActivityAnswer }];
-                  setHasFinishedActivity(true);
-                }
-              }}
+        {showBtnSendActivity &&
+          (questionLimit === questionPosition || hasAnsweredAllQuestions) && (
+            <LinearGradientButtonContainer
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={["#0093E9", "#80D0C7"]}
             >
-              <AntDesign name="form" size={24} color="#fff" />
-              <BaseText marginLeft="5px" align="center">
-                {hasAnsweredAllQuestions ? "Enviar" : "Responda"}
-              </BaseText>
-            </ButtonActivity>
-          </LinearGradientButtonContainer>
-        )}
+              <ButtonActivity
+                onPress={() => {
+                  if (hasAnsweredAllQuestions) {
+                    console.log("PASSEI", rest);
+                    activityAnswers.current = [
+                      { activity: storyActivityAnswer },
+                    ];
+                    setHasFinishedActivity(true);
+                  }
+                }}
+              >
+                <AntDesign name="form" size={24} color="#fff" />
+                <BaseText marginLeft="5px" align="center">
+                  {hasAnsweredAllQuestions ? "Enviar" : "Responda"}
+                </BaseText>
+              </ButtonActivity>
+            </LinearGradientButtonContainer>
+          )}
       </BaseContainer>
     );
   }

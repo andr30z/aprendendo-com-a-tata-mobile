@@ -10,6 +10,7 @@ import { ActivityBanner } from "./Styles";
 
 interface ActivityResultListingItemProps {
   activityResult: ActivityResult<unknown>;
+  onPressActivity: (activity:ActivityCommonProps<unknown>)=>void
 }
 /**
  *
@@ -17,9 +18,8 @@ interface ActivityResultListingItemProps {
  **/
 const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
   activityResult,
+  onPressActivity
 }) => {
-  const onPress = useCallback((activity: ActivityCommonProps<unknown>) => {},
-  []);
   return (
     <ActivityBanner
       marginTop="10px"
@@ -30,7 +30,7 @@ const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
       width="100%"
     >
       <ActivityItem
-        onPress={onPress}
+        onPress={onPressActivity}
         itemIndex={0}
         buttonContainerStyles={{
           borderTopLeftRadius: 13,

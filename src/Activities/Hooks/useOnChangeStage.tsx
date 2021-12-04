@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import { useActivityPlayContext } from "../../Contexts";
 
 /**
- * Hooks that holds the logic to know when the onEndActivity function should be executed
+ * Hooks that holds the logic about when the activity answers ref inside activity play context should be called
  * @author andr3z0
  **/
 export function useOnChangeStage<S>(
@@ -15,9 +15,8 @@ export function useOnChangeStage<S>(
     oldStageIndex,
     hasFinishedActivity,
     activityStageLength,
+    isActivityResultView,
   } = useActivityPlayContext();
-  console.log(state);
-  //   const oldIndex = useMemo(() => currentStageIndex, [activityAnswers]);
   useEffect(() => {
     const onEffectReturn = (index: number = oldStageIndex.current) => {
       const activityAnswersCurrent = activityAnswers.current;
@@ -33,10 +32,12 @@ export function useOnChangeStage<S>(
           : oldStageIndex.current + 1
       );
     const activityAnswersCurrent = activityAnswers.current;
-
-    if (activityAnswersCurrent[oldStageIndex.current])
-      setState(activityAnswersCurrent[oldStageIndex.current]?.activity || []);
-
+    const index = isActivityResultView
+      ? currentStageIndex
+      : oldStageIndex.current;
+    if (activityAnswersCurrent[index])
+      setState(activityAnswersCurrent[index]?.activity || []);
+    if (isActivityResultView) return;
     return onEffectReturn;
   }, [currentStageIndex, hasFinishedActivity]);
 }

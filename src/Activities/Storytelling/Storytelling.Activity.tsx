@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useWindowDimensions } from "react-native";
 import DrawerLayout from "react-native-gesture-handler/DrawerLayout";
 import PagerView from "react-native-pager-view";
+import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useScreenOrientation } from "../../Hooks";
@@ -19,8 +20,11 @@ interface StorytellingProps {
  * @author andr3z0
  **/
 const Storytelling: React.FC<StorytellingProps> = ({ activity }) => {
+  const { isActivityResultView, activityAnswers } = useActivityPlayContext();
   const [storyActivityAnswer, setStoryActivityAnswer] =
-    useState<StoryActivityAnswer>([]);
+    useState<StoryActivityAnswer>(
+      isActivityResultView ? activityAnswers.current[0].activity || [] : []
+    );
   const [showActionButtons, setShowActionsButtons] = useState(true);
   const { currentOrientation } = useScreenOrientation(
     ScreenOrientation.OrientationLock.ALL,

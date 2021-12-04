@@ -50,6 +50,7 @@
     "react-native-sticky-parallax-header": "^0.4.1",
     "react-native-svg": "12.1.1",
     "react-native-toast-message": "^2.0.1",
+    "react-native-ui-lib": "^6.5.1",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
     "rn-placeholder": "^3.0.3",
