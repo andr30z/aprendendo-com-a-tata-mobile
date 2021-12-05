@@ -1,9 +1,9 @@
-import CheckBox from "@react-native-community/checkbox";
 import React, { useMemo } from "react";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { QuestionOptionItem, StoryActivityAnswer } from "../../../Interfaces";
 import { AnswerText } from "./Styles";
+import { Checkbox } from "react-native-ui-lib";
 
 interface QuestionsOptionsProps {
   option: QuestionOptionItem;
@@ -24,15 +24,13 @@ const QuestionOption: React.FC<QuestionsOptionsProps> = ({
 }) => {
   const isSelected = useMemo(
     () =>
-      storyActivityAnswer.find(
-        (x) => x.answerId === option._id 
-      ) !== undefined,
+      storyActivityAnswer.find((x) => x.answerId === option._id) !== undefined,
     [storyActivityAnswer, questionId, option]
   );
   return (
-    
     <BaseContainer marginBottom="15px" flexDirection="row" key={option._id}>
-      <CheckBox
+      <Checkbox
+        color="green"
         onValueChange={() => onValueChange(option, questionId)}
         value={isSelected}
       />

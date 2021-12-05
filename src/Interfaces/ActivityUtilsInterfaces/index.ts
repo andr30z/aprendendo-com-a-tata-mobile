@@ -12,7 +12,8 @@ export interface ActivityCommonProps<A> {
     | "LCOT";
   stages: Array<A>;
   _id: string;
-  dificulty: number;
+  difficulty: number;
+  color?: string;
   name: string;
 }
 

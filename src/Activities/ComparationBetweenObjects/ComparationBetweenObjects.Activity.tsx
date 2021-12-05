@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { WithDraxProvider } from "../../Components";
+import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useStageLogic } from "../../Hooks/useStageLogic";
+import { useOnChangeStage } from "../Hooks";
 import {
   ComparationBetweenObjectsActivity,
   ComparationBetweenObjectsActivityItem,
@@ -21,13 +22,10 @@ const filterFunction =
 const ComparationBetweenObjects =
   WithDraxProvider<ComparationBetweenObjectsActivity>(({ activity }) => {
     const [currentStageBonds, setCurrentStageBonds] = useState<ArrayBonds>([]);
-    const { currentStageIndex } = useStageLogic(
-      currentStageBonds,
-      () =>
-        currentStageBonds.length === columns.left.length &&
-        currentStageIndex !== activity.stages.length - 1,
-      () => setCurrentStageBonds([])
-    );
+    const { currentStageIndex } = useActivityPlayContext();
+
+    useOnChangeStage(currentStageBonds, setCurrentStageBonds);
+
     const currentStage = activity.stages[currentStageIndex];
     const columns = useMemo(() => {
       const leftColumn = currentStage.filter(filterFunction(false));

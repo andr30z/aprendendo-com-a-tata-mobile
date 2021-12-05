@@ -1,4 +1,4 @@
-import { TextInputProps, TextStyle } from "react-native";
+import { TextInputProps, TextInput, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { CommonStylesInterfaces } from "../Interfaces/index";
 
@@ -24,6 +24,13 @@ export interface BaseInputProps extends TextInputProps {
   inputWidth?: number | string;
   inputHeight?: number | string;
   borderRadius?: string;
+  withWrapper?: boolean;
+  wrapperStyles?: ViewStyle;
+  appendComponent?: React.ReactNode;
+  customComponent?: React.ReactNode;
+  inputRef?: React.Ref<TextInput>;
+  elevation?: number;
+  error?: string;
 }
 const marginPaddingConfig = ({
   marginLeft,
@@ -52,10 +59,11 @@ export const BaseText = styled.Text<BaseTextProps>`
   ${marginPaddingConfig}
 `;
 
-export const BaseInput = styled.TextInput<BaseInputProps>`
+export const BaseInput = styled(TextInput)<BaseInputProps>`
   padding-left: 15px;
   border-radius: ${({ borderRadius }) => borderRadius || "15px"};
   background-color: #fff;
   width: ${({ inputWidth }) => inputWidth || "190px"};
   height: ${({ inputHeight }) => inputHeight || "13%"};
+  elevation: ${({ elevation }) => (elevation ? elevation : 0)};
 `;

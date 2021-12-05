@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 import { useWindowDimensions, Image } from "react-native";
 import { DraxDragWithReceiverEventData, DraxView } from "react-native-drax";
+import { useActivityPlayContext } from "../../../../../Contexts";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../GlobalStyles/Containers.Style";
 import { getRandomInt, shuffleArray } from "../../../../../Utils";
@@ -21,6 +22,7 @@ interface NumberSequenceItemProps {
  **/
 const NumericExpression: React.FC<NumberSequenceItemProps> = React.memo(
   ({ operationItem, operationsResults, setOperationsResults }) => {
+    const { isActivityResultView } = useActivityPlayContext();
     const resultApplied = useMemo(
       () =>
         operationsResults.find(
@@ -151,7 +153,11 @@ const NumericExpression: React.FC<NumberSequenceItemProps> = React.memo(
           flex={1}
         >
           {resultsArray.map((value, index) => (
-            <DraxView key={index} draggable payload={value}>
+            <DraxView
+              key={index}
+              draggable={!isActivityResultView}
+              payload={value}
+            >
               <BaseContainer
                 borderRadius={"5px"}
                 boxShadow="10px 5px 5px #000"

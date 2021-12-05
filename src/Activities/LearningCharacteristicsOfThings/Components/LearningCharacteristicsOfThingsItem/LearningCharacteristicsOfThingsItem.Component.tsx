@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
 import { Pressable, useWindowDimensions, Image } from "react-native";
+import { useActivityPlayContext } from "../../../../Contexts";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { CharacteristicItem } from "../../../Interfaces";
 
@@ -32,9 +33,10 @@ const LearningCharacteristicsOfThingsItem: React.FC<LearningCharacteristicsOfThi
       () => findCurrentItemInPressedImages(pressedImages) !== -1,
       [pressedImages, characteristicItem]
     );
+    const { isActivityResultView } = useActivityPlayContext();
     const { width } = useWindowDimensions();
     return (
-      <Pressable onPress={onPress}>
+      <Pressable onPress={isActivityResultView ? undefined : onPress}>
         <BaseContainer
           marginVertical="10px"
           paddingHorizontal="3px"

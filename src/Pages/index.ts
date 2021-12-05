@@ -5,3 +5,7 @@ export { default as InitialScreen } from "./Initial/Initial.Page";
 export { default as SignUp } from "./Signup/Signup.Page";
 export { default as ActivityDetails } from "./ActivityDetails/ActivityDetails.Page";
 export { default as ActivityPlay } from "./ActivityPlay/ActivityPlay.Page";
+export { default as ClassRoom } from "./ClassRoom/ClassRoom.Page";
+export { default as ClassroomDetails } from "./ClassroomDetails/ClassroomDetails.Page";
+export { default as PostDetails } from "./PostDetails/PostDetails.Page";
+export { default as TeacherActivityResult } from "./TeacherActivityResult/TeacherActivityResult.Page";

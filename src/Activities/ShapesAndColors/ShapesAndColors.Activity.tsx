@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { WithDraxProvider } from "../../Components";
+import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import { useStageLogic } from "../../Hooks/useStageLogic";
+import { useOnChangeStage } from "../Hooks";
 import { ShapesAndColorsInterface, TaggedItems } from "../Interfaces";
 import { ShapesAndColorsItem } from "./Components";
 import { FlatListContainer } from "./Styles";
@@ -20,13 +21,9 @@ interface ShapesAndColorsProps {
 const ShapesAndColors = WithDraxProvider<ShapesAndColorsProps>(
   ({ activity }) => {
     const [taggedItems, setTaggedItems] = useState<TaggedItems>([]);
-    const { currentStageIndex } = useStageLogic(
-      null,
-      () => false,
-      () => null
-    );
+    const { currentStageIndex } = useActivityPlayContext();
+    useOnChangeStage(taggedItems, setTaggedItems);
     const currentStage = activity.stages[currentStageIndex];
-
     const { width } = useWindowDimensions();
 
     return (
@@ -37,7 +34,8 @@ const ShapesAndColors = WithDraxProvider<ShapesAndColorsProps>(
           </BaseText>
         </BaseContainer>
         <BaseContainer
-          style={{ paddingHorizontal: "3%", backgroundColor: "#ccc" }}
+          paddingHorizontal="3%"
+          backgroundColor="#ccc"
           flex={2}
           flexDirection="row"
           justify="space-evenly"
@@ -53,7 +51,7 @@ const ShapesAndColors = WithDraxProvider<ShapesAndColorsProps>(
                 shadowOpacity: 0.3,
                 shadowRadius: 4.65,
                 elevation: 8,
-                //ocupando 30% do espaço da tela
+                //ocupando 25% do espaço da tela
                 width: (width / 100) * 25,
               }}
               key={index}

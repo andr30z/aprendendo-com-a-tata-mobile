@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
 import { Image, View } from "react-native";
 import { DraxView } from "react-native-drax";
+import { useActivityPlayContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { ComparationBetweenObjectsActivityItem } from "../../../Interfaces";
@@ -27,9 +28,15 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
     [currentStageBonds]
   );
 
+  const { isActivityResultView } = useActivityPlayContext();
+
   return (
     <DraxView
-      draggable={comparation.receiver === false && bond === undefined}
+      draggable={
+        comparation.receiver === false &&
+        bond === undefined &&
+        !isActivityResultView
+      }
       onReceiveDragDrop={({ dragged }) => {
         // console.log(comparation.comparationBondValue, dragged);
         if (!comparation.receiver) return;

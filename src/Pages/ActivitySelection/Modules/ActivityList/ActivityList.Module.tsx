@@ -1,22 +1,19 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { ActivityItem } from "../../../../Components";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
-import {
-  ActivityApiResponse,
-  ActivityCommonProps,
-} from "../../../../Interfaces/index";
-import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/ActivitiesStack/RoutesName";
+import { useActivityList } from "../../../../Hooks";
+import { ActivityCommonProps } from "../../../../Interfaces/index";
 import { ROUTES_NAME as initialRoutesName } from "../../../../Routes/InitialStack/RoutesName";
-import { baseApi, baseApiRoutes } from "../../../../Services/BaseApi";
+import { MainStackParamList } from "../../../../Routes/MainStackNavigation/Interfaces";
+import { ROUTES_NAME as activityRoutesName } from "../../../../Routes/MainStackNavigation/RoutesName";
 import { GridContainer } from "./Styles";
-import { StackParamList } from "../../../../Routes/ActivitiesStack/Interfaces";
 interface ActivityListOtherProps {
   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 
-type StackProps = StackNavigationProp<any>;
+type StackProps = StackNavigationProp<MainStackParamList>;
 
 /**
  * Activity module that contain the list of activities from the api.
@@ -28,26 +25,12 @@ const ActivityList: React.FC<ActivityListOtherProps> = ({
   setScrollPosition,
 }) => {
   const navigation = useNavigation<StackProps>();
-  const [activities, setActivities] = useState<
-    Array<ActivityCommonProps<unknown>>
-  >([]);
-  useEffect(() => {
-    baseApi
-      .get<ActivityApiResponse>(baseApiRoutes.ACTIVITIES)
-      .then((res) => {
-        // console.log(res.data.activities);
-        setActivities(res.data.activities);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  const { activities } = useActivityList();
 
   const onPressActivityItem = useCallback(
     (activity: ActivityCommonProps<unknown>) => {
-      navigation.navigate(initialRoutesName.ACTIVITIES_STACK, {
-        screen: activityRoutesName.ACTIVITYDETAILS,
-        params: {
-          activity,
-        },
+      navigation.navigate(activityRoutesName.DETAILS, {
+        activityId: activity._id,
       });
     },
     []

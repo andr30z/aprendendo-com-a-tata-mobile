@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Pressable, Image } from "react-native";
+import { useActivityPlayContext } from "../../../../../Contexts";
 import {
   CommonImageItemProps,
   ImageItemInterface,
@@ -38,6 +39,7 @@ const PressableImageItem: React.FC<PressableImageItemProps> = ({
       undefined
     );
   }, [index, pressedItems]);
+  const { isActivityResultView } = useActivityPlayContext();
   return (
     <Pressable
       style={[
@@ -53,7 +55,7 @@ const PressableImageItem: React.FC<PressableImageItemProps> = ({
         },
       ]}
       key={imageItem._id}
-      onPress={onPressValue}
+      onPress={isActivityResultView ? undefined : onPressValue}
     >
       <Image
         resizeMode="center"

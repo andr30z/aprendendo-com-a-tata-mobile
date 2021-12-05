@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as ScreenOrientation from "expo-screen-orientation";
-import { Dimensions, Pressable, useWindowDimensions } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useWindowDimensions } from "react-native";
 import DrawerLayout from "react-native-gesture-handler/DrawerLayout";
 import PagerView from "react-native-pager-view";
+import { useActivityPlayContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useScreenOrientation } from "../../Hooks";
+import { usePageViewerLogic } from "../Hooks";
 import { StoryActivityAnswer, StorytellingInterface } from "../Interfaces";
 import { Page, PageController, Questions } from "./Components";
 
@@ -18,26 +20,32 @@ interface StorytellingProps {
  * @author andr3z0
  **/
 const Storytelling: React.FC<StorytellingProps> = ({ activity }) => {
+  const { isActivityResultView, activityAnswers } = useActivityPlayContext();
   const [storyActivityAnswer, setStoryActivityAnswer] =
-    useState<StoryActivityAnswer>([]);
-  const [currentPageControllerPosition, setCurrentPageControllerPosition] =
-    useState<number>(0);
+    useState<StoryActivityAnswer>(
+      isActivityResultView ? activityAnswers.current[0].activity || [] : []
+    );
   const [showActionButtons, setShowActionsButtons] = useState(true);
   const { currentOrientation } = useScreenOrientation(
     ScreenOrientation.OrientationLock.ALL,
     ScreenOrientation.OrientationLock.PORTRAIT
   );
   const isDrawerOpen = useRef(false);
+  const {
+    currentPageControllerPosition,
+    onPageChange,
+    pageViewRef,
+    setCurrentPosition,
+  } = usePageViewerLogic();
 
   const drawerRef = useRef<DrawerLayout>(null);
-  const pageViewRef = useRef<PagerView | null>(null);
 
   useEffect(() => {
     /**
      * That approach is very ugly and wrong, but solves the problem with drawer layout breaking on orientation change,
-     * and i'm not going to commit/change anything inside
+     * and I'm not going to commit/change anything inside
      * react-native-gesture-handler to fix that shit, specially after discover that they are using class components ;-;.
-     * Maybe in future updates i come back on this problem again (i hope gesture handler lib fix that weird behavior ASAP).
+     * Maybe in future updates I come back on this problem again (I hope gesture handler lib fix that weird behavior ASAP).
      *
      **/
     if (
@@ -51,18 +59,7 @@ const Storytelling: React.FC<StorytellingProps> = ({ activity }) => {
       return () => clearTimeout(timeout);
     }
   }, [currentOrientation]);
-  const onPageChange = useCallback((e) => {
-    setCurrentPageControllerPosition(e.nativeEvent.position);
-  }, []);
   const { width } = useWindowDimensions();
-  const setCurrentPosition = useCallback(
-    //ohhh boy, i love 'any'
-    (callback: any) => {
-      if (pageViewRef.current)
-        pageViewRef.current?.setPage(callback(currentPageControllerPosition));
-    },
-    [currentPageControllerPosition]
-  );
   const onCloseDrawer = useCallback(() => drawerRef.current?.closeDrawer(), []);
   // console.log(width, drawerRef.current?.props.drawerWidth);
   return (

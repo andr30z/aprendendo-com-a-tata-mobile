@@ -8,10 +8,11 @@ import { BaseText, BaseTextProps } from "../../GlobalStyles/BaseStyles";
 import { BaseButton, BaseButtonProps } from "./Styles";
 
 interface ButtonProps {
-  buttonTitle: string;
+  buttonTitle?: string;
   onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
   textStyles?: BaseTextProps;
   containerStyles?: ViewStyle;
+  disabled?: boolean;
 }
 
 /**
@@ -27,16 +28,29 @@ const Button: React.FC<BaseButtonProps & ButtonProps> = ({
   onPress,
   textStyles,
   containerStyles,
+  children,
+  disabled,
   ...rest
 }) => {
   return (
-    <BaseButton onPress={onPress} {...(rest as any)} style={[containerStyles, {
-      alignItems: "center",
-      justifyContent: "center",
-    }]}>
-      <BaseText fontSize="20px" align="center" {...textStyles}>
-        {buttonTitle}
-      </BaseText>
+    <BaseButton
+      onPress={onPress}
+      disabled={disabled}
+      {...(rest as any)}
+      style={[
+        containerStyles,
+        {
+          alignItems: "center",
+          justifyContent: "center",
+        },
+      ]}
+    >
+      {buttonTitle && (
+        <BaseText fontSize="20px" align="center" {...textStyles}>
+          {buttonTitle}
+        </BaseText>
+      )}
+      {children}
     </BaseButton>
   );
 };

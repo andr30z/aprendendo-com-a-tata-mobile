@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { WithDraxProvider } from "../../../Components";
+import { useActivityPlayContext } from "../../../Contexts";
 import { BaseText } from "../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../GlobalStyles/Containers.Style";
-import { useStageLogic } from "../../../Hooks/useStageLogic";
 import { shuffleArray } from "../../../Utils";
+import { useOnChangeStage } from "../../Hooks";
 import { NumberSequenceActivityStageInterface } from "../../Interfaces/Numbers";
 import { NumberSequenceItem } from "./Components";
 
@@ -16,13 +17,10 @@ interface NumberSequenceProps {
  * @author andr3z0
  **/
 const NumberSequence = WithDraxProvider<NumberSequenceProps>(({ activity }) => {
-  const { currentStageIndex } = useStageLogic(
-    false,
-    () => false,
-    () => null
-  );
+  const { currentStageIndex } = useActivityPlayContext();
   const currentStage = activity.stages[currentStageIndex];
   const [sequence, setSequence] = useState(currentStage.sequence);
+  useOnChangeStage(sequence, setSequence);
   const sequenceMissingItems = useMemo(() => {
     const arrayOfMissingNumbers: Array<string | number> = [];
     sequence.forEach((number, index) => {
@@ -51,7 +49,7 @@ const NumberSequence = WithDraxProvider<NumberSequenceProps>(({ activity }) => {
       <BaseContainer flex={1} align="center" justify="center">
         <BaseText color="black">{activity.activityUtterance}</BaseText>
       </BaseContainer>
-      <BaseContainer  flex={2} flexWrap="wrap" flexDirection="row">
+      <BaseContainer flex={2} flexWrap="wrap" flexDirection="row">
         {sequence.map((item, index) => (
           <NumberSequenceItem
             key={index}
@@ -64,7 +62,7 @@ const NumberSequence = WithDraxProvider<NumberSequenceProps>(({ activity }) => {
           />
         ))}
       </BaseContainer>
-      <BaseContainer  flexWrap="wrap" flexDirection="row" flex={1}>
+      <BaseContainer flexWrap="wrap" flexDirection="row" flex={1}>
         {shuffledSequenceMissingItems.map((number) => (
           <NumberSequenceItem
             numberItem={number}

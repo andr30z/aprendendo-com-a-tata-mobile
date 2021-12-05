@@ -1,20 +1,30 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { SetStateInterface, UserInterface } from "../../Interfaces/index";
+import axios from "axios";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import {
-    ASYNC_STORAGE_COOKIE_KEY,
-    baseApi,
-    baseApiRoutes,
-    DEFAULT_URL
+  SetStateInterface,
+  UserInterface,
+  UserType,
+} from "../../Interfaces/index";
+import {
+  ASYNC_STORAGE_COOKIE_KEY,
+  baseApi,
+  baseApiRoutes,
+  DEFAULT_URL,
 } from "../../Services";
-import {
-    setTokenAndCredentialsOnAsyncStorage
-} from "../../Utils";
+import { setTokenAndCredentialsOnAsyncStorage } from "../../Utils";
 import { USER_ASYNC_STORAGE_KEY } from "./Constants";
 type UserComposition = UserInterface | null;
 interface UserContextInterface {
   user: UserComposition;
   setUser: SetStateInterface<UserComposition>;
+  logoutUser: () => void;
 }
 
 const UserContext = createContext<UserContextInterface>(
@@ -44,18 +54,17 @@ export const UserProvider: React.FC = ({ children }) => {
     baseApi.interceptors.response.use(
       (response) => response,
       async (error) => {
-        const originalRequest = error.config;
-        console.log("begin error handling");
+        const originalRequest = error?.config;
+        console.log(error)
         // Prevent infinite loops
         if (
-          error.response.status === 401 &&
-          originalRequest.url === DEFAULT_URL + baseApiRoutes.REFRESH
+          error?.response?.status === 401 &&
+          originalRequest?.url === baseApiRoutes.REFRESH
         ) {
           setUser(null);
           return Promise.reject(error);
         }
-        console.log();
-        if (error.response.status === 401) {
+        if (error?.response?.status === 401) {
           const tokens = await AsyncStorage.getItem(ASYNC_STORAGE_COOKIE_KEY);
 
           if (tokens) {
@@ -64,7 +73,7 @@ export const UserProvider: React.FC = ({ children }) => {
               .then((res) => {
                 setTokenAndCredentialsOnAsyncStorage(res);
                 setUser(res.data);
-                return baseApi(originalRequest);
+                return axios(originalRequest);
               })
               .catch((err) => {
                 console.log(err.response, "REFRESHerror");
@@ -85,11 +94,18 @@ export const UserProvider: React.FC = ({ children }) => {
     getUserDataFromLocalStorage();
   }, []);
 
+  const logoutUser = useCallback(async () => {
+    baseApi.delete(baseApiRoutes.LOGOUT);
+    await AsyncStorage.removeItem(ASYNC_STORAGE_COOKIE_KEY);
+    setUser(null);
+  }, [user]);
+
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
+        logoutUser,
       }}
     >
       {children}
@@ -98,5 +114,17 @@ export const UserProvider: React.FC = ({ children }) => {
 };
 
 export function useUserContext() {
-  return useContext(UserContext);
+  const { setUser, user, logoutUser } = useContext(UserContext);
+  const userIsTeacher = user?.type === UserType.T;
+  const userIsChild = user?.type === UserType.C;
+  const userIsResponsable = user?.type === UserType.R;
+
+  return {
+    user,
+    setUser,
+    userIsChild,
+    userIsResponsable,
+    userIsTeacher,
+    logoutUser,
+  };
 }

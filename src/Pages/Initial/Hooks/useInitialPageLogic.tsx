@@ -50,7 +50,8 @@ export function useInitialPageLogic() {
         setUser(res.data);
       })
       .catch((e) => {
-        const data = e.response.data;
+        console.log(e)
+        const data = e?.response?.data;
         const responseStateFormat = {
           show: true,
           errorMsg: "Erro, por favor tente novamente mais tarde!",

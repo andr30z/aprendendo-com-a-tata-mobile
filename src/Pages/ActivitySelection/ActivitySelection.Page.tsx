@@ -8,7 +8,6 @@ import {
 import {
   ScrollContainer
 } from "../../GlobalStyles/Containers.Style";
-import { useKeyboardHideEvent } from "../../Hooks/useKeyboardHideEvent";
 import { ActivityList } from "./Modules";
 
 
@@ -19,7 +18,6 @@ import { ActivityList } from "./Modules";
 const ActivitySelection: React.FC = ({ children }) => {
   const scrollToRef = useRef<ScrollView>();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
-  useKeyboardHideEvent();
   const { height, width } = useWindowDimensions();
   return (
     <ScrollContainer

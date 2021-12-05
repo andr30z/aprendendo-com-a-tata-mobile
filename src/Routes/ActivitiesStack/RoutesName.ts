@@ -1,5 +1,0 @@
-export const ROUTES_NAME = {
-  ACTIVITYDETAILS: "ActivityDetails",
-  MAINBOTTOM: "MAINBOTTOM",
-  ACTIVITYPLAY: "ACTIVITYPLAY",
-};

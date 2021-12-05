@@ -6,7 +6,8 @@ import { useStageLogic } from "../../../Hooks/useStageLogic";
 import { CompleteWordsByImagesAndLettersActivityStageInterface } from "../../Interfaces";
 import { DraxScrollView } from "react-native-drax";
 import { DragLettersToCompleteWordsItem } from "./Components";
-import { useCompleteWordsLogic } from "../../Hooks";
+import { useCompleteWordsLogic, useOnChangeStage } from "../../Hooks";
+import { useActivityPlayContext } from "../../../Contexts";
 interface ImagesByLettersProps {
   activity: CompleteWordsByImagesAndLettersActivityStageInterface;
 }
@@ -17,20 +18,17 @@ interface ImagesByLettersProps {
  **/
 const DragLettersToCompleteWords = WithDraxProvider<ImagesByLettersProps>(
   ({ activity }) => {
-    const { currentStageIndex } = useStageLogic(
-      false,
-      () => false,
-      () => false
-    );
+    const { currentStageIndex } = useActivityPlayContext();
     const currentStage = activity.stages[currentStageIndex];
     const { completeWords, setCompleteWords } = useCompleteWordsLogic(
       currentStageIndex,
       currentStage
     );
+    useOnChangeStage(completeWords, setCompleteWords);
 
     return (
       <BaseContainer flex={1}>
-        <DraxScrollView >
+        <DraxScrollView>
           <BaseContainer
             flex={1}
             align="center"
@@ -38,7 +36,12 @@ const DragLettersToCompleteWords = WithDraxProvider<ImagesByLettersProps>(
             marginVertical="5px"
             marginTop="25px"
           >
-            <BaseText align="center" fontWeight="bold" fontSize="18px" color="#000">
+            <BaseText
+              align="center"
+              fontWeight="bold"
+              fontSize="18px"
+              color="#000"
+            >
               {activity.activityUtterance}
             </BaseText>
           </BaseContainer>

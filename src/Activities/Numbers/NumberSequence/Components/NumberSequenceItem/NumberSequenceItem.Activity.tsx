@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { DraxDragWithReceiverEventData, DraxView } from "react-native-drax";
+import { useActivityPlayContext } from "../../../../../Contexts";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../GlobalStyles/Containers.Style";
 import { getRandomInt } from "../../../../../Utils";
@@ -29,6 +30,7 @@ const colorsArray = [
 const NumberSequenceItem: React.FC<NumberSequenceItemProps> = React.memo(
   ({ numberItem, isAnswerGrid, sequence, setSequence, index, answer }) => {
     const isReceptive = typeof numberItem !== "number";
+    const { isActivityResultView } = useActivityPlayContext();
     const randomStyle = useMemo(
       () => colorsArray[getRandomInt(0, colorsArray.length - 1)],
       []
@@ -52,7 +54,7 @@ const NumberSequenceItem: React.FC<NumberSequenceItemProps> = React.memo(
     return (
       <DraxView
         receptive={isReceptive}
-        draggable={!isAnswerGrid}
+        draggable={!isAnswerGrid && !isActivityResultView}
         onReceiveDragDrop={onReceiveDragDrop}
         payload={numberItem}
       >

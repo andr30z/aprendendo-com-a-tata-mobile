@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, StatusBar, View } from "react-native";
-import { Button, CloudsContainer, Input, Toast } from "../../Components";
+import { Button, CloudsContainer, Input } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import BottomImage from "../../Illustrations/turtleimg.svg";

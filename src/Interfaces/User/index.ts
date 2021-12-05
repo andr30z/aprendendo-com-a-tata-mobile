@@ -1,7 +1,9 @@
+import { FileType } from "../CommonInterfaces";
+
 export enum UserType {
   C = "C",
   R = "R",
-  P = "P",
+  T = "T",
 }
 
 export interface UserInterface {
@@ -9,6 +11,9 @@ export interface UserInterface {
   type: UserType;
   email: string;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  profilePhoto?: FileType;
+  code: string;
+  birthday: string;
+  createdAt: string;
+  updatedAt: string;
 }
