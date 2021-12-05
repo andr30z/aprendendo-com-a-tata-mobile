@@ -4,9 +4,14 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { SettingsOptionsItem } from "../../../../Components";
 import { useUserContext } from "../../../../Contexts";
+import { MainStackParamList } from "../../../../Routes/MainStackNavigation/Interfaces";
+import { ROUTES_NAME } from "../../../../Routes/MainStackNavigation/RoutesName";
+import { ROUTES_NAME as DRAWER_ROUTES_NAME } from "../../../../Routes/SettingsDrawer/RoutesName";
 
 /**
  *
@@ -14,6 +19,7 @@ import { useUserContext } from "../../../../Contexts";
  **/
 const SettingsOptionsListing: React.FC = () => {
   const { logoutUser } = useUserContext();
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   return (
     <>
       <SettingsOptionsItem
@@ -38,7 +44,11 @@ const SettingsOptionsListing: React.FC = () => {
         subTitle="Alterar minha senha"
       />
       <SettingsOptionsItem
-        onPress={() => null}
+        onPress={() =>
+          navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {
+            screen: DRAWER_ROUTES_NAME.RESPONSABLE_MANAGER,
+          })
+        }
         icon={(props) => <FontAwesome name="child" {...props} />}
         title="Crianças"
         subTitle="Ver crianças vinculadas a seu perfil"

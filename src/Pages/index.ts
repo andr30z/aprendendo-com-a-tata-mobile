@@ -9,3 +9,4 @@ export { default as ClassRoom } from "./ClassRoom/ClassRoom.Page";
 export { default as ClassroomDetails } from "./ClassroomDetails/ClassroomDetails.Page";
 export { default as PostDetails } from "./PostDetails/PostDetails.Page";
 export { default as TeacherActivityResult } from "./TeacherActivityResult/TeacherActivityResult.Page";
+export { default as ResponsibleChildManager } from "./ResponsibleChildManager/ResponsibleChildManager.Page";
