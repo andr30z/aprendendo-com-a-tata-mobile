@@ -20,7 +20,7 @@ import {
 } from "../../Services";
 import { setTokenAndCredentialsOnAsyncStorage } from "../../Utils";
 import { USER_ASYNC_STORAGE_KEY } from "./Constants";
-type UserComposition = UserInterface | null;
+export type UserComposition = UserInterface | null;
 interface UserContextInterface {
   user: UserComposition;
   setUser: SetStateInterface<UserComposition>;

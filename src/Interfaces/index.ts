@@ -5,6 +5,7 @@ export * from "./User";
 export * from "./NavigationInterfaces";
 export * from "./ClassRoom";
 export * from "./CommonInterfaces";
+export * from "./UserResponsible";
 
 
 export interface ActivityListProps {

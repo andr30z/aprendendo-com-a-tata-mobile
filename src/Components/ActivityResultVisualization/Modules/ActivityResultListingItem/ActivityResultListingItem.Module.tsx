@@ -1,10 +1,9 @@
-import React, { useCallback } from "react";
-import { ActivityItem } from "../../../../Components";
+import React from "react";
+import ActivityItem  from "../../../../Components/ActivityItem/ActivityItem.Component";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import {
-  ActivityResult,
-  ActivityCommonProps,
+  ActivityCommonProps, ActivityResult
 } from "../../../../Interfaces/index";
 import { ActivityBanner } from "./Styles";
 

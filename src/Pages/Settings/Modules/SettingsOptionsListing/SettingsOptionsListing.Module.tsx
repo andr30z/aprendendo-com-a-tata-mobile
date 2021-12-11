@@ -3,6 +3,7 @@ import {
   Feather,
   FontAwesome,
   MaterialCommunityIcons,
+  MaterialIcons,
 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -34,7 +35,16 @@ const SettingsOptionsListing: React.FC = () => {
         title="Minhas Informações"
         subTitle="Editar suas informações"
       />
-
+      <SettingsOptionsItem
+        onPress={() =>
+          navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {
+            screen: DRAWER_ROUTES_NAME.NOTIFICATIONS,
+          })
+        }
+        icon={(props) => <MaterialIcons name="notifications-none" {...props} />}
+        title="Notificações"
+        subTitle="Minhas notificações"
+      />
       <SettingsOptionsItem
         onPress={() => null}
         icon={(props) => (
@@ -43,6 +53,7 @@ const SettingsOptionsListing: React.FC = () => {
         title="Senha"
         subTitle="Alterar minha senha"
       />
+
       <SettingsOptionsItem
         onPress={() =>
           navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {

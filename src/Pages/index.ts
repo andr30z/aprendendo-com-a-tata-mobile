@@ -10,3 +10,4 @@ export { default as ClassroomDetails } from "./ClassroomDetails/ClassroomDetails
 export { default as PostDetails } from "./PostDetails/PostDetails.Page";
 export { default as TeacherActivityResult } from "./TeacherActivityResult/TeacherActivityResult.Page";
 export { default as ResponsibleChildManager } from "./ResponsibleChildManager/ResponsibleChildManager.Page";
+export { default as Notifications } from "./Notifications/Notifications.Page";

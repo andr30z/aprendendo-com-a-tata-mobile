@@ -44,6 +44,7 @@
     "react-native-date-picker": "^4.1.1",
     "react-native-drax": "^0.7.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-modal": "^13.0.0",
     "react-native-pager-view": "5.0.12",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
