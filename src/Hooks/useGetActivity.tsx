@@ -11,7 +11,7 @@ import { useCancellablePromise } from "./useCancellablePromise";
  * @author andr3z0
  **/
 export function useGetActivity<A>(
-  onSuccess: (activity: ActivityCommonProps<A>) => void,
+  onSuccess: (activity: ActivityCommonProps<A>) => void | ActivityCommonProps<A>,
   onError?: (error: any) => void,
   dependencyProp?: any
 ) {
@@ -21,7 +21,7 @@ export function useGetActivity<A>(
   const getActivity = useCallback(
     (id: string) => {
       setTrue();
-      cancellablePromise(
+      return cancellablePromise(
         baseApi.get<ActivityCommonProps<A>>(
           baseApiRoutes.ACTIVITIES + "/" + id
         ),
@@ -30,6 +30,7 @@ export function useGetActivity<A>(
         .then((res) => {
           onSuccess(res.data);
           setFalse();
+          return res.data
         })
         .catch((e) => {
           setFalse();

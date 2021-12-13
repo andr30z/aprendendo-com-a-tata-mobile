@@ -57,7 +57,10 @@ const AddChildModal: React.FC<AddChildModalProps> = ({
       animationOut="slideOutUp"
       swipeDirection={["up", "down", "right", "left"]}
       avoidKeyboard
-      onModalHide={() => setCode("")}
+      onModalHide={() => {
+        setCode("");
+        setErrorMessage("");
+      }}
       useNativeDriver={false}
       onSwipeComplete={setVisibleFalse}
       onBackButtonPress={setVisibleFalse}

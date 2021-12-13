@@ -25,7 +25,6 @@ const Notifications: React.FC = () => {
         baseApiRoutes.USER_NOTIFICATIONS + "/" + user?._id
       )
       .then((res) => {
-        console.log("AAAA", res.data, showError);
         setNotifications(res.data.notifications);
       })
       .catch(showError)
@@ -49,7 +48,8 @@ const Notifications: React.FC = () => {
       keyExtractor={(item) => item._id}
       renderItem={({ item }) => (
         <NotificationItem
-          onSwipeLeftDeleteAction={() => null}
+          onActionResolverCallbackSuccess={getNotifications}
+          onSwipeLeftDeleteActionCallbackSuccess={getNotifications}
           notification={item}
         />
       )}

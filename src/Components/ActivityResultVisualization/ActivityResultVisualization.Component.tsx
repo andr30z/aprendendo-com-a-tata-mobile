@@ -10,6 +10,7 @@ import ChildrenCardItem from "../ChildrenCardItem/ChildrenCardItem.Component";
 import EmptyMembers from "../../Illustrations/eco-education-bro.svg";
 import {
   ActivityCommonProps,
+  ActivityResult,
   PostActivityResult,
   UserInterface,
 } from "../../Interfaces";
@@ -21,9 +22,14 @@ interface ActivityResultVisualizationProps {
   primaryTheme: string;
   secondaryTheme?: string;
   onPressChildCard: (child: UserInterface) => void;
-  userActivities?: PostActivityResult;
+  userActivities?: ActivityResult<unknown>[];
   selectedChild?: UserInterface;
-  onPressActivityBtn: (activity: ActivityCommonProps<unknown>) => void;
+  onPressActivityBtn: (
+    activity: ActivityCommonProps<unknown>,
+    activityResult: ActivityResult<unknown>
+  ) => void;
+  isResponsibleVisualization?: boolean;
+  childListExtraComponent?: React.ReactNode;
 }
 /**
  *
@@ -38,6 +44,8 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
     userActivities,
     selectedChild,
     onPressActivityBtn,
+    isResponsibleVisualization = false,
+    childListExtraComponent
   }) => {
     return (
       <ScrollContainer contentContainerStyle={{ paddingBottom: 80 }}>
@@ -50,35 +58,40 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
         >
           <BaseContainer>
             <BaseText marginVertical="5px" fontSize="22px" color="black">
-              Membros da sala
+              {isResponsibleVisualization ? "Crianças" : "Membros da sala"}
             </BaseText>
           </BaseContainer>
-          <FlatList
-            horizontal
-            data={membersArray}
-            contentContainerStyle={{
-              paddingHorizontal: 10,
-              paddingVertical: 5,
-            }}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <ChildrenCardItem
-                primaryTheme={primaryTheme}
-                isSelectedChildren={item._id === selectedChild?._id}
-                onPress={onPressChildCard}
-                child={item}
-              />
-            )}
-          />
+          <BaseContainer flex={1} position="relative">
+            {childListExtraComponent}
+            <FlatList
+              horizontal
+              data={membersArray}
+              contentContainerStyle={{
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+              }}
+              keyExtractor={(item) => item._id.toString()}
+              renderItem={({ item }) => (
+                <ChildrenCardItem
+                  primaryTheme={primaryTheme}
+                  isSelectedChildren={item._id === selectedChild?._id}
+                  onPress={onPressChildCard}
+                  child={item}
+                />
+              )}
+            />
+          </BaseContainer>
         </BaseContainer>
-        {userActivities && userActivities.activitiesResult.length === 0 ? (
+        {userActivities && userActivities.length === 0 ? (
           <BaseContainer flexDirection="column" height="500px" width="100%">
             <EmptyMembers style={{ height: 300 }} />
             <BaseText align="center" fontSize="23px" color="black">
-              Este aluno não enviou nenhuma atividade
+              {selectedChild?.name} não enviou nenhuma atividade
             </BaseText>
           </BaseContainer>
-        ) : !userActivities ? null : (
+        ) : !userActivities ? (
+         null
+        ) : (
           <BaseContainer
             paddingHorizontal="2%"
             flexDirection="column"
@@ -86,12 +99,14 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
           >
             <BaseContainer marginVertical="15px">
               <BaseText fontSize="22px" color="black">
-                Atividades da criança
+                Atividades de {selectedChild?.name}
               </BaseText>
             </BaseContainer>
-            {userActivities?.activitiesResult.map((activityResult) => (
+            {userActivities.map((activityResult) => (
               <ActivityResultListingItem
-                onPressActivity={onPressActivityBtn}
+                onPressActivity={(activity) =>
+                  onPressActivityBtn(activity, activityResult)
+                }
                 key={activityResult._id}
                 activityResult={activityResult}
               />
@@ -101,6 +116,5 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
       </ScrollContainer>
     );
   };
-
 
 export default ActivityResultVisualization;

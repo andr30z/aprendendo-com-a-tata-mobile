@@ -15,3 +15,11 @@ export interface Notification<P = any> {
   user: UserInterface;
   createdAt: string;
 }
+
+
+
+export enum UserRequestPayloadStatus {
+  ACCEPTED = 1,
+  REFUSED = 2,
+  SENDED = 3,
+}

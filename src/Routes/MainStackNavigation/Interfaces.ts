@@ -10,7 +10,7 @@ import { ClassRoomInterface, UserInterface } from "../../Interfaces/index";
 import { ROUTES_NAME } from "../SettingsDrawer/RoutesName";
 
 export type ActivityPostParams = { routeIndexToReturnOnFinish?: number };
-interface ActivityPlayParamsType extends ActivityPostParams {
+export interface ActivityPlayParamsType extends ActivityPostParams {
   activity: ActivityCommonProps<unknown>;
   activityResult?: ActivityResult;
   isActivityResultView?: boolean;

@@ -170,7 +170,7 @@ const JoinRequests: React.FC<JoinRequestsProps> = ({ pendingJoinRequests }) => {
               ellipsizeMode="tail"
               numberOfLines={1}
               align="left"
-              color={textTheme}
+              color={primaryTheme}
               fontSize="17px"
             >
               {request.name}
@@ -179,11 +179,9 @@ const JoinRequests: React.FC<JoinRequestsProps> = ({ pendingJoinRequests }) => {
               ellipsizeMode="tail"
               numberOfLines={1}
               align="left"
-              color={textTheme}
+              color={primaryTheme}
               fontSize="17px"
             >
-              {request.email}
-              {request.email}
               {request.email}
             </BaseText>
           </BaseContainer>

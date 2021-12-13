@@ -1,61 +1,34 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { BaseText } from "../../GlobalStyles/BaseStyles";
-import {
-  BaseContainer,
-  ScrollContainer,
-} from "../../GlobalStyles/Containers.Style";
-import { Ionicons } from "@expo/vector-icons";
-import { baseApi, baseApiRoutes } from "../../Services";
-import { useUserContext } from "../../Contexts";
-import { showError } from "../../Utils";
-import { UserResponsible } from "../../Interfaces";
-import { useBoolean } from "../../Hooks";
-import { ActivityIndicator } from "react-native";
-import ResponsibleChildrenSVG from "../../Illustrations/Fall is coming-cuate.svg";
+import React from "react";
 import {
   ActivityResultVisualization,
   BackdropLoading,
   Button,
 } from "../../Components";
+import { BaseText } from "../../GlobalStyles/BaseStyles";
+import { BaseContainer } from "../../GlobalStyles/Containers.Style";
+import ResponsibleChildrenSVG from "../../Illustrations/Fall is coming-cuate.svg";
 import { AddChildModal } from "./Modules";
-
-interface GetChildrenReturnType {
-  children: Array<UserResponsible>;
-}
-
+import { useResponsibleChildManagerLogic } from "./useResponsibleChildManagerLogic";
+import { AntDesign } from "@expo/vector-icons";
+/**
+ *
+ * @author andr3z0
+ **/
 const ResponsibleChildManager: React.FC = () => {
-  const { user } = useUserContext();
-  const [userResponsibleChildren, setUserResponsibleChildren] = useState<
-    Array<UserResponsible>
-  >([]);
-
-  const { value: isLoading, setTrue, setFalse } = useBoolean();
   const {
-    value: isModalVisible,
+    userResponsibleChildren,
+    setIsModalVisibleTrue,
+    children,
+    isLoadingActivity,
+    currentActivityResults,
+    isLoading,
+    isModalVisible,
+    onPressActivityBtn,
+    onPressChildCard,
+    selectedChild,
     setValue,
-    setTrue: setIsModalVisibleTrue,
-    setFalse: setIsModalVisibleFalse,
-  } = useBoolean();
-  const getChildren = useCallback(() => {
-    setTrue();
-    baseApi
-      .get<GetChildrenReturnType>(
-        baseApiRoutes.USER_RESPONSIBLE + "/" + user?._id
-      )
-      .then((res) => {
-        console.log(res.data);
-        setUserResponsibleChildren(res.data.children);
-      })
-      .catch(showError)
-      .finally(setFalse);
-  }, [user]);
-  useEffect(() => {
-    getChildren();
-  }, []);
-  const children = useMemo(
-    () => userResponsibleChildren.map((user) => user.child),
-    [userResponsibleChildren]
-  );
+    getChildren,
+  } = useResponsibleChildManagerLogic();
   return (
     <>
       <AddChildModal
@@ -64,7 +37,7 @@ const ResponsibleChildManager: React.FC = () => {
         onFinishSendingInvite={getChildren}
       />
       <BackdropLoading visible={isLoading} />
-      {!isLoading && userResponsibleChildren.length === 0 && (
+      {!isLoading && userResponsibleChildren.length === 0 ? (
         <BaseContainer
           flexDirection="column"
           flex={1}
@@ -90,11 +63,27 @@ const ResponsibleChildManager: React.FC = () => {
             hasElevation
           />
         </BaseContainer>
-        // <ActivityResultVisualization membersArray={children} primaryTheme="#8078cc" />
+      ) : (
+        <ActivityResultVisualization
+          membersArray={children}
+          isLoadingActivity={isLoadingActivity}
+          onPressActivityBtn={onPressActivityBtn}
+          onPressChildCard={onPressChildCard}
+          selectedChild={selectedChild}
+          userActivities={currentActivityResults}
+          primaryTheme="#8078cc"
+          isResponsibleVisualization
+          childListExtraComponent={
+            <AntDesign
+              style={{ position: "absolute", top: 0, right: 10, zIndex: 10 }}
+              name="pluscircle"
+              size={30}
+              onPress={setIsModalVisibleTrue}
+              color="#8078cc"
+            />
+          }
+        />
       )}
-      <BaseContainer>
-        <BaseText>TEXT</BaseText>
-      </BaseContainer>
     </>
   );
 };

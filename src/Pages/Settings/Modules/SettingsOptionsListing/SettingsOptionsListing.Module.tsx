@@ -19,7 +19,7 @@ import { ROUTES_NAME as DRAWER_ROUTES_NAME } from "../../../../Routes/SettingsDr
  * @author andr30z
  **/
 const SettingsOptionsListing: React.FC = () => {
-  const { logoutUser } = useUserContext();
+  const { logoutUser, userIsChild } = useUserContext();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   return (
     <>
@@ -54,16 +54,18 @@ const SettingsOptionsListing: React.FC = () => {
         subTitle="Alterar minha senha"
       />
 
-      <SettingsOptionsItem
-        onPress={() =>
-          navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {
-            screen: DRAWER_ROUTES_NAME.RESPONSABLE_MANAGER,
-          })
-        }
-        icon={(props) => <FontAwesome name="child" {...props} />}
-        title="Crianças"
-        subTitle="Ver crianças vinculadas a seu perfil"
-      />
+      {!userIsChild && (
+        <SettingsOptionsItem
+          onPress={() =>
+            navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {
+              screen: DRAWER_ROUTES_NAME.RESPONSABLE_MANAGER,
+            })
+          }
+          icon={(props) => <FontAwesome name="child" {...props} />}
+          title="Crianças"
+          subTitle="Ver crianças vinculadas a seu perfil"
+        />
+      )}
       <SettingsOptionsItem
         icon={(props) => <Feather name="log-out" {...props} />}
         onPress={logoutUser}
