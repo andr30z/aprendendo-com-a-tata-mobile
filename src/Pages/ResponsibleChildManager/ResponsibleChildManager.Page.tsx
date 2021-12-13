@@ -3,6 +3,7 @@ import {
   ActivityResultVisualization,
   BackdropLoading,
   Button,
+  ConfirmationModal,
 } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
@@ -10,6 +11,7 @@ import ResponsibleChildrenSVG from "../../Illustrations/Fall is coming-cuate.svg
 import { AddChildModal } from "./Modules";
 import { useResponsibleChildManagerLogic } from "./useResponsibleChildManagerLogic";
 import { AntDesign } from "@expo/vector-icons";
+import { Button as UIButton, ButtonSize } from "react-native-ui-lib";
 /**
  *
  * @author andr3z0
@@ -28,6 +30,9 @@ const ResponsibleChildManager: React.FC = () => {
     selectedChild,
     setValue,
     getChildren,
+    sheetRef,
+    open,
+    onDelete,
   } = useResponsibleChildManagerLogic();
   return (
     <>
@@ -35,6 +40,11 @@ const ResponsibleChildManager: React.FC = () => {
         isVisible={isModalVisible}
         setIsVisible={setValue}
         onFinishSendingInvite={getChildren}
+      />
+      <ConfirmationModal
+        onConfirm={onDelete}
+        modalRef={sheetRef}
+        confirmationQuestion="Deseja realmente deixar de ser responsável dessa criança?"
       />
       <BackdropLoading visible={isLoading} />
       {!isLoading && userResponsibleChildren.length === 0 ? (
@@ -72,6 +82,16 @@ const ResponsibleChildManager: React.FC = () => {
           selectedChild={selectedChild}
           userActivities={currentActivityResults}
           primaryTheme="#8078cc"
+          renderChildHeaderExtraComponent={() => (
+            <UIButton
+              size={"small" as any}
+              label="Desvincular"
+              backgroundColor="#ff3232"
+              enableShadow
+              onPress={open}
+              style={{ marginRight: 10 }}
+            />
+          )}
           isResponsibleVisualization
           childListExtraComponent={
             <AntDesign

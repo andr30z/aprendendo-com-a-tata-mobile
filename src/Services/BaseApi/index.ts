@@ -20,6 +20,7 @@ export const baseApiRoutes = {
   REGISTER: "/v1/authentication/register",
   LOGOUT: "/v1/authentication/logout",
   USERS: "/v1/users",
+  RESPONSIBLE_USER_CHILDREN: "/v1/user-responsible/children",
   ME: "v1/users/me",
   USER_RESPONSIBLE_REQUEST: "/v1/user-responsible/request",
   ACTIVITY_RESULT_USER_RESPONSIBLE: "/v1/activities-results/user-responsible",
@@ -27,6 +28,7 @@ export const baseApiRoutes = {
   NOTIFICATION: "v1/notifications",
   USER_NOTIFICATIONS: "v1/notifications/users",
   USER_RESPONSIBLE: "v1/user-responsible",
+  USER_RESPONSIBLE_CHILD: "v1/user-responsible/child",
   CLASSES_BY_USERS: "v1/classrooms/users",
   CLASS_USER: classUserRoute,
   CLASSROOMS_USERS: (classId: string, userId: string) =>

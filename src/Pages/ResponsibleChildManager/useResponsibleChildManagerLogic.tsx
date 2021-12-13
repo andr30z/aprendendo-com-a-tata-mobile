@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useUserContext } from "../../Contexts";
-import { useActivityResultVisualization, useBoolean } from "../../Hooks";
+import {
+  useActivityResultVisualization,
+  useBoolean,
+  useDeleteResponsibleRelation,
+  useModalSheetRef,
+} from "../../Hooks";
 import { ActivityResult, UserResponsible } from "../../Interfaces";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { showError } from "../../Utils";
@@ -29,11 +34,13 @@ export function useResponsibleChildManagerLogic() {
     setTrue: setIsModalVisibleTrue,
     setFalse: setIsModalVisibleFalse,
   } = useBoolean();
+  const { close, sheetRef, open } = useModalSheetRef();
+
   const getChildren = useCallback(() => {
     setTrue();
     baseApi
       .get<GetChildrenReturnType>(
-        baseApiRoutes.USER_RESPONSIBLE + "/" + user?._id
+        baseApiRoutes.RESPONSIBLE_USER_CHILDREN + "/" + user?._id
       )
       .then((res) => {
         console.log(res.data);
@@ -57,6 +64,7 @@ export function useResponsibleChildManagerLogic() {
     onPressActivityBtn,
     isLoadingActivity,
     selectedChild,
+    setSelectedChild,
   } = useActivityResultVisualization({
     activityPlayParamsResolver: (_activity, activityResult) => {
       console.log(activityResult, "äsdasdasd");
@@ -66,6 +74,18 @@ export function useResponsibleChildManagerLogic() {
     },
     sendToActivityPlayOnSearchActivity: false,
   });
+
+  const responsibleCurrentUserEntity = useMemo(
+    () =>
+      userResponsibleChildren.find((x) => x.child._id === selectedChild?._id),
+    []
+  );
+  const { onDelete } = useDeleteResponsibleRelation(() => {
+    setSelectedChild(undefined);
+    setUserResponsibleChildren((past) =>
+      past.filter((x) => x._id !== responsibleCurrentUserEntity?._id)
+    );
+  }, responsibleCurrentUserEntity?._id);
 
   useEffect(() => {
     if (!selectedChild) return;
@@ -118,6 +138,10 @@ export function useResponsibleChildManagerLogic() {
     isLoadingActivity,
     selectedChild,
     setValue,
-    getChildren
+    getChildren,
+    close,
+    sheetRef,
+    open,
+    onDelete,
   };
 }

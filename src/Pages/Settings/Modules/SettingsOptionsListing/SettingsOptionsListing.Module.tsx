@@ -10,9 +10,11 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { SettingsOptionsItem } from "../../../../Components";
 import { useUserContext } from "../../../../Contexts";
+import { useBoolean, useModalSheetRef } from "../../../../Hooks";
 import { MainStackParamList } from "../../../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../../../Routes/MainStackNavigation/RoutesName";
 import { ROUTES_NAME as DRAWER_ROUTES_NAME } from "../../../../Routes/SettingsDrawer/RoutesName";
+import { ChildResponsibleIcon } from "./Modules";
 
 /**
  *
@@ -21,6 +23,7 @@ import { ROUTES_NAME as DRAWER_ROUTES_NAME } from "../../../../Routes/SettingsDr
 const SettingsOptionsListing: React.FC = () => {
   const { logoutUser, userIsChild } = useUserContext();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
+  const { value: isResponsibleVisible, setTrue, setValue } = useBoolean();
   return (
     <>
       <SettingsOptionsItem
@@ -54,7 +57,7 @@ const SettingsOptionsListing: React.FC = () => {
         subTitle="Alterar minha senha"
       />
 
-      {!userIsChild && (
+      {!userIsChild ? (
         <SettingsOptionsItem
           onPress={() =>
             navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {
@@ -63,7 +66,16 @@ const SettingsOptionsListing: React.FC = () => {
           }
           icon={(props) => <FontAwesome name="child" {...props} />}
           title="Crianças"
-          subTitle="Ver crianças vinculadas a seu perfil"
+          subTitle="Ver crianças vinculadas ao seu perfil"
+        />
+      ) : (
+        <SettingsOptionsItem
+          onPress={setTrue}
+          icon={(props) => (
+            <ChildResponsibleIcon setIsResponsibleVisible={setValue} isResponsibleVisible={isResponsibleVisible} {...props} />
+          )}
+          title="Responsável"
+          subTitle="Ver meu responsável"
         />
       )}
       <SettingsOptionsItem

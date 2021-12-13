@@ -30,6 +30,7 @@ interface ActivityResultVisualizationProps {
   ) => void;
   isResponsibleVisualization?: boolean;
   childListExtraComponent?: React.ReactNode;
+  renderChildHeaderExtraComponent?: (child: UserComposition) => React.ReactNode;
 }
 /**
  *
@@ -45,7 +46,8 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
     selectedChild,
     onPressActivityBtn,
     isResponsibleVisualization = false,
-    childListExtraComponent
+    childListExtraComponent,
+    renderChildHeaderExtraComponent,
   }) => {
     return (
       <ScrollContainer contentContainerStyle={{ paddingBottom: 80 }}>
@@ -86,21 +88,26 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
           <BaseContainer flexDirection="column" height="500px" width="100%">
             <EmptyMembers style={{ height: 300 }} />
             <BaseText align="center" fontSize="23px" color="black">
-              {selectedChild?.name} não enviou nenhuma atividade
+              {selectedChild?.name} não fez nenhuma atividade
             </BaseText>
           </BaseContainer>
-        ) : !userActivities ? (
-         null
-        ) : (
+        ) : !userActivities ? null : (
           <BaseContainer
             paddingHorizontal="2%"
             flexDirection="column"
             width="100%"
           >
-            <BaseContainer marginVertical="15px">
+            <BaseContainer
+              marginVertical="15px"
+              flexDirection="row"
+              justify="space-between"
+              width="100%"
+            >
               <BaseText fontSize="22px" color="black">
                 Atividades de {selectedChild?.name}
               </BaseText>
+              {renderChildHeaderExtraComponent && selectedChild &&
+                renderChildHeaderExtraComponent(selectedChild)}
             </BaseContainer>
             {userActivities.map((activityResult) => (
               <ActivityResultListingItem

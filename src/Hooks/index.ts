@@ -10,3 +10,4 @@ export * from "./useModalSheetRef";
 export * from "./useGetActivity";
 export * from "./useFormatRelativeDate";
 export * from "./useActivityResultVisualization";
+export * from "./useDeleteResponsibleRelation";
