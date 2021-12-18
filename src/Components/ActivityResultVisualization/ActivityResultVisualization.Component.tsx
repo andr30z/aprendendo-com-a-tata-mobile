@@ -1,21 +1,19 @@
 import React from "react";
-import BackdropLoading from "../BackdropLoading/BackdropLoading.Component";
+import { FlatList } from "react-native-gesture-handler";
+import { UserComposition } from "../../Contexts";
+import { BaseText } from "../../GlobalStyles/BaseStyles";
 import {
   BaseContainer,
-  ScrollContainer,
+  ScrollContainer
 } from "../../GlobalStyles/Containers.Style";
-import { BaseText } from "../../GlobalStyles/BaseStyles";
-import { FlatList } from "react-native-gesture-handler";
-import ChildrenCardItem from "../ChildrenCardItem/ChildrenCardItem.Component";
 import EmptyMembers from "../../Illustrations/eco-education-bro.svg";
 import {
   ActivityCommonProps,
-  ActivityResult,
-  PostActivityResult,
-  UserInterface,
+  ActivityResult, UserInterface
 } from "../../Interfaces";
+import BackdropLoading from "../BackdropLoading/BackdropLoading.Component";
+import ChildrenCardItem from "../ChildrenCardItem/ChildrenCardItem.Component";
 import { ActivityResultListingItem } from "./Modules";
-import { UserComposition } from "../../Contexts";
 interface ActivityResultVisualizationProps {
   isLoadingActivity: boolean;
   membersArray: Array<UserComposition>;
@@ -99,14 +97,23 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
           >
             <BaseContainer
               marginVertical="15px"
-              flexDirection="row"
-              justify="space-between"
+              flexDirection="column"
+              justify="center"
+              align="center"
               width="100%"
             >
-              <BaseText fontSize="22px" color="black">
+              <BaseText
+                ellipsizeMode="tail"
+                numberOfLines={3}
+                fontSize="22px"
+                align="center"
+                color="black"
+                marginBottom="5px"
+              >
                 Atividades de {selectedChild?.name}
               </BaseText>
-              {renderChildHeaderExtraComponent && selectedChild &&
+              {renderChildHeaderExtraComponent &&
+                selectedChild &&
                 renderChildHeaderExtraComponent(selectedChild)}
             </BaseContainer>
             {userActivities.map((activityResult) => (

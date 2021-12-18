@@ -12,6 +12,7 @@ import { AddChildModal } from "./Modules";
 import { useResponsibleChildManagerLogic } from "./useResponsibleChildManagerLogic";
 import { AntDesign } from "@expo/vector-icons";
 import { Button as UIButton, ButtonSize } from "react-native-ui-lib";
+import { useWindowDimensions } from "react-native";
 /**
  *
  * @author andr3z0
@@ -34,6 +35,7 @@ const ResponsibleChildManager: React.FC = () => {
     open,
     onDelete,
   } = useResponsibleChildManagerLogic();
+  const { width } = useWindowDimensions();
   return (
     <>
       <AddChildModal
@@ -84,12 +86,12 @@ const ResponsibleChildManager: React.FC = () => {
           primaryTheme="#8078cc"
           renderChildHeaderExtraComponent={() => (
             <UIButton
-              size={"small" as any}
+              size={"medium" as any}
               label="Desvincular"
               backgroundColor="#ff3232"
               enableShadow
               onPress={open}
-              style={{ marginRight: 10 }}
+              style={{ width: width * 0.45 }}
             />
           )}
           isResponsibleVisualization

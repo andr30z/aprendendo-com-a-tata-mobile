@@ -4,7 +4,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { NotificationItem } from "../../Components";
 import { useUserContext } from "../../Contexts";
 import { ScrollContainer } from "../../GlobalStyles/Containers.Style";
-import { useBoolean } from "../../Hooks";
+import { useBoolean, useCancellablePromise } from "../../Hooks";
 import { Notification } from "../../Interfaces/Notification";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { showError } from "../../Utils";
@@ -19,13 +19,16 @@ const Notifications: React.FC = () => {
   const { user } = useUserContext();
   const { value, setTrue, setFalse } = useBoolean();
   const [notifications, setNotifications] = useState<Array<Notification>>([]);
+  const { cancellablePromise } = useCancellablePromise();
   const getNotifications = (callback?: () => void) => {
-    baseApi
-      .get<GetNotificationsReturnType>(
+    cancellablePromise(
+      baseApi.get<GetNotificationsReturnType>(
         baseApiRoutes.USER_NOTIFICATIONS + "/" + user?._id
-      )
+      ),
+      true
+    )
       .then((res) => {
-        setNotifications(res.data.notifications);
+        setNotifications(res.data.notifications.reverse());
       })
       .catch(showError)
       .finally(callback ? callback : () => null);
