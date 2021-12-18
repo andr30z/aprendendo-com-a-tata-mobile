@@ -1,15 +1,16 @@
 import React from "react";
-import ActivityItem  from "../../../../Components/ActivityItem/ActivityItem.Component";
+import ActivityItem from "../../../../Components/ActivityItem/ActivityItem.Component";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import {
-  ActivityCommonProps, ActivityResult
+  ActivityCommonProps,
+  ActivityResult,
 } from "../../../../Interfaces/index";
 import { ActivityBanner } from "./Styles";
 
 interface ActivityResultListingItemProps {
   activityResult: ActivityResult<unknown>;
-  onPressActivity: (activity:ActivityCommonProps<unknown>)=>void
+  onPressActivity: (activity: ActivityCommonProps<unknown>) => void;
 }
 /**
  *
@@ -17,7 +18,7 @@ interface ActivityResultListingItemProps {
  **/
 const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
   activityResult,
-  onPressActivity
+  onPressActivity,
 }) => {
   return (
     <ActivityBanner
@@ -81,4 +82,4 @@ const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
   );
 };
 
-export default ActivityResultListingItem;
+export default React.memo(ActivityResultListingItem);

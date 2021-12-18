@@ -2,9 +2,16 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { useWindowDimensions } from "react-native";
 import { WithIconContainer, WithStatusBar } from "../../Components";
-import { ActivitySelection, ClassRoom, Settings, User } from "../../Pages";
+import {
+  ActivitySelection,
+  ClassRoom,
+  Settings,
+  User,
+  CurrentUserActivityVisualization,
+} from "../../Pages";
 import {
   ClassRoom as ClassRoomIcon,
+  CurrentUserActvityVisualization,
   Home,
   Settings as SettingsIcon,
   User as UserIcon,
@@ -15,7 +22,10 @@ import { ROUTES_NAME } from "./RoutesName";
 
 const BottomTab = createBottomTabNavigator<MainBottomParamList>();
 
-const UserPageWithStatusBar = WithStatusBar(User, true);
+const CurrentUserActivityVisualizationPageWithStatusBar = WithStatusBar(
+  CurrentUserActivityVisualization,
+  true
+);
 const ActivitySelectionPageWithStatusBar = WithStatusBar(
   ActivitySelection,
   true
@@ -23,7 +33,9 @@ const ActivitySelectionPageWithStatusBar = WithStatusBar(
 const SettingsPageWithStatusBar = WithStatusBar(Settings);
 const ClassRoomWithStatusBar = WithStatusBar(ClassRoom, true);
 const HomeIconWithIconContainer = WithIconContainer(Home);
-const SettingsIconWithIconContainer = WithIconContainer(SettingsIcon);
+const CurrentUserActvityVisualizationIconWithIconContainer = WithIconContainer(
+  CurrentUserActvityVisualization
+);
 const UserIconWithIconContainer = WithIconContainer(UserIcon);
 const ClassRoomIconWithIconContainer = WithIconContainer(ClassRoomIcon);
 
@@ -78,19 +90,19 @@ const MainBottomNavigation: React.FC = () => {
         component={SettingsPageWithStatusBar}
         options={{
           headerShown: false,
-          tabBarIcon: SettingsIconWithIconContainer,
+          tabBarIcon: UserIconWithIconContainer,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
         }}
       />
-      {/* <BottomTab.Screen
+      <BottomTab.Screen
         options={{
           headerShown: false,
-          tabBarLabel: (props) => <TextBar {...props} textLabel="Perfil" />,
-          tabBarIcon: UserIconWithIconContainer,
+          tabBarLabel: (props) => <TextBar {...props} textLabel="Histórico" />,
+          tabBarIcon: CurrentUserActvityVisualizationIconWithIconContainer,
         }}
-        name={ROUTES_NAME.USER}
-        component={UserPageWithStatusBar}
-      /> */}
+        name={ROUTES_NAME.CURRENT_USER_HISTORY}
+        component={CurrentUserActivityVisualizationPageWithStatusBar}
+      />
     </BottomTab.Navigator>
   );
 };
