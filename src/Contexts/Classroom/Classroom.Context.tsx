@@ -1,19 +1,18 @@
+import { useNavigation } from "@react-navigation/core";
 import React, {
-  createContext,
-  useContext,
+  createContext, useCallback, useContext,
   useEffect,
-  useState,
-  useCallback,
+  useState
 } from "react";
-import { useUserContext } from "../User/User.Context";
+import Toast from "react-native-toast-message";
 import {
   ClassRoomInterface,
-  SetStateInterface,
-  UserType,
+  SetStateInterface
 } from "../../Interfaces/index";
+import { ROUTES_NAME } from "../../Routes/MainBottom/RoutesName";
 import { baseApi, baseApiRoutes } from "../../Services";
-import { useIsFocused, useNavigation } from "@react-navigation/core";
-import Toast from "react-native-toast-message";
+import { showError } from "../../Utils";
+import { useUserContext } from "../User/User.Context";
 type ClassRoomComposition = ClassRoomInterface | null;
 interface ClassroomContextInterface {
   classroom: ClassRoomComposition;
@@ -32,7 +31,6 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
   const [classroom, setClassroom] = useState<ClassRoomComposition>(null);
   const { user } = useUserContext();
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
   const getClassroom = useCallback(
     (onFinishCallback?: () => void) => {
       baseApi
@@ -40,14 +38,19 @@ export const ClassroomProvider: React.FC<{ classId: string }> = ({
         .then((res) => {
           setClassroom(res.data);
           if (onFinishCallback) onFinishCallback();
+        })
+        .catch((e) => {
+          const parent = navigation.getParent();
+          if (parent) parent.navigate(ROUTES_NAME.CLASS_ROOM);
+          showError(e);
         });
     },
     [classId]
   );
-  
+
   useEffect(() => {
     getClassroom();
-  }, [isFocused]);
+  }, []);
 
   useEffect(() => {
     if (!classroom) return;

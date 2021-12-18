@@ -13,6 +13,7 @@ import { WithStatusBar } from "../../Components";
 import { MainStackParamList } from "./Interfaces";
 import { AntDesign } from "@expo/vector-icons";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
+import SettingsDrawer from "../SettingsDrawer/SettingsDrawer.Navigation";
 const StackTab = createStackNavigator<MainStackParamList>();
 const ActivityPlayWithStatusBar = WithStatusBar(ActivityPlay);
 const ClassroomDetailsWithStatusBar = WithStatusBar(ClassroomDetails);
@@ -102,6 +103,10 @@ const MainStackNavigation: React.FC = () => {
         }}
         name={ROUTES_NAME.TEACHER_ACTIVITY_RESULT_LISTING}
         component={TeacherActivityResult}
+      />
+      <StackTab.Screen
+        name={ROUTES_NAME.SETTINGS_DRAWER}
+        component={SettingsDrawer}
       />
     </StackTab.Navigator>
   );

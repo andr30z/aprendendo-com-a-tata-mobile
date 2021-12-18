@@ -29,3 +29,5 @@ export { default as ShowActivityResultModal } from "./ShowActivityResultModal/Sh
 export { default as OnFinishActivityModal } from "./OnFinishActivityModal/OnFinishActivityModal.Component";
 export { default as ChildrenCardItem } from "./ChildrenCardItem/ChildrenCardItem.Component";
 export { default as BackdropLoading } from "./BackdropLoading/BackdropLoading.Component";
+export { default as ActivityResultVisualization } from "./ActivityResultVisualization/ActivityResultVisualization.Component";
+export { default as NotificationItem } from "./NotificationItem/NotificationItem.Component";

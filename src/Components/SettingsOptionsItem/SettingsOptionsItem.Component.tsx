@@ -7,7 +7,7 @@ interface SettingsOptionsItemProps {
   icon: (props: { color: string; size: number }) => React.ReactNode;
   title: string;
   subTitle?: string;
-  onPress: () => void;
+  onPress?: () => void;
   color?: string;
 }
 const SettingsOptionsItem: React.FC<SettingsOptionsItemProps> = ({

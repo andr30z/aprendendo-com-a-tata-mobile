@@ -24,13 +24,15 @@ const Settings: React.FC = () => {
         align="center"
         style={{ top: 15 }}
       >
-        <ProfilePhoto
-          size={60}
-          source={{ uri: formatFilePathUrl(user?.profilePhoto?.path) }}
-        />
-        <BaseText color="black" fontSize="25px" marginLeft="13px">
-          {user?.name}
-        </BaseText>
+        <BaseContainer align="center" flexDirection="row">
+          <ProfilePhoto
+            size={60}
+            source={{ uri: formatFilePathUrl(user?.profilePhoto?.path) }}
+          />
+          <BaseText color="black" fontSize="25px" marginLeft="13px">
+            {user?.name}
+          </BaseText>
+        </BaseContainer>
       </BaseContainer>
       <ScrollView style={{ paddingVertical: 75 }}>
         <SettingsOptionsListing />

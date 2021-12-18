@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Axios from "axios";
 
 // export const DEFAULT_URL = "http://192.168.1.3:8080/api";
- export const DEFAULT_URL = "http://192.168.1.64:8080/api";
+export const DEFAULT_URL = "http://192.168.1.64:8080/api";
 
 export const ASYNC_STORAGE_COOKIE_KEY = "app_auth_cookies";
 export const baseApi = Axios.create({
@@ -11,7 +11,7 @@ export const baseApi = Axios.create({
   headers: {},
 });
 
-const classUserRoute = (classId: string) => `v1/classrooms/${classId}/users`
+const classUserRoute = (classId: string) => `v1/classrooms/${classId}/users`;
 
 export const baseApiRoutes = {
   ACTIVITIES: "/v1/activities",
@@ -20,13 +20,23 @@ export const baseApiRoutes = {
   REGISTER: "/v1/authentication/register",
   LOGOUT: "/v1/authentication/logout",
   USERS: "/v1/users",
+  RESPONSIBLE_USER_CHILDREN: "/v1/user-responsible/children",
   ME: "v1/users/me",
+  USER_RESPONSIBLE_REQUEST: "/v1/user-responsible/request",
+  ACTIVITY_RESULT_USER_RESPONSIBLE: "/v1/activities-results/user-responsible",
   CLASSROOMS: "v1/classrooms",
+  NOTIFICATION: "v1/notifications",
+  USER_NOTIFICATIONS: "v1/notifications/users",
+  USER_RESPONSIBLE: "v1/user-responsible",
+  USER_RESPONSIBLE_CHILD: "v1/user-responsible/child",
   CLASSES_BY_USERS: "v1/classrooms/users",
   CLASS_USER: classUserRoute,
-  CLASSROOMS_USERS: (classId: string, userId: string) => `${classUserRoute(classId)}/${userId}`,
-  CLASSROOM_JOIN_REQUEST: (classId: string) => `v1/classrooms/${classId}/join-request`,
-  CLASSROOM_JOIN_REQUEST_RESOLVE: (classId: string, userId: string) => `v1/classrooms/${classId}/join-request/${userId}`,
+  CLASSROOMS_USERS: (classId: string, userId: string) =>
+    `${classUserRoute(classId)}/${userId}`,
+  CLASSROOM_JOIN_REQUEST: (classId: string) =>
+    `v1/classrooms/${classId}/join-request`,
+  CLASSROOM_JOIN_REQUEST_RESOLVE: (classId: string, userId: string) =>
+    `v1/classrooms/${classId}/join-request/${userId}`,
   ACTIVITY_RESULT_USERS: "v1/activities-results/users",
   START_POST_ACTIVITY: (postId: string) => `v1/posts/${postId}/start-activity`,
   POSTS: "v1/posts",

@@ -7,9 +7,10 @@ import {
   ActivityResult,
 } from "../../Interfaces/index";
 import { ClassRoomInterface, UserInterface } from "../../Interfaces/index";
+import { ROUTES_NAME } from "../SettingsDrawer/RoutesName";
 
 export type ActivityPostParams = { routeIndexToReturnOnFinish?: number };
-interface ActivityPlayParamsType extends ActivityPostParams {
+export interface ActivityPlayParamsType extends ActivityPostParams {
   activity: ActivityCommonProps<unknown>;
   activityResult?: ActivityResult;
   isActivityResultView?: boolean;
@@ -43,6 +44,9 @@ export type MainStackParamList = {
   DETAILS: ActivityDetailsParamsType;
   ACTIVITY_PLAY: ActivityPlayParamsType;
   MAIN_BOTTOM: undefined;
+  SETTINGS_DRAWER: {
+    screen: ROUTES_NAME;
+  };
   CLASSROOM_DETAILS: ClassParamType;
   POST_DETAILS: PostDetailsParamsType;
   TEACHER_ACTIVITY_RESULT_LISTING: TeacherActivityResultListingParams;

@@ -1,4 +1,5 @@
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { useIsFocused } from "@react-navigation/core";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Pressable } from "react-native";
 import { CreatePost, PostItem } from "../../../../Components";
@@ -22,10 +23,11 @@ const Post: React.FC = () => {
   const { userIsTeacher, user } = useUserContext();
   const { value: isLoadingPosts, setTrue, setFalse } = useBoolean();
   const { cancellablePromise } = useCancellablePromise();
+  const isFocused = useIsFocused();
   const [posts, setPosts] = useState<Array<PostInterface>>([]);
   useEffect(() => {
     getPosts();
-  }, [classroom]);
+  }, [classroom, isFocused]);
   const openCreatePostModal =
     (sheetRef: React.RefObject<BottomSheetModalMethods>) => () => {
       if (sheetRef.current) sheetRef.current.present();

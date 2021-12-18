@@ -41,7 +41,7 @@ const ChildrenCardItem: React.FC<ChildrenCardItemProps> = ({
           align="center"
           justify="center"
         >
-          <BaseText fontSize="15px" color="black" align="center">
+          <BaseText ellipsizeMode="tail" numberOfLines={2} fontSize="15px" color="black" align="center">
             {child.name}
           </BaseText>
         </BaseContainer>

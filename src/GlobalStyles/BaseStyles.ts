@@ -66,4 +66,6 @@ export const BaseInput = styled(TextInput)<BaseInputProps>`
   width: ${({ inputWidth }) => inputWidth || "190px"};
   height: ${({ inputHeight }) => inputHeight || "13%"};
   elevation: ${({ elevation }) => (elevation ? elevation : 0)};
+  box-shadow: ${({ elevation }) =>
+    elevation !== undefined ? "10px 5px 5px black" : "0px 0px 0px black"}; 
 `;

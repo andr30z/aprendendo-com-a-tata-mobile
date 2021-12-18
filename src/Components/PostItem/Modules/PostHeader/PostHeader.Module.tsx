@@ -14,6 +14,7 @@ import { Post, ClassRoomInterface } from "../../../../Interfaces/index";
 import { formatRelative } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { useFormatRelativeDate } from "../../../../Hooks";
 
 interface PostHeaderProps {
   goToPostDetails: () => void;
@@ -42,9 +43,9 @@ const IconWithTouchable: React.FC<{
 );
 
 /**
-* Post header
-* @author andr3z0
-**/
+ * Post header
+ * @author andr3z0
+ **/
 export const PostHeader: React.FC<PostHeaderProps> = ({
   goToPostDetails,
   post,
@@ -75,13 +76,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
         : "closed"
     );
   };
-  const postDate = useMemo(
-    () =>
-      formatRelative(new Date(post.createdAt), new Date(), {
-        locale: ptBR,
-      }),
-    [post.createdAt]
-  );
+  const postDate = useFormatRelativeDate(post.createdAt);
   const userIsAuthor = user?._id === post.author._id;
   return (
     <BaseContainer
