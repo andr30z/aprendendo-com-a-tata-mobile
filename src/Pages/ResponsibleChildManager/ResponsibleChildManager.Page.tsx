@@ -94,7 +94,7 @@ const ResponsibleChildManager: React.FC = () => {
               style={{ width: width * 0.45 }}
             />
           )}
-          isResponsibleVisualization
+          visualizationType="responsible"
           childListExtraComponent={
             <AntDesign
               style={{ position: "absolute", top: 0, right: 10, zIndex: 10 }}

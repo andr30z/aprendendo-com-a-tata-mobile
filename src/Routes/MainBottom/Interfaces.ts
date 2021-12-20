@@ -6,6 +6,7 @@ export type MainBottomParamList = {
   USER: undefined;
   ACTIVITY: undefined;
   CLASS_ROOM: undefined;
+  CURRENT_USER_HISTORY: undefined;
 };
 
 export type KeysOfMainBottomParamList =
