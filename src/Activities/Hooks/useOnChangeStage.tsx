@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import { useActivityPlayContext } from "../../Contexts";
 
 /**
- * Hooks that holds the logic about when the activity answers ref inside activity play context should be called
+ * Hook that holds the logic about when the activity answers ref inside activity play context should be called and updated with new results
  * @author andr3z0
  **/
 export function useOnChangeStage<S>(
