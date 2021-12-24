@@ -86,15 +86,6 @@ const MainBottomNavigation: React.FC = () => {
         }}
       />
       <BottomTab.Screen
-        name={ROUTES_NAME.SETTINGS}
-        component={SettingsPageWithStatusBar}
-        options={{
-          headerShown: false,
-          tabBarIcon: UserIconWithIconContainer,
-          tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
-        }}
-      />
-      <BottomTab.Screen
         options={{
           headerShown: false,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Histórico" />,
@@ -102,6 +93,15 @@ const MainBottomNavigation: React.FC = () => {
         }}
         name={ROUTES_NAME.CURRENT_USER_HISTORY}
         component={CurrentUserActivityVisualizationPageWithStatusBar}
+      />
+      <BottomTab.Screen
+        name={ROUTES_NAME.SETTINGS}
+        component={SettingsPageWithStatusBar}
+        options={{
+          headerShown: false,
+          tabBarIcon: UserIconWithIconContainer,
+          tabBarLabel: (props) => <TextBar {...props} textLabel="Opções" />,
+        }}
       />
     </BottomTab.Navigator>
   );

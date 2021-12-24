@@ -1,15 +1,14 @@
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useState } from "react";
+import Toast from "react-native-toast-message";
 import { useUserContext } from "../../../Contexts";
 import { InitialStackParamsList } from "../../../Routes/InitialStack/Interfaces";
+import { baseApi, baseApiRoutes } from "../../../Services";
 import {
-    baseApi,
-    baseApiRoutes
-} from "../../../Services";
-import {
-    setTokenAndCredentialsOnAsyncStorage,
-    verifyIfStringIsEmpty
+  setTokenAndCredentialsOnAsyncStorage,
+  showError,
+  verifyIfStringIsEmpty,
 } from "../../../Utils";
 import { LoginResponse } from "../Interfaces";
 
@@ -28,7 +27,6 @@ export function useInitialPageLogic() {
   const { setUser } = useUserContext();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [errorToast, setErrorToast] = useState({ show: false, errorMsg: "" });
   const onChange = (key: string) => (text: string) =>
     setLoginCredentials((past) => ({ ...past, [key]: text }));
 
@@ -37,9 +35,9 @@ export function useInitialPageLogic() {
       verifyIfStringIsEmpty(loginCredentials.email) ||
       verifyIfStringIsEmpty(loginCredentials.password)
     ) {
-      return setErrorToast({
-        show: true,
-        errorMsg: "Preencha os campos completamente!",
+      return Toast.show({
+        type: "error",
+        text2: "Preencha os campos completamente!",
       });
     }
     setIsLoading(true);
@@ -50,16 +48,7 @@ export function useInitialPageLogic() {
         setUser(res.data);
       })
       .catch((e) => {
-        console.log(e)
-        const data = e?.response?.data;
-        const responseStateFormat = {
-          show: true,
-          errorMsg: "Erro, por favor tente novamente mais tarde!",
-        };
-        if (data?.statusCode === 404)
-          responseStateFormat["errorMsg"] = data.message;
-
-        setErrorToast(responseStateFormat);
+        showError(e);
 
         console.log(e.response.data);
         setIsLoading(false);
@@ -70,8 +59,6 @@ export function useInitialPageLogic() {
     onSubmit,
     isLoading,
     setIsLoading,
-    errorToast,
-    setErrorToast,
     navigation,
     onChange,
     loginCredentials,

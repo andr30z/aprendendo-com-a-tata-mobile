@@ -34,12 +34,8 @@ import Input from "../Input/Input.Component";
 import ProfilePhotoWithOverlay from "../ProfilePhotoWithOverlay/ProfilePhotoWithOverlay.Component";
 import WithSpinner from "../WithSpinner/WithSpinner.Component";
 import { styles } from "./Styles";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import Toast from "react-native-toast-message";
-
-export interface UserFormProps {
-  onSuccessSave?: () => void;
-}
 
 interface UserFormFields
   extends Omit<UserInterface, "profilePhoto" | "birthday"> {
@@ -48,6 +44,15 @@ interface UserFormFields
   password: string;
   passwordConfirmation: string;
   birthday: Date;
+}
+
+export interface UserFormProps {
+  onSuccessSave?: () => void;
+  initialValues?: UserFormFields;
+  showSensitiveFields?: boolean;
+  color?: string;
+  showLabels?: boolean;
+  customOnSubmit?: (fields: UserFormFields) => void;
 }
 
 const schema = yup.object().shape({
@@ -82,9 +87,15 @@ const ProfilePhotoWithSpinner = WithSpinner(ProfilePhotoWithOverlay, () => (
     />
   </Placeholder>
 ));
-const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
+const UserForm: React.FC<UserFormProps> = ({
+  onSuccessSave,
+  initialValues,
+  showSensitiveFields = true,
+  color = "#f7cc7f",
+  customOnSubmit,
+  showLabels = false,
+}) => {
   // const color = "#9188E5";
-  const color = "#f7cc7f";
   const {
     setValue,
     control,
@@ -101,6 +112,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
       passwordConfirmation: "",
       password: "",
       birthday: "" as any,
+      ...initialValues,
     },
     mode: "all",
     resolver: yupResolver(schema),
@@ -117,6 +129,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
   const { value: isKeyboardShowing, toggle } = useBoolean();
   useKeyboardHideOrShowEvent({ onHide: toggle, onShow: toggle });
   const onSubmit = (fields: UserFormFields) => {
+    if (customOnSubmit) return customOnSubmit(fields);
     console.log(fields);
     baseApi
       .post(baseApiRoutes.REGISTER, fields)
@@ -135,7 +148,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
       });
   };
 
-  const { profilePhoto, devicePhotoURI, type, _id } = getValues();
+  const { profilePhoto, devicePhotoURI, type } = getValues();
   const uri =
     profilePhoto && !devicePhotoURI
       ? formatFilePathUrl(profilePhoto)
@@ -152,7 +165,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
       />
 
       <ScrollView
-        contentContainerStyle={{ paddingBottom: isKeyboardShowing ? 200 : 100 }}
+        contentContainerStyle={{ paddingBottom: isKeyboardShowing ? 300 : 200 }}
       >
         <BaseContainer
           height="300px"
@@ -169,7 +182,9 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
             height="15px"
             flex={0.3}
           >
-            <BaseText fontSize="20px">Cadastrar Usuário</BaseText>
+            <BaseText fontSize="20px">
+              {initialValues ? "Minhas informações" : "Cadastrar Usuário"}
+            </BaseText>
           </BaseContainer>
           <BaseContainer
             height="110px"
@@ -197,6 +212,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
                 error={errors.name?.message}
                 inputHeight={"33px"}
                 withWrapper
+                label={showLabels ? "Nome" : undefined}
                 inputWidth={"65%"}
                 onChangeText={(text) => onChange(text)}
                 {...rest}
@@ -215,6 +231,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
               <Input
                 elevation={4}
                 withWrapper
+                label={showLabels ? "Email" : undefined}
                 autoCapitalize="none"
                 keyboardType="email-address"
                 error={errors.email?.message}
@@ -236,9 +253,10 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
                 <Pressable
                   style={{ width: "100%", marginTop: 20 }}
                   onPress={setTrue}
-                >
+                  >
                   <Input
                     elevation={4}
+                    label={showLabels ? "Data de nascimento" : undefined}
                     withWrapper
                     editable={false}
                     error={errors.birthday?.message}
@@ -268,77 +286,87 @@ const UserForm: React.FC<UserFormProps> = ({ onSuccessSave }) => {
               </>
             )}
           />
-          <CardSelect
-            marginVertical="25px"
-            selectedItemValue={type}
-            primaryColor={color}
-            activeColor={"green"}
-            selectLabel="Você é:"
-            cardItems={[
-              {
-                icon: (props: any) => <FontAwesome5 name="child" {...props} />,
-                value: UserType.C,
-                title: "Criança",
-              },
-              {
-                icon: (props: any) => (
-                  <FontAwesome5 name="chalkboard-teacher" {...props} />
-                ),
-                value: UserType.T,
-                title: "Professor",
-              },
-              {
-                icon: (props: any) => (
-                  <MaterialCommunityIcons name="human-male-boy" {...props} />
-                ),
-                value: UserType.R,
-                title: "Responsável",
-              },
-            ]}
-            onPress={(x) => setValue("type", x.value, { shouldValidate: true })}
-          />
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { ref, onChange, ...rest } }) => (
-              <Input
-                elevation={4}
-                withWrapper
-                error={errors.password?.message}
-                secureTextEntry
-                wrapperStyles={{
-                  flexDirection: "column",
-                  marginBottom: 20,
-                  marginTop: 20,
-                }}
-                inputHeight={"40px"}
-                onChangeText={(text) => onChange(text)}
-                inputWidth={"100%"}
-                {...rest}
-                inputRef={ref}
-                placeholder="Senha"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="passwordConfirmation"
-            render={({ field: { ref, onChange, ...rest } }) => (
-              <Input
-                elevation={4}
-                withWrapper
-                secureTextEntry
-                error={errors.passwordConfirmation?.message}
-                wrapperStyles={{ flexDirection: "column", marginTop: 20 }}
-                inputHeight={"40px"}
-                onChangeText={(text) => onChange(text)}
-                inputWidth={"100%"}
-                {...rest}
-                inputRef={ref}
-                placeholder="Confirmação de Senha"
-              />
-            )}
-          />
+          {showSensitiveFields && (
+            <CardSelect
+              marginVertical="25px"
+              selectedItemValue={type}
+              primaryColor={color}
+              activeColor={"green"}
+              selectLabel="Você é:"
+              cardItems={[
+                {
+                  icon: (props: any) => (
+                    <FontAwesome5 name="child" {...props} />
+                  ),
+                  value: UserType.C,
+                  title: "Criança",
+                },
+                {
+                  icon: (props: any) => (
+                    <FontAwesome5 name="chalkboard-teacher" {...props} />
+                  ),
+                  value: UserType.T,
+                  title: "Professor",
+                },
+                {
+                  icon: (props: any) => (
+                    <MaterialCommunityIcons name="human-male-boy" {...props} />
+                  ),
+                  value: UserType.R,
+                  title: "Responsável",
+                },
+              ]}
+              onPress={(x) =>
+                setValue("type", x.value, { shouldValidate: true })
+              }
+            />
+          )}
+          {showSensitiveFields && (
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { ref, onChange, ...rest } }) => (
+                <Input
+                  elevation={4}
+                  withWrapper
+                  error={errors.password?.message}
+                  secureTextEntry
+                  wrapperStyles={{
+                    flexDirection: "column",
+                    marginBottom: 20,
+                    marginTop: 20,
+                  }}
+                  inputHeight={"40px"}
+                  onChangeText={(text) => onChange(text)}
+                  inputWidth={"100%"}
+                  {...rest}
+                  inputRef={ref}
+                  placeholder="Senha"
+                />
+              )}
+            />
+          )}
+          {showSensitiveFields && (
+            <Controller
+              control={control}
+              name="passwordConfirmation"
+              render={({ field: { ref, onChange, ...rest } }) => (
+                <Input
+                  elevation={4}
+                  withWrapper
+                  secureTextEntry
+                  error={errors.passwordConfirmation?.message}
+                  wrapperStyles={{ flexDirection: "column", marginTop: 20 }}
+                  inputHeight={"40px"}
+                  onChangeText={(text) => onChange(text)}
+                  inputWidth={"100%"}
+                  {...rest}
+                  inputRef={ref}
+                  placeholder="Confirmação de Senha"
+                />
+              )}
+            />
+          )}
         </BaseContainer>
       </ScrollView>
 

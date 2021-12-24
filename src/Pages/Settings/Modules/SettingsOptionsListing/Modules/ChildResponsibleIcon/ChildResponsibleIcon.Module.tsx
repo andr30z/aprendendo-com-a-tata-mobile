@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { ProfilePhoto, WithModal } from "../../../../../../Components";
-import {
-  useBoolean,
-  useDeleteResponsibleRelation,
-  useModalSheetRef,
-} from "../../../../../../Hooks";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
+import ReactNativeModal from "react-native-modal";
+import { Button } from "react-native-ui-lib";
+import { ProfilePhoto } from "../../../../../../Components";
+import { useUserContext } from "../../../../../../Contexts";
+import { BaseText } from "../../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../../GlobalStyles/Containers.Style";
 import {
+  useBoolean,
+  useDeleteResponsibleRelation
+} from "../../../../../../Hooks";
+import {
   SetStateInterface,
-  UserResponsible,
+  UserResponsible
 } from "../../../../../../Interfaces";
 import { baseApi, baseApiRoutes } from "../../../../../../Services";
-import { useUserContext } from "../../../../../../Contexts";
-import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
-import ReactNativeModal from "react-native-modal";
-import { BaseText } from "../../../../../../GlobalStyles/BaseStyles";
-import { ActivityIndicator } from "react-native";
 import { formatFilePathUrl } from "../../../../../../Utils";
-import { Button } from "react-native-ui-lib";
 interface IconProps {
   color: string;
   size: number;

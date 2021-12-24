@@ -9,7 +9,7 @@ export const TouchableClassContainer = styled.TouchableOpacity`
 
 export const styles = StyleSheet.create({
   classNameInput: {
-    marginTop: 10,
+    marginTop: 0,
   },
   baseContainer: {
     borderRadius: 0,

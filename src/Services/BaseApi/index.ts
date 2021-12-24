@@ -25,6 +25,7 @@ export const baseApiRoutes = {
   USER_RESPONSIBLE_REQUEST: "/v1/user-responsible/request",
   ACTIVITY_RESULT_USER_RESPONSIBLE: "/v1/activities-results/user-responsible",
   CLASSROOMS: "v1/classrooms",
+  USERS_PASSWORD: "/v1/users/password",
   NOTIFICATION: "v1/notifications",
   USER_NOTIFICATIONS: "v1/notifications/users",
   USER_RESPONSIBLE: "v1/user-responsible",

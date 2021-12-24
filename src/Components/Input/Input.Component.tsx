@@ -1,6 +1,10 @@
 import React from "react";
 import ErrorComponent from "../ErrorComponent/ErrorComponent.Component";
-import { BaseInput, BaseInputProps } from "../../GlobalStyles/BaseStyles";
+import {
+  BaseInput,
+  BaseInputProps,
+  BaseText,
+} from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
 /**
@@ -14,6 +18,7 @@ const Input: React.FC<BaseInputProps> = (props) => {
       ? `${inputOrHeight}px`
       : inputOrHeight;
   };
+  const label = props.label;
   const CustomInput = props.customComponent;
   if (withWrapper)
     return (
@@ -27,6 +32,7 @@ const Input: React.FC<BaseInputProps> = (props) => {
           wrapperStyles,
         ]}
       >
+        {label && <BaseText marginLeft="7px" marginBottom="0" color="black">{label}</BaseText>}
         {CustomInput ? (
           CustomInput
         ) : (

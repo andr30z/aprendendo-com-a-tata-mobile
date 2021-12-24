@@ -12,14 +12,8 @@ import { useInitialPageLogic } from "./Hooks";
  * @author andr3z0
  **/
 const Initial: React.FC = () => {
-  const {
-    errorToast,
-    navigation,
-    onChange,
-    onSubmit,
-    setErrorToast,
-    loginCredentials,
-  } = useInitialPageLogic();
+  const { navigation, onChange, onSubmit, loginCredentials } =
+    useInitialPageLogic();
   return (
     <>
       <BaseContainer
@@ -67,7 +61,7 @@ const Initial: React.FC = () => {
             onChangeText={onChange("password")}
             secureTextEntry
           />
-          <Pressable
+          {/* <Pressable
             onPress={() => null}
             style={{
               width: "100%",
@@ -78,7 +72,7 @@ const Initial: React.FC = () => {
             <BaseText color="#f7cc7f" align="right">
               Esqueci minha senha
             </BaseText>
-          </Pressable>
+          </Pressable> */}
           <Button
             containerStyles={{
               marginTop: 10,

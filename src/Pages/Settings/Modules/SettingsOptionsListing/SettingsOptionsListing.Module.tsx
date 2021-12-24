@@ -8,8 +8,12 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
+import ReactNativeModal from "react-native-modal";
+import { Badge } from "react-native-ui-lib";
 import { SettingsOptionsItem } from "../../../../Components";
 import { useUserContext } from "../../../../Contexts";
+import { BaseText } from "../../../../GlobalStyles/BaseStyles";
+import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { useBoolean, useModalSheetRef } from "../../../../Hooks";
 import { MainStackParamList } from "../../../../Routes/MainStackNavigation/Interfaces";
 import { ROUTES_NAME } from "../../../../Routes/MainStackNavigation/RoutesName";
@@ -21,22 +25,62 @@ import { ChildResponsibleIcon } from "./Modules";
  * @author andr30z
  **/
 const SettingsOptionsListing: React.FC = () => {
-  const { logoutUser, userIsChild } = useUserContext();
+  const { logoutUser, userIsChild, user } = useUserContext();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const { value: isResponsibleVisible, setTrue, setValue } = useBoolean();
+  const {
+    value: isVisibleUserCode,
+    setTrue: setTrueUserCodeModal,
+    setFalse,
+  } = useBoolean();
   return (
     <>
       <SettingsOptionsItem
-        onPress={() => null}
-        icon={(props) => <AntDesign name="idcard" {...props} />}
+        onPress={setTrueUserCodeModal}
+        icon={(props) => (
+          <>
+            <ReactNativeModal
+              animationIn="slideInUp"
+              animationOut="slideOutUp"
+              swipeDirection={["up", "down", "right", "left"]}
+              useNativeDriver={false}
+              onBackdropPress={setFalse}
+              isVisible={isVisibleUserCode}
+            >
+              <BaseContainer
+                align="center"
+                justify="center"
+                flexDirection="column"
+                borderRadius="10px"
+                backgroundColor="#fff"
+                flex={0.5}
+              >
+                <AntDesign name="user" size={30} color="#8078cc" />
+                <BaseText fontSize="18px" color="black" marginBottom="10px">
+                  Seu código de usuário é:{" "}
+                </BaseText>
+                <Badge
+                  backgroundColor="#8078cc"
+                  size={50}
+                  label={user?.code}
+                  labelStyle={{
+                    fontSize: 16,
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                  containerStyle={{
+                    width: "80%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                />
+              </BaseContainer>
+            </ReactNativeModal>
+            <AntDesign name="idcard" {...props} />
+          </>
+        )}
         title="Código"
         subTitle="Ver meu codigo de usuário"
-      />
-      <SettingsOptionsItem
-        onPress={() => null}
-        icon={(props) => <AntDesign name="user" {...props} />}
-        title="Minhas Informações"
-        subTitle="Editar suas informações"
       />
       <SettingsOptionsItem
         onPress={() =>
@@ -49,7 +93,22 @@ const SettingsOptionsListing: React.FC = () => {
         subTitle="Minhas notificações"
       />
       <SettingsOptionsItem
-        onPress={() => null}
+        onPress={() =>
+          navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {
+            screen: DRAWER_ROUTES_NAME.USER_INFO,
+          })
+        }
+        icon={(props) => <AntDesign name="user" {...props} />}
+        title="Minhas Informações"
+        subTitle="Editar suas informações"
+      />
+
+      <SettingsOptionsItem
+       onPress={() =>
+        navigation.navigate(ROUTES_NAME.SETTINGS_DRAWER, {
+          screen: DRAWER_ROUTES_NAME.PASSWORD_CHANGE,
+        })
+      }
         icon={(props) => (
           <MaterialCommunityIcons name="form-textbox-password" {...props} />
         )}
@@ -72,7 +131,11 @@ const SettingsOptionsListing: React.FC = () => {
         <SettingsOptionsItem
           onPress={setTrue}
           icon={(props) => (
-            <ChildResponsibleIcon setIsResponsibleVisible={setValue} isResponsibleVisible={isResponsibleVisible} {...props} />
+            <ChildResponsibleIcon
+              setIsResponsibleVisible={setValue}
+              isResponsibleVisible={isResponsibleVisible}
+              {...props}
+            />
           )}
           title="Responsável"
           subTitle="Ver meu responsável"

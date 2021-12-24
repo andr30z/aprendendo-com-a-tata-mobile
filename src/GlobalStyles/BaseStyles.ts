@@ -30,6 +30,7 @@ export interface BaseInputProps extends TextInputProps {
   customComponent?: React.ReactNode;
   inputRef?: React.Ref<TextInput>;
   elevation?: number;
+  label?: string;
   error?: string;
 }
 const marginPaddingConfig = ({
@@ -67,5 +68,5 @@ export const BaseInput = styled(TextInput)<BaseInputProps>`
   height: ${({ inputHeight }) => inputHeight || "13%"};
   elevation: ${({ elevation }) => (elevation ? elevation : 0)};
   box-shadow: ${({ elevation }) =>
-    elevation !== undefined ? "10px 5px 5px black" : "0px 0px 0px black"}; 
+    elevation !== undefined ? "10px 5px 5px black" : "0px 0px 0px black"};
 `;
