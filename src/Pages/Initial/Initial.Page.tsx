@@ -3,7 +3,7 @@ import { Pressable, StatusBar, View } from "react-native";
 import { Button, CloudsContainer, Input } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
-import BottomImage from "../../Illustrations/turtleimg.svg";
+import BottomImage from "../../Illustrations/turtle-image-tata.svg";
 import { ROUTES_NAME } from "../../Routes/InitialStack/RoutesName";
 import { useInitialPageLogic } from "./Hooks";
 
@@ -23,17 +23,6 @@ const Initial: React.FC = () => {
         <StatusBar backgroundColor="#ded7d2" translucent />
         <CloudsContainer />
         <BaseContainer
-          flex={2}
-          align="center"
-          justify="center"
-          flexDirection="column"
-          style={{ marginTop: 25 }}
-        >
-          <BaseText fontSize="25px" color="black">
-            Aprendendo com a Tatá
-          </BaseText>
-        </BaseContainer>
-        <BaseContainer
           flex={4}
           align="center"
           justify="center"
@@ -46,14 +35,24 @@ const Initial: React.FC = () => {
             inputWidth="100%"
             placeholder="Email"
             borderRadius="30px"
-            style={{ fontSize: 18 }}
+            style={{
+              fontSize: 18,
+              borderWidth: 1,
+              borderColor: "#A6A0DB",
+              color: "#A6A0DB",
+            }}
             value={loginCredentials.email}
             onChangeText={onChange("email")}
             autoCapitalize="none"
           />
           <Input
             inputWidth="100%"
-            style={{ marginTop: 15, fontSize: 18 }}
+            style={{
+              marginTop: 15,
+              fontSize: 18,
+              borderWidth: 1,
+              borderColor: "#A6A0DB",
+            }}
             placeholder="Senha"
             borderRadius="30px"
             autoCapitalize="none"
@@ -64,8 +63,7 @@ const Initial: React.FC = () => {
           {/* <Pressable
             onPress={() => null}
             style={{
-              width: "100%",
-              marginVertical: 10,
+              width: "100%",              marginVertical: 10,
               marginRight: 7,
             }}
           >
