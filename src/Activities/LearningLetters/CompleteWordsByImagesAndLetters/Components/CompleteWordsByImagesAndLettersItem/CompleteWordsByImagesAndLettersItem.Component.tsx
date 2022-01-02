@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { useWindowDimensions, Image } from "react-native";
+import { Image, useWindowDimensions } from "react-native";
 import { DraxView } from "react-native-drax";
 import { ACTIVITY_CONSTANTS } from "../../../../../Constants/index";
 import { useActivityPlayContext } from "../../../../../Contexts";
@@ -99,6 +99,7 @@ const CompleteWordsByImagesAndLettersItem: React.FC<CompleteWordsByImagesAndLett
               }}
               align="center"
               justify="center"
+              backgroundColor="white"
               flex={1}
             >
               <DraxView

@@ -46,7 +46,7 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
               source={{ uri: wordItem.image }}
             />
           </BaseContainer>
-          <BaseContainer flex={1} flexDirection="row" width={`${width}px`}>
+          <BaseContainer flex={1} flexDirection="row" flexWrap="wrap" align="center" width={`${width}px`}>
             {letters?.map((letter, idx) => (
               <BaseContainer flex={1} align="center" justify="center" key={idx}>
                 {letter ===
@@ -71,7 +71,7 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
                 ) : (
                   <BaseText
                     color="black"
-                    // fontSize="50px"
+                    fontSize="17px"
                     fontWeight="bold"
                     style={{ marginHorizontal: 3 }}
                   >
@@ -86,6 +86,8 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
           flex={2}
           flexDirection="row"
           flexWrap="wrap"
+          borderRadius="10px"
+          backgroundColor="#fff"
           justify="center"
           style={{ borderWidth: 1 }}
         >
@@ -99,7 +101,7 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
                 style={{ marginRight: 8 }}
                 fontWeight="bold"
                 color="black"
-                fontSize="23px"
+                fontSize="30px"
               >
                 {option}
               </BaseText>

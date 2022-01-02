@@ -18,12 +18,11 @@ type NewActivityAnswers = Omit<ActivityAnswers, "_id">;
  **/
 export function useActivityPlayLogic({
   activityResult,
+  activity,
   isActivityResultView,
 }: ActivityPlayProviderProps) {
   const activityAnswers = useRef<Array<NewActivityAnswers>>(
-    isActivityResultView && activityResult
-      ? activityResult.activityAnswers
-      : []
+    isActivityResultView && activityResult ? activityResult.activityAnswers : []
   );
   const oldStageIndex = useRef<number>(0);
   const { user } = useUserContext();
@@ -36,17 +35,23 @@ export function useActivityPlayLogic({
   const [completedActivityResult, setCompletedActivityResult] =
     useState<ActivityResult | null>(null);
   const onEndActivity = useCallback(() => {
+    const body = {
+      activityAnswers: activityAnswers.current,
+      activityResultId: activityResult?._id,
+      activityId: activityResult?.activity._id || activity._id,
+      finished: true,
+    };
     console.log(activityAnswers.current);
-    baseApi
-      .put<ActivityResult>(
-        baseApiRoutes.ACTIVITY_RESULT_USERS + "/" + user?._id,
-        {
-          activityAnswers: activityAnswers.current,
-          activityResultId: activityResult?._id,
-          activityId: activityResult?.activity._id,
-          finished: true,
-        }
-      )
+    const promise = activityResult
+      ? baseApi.put<ActivityResult>(
+          baseApiRoutes.ACTIVITY_RESULT_USERS + "/" + user?._id,
+          body
+        )
+      : baseApi.post<ActivityResult>(
+          baseApiRoutes.ACTIVITY_RESULT_USERS + "/" + user?._id,
+          body
+        );
+    promise
       .then((res) => {
         // console.log(res.data, "RESULTADO");
         activityModalEndRef.current?.close();

@@ -47,6 +47,12 @@ const LearningCharacteristicsOfThings: React.FC<LearningCharacteristicsOfThingsP
             align="center"
             justify="center"
             flexDirection="row"
+            backgroundColor="white"
+            marginHorizontal="2%"
+            borderRadius="10px"
+            style={{
+              elevation:4
+            }}
             flexWrap="wrap"
           >
             {currentStage.characteristicsItems.map((item, index) => (

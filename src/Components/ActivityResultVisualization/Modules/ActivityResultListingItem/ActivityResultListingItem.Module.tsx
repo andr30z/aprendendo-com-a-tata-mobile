@@ -20,6 +20,7 @@ const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
   activityResult,
   onPressActivity,
 }) => {
+  console.log(activityResult)
   return (
     <ActivityBanner
       marginTop="10px"

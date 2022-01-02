@@ -22,7 +22,7 @@ const CurrentUserActivityVisualization: React.FC = ({ children }) => {
         baseApiRoutes.ACTIVITY_RESULT_USERS + "/" + user?._id
       )
       .then((res) => {
-        setActivityResults(res.data.activitiesResults);
+        setActivityResults(res.data.activitiesResults.reverse());
       })
       .catch(showError)
       .finally(setFalse);

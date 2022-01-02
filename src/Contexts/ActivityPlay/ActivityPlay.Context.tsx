@@ -10,6 +10,7 @@ import {
   ActivityResult,
 } from "../../Interfaces/index";
 import { ActivityPostParams } from "../../Routes/MainStackNavigation/Interfaces";
+import { BackgroundSwitch } from "./Backgrounds";
 import { ActivityPlayProviderProps } from "./Interfaces";
 import { useActivityPlayLogic } from "./useActivityPlayLogic";
 type NewActivityAnswers = Omit<ActivityAnswers, "_id">;
@@ -69,6 +70,15 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
         activityStageLength: activity?.stages?.length,
       }}
     >
+      <BackgroundSwitch activityType={activity.type} />
+      <BaseContainer
+        backgroundColor="transparent"
+        marginBottom={
+          Platform.OS === "ios"
+            ? "21px"
+            : (StatusBar.currentHeight ? StatusBar.currentHeight : 20) + "px"
+        }
+      />
       {children}
       <ShowActivityResultModal
         withModalProps={withModalProps}
@@ -80,7 +90,7 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
         <BaseContainer
           style={{
             zIndex: 50,
-            marginTop: Platform.OS === "ios" ? 20 + 1 : StatusBar.currentHeight,
+            marginTop: Platform.OS === "ios" ? 21 : StatusBar.currentHeight,
           }}
           position="absolute"
           top={10}
