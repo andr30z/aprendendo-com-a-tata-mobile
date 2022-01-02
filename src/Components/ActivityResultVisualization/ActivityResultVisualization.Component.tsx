@@ -53,6 +53,7 @@ const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
   }) => {
     const isResponsibleVisualization = visualizationType === "responsible";
     const isCurrentUserVisualization = visualizationType === "current-user";
+    
     return (
       <FlatList
         refreshControl={refreshControl}
