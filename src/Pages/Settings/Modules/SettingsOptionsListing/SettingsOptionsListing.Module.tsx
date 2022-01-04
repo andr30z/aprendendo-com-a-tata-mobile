@@ -42,6 +42,7 @@ const SettingsOptionsListing: React.FC = () => {
             <ReactNativeModal
               animationIn="slideInUp"
               animationOut="slideOutUp"
+              onSwipeComplete={setFalse}
               swipeDirection={["up", "down", "right", "left"]}
               useNativeDriver={false}
               onBackdropPress={setFalse}

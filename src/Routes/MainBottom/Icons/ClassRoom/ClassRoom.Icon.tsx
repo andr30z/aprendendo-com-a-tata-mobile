@@ -15,7 +15,7 @@ const ClassRoom: React.FC<IconProps> = (props) => {
   return (
     <Icon
       size={27}
-      color={props.focused ? "#fff" : "#9C9CA8"}
+      color={"#fff"}
       name={userIsTeacher ? "chalkboard-teacher" : "google-classroom"}
     />
   );

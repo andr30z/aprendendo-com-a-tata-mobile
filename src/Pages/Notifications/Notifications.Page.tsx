@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { RefreshControl } from "react-native";
+import {
+  ActivityIndicator,
+  RefreshControl,
+  useWindowDimensions,
+} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { NotificationItem } from "../../Components";
 import { useUserContext } from "../../Contexts";
@@ -8,6 +12,7 @@ import { useBoolean, useCancellablePromise } from "../../Hooks";
 import { Notification } from "../../Interfaces/Notification";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { showError } from "../../Utils";
+import EmptyNotifications from "../../Illustrations/Empty-amico.svg";
 interface GetNotificationsReturnType {
   notifications: Array<Notification>;
 }
@@ -19,8 +24,15 @@ const Notifications: React.FC = () => {
   const { user } = useUserContext();
   const { value, setTrue, setFalse } = useBoolean();
   const [notifications, setNotifications] = useState<Array<Notification>>([]);
+  const {
+    value: isLoading,
+    setTrue: setTrueIsLoading,
+    setFalse: setFalseIsLoading,
+  } = useBoolean();
   const { cancellablePromise } = useCancellablePromise();
+  const { width, height } = useWindowDimensions();
   const getNotifications = (callback?: () => void) => {
+    setTrueIsLoading();
     cancellablePromise(
       baseApi.get<GetNotificationsReturnType>(
         baseApiRoutes.USER_NOTIFICATIONS + "/" + user?._id
@@ -31,7 +43,10 @@ const Notifications: React.FC = () => {
         setNotifications(res.data.notifications.reverse());
       })
       .catch(showError)
-      .finally(callback ? callback : () => null);
+      .finally(() => {
+        if (callback) callback();
+        setFalseIsLoading();
+      });
   };
   useEffect(() => {
     getNotifications();
@@ -48,6 +63,13 @@ const Notifications: React.FC = () => {
           }}
         />
       }
+      ListEmptyComponent={() => {
+        return isLoading ? (
+          <ActivityIndicator size={30} color={"#8078cc"} />
+        ) : (
+          <EmptyNotifications width={width} height={height} />
+        );
+      }}
       keyExtractor={(item) => item._id}
       renderItem={({ item }) => (
         <NotificationItem

@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/short-stack": "^0.2.0",
     "@expo/metro-config": "^0.1.60",
     "@fawazahmed/react-native-read-more": "^2.2.0",
     "@gorhom/bottom-sheet": "^4",
@@ -29,9 +30,11 @@
     "expo": "^42.0.0",
     "expo-dev-client": "^0.6.3",
     "expo-document-picker": "~9.2.4",
+    "expo-font": "~9.2.1",
     "expo-image-picker": "~10.2.2",
     "expo-linear-gradient": "~9.2.0",
     "expo-screen-orientation": "~3.3.0",
+    "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
     "lodash": "^4.17.21",
     "lottie-react-native": "4.0.2",

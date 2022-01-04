@@ -49,7 +49,7 @@ const MainBottomNavigation: React.FC = () => {
     <BottomTab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: "#fff",
+          backgroundColor: "#f7d18b",
           borderTopLeftRadius: 21,
           borderTopRightRadius: 21,
           position: "absolute",
@@ -69,18 +69,19 @@ const MainBottomNavigation: React.FC = () => {
       <BottomTab.Screen
         options={{
           headerShown: false,
-          tabBarLabel: (props) => <TextBar {...props} textLabel="Descobrir" />,
+          tabBarLabel: (props) => <TextBar {...props} textLabel="Atividades" />,
           tabBarIcon: HomeIconWithIconContainer,
         }}
         name={ROUTES_NAME.HOME}
         component={ActivitySelectionPageWithStatusBar}
-      />
+        />
 
       <BottomTab.Screen
         name={ROUTES_NAME.CLASS_ROOM}
         component={ClassRoomWithStatusBar}
         options={{
           headerShown: false,
+          tabBarInactiveBackgroundColor:"transparent",
           tabBarIcon: ClassRoomIconWithIconContainer,
           tabBarLabel: (props) => <TextBar {...props} textLabel="Salas" />,
         }}

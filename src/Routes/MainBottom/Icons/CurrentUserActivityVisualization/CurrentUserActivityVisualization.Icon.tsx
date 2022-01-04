@@ -13,7 +13,7 @@ const CurrentUserActivityVisualization: React.FC<IconProps> = (props) => {
     <FontAwesome
       name="history"
       size={27}
-      color={props.focused ? "#fff" : "#9C9CA8"}
+      color={"#fff"}
     />
   );
 };

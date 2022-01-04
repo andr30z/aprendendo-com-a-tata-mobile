@@ -14,7 +14,7 @@ const Home: React.FC<IconProps> = ({ focused }) => {
       style={{ marginLeft: focused ? 5 : 0 }}
       name="control-play"
       size={focused ? 30 : 25}
-      color={focused ? "#fff" : "#9C9CA8"}
+      color={"#fff"}
     />
   );
 };

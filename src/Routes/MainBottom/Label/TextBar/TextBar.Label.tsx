@@ -13,7 +13,7 @@ interface TextBarProps {
 **/
 const TextBar: React.FC<LabelProps & TextBarProps> = ({ textLabel }) => {
   return (
-    <Text style={{ color: "#9C9CA8", fontSize: 12, marginBottom: 8 }}>
+    <Text style={{ color: "#FFF", fontSize: 12, marginBottom: 8 }}>
       {textLabel}
     </Text>
   );

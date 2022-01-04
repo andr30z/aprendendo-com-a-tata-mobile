@@ -21,7 +21,7 @@ function WithIconContainer(
           height: focused ? 50 : 27,
           width: focused ? 50 : 40,
         }}
-        backgroundColor={focused ? "#8078cc" : "#fff"}
+        backgroundColor={!focused ? "transparent" : "#8078cc"}
         align="center"
         justify="center"
       >

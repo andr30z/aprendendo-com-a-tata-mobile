@@ -5,7 +5,8 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 export const ItemTitle = styled.Text`
   color: #fff;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 400;
+  font-family: ShortStack_400Regular;
   text-align: center;
 `;
 

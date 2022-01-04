@@ -33,7 +33,7 @@ export const ShowActivityResultModal = WithModal<ShowActivityResultModalProps>(
               {completedActivityResult.activity.name}
             </BaseText>
             <BaseText marginBottom="9px" fontSize="20px" color="#000">
-              Resultado: {completedActivityResult.result}
+              Resultado: {completedActivityResult.result}/5
             </BaseText>
             <Button
               buttonTitle="Voltar"
