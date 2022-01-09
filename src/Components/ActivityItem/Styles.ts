@@ -6,6 +6,7 @@ export const ItemTitle = styled.Text`
   color: #fff;
   font-size: 15px;
   font-weight: 400;
+  /* align-items: center; */
   font-family: ShortStack_400Regular;
   text-align: center;
 `;

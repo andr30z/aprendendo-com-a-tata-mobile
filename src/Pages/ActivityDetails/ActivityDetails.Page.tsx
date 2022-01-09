@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
@@ -20,10 +20,19 @@ interface StartPostActivityResponse {
   message: string;
 }
 const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
-  const { activityId, postActivityResult, postId, routeIndexToReturnOnFinish } = route.params;
+  const { activityId, postActivityResult, postId, routeIndexToReturnOnFinish } =
+    route.params;
   const [activity, setActivity] = useState<
     ActivityCommonProps<unknown> | undefined
   >(undefined);
+  const activityResult = useMemo(
+    () =>
+      postActivityResult?.activitiesResult.find(
+        (activityResult) => activityResult.activity._id === activityId
+      ),
+    [postActivityResult?.activitiesResult, activityId]
+  );
+  console.log(activityResult, postActivityResult,"AAAAA")
   const { value: isLoading, setTrue, setFalse } = useBoolean();
   const { user } = useUserContext();
   const { cancellablePromise } = useCancellablePromise();
@@ -87,7 +96,7 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
     navigation.navigate(ROUTES_NAME.ACTIVITY_PLAY, {
       activity: activity as any,
       activityResult,
-      routeIndexToReturnOnFinish
+      routeIndexToReturnOnFinish,
     });
   };
   return (
@@ -113,7 +122,7 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
           if (postActivityResult || postId) return resolveActivityStart();
           navigation.navigate(ROUTES_NAME.ACTIVITY_PLAY, {
             activity,
-            routeIndexToReturnOnFinish
+            routeIndexToReturnOnFinish,
           });
         }}
       >
@@ -128,6 +137,25 @@ const ActivityDetails: React.FC<Props> = ({ route, navigation }) => {
           <ActivityIndicator size={25} color="#fff" />
         )}
       </ButtonBeginActivty>
+      {activityResult && (
+        <ButtonBeginActivty style={{ marginTop: 15 }}>
+          <BaseText
+            onPress={() => {
+              if (isLoading || !activity) return;
+              navigation.navigate(ROUTES_NAME.ACTIVITY_PLAY, {
+                activity,
+                routeIndexToReturnOnFinish,
+                activityResult,
+                isActivityResultView: true,
+              });
+            }}
+            align="center"
+            fontSize="17px"
+          >
+            VER ÚLTIMA TENTATIVA
+          </BaseText>
+        </ButtonBeginActivty>
+      )}
     </BaseContainer>
   );
 };

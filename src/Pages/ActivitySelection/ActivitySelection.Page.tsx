@@ -1,15 +1,11 @@
 import React, { useRef, useState } from "react";
+import { ScrollView, StatusBar, useWindowDimensions } from "react-native";
 import {
-  ScrollView, StatusBar,
-
-
-  useWindowDimensions
-} from "react-native";
-import {
-  ScrollContainer
+  ScrollContainer,
+  BaseContainer,
 } from "../../GlobalStyles/Containers.Style";
 import { ActivityList } from "./Modules";
-
+import { CloudsContainer } from "../../Components";
 
 /**
  * ActivitySelectionPage aka Home, thats the place where user is going to select an activity
@@ -18,19 +14,21 @@ import { ActivityList } from "./Modules";
 const ActivitySelection: React.FC = ({ children }) => {
   const scrollToRef = useRef<ScrollView>();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
-  const { height, width } = useWindowDimensions();
   return (
-    <ScrollContainer
-      style={{ height: "100%" }}
-      contentContainerStyle={{ paddingBottom: 100 }}
-      backgroundColor="#fff"
-      ref={scrollToRef as any}
-    >
-      <StatusBar backgroundColor="#8078cc" translucent />
-      {children}
-      {/* <ActivityIntroduction /> */}
-      <ActivityList setScrollPosition={setScrollPosition} />
-    </ScrollContainer>
+    <BaseContainer backgroundColor="#fff" flex={1} position="relative">
+      <ScrollContainer
+        style={{ height: "100%", zIndex: 2 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        backgroundColor="transparent"
+        ref={scrollToRef as any}
+      >
+        <StatusBar backgroundColor="#8078cc" translucent />
+        {children}
+        {/* <ActivityIntroduction /> */}
+        <ActivityList setScrollPosition={setScrollPosition} />
+      </ScrollContainer>
+      <CloudsContainer />
+    </BaseContainer>
   );
 };
 
