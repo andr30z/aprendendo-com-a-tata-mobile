@@ -1,4 +1,7 @@
+import { AntDesign } from "@expo/vector-icons";
 import React from "react";
+import { RefreshControl, useWindowDimensions } from "react-native";
+import { Button as UIButton } from "react-native-ui-lib";
 import {
   ActivityResultVisualization,
   BackdropLoading,
@@ -10,9 +13,6 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import ResponsibleChildrenSVG from "../../Illustrations/Fall is coming-cuate.svg";
 import { AddChildModal } from "./Modules";
 import { useResponsibleChildManagerLogic } from "./useResponsibleChildManagerLogic";
-import { AntDesign } from "@expo/vector-icons";
-import { Button as UIButton, ButtonSize } from "react-native-ui-lib";
-import { useWindowDimensions } from "react-native";
 /**
  *
  * @author andr3z0
@@ -34,6 +34,8 @@ const ResponsibleChildManager: React.FC = () => {
     sheetRef,
     open,
     onDelete,
+    isRefreshing,
+    onRefresh,
   } = useResponsibleChildManagerLogic();
   const { width } = useWindowDimensions();
   return (
@@ -78,6 +80,10 @@ const ResponsibleChildManager: React.FC = () => {
       ) : (
         <ActivityResultVisualization
           membersArray={children}
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
+          onEndReached={onRefresh}
           isLoadingActivity={isLoadingActivity}
           onPressActivityBtn={onPressActivityBtn}
           onPressChildCard={onPressChildCard}

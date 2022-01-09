@@ -2,7 +2,7 @@ import { FileType } from "../CommonInterfaces";
 import { ActivityCommonProps } from "../ActivityUtilsInterfaces";
 import { UserInterface } from "../User";
 
-export interface Teacher extends UserInterface { }
+export interface Teacher extends UserInterface {}
 
 export interface PostLikesItemInterface {
   _id: string;
@@ -14,7 +14,7 @@ export enum PostTypes {
   N = "N",
 }
 
-export interface Member extends UserInterface { }
+export interface Member extends UserInterface {}
 
 export interface ActivityAnswers {
   _id: string;
@@ -24,11 +24,9 @@ export interface ActivityResult<A = unknown> {
   _id: string;
   user: UserInterface;
   finished: boolean;
-  activity: Omit<
-    ActivityCommonProps<A>,
-    "stages" | "activityUtterance" 
-  >;
+  activity: Omit<ActivityCommonProps<A>, "stages" | "activityUtterance">;
   result: number;
+  createdAt: string;
   activityAnswers: Array<ActivityAnswers>;
 }
 export interface PostActivityResult {

@@ -31,137 +31,140 @@ interface ActivityResultVisualizationProps {
   childListExtraComponent?: React.ReactNode;
   renderChildHeaderExtraComponent?: (child: UserComposition) => React.ReactNode;
   refreshControl?: React.ReactElement<RefreshControlProps> | undefined;
+  onEndReached?: () => void;
 }
 
 /**
  *
  * @author andr3z0
  **/
-const ActivityResultVisualization: React.FC<ActivityResultVisualizationProps> =
-  ({
-    isLoadingActivity,
-    membersArray,
-    primaryTheme,
-    onPressChildCard,
-    userActivities,
-    selectedChild,
-    onPressActivityBtn,
-    childListExtraComponent,
-    renderChildHeaderExtraComponent,
-    visualizationType = "teacher",
-    refreshControl,
-  }) => {
-    const isResponsibleVisualization = visualizationType === "responsible";
-    const isCurrentUserVisualization = visualizationType === "current-user";
-    
-    return (
-      <FlatList
-        refreshControl={refreshControl}
-        data={userActivities}
-        removeClippedSubviews={true}
-        maxToRenderPerBatch={10}
-        windowSize={11}
-        initialNumToRender={10}
-        keyExtractor={(item) => item._id}
-        contentContainerStyle={{ paddingBottom: 120 }}
-        ListHeaderComponent={() => (
-          <>
-            <BackdropLoading visible={isLoadingActivity} />
-            {!isCurrentUserVisualization && (
-              <BaseContainer
-                paddingHorizontal="2%"
-                marginTop="10px"
-                height="173px"
-                flexDirection="column"
-              >
-                <BaseContainer>
-                  <BaseText marginVertical="5px" fontSize="22px" color="black">
-                    {isResponsibleVisualization
-                      ? "Crianças"
-                      : "Membros da sala"}
-                  </BaseText>
-                </BaseContainer>
-                <BaseContainer flex={1} position="relative">
-                  {childListExtraComponent}
-                  <FlatList
-                    horizontal
-                    data={membersArray}
-                    contentContainerStyle={{
-                      paddingHorizontal: 10,
-                      paddingVertical: 5,
-                    }}
-                    keyExtractor={(item) => item?._id as string}
-                    renderItem={({ item }) => (
-                      <ChildrenCardItem
-                        primaryTheme={primaryTheme}
-                        isSelectedChildren={item?._id === selectedChild?._id}
-                        onPress={onPressChildCard}
-                        child={item as UserInterface}
-                      />
-                    )}
-                  />
-                </BaseContainer>
-              </BaseContainer>
-            )}
-            {userActivities && userActivities.length === 0 ? (
-              <BaseContainer
-                justify={isCurrentUserVisualization ? "center" : undefined}
-                flexDirection="column"
-                height="500px"
-                width="100%"
-              >
-                <EmptyMembers style={{ height: 300 }} />
-                <BaseText align="center" fontSize="23px" color="black">
-                  {isCurrentUserVisualization ? "Você" : selectedChild?.name}{" "}
-                  não fez nenhuma atividade
-                </BaseText>
-              </BaseContainer>
-            ) : !userActivities ? null : (
-              <BaseContainer
-                marginVertical="15px"
-                flexDirection="column"
-                justify="center"
-                align="center"
-                width="100%"
-              >
-                <BaseText
-                  ellipsizeMode="tail"
-                  numberOfLines={3}
-                  fontSize="22px"
-                  align="center"
-                  color="black"
-                  marginBottom="5px"
-                >
-                  {isCurrentUserVisualization
-                    ? "Suas atividades"
-                    : `Atividades de ${selectedChild?.name}`}
-                </BaseText>
-                {renderChildHeaderExtraComponent &&
-                  selectedChild &&
-                  renderChildHeaderExtraComponent(selectedChild)}
-              </BaseContainer>
-            )}
-          </>
-        )}
-        renderItem={({ item: activityResult }) => {
-          return (
+const ActivityResultVisualization: React.FC<
+  ActivityResultVisualizationProps
+> = ({
+  isLoadingActivity,
+  membersArray,
+  primaryTheme,
+  onPressChildCard,
+  userActivities,
+  selectedChild,
+  onPressActivityBtn,
+  childListExtraComponent,
+  renderChildHeaderExtraComponent,
+  visualizationType = "teacher",
+  refreshControl,
+  onEndReached
+}) => {
+  const isResponsibleVisualization = visualizationType === "responsible";
+  const isCurrentUserVisualization = visualizationType === "current-user";
+
+  return (
+    <FlatList
+      refreshControl={refreshControl}
+      data={userActivities}
+      removeClippedSubviews={true}
+      maxToRenderPerBatch={10}
+      windowSize={11}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.8}
+      initialNumToRender={10}
+      keyExtractor={(item) => item._id}
+      contentContainerStyle={{ paddingBottom: 120 }}
+      ListHeaderComponent={() => (
+        <>
+          <BackdropLoading visible={isLoadingActivity} />
+          {!isCurrentUserVisualization && (
             <BaseContainer
               paddingHorizontal="2%"
-              width="100%"
-              flex={1}
-              marginTop={isCurrentUserVisualization ? "5px" : undefined}
+              marginTop="10px"
+              height="173px"
+              flexDirection="column"
             >
-              <ActivityResultListingItem
-                onPressActivity={(activity) =>
-                  onPressActivityBtn(activity, activityResult)
-                }
-                activityResult={activityResult}
-              />
+              <BaseContainer>
+                <BaseText marginVertical="5px" fontSize="22px" color="black">
+                  {isResponsibleVisualization ? "Crianças" : "Membros da sala"}
+                </BaseText>
+              </BaseContainer>
+              <BaseContainer flex={1} position="relative">
+                {childListExtraComponent}
+                <FlatList
+                  horizontal
+                  data={membersArray}
+                  contentContainerStyle={{
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                  }}
+                  keyExtractor={(item) => item?._id as string}
+                  renderItem={({ item }) => (
+                    <ChildrenCardItem
+                      primaryTheme={primaryTheme}
+                      isSelectedChildren={item?._id === selectedChild?._id}
+                      onPress={onPressChildCard}
+                      child={item as UserInterface}
+                    />
+                  )}
+                />
+              </BaseContainer>
             </BaseContainer>
-          );
-        }}
-      />
-    );
-  };
+          )}
+          {userActivities && userActivities.length === 0 ? (
+            <BaseContainer
+              justify={isCurrentUserVisualization ? "center" : undefined}
+              flexDirection="column"
+              height="500px"
+              width="100%"
+            >
+              <EmptyMembers style={{ height: 300 }} />
+              <BaseText align="center" fontSize="23px" color="black">
+                {isCurrentUserVisualization ? "Você" : selectedChild?.name} não
+                fez nenhuma atividade
+              </BaseText>
+            </BaseContainer>
+          ) : !userActivities ? null : (
+            <BaseContainer
+              marginVertical="15px"
+              flexDirection="column"
+              justify="center"
+              align="center"
+              width="100%"
+            >
+              <BaseText
+                ellipsizeMode="tail"
+                numberOfLines={3}
+                fontSize="22px"
+                align="center"
+                color="black"
+                marginBottom="5px"
+              >
+                {isCurrentUserVisualization
+                  ? "Suas atividades"
+                  : `Atividades de ${selectedChild?.name}`}
+              </BaseText>
+              {renderChildHeaderExtraComponent &&
+                selectedChild &&
+                renderChildHeaderExtraComponent(selectedChild)}
+            </BaseContainer>
+          )}
+        </>
+      )}
+      renderItem={({ item: activityResult }) => {
+        return (
+          <BaseContainer
+            paddingHorizontal="2%"
+            width="100%"
+            flex={1}
+            marginTop={isCurrentUserVisualization ? "5px" : undefined}
+          >
+            <ActivityResultListingItem
+              onPressActivity={(activity) =>
+                onPressActivityBtn(activity, activityResult)
+              }
+              activityResult={activityResult}
+            />
+          </BaseContainer>
+        );
+      }}
+    />
+  );
+};
 
 export default ActivityResultVisualization;

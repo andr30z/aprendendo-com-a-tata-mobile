@@ -17,6 +17,7 @@ const SettingsDrawer: React.FC = () => {
   return (
     <Drawer.Navigator
       initialRouteName={ROUTES_NAME.RESPONSABLE_MANAGER}
+      backBehavior="none"
       screenOptions={{ swipeEnabled: false, headerShown: false }}
     >
       <Drawer.Screen

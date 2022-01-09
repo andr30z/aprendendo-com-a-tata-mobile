@@ -6,7 +6,11 @@ import {
   useDeleteResponsibleRelation,
   useModalSheetRef,
 } from "../../Hooks";
-import { ActivityResult, UserResponsible } from "../../Interfaces";
+import {
+  ActivityResult,
+  PaginationInterface,
+  UserResponsible,
+} from "../../Interfaces";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { showError } from "../../Utils";
 interface GetChildrenReturnType {
@@ -65,14 +69,20 @@ export function useResponsibleChildManagerLogic() {
     isLoadingActivity,
     selectedChild,
     setSelectedChild,
+    page,
+    setLastPage,
+    setPage,
+    lastPage,
   } = useActivityResultVisualization({
     activityPlayParamsResolver: (_activity, activityResult) => {
-      console.log(activityResult, "äsdasdasd");
       return {
         activityResult,
       };
     },
     sendToActivityPlayOnSearchActivity: false,
+    onPressChildCallback() {
+      setCurrentActivityResults(undefined);
+    },
   });
 
   const responsibleCurrentUserEntity = useMemo(
@@ -86,41 +96,65 @@ export function useResponsibleChildManagerLogic() {
       past.filter((x) => x._id !== responsibleCurrentUserEntity?._id)
     );
   }, responsibleCurrentUserEntity?._id);
+  const {
+    value: isRefreshing,
+    setTrue: setIsRefreshingTrue,
+    setFalse: setIsRefreshingFalse,
+  } = useBoolean();
+  const getResults = (isRefreshContext = false) => {
+    console.log(lastPage, page, "ass")
+    if (!selectedChild || (lastPage && lastPage < page)) return;
 
-  useEffect(() => {
-    if (!selectedChild) return;
-    const userActivitiesResult = activityResults.current.find(
-      (child) => selectedChild._id === child.childId
-    );
-    if (userActivitiesResult)
-      return setCurrentActivityResults(userActivitiesResult.activityResults);
+    // const userActivitiesResult = activityResults.current.find(
+    //   (child) => selectedChild._id === child.childId
+    // );
+    // if (userActivitiesResult)
+    //   return setCurrentActivityResults(userActivitiesResult.activityResults);
 
     const responsibleUserEntity = userResponsibleChildren.find(
       (x) => x.child._id === selectedChild._id
     );
-    setTrue();
+    if (isRefreshContext) setIsRefreshingTrue();
+    else setTrue();
     baseApi
-      .get<{ activitiesResults: Array<ActivityResult> }>(
+      .get<PaginationInterface<ActivityResult>>(
         baseApiRoutes.ACTIVITY_RESULT_USER_RESPONSIBLE +
           "/" +
-          responsibleUserEntity?._id
+          responsibleUserEntity?._id +
+          `?page=${page}&limit=10&sort=-1`
       )
       .then((res) => {
-        activityResults.current = [
-          ...activityResults.current,
-          {
-            activityResults: res.data.activitiesResults,
-            childId: selectedChild._id,
-          },
-        ];
-        setCurrentActivityResults(res.data.activitiesResults);
+        console.log(res.data.total, res.data.lastPage, "asdasdas")
+        setLastPage(res.data.lastPage);
+        setPage(res.data.nextPage);
+        // activityResults.current = [
+        //   ...activityResults.current,
+        //   {
+        //     activityResults: [...pastItems, ...res.data.results],
+        //     childId: selectedChild._id,
+        //   },
+        // ];
+        setCurrentActivityResults((past) => {
+          const pastItems = past || [];
+          return [...pastItems, ...res.data.results];
+        });
       })
       .catch(showError)
-      .finally(setFalse);
+      .finally(() => {
+        if (isRefreshContext) setIsRefreshingFalse();
+        else setFalse();
+      });
+  };
+  useEffect(() => {
+    getResults();
   }, [selectedChild]);
-
+  const onRefresh = () => {
+    getResults(true);
+  };
   return {
     user,
+    onRefresh,
+    isRefreshing,
     userResponsibleChildren,
     setUserResponsibleChildren,
     activityResults,
@@ -143,5 +177,6 @@ export function useResponsibleChildManagerLogic() {
     sheetRef,
     open,
     onDelete,
+    getResults,
   };
 }
