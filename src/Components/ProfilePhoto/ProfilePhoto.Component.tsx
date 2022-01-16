@@ -3,7 +3,7 @@ import { ImageSourcePropType, ImageStyle, StyleProp } from "react-native";
 import { ImageProfile, ImageProfileProps } from "./Styles";
 /**
  * Default profile pic component.
- * @author andr3z0
+ * @author andr30z
  **/
 const ProfilePhoto: React.FC<
   ImageProfileProps & {

@@ -11,7 +11,7 @@ interface OnDragReceiveParamsInterface {
 }
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 export function useLettersItemLogic(
   word: string | undefined,

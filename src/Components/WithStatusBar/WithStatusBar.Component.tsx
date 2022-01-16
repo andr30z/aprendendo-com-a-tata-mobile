@@ -15,7 +15,7 @@ const StatusView: React.FC = () => (
  * @param hasChildren a boolean that says if the ```Component``` wrapped makes use of children prop, this can be useful if you have a component that needs to have
  * the status bar margin into itself for layout purposes
  * @returns a React functional component with the space needed from the status bar;
- * @author andr3z0
+ * @author andr30z
  **/
 function WithStatusBar<T>(
   Component: React.ComponentType<T>,

@@ -33,7 +33,7 @@ function makeCancelable<P>(promise: Promise<P>, resolveOrRejectValue: boolean) {
 /**
  * This Hook creates a boilerplate logic to cancellable promises, that way there is no need to create multiple isMounted variables to avoid memory leaks.
  * @returns An object that contains a cancellablePromise function.
- * @author andr3z0
+ * @author andr30z
  **/
 export function useCancellablePromise() {
   const promises = useRef<Array<PromiseInterface<any>>>([]);

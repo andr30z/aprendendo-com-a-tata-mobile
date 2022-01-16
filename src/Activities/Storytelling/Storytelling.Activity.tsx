@@ -17,7 +17,7 @@ interface StorytellingProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const Storytelling: React.FC<StorytellingProps> = ({ activity }) => {
   const { isActivityResultView, activityAnswers } = useActivityPlayContext();

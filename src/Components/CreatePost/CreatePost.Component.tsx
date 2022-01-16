@@ -26,7 +26,7 @@ const snapPoints = ["93%"];
  * It uses @gorhom/portal and react-native-bottom-sheet.
  * @param children render children using a function that receives a Ref, this ref is the actual bottom sheet presentation.
  * @param classroom the actual classroom that this post component is being rendered.
- * @author andr3z0
+ * @author andr30z
  **/
 const CreatePost: React.FC<CreatePostProps> = (props) => {
   const { children, classroom, initialValues } = props;

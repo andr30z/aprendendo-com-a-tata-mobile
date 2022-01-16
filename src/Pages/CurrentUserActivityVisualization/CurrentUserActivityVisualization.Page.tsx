@@ -5,24 +5,51 @@ import { useUserContext } from "../../Contexts";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useActivityResultVisualization, useBoolean } from "../../Hooks";
-import { ActivityResult } from "../../Interfaces";
+import { ActivityResult, PaginationInterface } from "../../Interfaces";
 import { baseApi, baseApiRoutes } from "../../Services";
 import { showError } from "../../Utils";
-interface ActivityResultsResponse {
-  activitiesResults: Array<ActivityResult>;
-}
+
+/**
+ *
+ * @author andr30z
+ **/
 const CurrentUserActivityVisualization: React.FC = ({ children }) => {
   const { user } = useUserContext();
+
   const [activityResults, setActivityResults] =
     useState<Array<ActivityResult>>();
   const { setTrue, setFalse, value } = useBoolean();
+
+  const {
+    isLoadingActivity,
+    onPressActivityBtn,
+    onPressChildCard,
+    lastPage,
+    setLastPage,
+    setPage,
+    page,
+  } = useActivityResultVisualization({
+    activityPlayParamsResolver: (_, activityResult) => {
+      return { activityResult };
+    },
+  });
   const getActivitiesResults = () => {
+    if (lastPage && lastPage < page) return;
+    setTrue();
     baseApi
-      .get<ActivityResultsResponse>(
-        baseApiRoutes.ACTIVITY_RESULT_USERS + "/" + user?._id
+      .get<PaginationInterface<ActivityResult>>(
+        baseApiRoutes.ACTIVITY_RESULT_USERS +
+          "/" +
+          user?._id +
+          `?page=${page}&limit=20&sort=-1`
       )
       .then((res) => {
-        setActivityResults(res.data.activitiesResults.reverse());
+        setLastPage(res.data.lastPage);
+        setPage(res.data.nextPage);
+        setActivityResults((past) => {
+          const pastItems = past || [];
+          return [...pastItems, ...res.data.results];
+        });
       })
       .catch(showError)
       .finally(setFalse);
@@ -30,18 +57,11 @@ const CurrentUserActivityVisualization: React.FC = ({ children }) => {
   useEffect(() => {
     getActivitiesResults();
   }, [user?._id]);
-
-  const { isLoadingActivity, onPressActivityBtn, onPressChildCard } =
-    useActivityResultVisualization({
-      activityPlayParamsResolver: (_, activityResult) => {
-        return { activityResult };
-      },
-    });
-
   return (
     <BaseContainer flex={1} paddingVertical="10px">
       {children}
       <ActivityResultVisualization
+        onEndReached={getActivitiesResults}
         visualizationType="current-user"
         isLoadingActivity={isLoadingActivity}
         membersArray={[]}

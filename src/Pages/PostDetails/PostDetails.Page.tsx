@@ -15,7 +15,7 @@ type Props = NativeStackScreenProps<
 >;
 /**
  * Post Details
- * @author andr3z0
+ * @author andr30z
  **/
 const PostDetails: React.FC<Props> = ({ navigation, route }) => {
   const {

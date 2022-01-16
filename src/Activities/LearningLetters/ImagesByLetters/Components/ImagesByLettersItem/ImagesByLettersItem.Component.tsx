@@ -13,7 +13,7 @@ interface ImagesByLettersItemProps extends CommonImageItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ImagesByLettersItem = React.memo<ImagesByLettersItemProps>(
   ({ letterItem, setPressedImagesId, index, pressedItems }) => (

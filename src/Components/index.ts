@@ -31,3 +31,4 @@ export { default as ChildrenCardItem } from "./ChildrenCardItem/ChildrenCardItem
 export { default as BackdropLoading } from "./BackdropLoading/BackdropLoading.Component";
 export { default as ActivityResultVisualization } from "./ActivityResultVisualization/ActivityResultVisualization.Component";
 export { default as NotificationItem } from "./NotificationItem/NotificationItem.Component";
+export { default as ActivityResultStars } from "./ActivityResultStars/ActivityResultStars.Component";

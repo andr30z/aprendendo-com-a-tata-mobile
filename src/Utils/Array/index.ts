@@ -1,6 +1,6 @@
 /**
 * This method randomize an existing array, that's it :D
-* @author andr3z0
+* @author andr30z
 **/
 export function shuffleArray<A>(array: Array<A>) {
   for (let i = array.length - 1; i > 0; i--) {

@@ -14,7 +14,7 @@ type NewActivityAnswers = Omit<ActivityAnswers, "_id">;
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 export function useActivityPlayLogic({
   activityResult,

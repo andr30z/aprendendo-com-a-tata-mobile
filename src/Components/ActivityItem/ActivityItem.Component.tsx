@@ -24,6 +24,7 @@ interface BaseActivityItemProps {
   marginTop?: string;
   buttonContainerStyles?: StyleProp<ViewStyle>;
   marginHorizontal?: string;
+  renderMidComponent?: () => React.ReactNode;
 }
 
 /**
@@ -32,7 +33,7 @@ interface BaseActivityItemProps {
  * @param name string that indicates the name of the activity
  * @param itemIndex number that indicates the actual index of the item, this is used to provide a background color for the card
  * @param tags an array of tags that represents topics related to the activity
- * @author andr3z0
+ * @author andr30z
  **/
 const ActivityItem: React.FC<
   ActivityCommonProps<unknown> & BaseActivityItemProps
@@ -47,6 +48,7 @@ const ActivityItem: React.FC<
   marginTop = "20px",
   buttonContainerStyles,
   children,
+  renderMidComponent,
   marginHorizontal,
   ...rest
 }) => {
@@ -71,27 +73,23 @@ const ActivityItem: React.FC<
           height="100%"
           width="100%"
           flexDirection="column"
+          align="center"
+          justify="center"
+          flex={1}
           // style={{
           //   position: "relative",
           // }}
         >
-          <BaseContainer align="center" justify="center">
-            <ItemTitle>{name}</ItemTitle>
-            {/* <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              {tags.map((tag, index) => {
-                return (
-                  <Badge
-                  key={tag}
-                  pill
-                  text={tag}
-                  extraContainerStyles={{
-                    marginLeft: index === 0 ? 0 : 5,
-                    marginTop: 5,
-                  }}
-                  />
-                  );
-                })}
-              </View> */}
+          <BaseContainer
+            flex={1}
+            flexDirection="column"
+            align="center"
+            justify="center"
+          >
+            <BaseContainer flex={2} align="center" justify="center"> 
+              <ItemTitle>{name}</ItemTitle>
+            </BaseContainer>
+            {renderMidComponent && renderMidComponent()}
           </BaseContainer>
           <BaseContainer
             flexDirection="row"

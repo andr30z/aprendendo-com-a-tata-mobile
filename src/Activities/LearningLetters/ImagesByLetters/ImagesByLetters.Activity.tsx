@@ -20,7 +20,7 @@ interface ImagesByLettersProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ImagesByLetters: React.FC<ImagesByLettersProps> = ({ activity }) => {
   

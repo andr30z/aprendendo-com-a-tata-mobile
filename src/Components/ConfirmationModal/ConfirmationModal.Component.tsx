@@ -28,7 +28,7 @@ interface ConfirmationModalProps {
 /**
  * Generic confirmation modal component.
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onConfirm,

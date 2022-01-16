@@ -9,7 +9,7 @@ interface TextBarProps {
 /**
 * Label Component that is responsible to render a label below the icon page on the navigation bar.
 * @param textLabel the text responsible for identifying the current page
-* @author andr3z0
+* @author andr30z
 **/
 const TextBar: React.FC<LabelProps & TextBarProps> = ({ textLabel }) => {
   return (

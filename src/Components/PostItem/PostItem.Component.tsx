@@ -2,7 +2,7 @@ import ReadMore from "@fawazahmed/react-native-read-more";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import { useWindowDimensions } from "react-native";
 import Toast from "react-native-toast-message";
 import Button from "../Button/Button.Component";
@@ -15,7 +15,7 @@ import { ROUTES_NAME } from "../../Routes/MainStackNavigation/RoutesName";
 import { baseApi, baseApiRoutes } from "../../Services";
 import ActivityItem from "../ActivityItem/ActivityItem.Component";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.Component";
-import { PostHeader } from "./Modules";
+import { ActivityResultValue, PostHeader } from "./Modules";
 import {
   ActivityContainer,
   PostItemContainer,
@@ -34,7 +34,7 @@ interface PostItemProps {
 
 /**
  * Post item listing component.
- * @author andr3z0
+ * @author andr30z
  **/
 const PostItem: React.FC<PostItemProps> = ({
   post,
@@ -55,12 +55,11 @@ const PostItem: React.FC<PostItemProps> = ({
       classroom,
     });
   }, [post, classroom, primaryTheme, textTheme]);
-
+  const userPostActivityResult = useMemo(
+    () => post.postActivityResult?.find((x) => x.user._id === user?._id),
+    [post.postActivityResult]
+  );
   const goToActivityDetails = (activityId: string) => {
-    const userPostActivityResult = post.postActivityResult?.find(
-      (x) => x.user._id === user?._id
-    );
-
     navigation.navigate(ROUTES_NAME.DETAILS, {
       activityId,
       postActivityResult: userPostActivityResult,
@@ -114,7 +113,15 @@ const PostItem: React.FC<PostItemProps> = ({
                 boxWidth="30%"
                 marginTop="10px"
                 marginHorizontal="5px"
-                containerHeight="90"
+                containerHeight="150"
+                renderMidComponent={() => (
+                  <ActivityResultValue
+                    activityId={a._id}
+                    userActivityResult={
+                      userPostActivityResult?.activitiesResult
+                    }
+                  />
+                )}
                 onPress={() => goToActivityDetails(a._id)}
                 itemIndex={index}
                 {...a}

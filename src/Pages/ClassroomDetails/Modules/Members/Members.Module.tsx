@@ -18,7 +18,7 @@ interface MembersProps {
 }
 /**
  * @param members class members array.
- * @author andr3z0
+ * @author andr30z
  **/
 const Members: React.FC<MembersProps> = ({ members }) => {
   const { width } = useWindowDimensions();

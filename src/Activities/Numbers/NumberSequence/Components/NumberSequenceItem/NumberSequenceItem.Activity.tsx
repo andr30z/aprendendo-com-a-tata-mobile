@@ -25,7 +25,7 @@ const colorsArray = [
 ];
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const NumberSequenceItem: React.FC<NumberSequenceItemProps> = React.memo(
   ({ numberItem, isAnswerGrid, sequence, setSequence, index, answer }) => {

@@ -34,7 +34,7 @@ const backgroundColor = [
 /**
  * Card item that represents an classroom, this card will lead to another screen when pressed
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ClassRoomItem = React.memo<ClassRoomItemProps>(
   ({ classRoom, askToJoinOnPress = false }) => {

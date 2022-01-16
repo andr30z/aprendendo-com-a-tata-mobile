@@ -11,7 +11,7 @@ interface BackdropLoadingProps {
 }
 /**
  * Backdrop component to avoid user pressing things on screen before the loading is complete.
- * @author andr3z0
+ * @author andr30z
  **/
 const BackdropLoading: React.FC<BackdropLoadingProps> = ({
   visible,

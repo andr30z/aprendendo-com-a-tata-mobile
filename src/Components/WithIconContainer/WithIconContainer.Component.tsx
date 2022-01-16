@@ -6,7 +6,7 @@ import { IconProps } from "../../Routes/Interfaces";
 /**
 * High Order Component that wraps a navigation icon inside a base stylization model (i.e. will apply some styles to an icon container, like making it bigger when focused)
 * @param Component A React Component to be wrapped.
-* @author andr3z0
+* @author andr30z
 **/
 function WithIconContainer(
   Component: React.ComponentType<IconProps>

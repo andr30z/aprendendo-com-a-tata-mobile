@@ -17,7 +17,7 @@ interface ShapesAndColorsItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ShapesAndColorsItem: React.FC<ShapesAndColorsItemProps> = ({
   item: { imageAfterColoring, initialImage, isHeadImage, _id, isItemReceiver },
@@ -53,10 +53,10 @@ const ShapesAndColorsItem: React.FC<ShapesAndColorsItemProps> = ({
         receptive={!isHeadImage}
       >
         <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          style={{ flex: 1, alignItems: "center", justifyContent: "center", marginTop:20 }}
         >
           <Image
-            resizeMode="contain"
+            resizeMode="center"
             style={{ height: 80, width: "95%" }}
             source={{ uri: image }}
           />

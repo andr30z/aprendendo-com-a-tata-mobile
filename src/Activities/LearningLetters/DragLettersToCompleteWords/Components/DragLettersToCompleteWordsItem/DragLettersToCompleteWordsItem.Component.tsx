@@ -17,7 +17,7 @@ interface CompleteWordsByImagesAndLettersItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersItemProps> =
   ({ wordItem, index, completeWords, setCompleteWords }) => {
@@ -30,23 +30,23 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
     return (
       <BaseContainer
         style={{
-          height: height * 0.45,
+          height: height * 0.55,
         }}
         width="100%"
         // backgroundColor="red"
-        marginVertical="25px"
+        marginVertical="40px"
         paddingHorizontal="10px"
         flexDirection="column"
       >
         <BaseContainer flex={2} flexDirection="column" align="center">
-          <BaseContainer flex={1} align="center" justify="center">
+          <BaseContainer width="100%" flex={1} align="center" justify="center">
             <Image
-              style={{ height: 100, width: 100 }}
-              resizeMode="center"
+              style={{ height: 140, width: 150 }}
+              resizeMode="contain"
               source={{ uri: wordItem.image }}
             />
           </BaseContainer>
-          <BaseContainer flex={1} flexDirection="row" flexWrap="wrap" align="center" width={`${width}px`}>
+          <BaseContainer flex={1} marginTop="55px" flexDirection="row" flexWrap="wrap" align="center" width={`${width}px`}>
             {letters?.map((letter, idx) => (
               <BaseContainer flex={1} align="center" justify="center" key={idx}>
                 {letter ===
@@ -83,10 +83,10 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
           </BaseContainer>
         </BaseContainer>
         <BaseContainer
-          flex={2}
           flexDirection="row"
           flexWrap="wrap"
           borderRadius="10px"
+          paddingHorizontal="10px"
           backgroundColor="#fff"
           justify="center"
           style={{ borderWidth: 1 }}

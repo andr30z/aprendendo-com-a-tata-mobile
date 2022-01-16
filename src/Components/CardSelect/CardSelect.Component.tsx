@@ -21,7 +21,7 @@ interface CardSelectProps {
 
 /**
  * Select component
- * @author andr3z0
+ * @author andr30z
  **/
 const CardSelect: React.FC<CardSelectProps> = ({
   onPress,

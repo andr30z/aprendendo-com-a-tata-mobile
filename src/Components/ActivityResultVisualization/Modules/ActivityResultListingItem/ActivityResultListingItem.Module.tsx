@@ -1,7 +1,9 @@
 import React from "react";
 import ActivityItem from "../../../../Components/ActivityItem/ActivityItem.Component";
+import ActivityResultStars from "../../../../Components/ActivityResultStars/ActivityResultStars.Component";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
+import { useFormatRelativeDate } from "../../../../Hooks";
 import {
   ActivityCommonProps,
   ActivityResult,
@@ -20,7 +22,7 @@ const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
   activityResult,
   onPressActivity,
 }) => {
-  console.log(activityResult)
+  const date = useFormatRelativeDate(activityResult.createdAt);
   return (
     <ActivityBanner
       marginTop="10px"
@@ -59,14 +61,25 @@ const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
         >
           {activityResult.activity.name}
         </BaseText>
+        {activityResult.user.email && (
+          <BaseText
+            ellipsizeMode="tail"
+            numberOfLines={2}
+            marginVertical="5px"
+            fontSize="13px"
+            color="black"
+          >
+            {activityResult.user.email}
+          </BaseText>
+        )}
         <BaseText
           ellipsizeMode="tail"
           numberOfLines={2}
           marginVertical="5px"
-          fontSize="13px"
+          fontSize="11px"
           color="black"
         >
-          {activityResult.user.email}
+          {date}
         </BaseText>
         <BaseText
           ellipsizeMode="tail"
@@ -76,11 +89,14 @@ const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
           color="black"
           style={{ alignSelf: "flex-end", marginRight: 20 }}
         >
-          Pontuação: {activityResult.result}/5
+          Pontuação:{" "}
+          <ActivityResultStars
+            withContainer={false}
+            result={activityResult.result}
+          />
         </BaseText>
       </BaseContainer>
     </ActivityBanner>
   );
 };
-
 export default React.memo(ActivityResultListingItem);

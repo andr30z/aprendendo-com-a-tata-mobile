@@ -12,7 +12,7 @@ interface PressableImageItemProps extends CommonImageItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const PressableImageItem: React.FC<PressableImageItemProps> = ({
   index,

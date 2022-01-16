@@ -9,7 +9,7 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 
 /**
  * Base Input component
- * @author andr3z0
+ * @author andr30z
  **/
 const Input: React.FC<BaseInputProps> = (props) => {
   const { withWrapper, wrapperStyles, appendComponent, error } = props;

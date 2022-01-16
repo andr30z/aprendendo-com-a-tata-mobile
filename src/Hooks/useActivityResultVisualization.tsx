@@ -19,17 +19,31 @@ interface UseActivityVisualizationProps {
     activity: ActivityCommonProps<unknown>,
     activityResult?: ActivityResult
   ) => Partial<ActivityPlayParamsType>;
+  onPressChildCallback?: () => void;
   sendToActivityPlayOnSearchActivity?: boolean;
 }
 
 export function useActivityResultVisualization({
   activityPlayParamsResolver,
   sendToActivityPlayOnSearchActivity = true,
+  onPressChildCallback,
 }: UseActivityVisualizationProps) {
   const [selectedChild, setSelectedChild] = useState<UserInterface>();
-  const onPressChildCard = useCallback((child: UserInterface) => {
-    setSelectedChild(child);
-  }, []);
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState<number>();
+
+  const onPressChildCard = useCallback(
+    (child: UserInterface) => {
+      if (child._id !== selectedChild?._id) {
+        onPressChildCallback && onPressChildCallback();
+        setPage(1);
+        setLastPage(undefined);
+      }
+      setSelectedChild(child);
+    },
+    [onPressChildCallback, selectedChild]
+  );
+
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const goToActivityPlay = (
     activity: ActivityCommonProps<unknown>,
@@ -81,5 +95,9 @@ export function useActivityResultVisualization({
     selectedChild,
     setSelectedChild,
     onPressChildCard,
+    lastPage,
+    setLastPage,
+    page,
+    setPage,
   };
 }

@@ -19,7 +19,7 @@ interface NumberOperationsProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const NumberOperations = WithDraxProvider<NumberOperationsProps>(
   ({ activity }) => {

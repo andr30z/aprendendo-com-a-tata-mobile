@@ -19,7 +19,7 @@ interface ProfilePhotoWithOverlayProps {
 
 /**
  * Default profile pic component with an overlay.
- * @author andr3z0
+ * @author andr30z
  **/
 const ProfilePhotoWithOverlay: React.FC<
   ImageProfileProps &

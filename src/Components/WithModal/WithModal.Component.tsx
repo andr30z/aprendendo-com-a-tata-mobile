@@ -21,7 +21,7 @@ interface WithModalProps {
 
 /**
  * High-order component that involves a Component into a bottom sheet modal structure.
- * @author andr3z0
+ * @author andr30z
  **/
 function WithModal<P = {}>(
   Component: React.ComponentType<P & SharedWithModalProps>
