@@ -79,6 +79,7 @@ export function useActivityResultVisualization({
         return goToActivityPlay(currentActivity, activityResult);
 
       getActivity(activity._id).then((loadedActivity) => {
+
         if (!loadedActivity) return;
         goToActivityPlay(loadedActivity, activityResult);
       });

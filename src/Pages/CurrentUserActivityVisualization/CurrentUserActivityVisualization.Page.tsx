@@ -32,9 +32,10 @@ const CurrentUserActivityVisualization: React.FC = ({ children }) => {
     activityPlayParamsResolver: (_, activityResult) => {
       return { activityResult };
     },
+    sendToActivityPlayOnSearchActivity:false
   });
   const getActivitiesResults = () => {
-    if (lastPage && lastPage < page) return;
+    if (lastPage && lastPage < page) return setFalse();
     setTrue();
     baseApi
       .get<PaginationInterface<ActivityResult>>(

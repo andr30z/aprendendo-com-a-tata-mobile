@@ -110,6 +110,9 @@ const ClassRoomItem = React.memo<ClassRoomItemProps>(
                   <BaseText
                     marginLeft="15px"
                     fontSize={"20px"}
+                    style={{ maxWidth: "90%" }}
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
                     color={textStyleColor}
                   >
                     {classRoom.name}
