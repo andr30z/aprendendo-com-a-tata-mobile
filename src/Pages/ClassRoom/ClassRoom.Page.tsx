@@ -40,7 +40,7 @@ interface ClassesApiResponse {
 }
 /**
  * Class page, both childs and teachers.
- * @author andr3z0
+ * @author andr30z
  *
  **/
 const ClassRoom: React.FC = () => {

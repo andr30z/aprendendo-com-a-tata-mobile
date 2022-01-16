@@ -18,7 +18,7 @@ interface GetChildrenReturnType {
 }
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 export function useResponsibleChildManagerLogic() {
   const { user } = useUserContext();

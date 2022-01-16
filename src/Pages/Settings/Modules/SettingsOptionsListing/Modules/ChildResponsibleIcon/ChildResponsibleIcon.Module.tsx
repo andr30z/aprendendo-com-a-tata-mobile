@@ -122,7 +122,7 @@ const ResponsibleModal: React.FC<
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 export const ChildResponsibleIcon: React.FC<IconProps> = ({
   children,

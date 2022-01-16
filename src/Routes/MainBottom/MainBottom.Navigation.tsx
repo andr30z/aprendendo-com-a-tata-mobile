@@ -41,7 +41,7 @@ const ClassRoomIconWithIconContainer = WithIconContainer(ClassRoomIcon);
 
 /**
  * This is the main navigation container of the application.
- * @author andr3z0
+ * @author andr30z
  **/
 const MainBottomNavigation: React.FC = () => {
   const { width } = useWindowDimensions();

@@ -19,7 +19,7 @@ type StackProps = StackNavigationProp<MainStackParamList>;
  * Activity module that contain the list of activities from the api.
  * @param activities array of a  ```ActivityGroup```, thats basically the groups of activities
  * @param setScrollPosition React setState function that will be used to discover where the is the actual activities location on the screen
- * @author andr3z0
+ * @author andr30z
  **/
 const ActivityList: React.FC<ActivityListOtherProps> = ({
   setScrollPosition,

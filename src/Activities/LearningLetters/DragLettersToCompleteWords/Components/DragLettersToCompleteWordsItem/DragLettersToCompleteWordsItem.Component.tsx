@@ -17,7 +17,7 @@ interface CompleteWordsByImagesAndLettersItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersItemProps> =
   ({ wordItem, index, completeWords, setCompleteWords }) => {

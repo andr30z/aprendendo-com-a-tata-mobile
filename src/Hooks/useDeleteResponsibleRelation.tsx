@@ -5,7 +5,7 @@ import { showError } from "../Utils";
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 export function useDeleteResponsibleRelation(
   onActionDone: () => void,

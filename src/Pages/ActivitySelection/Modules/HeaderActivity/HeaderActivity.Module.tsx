@@ -7,7 +7,7 @@ import Icons from "../../../../Illustrations/kids.svg";
 
 /**
 * Activity Module that represents a header.
-* @author andr3z0
+* @author andr30z
 **/
 const ActivityHeader: React.FC = () => {
   return (

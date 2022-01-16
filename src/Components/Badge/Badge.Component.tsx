@@ -32,7 +32,7 @@ interface BadgeComponentProps {
  * @param onPress void function that will be used in case you need the badge to be a pressable item;
  * @param shouldLimitSize optional boolean that tells when this component should limit the container size, default value is ```true```;
  * @param children react default children that will be rendered inside the ````<Text />```` tag. Be careful when placiong elements here, they can break the component layout.
- * @author andr3z0
+ * @author andr30z
  **/
 const Badge: React.FC<BadgeProps & BadgeComponentProps> = ({
   backgroundColor,

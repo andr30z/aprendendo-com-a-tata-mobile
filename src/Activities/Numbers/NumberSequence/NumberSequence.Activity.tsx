@@ -14,7 +14,7 @@ interface NumberSequenceProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const NumberSequence = WithDraxProvider<NumberSequenceProps>(({ activity }) => {
   const { currentStageIndex } = useActivityPlayContext();

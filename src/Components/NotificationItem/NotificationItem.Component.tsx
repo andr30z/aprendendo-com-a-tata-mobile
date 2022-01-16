@@ -28,7 +28,7 @@ interface NotificationItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const NotificationItem: React.FC<NotificationItemProps> = ({
   notification,

@@ -8,7 +8,7 @@ interface ClassroomProps extends SharedWithModalProps {}
 
 /**
  * @param members class members array.
- * @author andr3z0
+ * @author andr30z
  **/
 const ClassroomForm: React.FC<ClassroomProps & ClassroomFormFieldsProps> = ({
   modalSheetRef,

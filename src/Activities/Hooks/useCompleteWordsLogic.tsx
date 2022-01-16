@@ -3,7 +3,7 @@ import { CompleteWordsByImagesAndLettersActivityStage } from "../Interfaces";
 
 /**
 * 
-* @author andr3z0
+* @author andr30z
 **/
 export function useCompleteWordsLogic(
   currentStageIndex: number,

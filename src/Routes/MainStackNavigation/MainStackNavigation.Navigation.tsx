@@ -19,7 +19,7 @@ const ActivityPlayWithStatusBar = WithStatusBar(ActivityPlay);
 const ClassroomDetailsWithStatusBar = WithStatusBar(ClassroomDetails);
 /**
  * This is the Main stack navigation container of the application.
- * @author andr3z0
+ * @author andr30z
  **/
 const MainStackNavigation: React.FC = () => {
   return (

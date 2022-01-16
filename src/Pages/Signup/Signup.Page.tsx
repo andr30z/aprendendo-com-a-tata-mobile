@@ -8,7 +8,7 @@ import { InitialStackParamsList } from "../../Routes/InitialStack/Interfaces";
 
 /**
  * Signup page
- * @author andr3z0
+ * @author andr30z
  **/
 const Signup: React.FC = () => {
   const navigation =

@@ -16,7 +16,7 @@ const SignUpWithStatusBar = WithStatusBar(SignUp);
 
 /**
  * This is the inital stack navigation container of the application.
- * @author andr3z0
+ * @author andr30z
  **/
 const InitialStackNavigation: React.FC = () => {
   const { user } = useUserContext();

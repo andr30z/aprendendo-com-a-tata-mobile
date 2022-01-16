@@ -42,7 +42,7 @@ const Modal = WithModal<Omit<OnFinishActivityModalProps, "modalRef">>(
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const OnFinishActivityModal: React.FC<OnFinishActivityModalProps> = (props) => {
   const { finished, setFinished, modalRef } = props;

@@ -6,20 +6,20 @@ interface ActivityResultStarsProps {
   result: number;
   /**
    * Default value: 12
-   * @author andr3z0
+   * @author andr30z
    **/
   starSize?: number;
   /**
    * This prop controls whether it should render the stars insede a ```<View />```.
    *
    * Default value: true
-   * @author andr3z0
+   * @author andr30z
    **/
   withContainer?: boolean;
 }
 /**
  * This component renders the activity result visualization in form of stars.
- * @author andr3z0
+ * @author andr30z
  **/
 const ActivityResultStars: React.FC<ActivityResultStarsProps> = ({
   result,

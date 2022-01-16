@@ -13,7 +13,7 @@ interface LearningCharacteristicsOfThingsItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const LearningCharacteristicsOfThingsItem: React.FC<LearningCharacteristicsOfThingsItemProps> =
   ({ characteristicItem, setPressedImages, pressedImages }) => {

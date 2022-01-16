@@ -34,7 +34,7 @@ const CloudObject = {
 
 /**
  * This is a componentization of a svg icon
- * @author andr3z0
+ * @author andr30z
  **/
 const Cloud: React.FC<CloudProps> = ({
   direction,

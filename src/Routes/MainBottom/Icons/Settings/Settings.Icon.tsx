@@ -5,7 +5,7 @@ import { IconProps } from "../../../Interfaces";
 /**
  * This is the Icon of the Settings page, it's going to appear on the Main Navigation.
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const Settings: React.FC<IconProps> = (props) => {
   return (

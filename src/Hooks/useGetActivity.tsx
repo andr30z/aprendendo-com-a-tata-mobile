@@ -8,7 +8,7 @@ import { useCancellablePromise } from "./useCancellablePromise";
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 export function useGetActivity<A>(
   onSuccess: (activity: ActivityCommonProps<A>) => void | ActivityCommonProps<A>,

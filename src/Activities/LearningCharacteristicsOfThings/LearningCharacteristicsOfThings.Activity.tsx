@@ -16,7 +16,7 @@ interface LearningCharacteristicsOfThingsProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const LearningCharacteristicsOfThings: React.FC<LearningCharacteristicsOfThingsProps> =
   ({ activity }) => {

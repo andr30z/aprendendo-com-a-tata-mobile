@@ -46,7 +46,7 @@ const ButtonsContainerWithSpinner = WithSpinner<{
 
 /**
  * @param members class members array.
- * @author andr3z0
+ * @author andr30z
  **/
 const JoinRequests: React.FC<JoinRequestsProps> = ({ pendingJoinRequests }) => {
   const { value: isApprovingOrRefusing, setTrue, setFalse } = useBoolean();

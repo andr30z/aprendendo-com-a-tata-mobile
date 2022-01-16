@@ -25,7 +25,7 @@ const gridItemWidth = "31.5%";
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
   selectedActivities,

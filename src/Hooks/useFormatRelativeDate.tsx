@@ -5,7 +5,7 @@ import { useMemo } from "react";
 
 /**
 * Cool user experience formated date
-* @author andr3z0
+* @author andr30z
 **/
 export function useFormatRelativeDate(dateString: string) {
   const date = useMemo(

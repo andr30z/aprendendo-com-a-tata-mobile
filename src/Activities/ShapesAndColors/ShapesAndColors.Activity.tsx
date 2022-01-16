@@ -16,7 +16,7 @@ interface ShapesAndColorsProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ShapesAndColors = WithDraxProvider<ShapesAndColorsProps>(
   ({ activity }) => {

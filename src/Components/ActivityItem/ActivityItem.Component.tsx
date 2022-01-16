@@ -33,7 +33,7 @@ interface BaseActivityItemProps {
  * @param name string that indicates the name of the activity
  * @param itemIndex number that indicates the actual index of the item, this is used to provide a background color for the card
  * @param tags an array of tags that represents topics related to the activity
- * @author andr3z0
+ * @author andr30z
  **/
 const ActivityItem: React.FC<
   ActivityCommonProps<unknown> & BaseActivityItemProps

@@ -44,7 +44,7 @@ const IconWithTouchable: React.FC<{
 
 /**
  * Post header
- * @author andr3z0
+ * @author andr30z
  **/
 export const PostHeader: React.FC<PostHeaderProps> = ({
   goToPostDetails,

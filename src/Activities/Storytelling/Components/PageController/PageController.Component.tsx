@@ -17,7 +17,7 @@ interface PageControllerProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const PageController = React.memo<PageControllerProps>(
   ({

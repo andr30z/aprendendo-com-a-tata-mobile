@@ -14,7 +14,7 @@ interface ImagesByLettersProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
   ({ activity }) => {

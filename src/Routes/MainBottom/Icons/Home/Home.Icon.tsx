@@ -6,7 +6,7 @@ import { IconProps } from "../../../Interfaces";
 /**
  * This is the Icon of the Home page, it's going to appear on the Main Navigation.
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const Home: React.FC<IconProps> = ({ focused }) => {
   return (

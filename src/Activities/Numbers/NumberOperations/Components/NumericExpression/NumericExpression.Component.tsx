@@ -18,7 +18,7 @@ interface NumberSequenceItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const NumericExpression: React.FC<NumberSequenceItemProps> = React.memo(
   ({ operationItem, operationsResults, setOperationsResults }) => {

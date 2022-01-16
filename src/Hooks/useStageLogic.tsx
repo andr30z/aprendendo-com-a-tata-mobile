@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
  * @param useEffectListenerProp prop that triggers the ```validationCallback``` to be executed again.
  * @param validationCallback function that decides if the current stage should be changed. Return ```true``` to change stage.
  * @param onPassStageCallback function that is called immediately after the stage change occurs.
- * @author andr3z0
+ * @author andr30z
  **/
 export function useStageLogic(
   useEffectListenerProp: any,

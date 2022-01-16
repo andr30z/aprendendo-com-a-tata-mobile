@@ -48,7 +48,7 @@ export const defaultColorSelectItems = [
 
 /**
  * Color select component.
- * @author andr3z0
+ * @author andr30z
  **/
 const ColorSelect: React.FC<ColorSelectProps> = ({
   label,

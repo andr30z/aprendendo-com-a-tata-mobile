@@ -6,7 +6,7 @@ import { IntroductionTitle } from "./Styles";
 
 /**
  * Activity module that is used to render a small introduction right before the activities
- * @author andr3z0
+ * @author andr30z
  **/
 const AcitivityIntroduction: React.FC = () => {
   const { height } = useWindowDimensions();

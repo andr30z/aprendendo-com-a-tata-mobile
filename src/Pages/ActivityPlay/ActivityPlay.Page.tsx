@@ -24,7 +24,7 @@ type Props = NativeStackScreenProps<
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ActivityPlay: React.FC<Props> = ({ route, navigation }) => {
   const { activity, activityResult, routeIndexToReturnOnFinish, isActivityResultView = false } = route.params;

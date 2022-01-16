@@ -9,7 +9,7 @@ import { SettingsOptionsListing } from "./Modules";
 
 /**
  * Settings page, thats where the user is going to select the options of the app, e.g.: themes, about section etc...
- * @author andr3z0
+ * @author andr30z
  **/
 const Settings: React.FC = () => {
   const { user } = useUserContext();

@@ -15,7 +15,7 @@ import { AddChildModal } from "./Modules";
 import { useResponsibleChildManagerLogic } from "./useResponsibleChildManagerLogic";
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ResponsibleChildManager: React.FC = () => {
   const {

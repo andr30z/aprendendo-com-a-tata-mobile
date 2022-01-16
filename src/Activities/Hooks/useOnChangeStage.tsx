@@ -3,7 +3,7 @@ import { useActivityPlayContext } from "../../Contexts";
 
 /**
  * Hook that holds the logic about when the activity answers ref inside activity play context should be called and updated with new results
- * @author andr3z0
+ * @author andr30z
  **/
 export function useOnChangeStage<S>(
   state: Array<S>,

@@ -14,7 +14,7 @@ import { LoginResponse } from "../Interfaces";
 
 /**
  * This hook holds all logic from InitialPage component.
- * @author andr3z0
+ * @author andr30z
  **/
 export function useInitialPageLogic() {
   const navigation =

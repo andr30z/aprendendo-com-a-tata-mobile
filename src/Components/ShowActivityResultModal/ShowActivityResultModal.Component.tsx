@@ -20,7 +20,7 @@ interface ShowActivityResultModalProps {
 }
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 export const ShowActivityResultModal = WithModal<ShowActivityResultModalProps>(
   ({ completedActivityResult, routeIndexToReturnOnFinish, navigation }) => {

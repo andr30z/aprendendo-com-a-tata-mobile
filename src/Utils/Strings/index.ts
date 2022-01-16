@@ -3,7 +3,7 @@
  * @param index position of character to be replaced.
  * @param str string where replacement will occur.
  * @param replacement string/number that will replace a given index inside the ```str``` string.
- * @author andr3z0
+ * @author andr30z
  **/
 export function replaceAt(
   index: number,
@@ -20,7 +20,7 @@ export function replaceAt(
 /**
 * This method verify is a string is empty.
 * @param str string to verify.
-* @author andr3z0
+* @author andr30z
 **/
 export function verifyIfStringIsEmpty(str: string) {
   return str.trim().length === 0;

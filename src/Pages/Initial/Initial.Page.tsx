@@ -9,7 +9,7 @@ import { useInitialPageLogic } from "./Hooks";
 
 /**
  * When the user lauches the app, if he is unauthenticated, thats the screen he's going to see first
- * @author andr3z0
+ * @author andr30z
  **/
 const Initial: React.FC = () => {
   const { navigation, onChange, onSubmit, loginCredentials } =

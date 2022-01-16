@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useCallback, useState } from "react";
  * Boolean logic abstraction, this is good to not repeat yourself during coding, like creating multiple
  * ()=> setValue(true) every time.
  * @param defaultValue optional boolean that describe the initial state.
- * @author andr3z0
+ * @author andr30z
  **/
 export function useBoolean(defaultValue?: boolean) {
   const [value, setValue] = useState(!!defaultValue);

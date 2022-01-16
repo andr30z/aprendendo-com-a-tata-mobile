@@ -17,7 +17,7 @@ interface ShapesAndColorsItemProps {
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const ShapesAndColorsItem: React.FC<ShapesAndColorsItemProps> = ({
   item: { imageAfterColoring, initialImage, isHeadImage, _id, isItemReceiver },

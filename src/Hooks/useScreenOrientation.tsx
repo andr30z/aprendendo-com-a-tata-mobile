@@ -25,7 +25,7 @@ import { useWindowDimensions } from "react-native";
 * portrait-up/portrait-down, that way this hook will only return one of these two orientation types from
 * [@expo-orientation ```Orientation```](https://docs.expo.dev/versions/latest/sdk/screen-orientation/#screenorientationorientation) prop: ```PORTRAIT_UP``` or ```LANDSCAPE_LEFT```.  
 * @see [@expo-orientation](https://docs.expo.dev/versions/latest/sdk/screen-orientation/)
-* @author andr3z0
+* @author andr30z
 **/
 export function useScreenOrientation(
   orientation?: OrientationLock,

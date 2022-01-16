@@ -8,7 +8,7 @@ const cloudStyle = {
 
 /**
  * As the name suggests, this is a container of all the clouds in the initial page
- * @author andr3z0
+ * @author andr30z
  **/
 const CloudsContainer: React.FC = () => {
   return (

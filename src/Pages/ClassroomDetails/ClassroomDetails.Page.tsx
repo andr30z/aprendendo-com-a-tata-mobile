@@ -38,7 +38,7 @@ export const ClassroomDetails: React.FC<Props> = (props) => {
 
 /**
  * Details componente of the classroom page.
- * @author andr3z0
+ * @author andr30z
  **/
 const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
   const { classroom, getClassroom, textTheme, primaryTheme } =

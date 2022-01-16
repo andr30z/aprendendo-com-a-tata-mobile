@@ -17,7 +17,7 @@ interface AddChildModalProps {
 }
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const AddChildModal: React.FC<AddChildModalProps> = ({
   isVisible,

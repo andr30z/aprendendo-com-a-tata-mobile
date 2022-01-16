@@ -7,7 +7,7 @@ import { showError } from "../Utils";
 /**
  * This hook handle the logic for listing activites.
  * @returns object containing activities listing state
- * @author andr3z0
+ * @author andr30z
  **/
 export function useActivityList() {
   const [activities, setActivities] = useState<

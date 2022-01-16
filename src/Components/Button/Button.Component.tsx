@@ -21,7 +21,7 @@ interface ButtonProps {
  * @param onPress function thats going to be called whenever the button is pressed.
  * @param textStyles style object for the buttonTitle, to learn more about this prop see ```<BaseText />``` in ```src/GlobalStyles.ts```.
  * @param containerStyles style object for TouchableHighlight.
- * @author andr3z0
+ * @author andr30z
  **/
 const Button: React.FC<BaseButtonProps & ButtonProps> = ({
   buttonTitle,

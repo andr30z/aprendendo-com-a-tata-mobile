@@ -11,7 +11,7 @@ import { showError } from "../../Utils";
 
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const CurrentUserActivityVisualization: React.FC = ({ children }) => {
   const { user } = useUserContext();

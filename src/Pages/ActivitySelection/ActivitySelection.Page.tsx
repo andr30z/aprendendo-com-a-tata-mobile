@@ -9,7 +9,7 @@ import { CloudsContainer } from "../../Components";
 
 /**
  * ActivitySelectionPage aka Home, thats the place where user is going to select an activity
- * @author andr3z0
+ * @author andr30z
  **/
 const ActivitySelection: React.FC = ({ children }) => {
   const scrollToRef = useRef<ScrollView>();

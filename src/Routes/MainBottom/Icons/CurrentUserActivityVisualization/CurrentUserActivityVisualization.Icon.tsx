@@ -6,7 +6,7 @@ import { useUserContext } from "../../../../Contexts";
 import { UserType } from "../../../../Interfaces/index";
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const CurrentUserActivityVisualization: React.FC<IconProps> = (props) => {
   return (

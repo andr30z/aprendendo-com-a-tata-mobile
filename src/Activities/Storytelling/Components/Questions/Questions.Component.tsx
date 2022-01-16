@@ -27,7 +27,7 @@ interface QuestionsProps {
 }
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const Questions: React.FC<QuestionsProps> = ({
   questions,

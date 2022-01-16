@@ -18,7 +18,7 @@ interface GetNotificationsReturnType {
 }
 /**
  *
- * @author andr3z0
+ * @author andr30z
  **/
 const Notifications: React.FC = () => {
   const { user } = useUserContext();

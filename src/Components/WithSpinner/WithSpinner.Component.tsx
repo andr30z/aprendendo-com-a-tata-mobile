@@ -9,7 +9,7 @@ interface WithSpinnerProps {
 /**
  * High Order Component that wraps the logic of hiding and showing a component based on a ```isLoading``` prop
  * @param Component A React Component to be wrapped.
- * @author andr3z0
+ * @author andr30z
  **/
 function WithSpinner<K>(
   Component: React.ComponentType<K>,

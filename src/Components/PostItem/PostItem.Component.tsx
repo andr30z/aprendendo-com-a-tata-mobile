@@ -34,7 +34,7 @@ interface PostItemProps {
 
 /**
  * Post item listing component.
- * @author andr3z0
+ * @author andr30z
  **/
 const PostItem: React.FC<PostItemProps> = ({
   post,
