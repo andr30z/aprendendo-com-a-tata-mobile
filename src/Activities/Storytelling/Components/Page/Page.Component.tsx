@@ -97,7 +97,7 @@ const Page: React.FC<PageProps> = ({
                     marginBottom="5px"
                     color="#000"
                     fontWeight="700"
-                    fontSize="20px"
+                    fontSize="30px"
                   >
                     {paragraph.title}
                   </BaseText>
@@ -106,7 +106,7 @@ const Page: React.FC<PageProps> = ({
                   style={{ lineHeight: 25 }}
                   color="#000"
                   fontWeight="500"
-                  fontSize="17px"
+                  fontSize="25px"
                 >
                   {paragraph.text}
                 </BaseText>

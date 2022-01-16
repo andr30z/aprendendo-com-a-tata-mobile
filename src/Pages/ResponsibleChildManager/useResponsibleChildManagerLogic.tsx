@@ -102,7 +102,6 @@ export function useResponsibleChildManagerLogic() {
     setFalse: setIsRefreshingFalse,
   } = useBoolean();
   const getResults = (isRefreshContext = false) => {
-    console.log(lastPage, page, "ass")
     if (!selectedChild || (lastPage && lastPage < page)) return;
 
     // const userActivitiesResult = activityResults.current.find(
