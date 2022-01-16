@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { useWindowDimensions } from "react-native";
+import { useUserContext } from "../../Contexts/User/User.Context";
 import { WithIconContainer, WithStatusBar } from "../../Components";
 import {
   ActivitySelection,
@@ -45,6 +46,7 @@ const ClassRoomIconWithIconContainer = WithIconContainer(ClassRoomIcon);
  **/
 const MainBottomNavigation: React.FC = () => {
   const { width } = useWindowDimensions();
+  const { userIsResponsable } = useUserContext();
   return (
     <BottomTab.Navigator
       screenOptions={{
@@ -74,18 +76,20 @@ const MainBottomNavigation: React.FC = () => {
         }}
         name={ROUTES_NAME.HOME}
         component={ActivitySelectionPageWithStatusBar}
-        />
-
-      <BottomTab.Screen
-        name={ROUTES_NAME.CLASS_ROOM}
-        component={ClassRoomWithStatusBar}
-        options={{
-          headerShown: false,
-          tabBarInactiveBackgroundColor:"transparent",
-          tabBarIcon: ClassRoomIconWithIconContainer,
-          tabBarLabel: (props) => <TextBar {...props} textLabel="Salas" />,
-        }}
       />
+
+      {!userIsResponsable && (
+        <BottomTab.Screen
+          name={ROUTES_NAME.CLASS_ROOM}
+          component={ClassRoomWithStatusBar}
+          options={{
+            headerShown: false,
+            tabBarInactiveBackgroundColor: "transparent",
+            tabBarIcon: ClassRoomIconWithIconContainer,
+            tabBarLabel: (props) => <TextBar {...props} textLabel="Salas" />,
+          }}
+        />
+      )}
       <BottomTab.Screen
         options={{
           headerShown: false,
