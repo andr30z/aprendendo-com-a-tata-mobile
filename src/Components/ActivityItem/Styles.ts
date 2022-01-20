@@ -23,5 +23,5 @@ export const ButtonActivityItem = styled(TouchableOpacity)`
   width: 100%;
   height: 100%;
   padding-vertical: 5%;
-  padding-horizontal: 20px;
+  padding-horizontal: 23px;
 `;

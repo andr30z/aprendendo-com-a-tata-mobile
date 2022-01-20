@@ -5,7 +5,8 @@ import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { ActivityCommonProps } from "../../Interfaces/index";
 import { getRandomInt } from "../../Utils";
 import { ButtonActivityItem, ButtonContainer, ItemTitle } from "./Styles";
-
+import Hypher from "hypher";
+import pt from "hyphenation.pt";
 const backgroundColor = [
   "#83CAF6",
   "#9188E5",
@@ -14,6 +15,8 @@ const backgroundColor = [
   "#FF4C4C",
   "#355389",
 ];
+
+const hypher = new Hypher(pt);
 
 interface BaseActivityItemProps {
   itemIndex: number;
@@ -86,8 +89,8 @@ const ActivityItem: React.FC<
             align="center"
             justify="center"
           >
-            <BaseContainer flex={2} align="center" justify="center"> 
-              <ItemTitle>{name}</ItemTitle>
+            <BaseContainer flex={2} align="center" justify="center">
+              <ItemTitle android_hyphenationFrequency="full">{hypher.hyphenateText(name).replace(/\u00AD/g, "\u200B")}</ItemTitle>
             </BaseContainer>
             {renderMidComponent && renderMidComponent()}
           </BaseContainer>

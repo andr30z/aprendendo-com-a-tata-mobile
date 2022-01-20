@@ -7,3 +7,7 @@ declare module "*.svg" {
 
 
 declare module "@fawazahmed/react-native-read-more";
+
+declare module "hypher";
+
+declare module "hyphenation.pt"
