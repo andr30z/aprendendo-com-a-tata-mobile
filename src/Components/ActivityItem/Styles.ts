@@ -15,9 +15,8 @@ export const ButtonContainer = styled(BaseContainer)<{
   roundedBorders: boolean;
 }>`
   border-radius: ${({ roundedBorders }) => (roundedBorders ? "30px" : 0)};
-
   z-index: 20;
-`;
+  `;
 
 export const ButtonActivityItem = styled(TouchableOpacity)`
   width: 100%;

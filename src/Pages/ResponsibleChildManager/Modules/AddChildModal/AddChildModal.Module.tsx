@@ -108,7 +108,7 @@ const AddChildModal: React.FC<AddChildModalProps> = ({
           <Button
             onPress={onSendUserResponsibleRequest}
             buttonWidth="70%"
-            buttonHeight="40px"
+            buttonHeight="50px"
             buttonTitle="Enviar pedido"
           />
         </BaseContainer>

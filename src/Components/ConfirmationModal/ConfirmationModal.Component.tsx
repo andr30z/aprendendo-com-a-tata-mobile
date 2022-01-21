@@ -88,7 +88,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               flexDirection="row"
             >
               <Button
-                buttonHeight="29px"
+               buttonHeight="45px"
                 onPress={() =>
                   isConfirmationBeingExecuted ? null : modalRef.current?.close()
                 }
@@ -99,7 +99,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                 textStyles={{ fontSize: "15px" }}
               />
               <Button
-                buttonHeight="29px"
+                buttonHeight="45px"
                 onPress={async () => {
                   await onConfirm();
                   setFalse();

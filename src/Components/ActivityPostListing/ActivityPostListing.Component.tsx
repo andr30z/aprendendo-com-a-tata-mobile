@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useWindowDimensions } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import { Fade, Placeholder, PlaceholderMedia } from "rn-placeholder";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
@@ -92,11 +92,15 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
             }}
             width="100%"
           />
-          <BaseContainer
-            onLayout={(e) => {
-              console.log(e.nativeEvent.layout);
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              width: "100%",
+              marginTop: 10,
+              alignItems: "center",
+              justifyContent: "space-evenly",
             }}
-            {...(gridContainerStyles as any)}
           >
             {activities.map((activity, index) => (
               <ActivityItem
@@ -109,7 +113,7 @@ const ActivityPostListing: React.FC<ActivityPostListingProps> = ({
                 {...activity}
               />
             ))}
-          </BaseContainer>
+          </View>
         </>
       ) : (
         <BaseContainer {...(gridContainerStyles as any)}>

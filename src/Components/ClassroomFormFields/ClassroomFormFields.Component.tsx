@@ -247,7 +247,7 @@ const ClassroomFormFields = WithModal<ClassroomFormFieldsProps>(
             disabled={isSubmitting}
             containerStyles={styles.btnSubmit}
             onPress={handleSubmit(onSubmit)}
-            buttonHeight="40px"
+            buttonHeight="50px"
             backgroundColor={color}
             buttonTitle={isSubmitting ? undefined : "Salvar"}
           >

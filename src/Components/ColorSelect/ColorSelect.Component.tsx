@@ -1,14 +1,12 @@
-import { MotiView } from "@motify/components";
-import { useAnimationState } from "@motify/core";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { useBoolean } from "../../Hooks";
 import Badge from "../Badge/Badge.Component";
 import {
+  ColorContainer,
   ColorIcon,
   ColorIconContainer,
-  styles,
   TouchableColor,
   TouchableHeader,
 } from "./Styles";
@@ -57,37 +55,19 @@ const ColorSelect: React.FC<ColorSelectProps> = ({
   onPress,
   containerStyles,
 }) => {
-  const toggleAnimationState = useAnimationState({
-    open: {
-      minHeight: 300,
-    },
-    from: {
-      height: 30,
-      minHeight: 30,
-    },
-    closed: {
-      height: 30,
-      minHeight: 30,
-    },
-  });
-
-  const { value: isOpen, setValue } = useBoolean(false);
+  const { value: isOpen, toggle } = useBoolean(false);
 
   const colors = colorsToSelect || defaultColorSelectItems;
-  const toggleAnimation = (pos: string) => () => {
-    setValue(pos === "open");
-    const position = pos === "from" || pos === "closed" ? "closed" : "open";
-    toggleAnimationState.transitionTo(position as any);
-  };
+
   const props = {
-    size: 34,
+    size: 25,
     color: color === "#fff" ? "black" : color,
   };
 
   return (
-    <MotiView
-      style={[styles.motiView, containerStyles]}
-      state={toggleAnimationState}
+    <ColorContainer
+      style={[containerStyles, { height: isOpen ? undefined : 40 }]}
+      isOpen={isOpen}
     >
       <TouchableHeader activeOpacity={0.8}>
         <BaseContainer
@@ -100,16 +80,17 @@ const ColorSelect: React.FC<ColorSelectProps> = ({
             extraContainerStyles={{ padding: 10 }}
             backgroundColor={color === "#fff" ? "#000" : color}
             pill
+            onPress={toggle}
             shouldLimitSize={false}
             text={label}
             textAlign="center"
           />
           {!isOpen ? (
-            <ColorIconContainer onPress={toggleAnimation("open")}>
+            <ColorIconContainer onPress={toggle}>
               <ColorIcon name="chevron-down" {...props} />
             </ColorIconContainer>
           ) : (
-            <ColorIconContainer onPress={toggleAnimation("closed")}>
+            <ColorIconContainer onPress={toggle}>
               <ColorIcon name="chevron-up" {...props} />
             </ColorIconContainer>
           )}
@@ -135,7 +116,7 @@ const ColorSelect: React.FC<ColorSelectProps> = ({
           />
         ))}
       </BaseContainer>
-    </MotiView>
+    </ColorContainer>
   );
 };
 

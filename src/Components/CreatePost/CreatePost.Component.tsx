@@ -83,7 +83,7 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
                 <BaseContainer flex={1} justify="center" align="flex-end">
                   <Button
                     buttonWidth="80%"
-                    buttonHeight="35px"
+                    buttonHeight="50px"
                     backgroundColor={classroom.color}
                     onPress={onSubmit}
                     buttonTitle={

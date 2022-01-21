@@ -146,7 +146,7 @@ const PostItem: React.FC<PostItemProps> = ({
               })
             }
             backgroundColor={primaryTheme}
-            buttonHeight="30px"
+            buttonHeight="40px"
             buttonTitle="Ver respostas"
           />
         </PostFooterContainer>

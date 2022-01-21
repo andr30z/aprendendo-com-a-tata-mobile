@@ -9,6 +9,7 @@ import {
   useFonts,
   ShortStack_400Regular,
 } from "@expo-google-fonts/short-stack";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 SplashScreen.preventAutoHideAsync().catch(console.warn);
 export default function App() {
   const [fontsLoaded] = useFonts({ ShortStack_400Regular });
@@ -17,7 +18,7 @@ export default function App() {
   }, [fontsLoaded]);
   if (!fontsLoaded) return null;
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <UserProvider>
         <PortalProvider>
           <InitialStackNavigation />
@@ -44,6 +45,6 @@ export default function App() {
           ),
         }}
       />
-    </>
+    </GestureHandlerRootView>
   );
 }

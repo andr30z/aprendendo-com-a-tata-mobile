@@ -36,7 +36,7 @@ export const PostFooterContainer = styled(BaseContainer)`
   border-top-width: 1px;
   border-top-color: #c3c3c3;
   padding-vertical: 8px;
-  max-height:40px;
+  max-height:50px;
   padding-horizontal: 3%;
   width: 100%;
   flex-direction: row;
