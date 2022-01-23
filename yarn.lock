@@ -6523,10 +6523,10 @@ react-native-date-picker@^4.1.1:
   resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-4.1.1.tgz#7f41b86e5b625c0c695686eea538677fe84fc4a6"
   integrity sha512-2KzwFZoPNmGCgDFP8FrrtIBrKMEzTkLG5Zq68CbyUxG7aFPmeP7ik//lSB0gPwfO9TKQyKFVqTod5jTp0PTnbw==
 
-react-native-drax@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/react-native-drax/-/react-native-drax-0.7.2.tgz#6cff380bd6c4aa7c16b58b0fc7b0587b1214590e"
-  integrity sha512-28/w8uDBR5Y0VG59f/1WR9PQNm73jzWgGSr/nRC0UtkACiwUOmBAaOmbzQFYh3KDi+dQXGv5fIEtH6eyrYVM5Q==
+react-native-drax@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/react-native-drax/-/react-native-drax-0.9.3.tgz#8cf186e70aaba4262f0d56253fa7fe0e21ba3549"
+  integrity sha512-+yxMJFS9Nhs5oofnjyMI+FVaSI82fmUO2s7wxzlMBkfoXHUYoeBigw1lT0YLLYEWXJ4J21ftgTWJ2M4gmYknaA==
   dependencies:
     lodash.isequal "^4.5.0"
     lodash.throttle "^4.1.1"

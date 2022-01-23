@@ -7,5 +7,6 @@ export interface MarkItemMarkProps {
       right?: number | string;
       left?: number | string;
     };
+    center?:boolean;
     absolutePosition?: boolean;
   }

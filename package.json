@@ -47,7 +47,7 @@
     "react-hook-form": "^7.19.5",
     "react-native": "0.64.3",
     "react-native-date-picker": "^4.1.1",
-    "react-native-drax": "^0.7.2",
+    "react-native-drax": "^0.9.3",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-modal": "^13.0.0",
     "react-native-pager-view": "5.4.9",

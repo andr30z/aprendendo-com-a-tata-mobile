@@ -40,7 +40,7 @@ const ActivityResultListingItem: React.FC<ActivityResultListingItemProps> = ({
           borderBottomLeftRadius: 13,
         }}
         containerHeight="121"
-        boxWidth="34%"
+        boxWidth="40%"
         marginTop="0"
         roundedBorders={false}
         {...(activityResult.activity as ActivityCommonProps<unknown>)}

@@ -13,6 +13,7 @@ interface NumberSequenceItemProps {
   isAnswerGrid?: boolean;
   index?: number;
   answer?: Array<number | string>;
+  originalSequence: Array<number | string>;
 }
 
 const colorsArray = [
@@ -28,9 +29,27 @@ const colorsArray = [
  * @author andr30z
  **/
 const NumberSequenceItem: React.FC<NumberSequenceItemProps> = React.memo(
-  ({ numberItem, isAnswerGrid, sequence, setSequence, index, answer }) => {
+  ({
+    numberItem,
+    isAnswerGrid,
+    sequence,
+    setSequence,
+    index,
+    answer,
+    originalSequence,
+  }) => {
     const isReceptive = typeof numberItem !== "number";
     const { isActivityResultView } = useActivityPlayContext();
+    const isMissingItem = useMemo(
+      () =>
+        isActivityResultView && isAnswerGrid
+          ? originalSequence.find(
+              (x, sequenceIndex) =>
+                typeof x === "string" && sequenceIndex === Number(index)
+            ) !== undefined
+          : undefined,
+      [originalSequence, isActivityResultView]
+    );
     const randomStyle = useMemo(
       () => colorsArray[getRandomInt(0, colorsArray.length - 1)],
       []
@@ -51,6 +70,7 @@ const NumberSequenceItem: React.FC<NumberSequenceItemProps> = React.memo(
       },
       [sequence, index]
     );
+    if (isAnswerGrid) console.log(numberItem, isMissingItem, originalSequence);
     return (
       <DraxView
         receptive={isReceptive}
@@ -69,21 +89,15 @@ const NumberSequenceItem: React.FC<NumberSequenceItemProps> = React.memo(
             justify="center"
             position={isActivityResultView ? "relative" : undefined}
           >
-            {isActivityResultView && isReceptive && (
+            {isActivityResultView && isMissingItem && isAnswerGrid ? (
               <>
                 {!numberItem ? (
                   <WrongItemMark absolutePosition={false} />
                 ) : (
-                  <CorrectItemMark
-                    size={30}
-                    position={{
-                      top: "10%",
-                      left: "20%",
-                    }}
-                  />
+                  <CorrectItemMark size={30} absolutePosition={false} center />
                 )}
               </>
-            )}
+            ) : null}
             {numberItem ? (
               <BaseText color={randomStyle.textColor}>{numberItem}</BaseText>
             ) : null}

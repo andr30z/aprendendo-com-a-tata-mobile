@@ -51,7 +51,7 @@ const ComparationBetweenObjects =
               <ComparationDragItem
                 currentStageBonds={currentStageBonds}
                 setCurrentStageBonds={setCurrentStageBonds}
-                key={item._id}
+                key={item._id + item.comparationBondValue}
                 comparation={item}
               />
             ))}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useWindowDimensions } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ScrollView, useWindowDimensions, View } from "react-native";
 import { DraxScrollView } from "react-native-drax";
 import { WithDraxProvider } from "../../../Components";
 import { useActivityPlayContext } from "../../../Contexts";
@@ -31,9 +31,16 @@ const NumberOperations = WithDraxProvider<NumberOperationsProps>(
     const currentStage = activity.stages[currentStageIndex];
     // console.log(operationsResults, "results")
     const { height } = useWindowDimensions();
+    const scrollView = useRef<ScrollView>(null);
+    useEffect(() => {
+      if (scrollView.current) {
+        scrollView.current.scrollTo({x: 0, y: 0, animated: true});
+      }
+    }, [currentStageIndex]);
+
     return (
       <BaseContainer flex={1}>
-        <DraxScrollView style={{ height, paddingBottom: 20 }}>
+        <DraxScrollView ref={scrollView} style={{ height, paddingBottom: 20 }}>
           <BaseContainer flex={1} marginTop="25px">
             <BaseText align="center" color="black" fontSize="25px">
               {activity.activityUtterance}

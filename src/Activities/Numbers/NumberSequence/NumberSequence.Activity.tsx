@@ -52,6 +52,7 @@ const NumberSequence = WithDraxProvider<NumberSequenceProps>(({ activity }) => {
       <BaseContainer flex={2} flexWrap="wrap" flexDirection="row">
         {sequence.map((item, index) => (
           <NumberSequenceItem
+            originalSequence={currentStage.sequence}
             key={index}
             numberItem={item}
             answer={answer}
@@ -65,6 +66,7 @@ const NumberSequence = WithDraxProvider<NumberSequenceProps>(({ activity }) => {
       <BaseContainer flexWrap="wrap" flexDirection="row" flex={1}>
         {shuffledSequenceMissingItems.map((number) => (
           <NumberSequenceItem
+            originalSequence={currentStage.sequence}
             numberItem={number}
             key={number}
             sequence={sequence}

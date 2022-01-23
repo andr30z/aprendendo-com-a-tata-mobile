@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { StyleSheet } from "react-native";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import { MarkItemMarkProps } from "../../Interfaces";
 
@@ -12,14 +13,20 @@ const CorrectItemMark: React.FC<MarkItemMarkProps> = ({
   size = 40,
   position,
   absolutePosition = true,
+  center = false,
 }) => {
-  const defaultPosition = { top: 0, left: 0, ...position };
+  const centerRules: any = center
+    ? {
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: "center",
+        alignItems: "center",
+      }
+    : {};
+  const defaultPosition = absolutePosition
+    ? { top: 0, left: 0, position: "absolute", ...position }
+    : {};
   return (
-    <BaseContainer
-      style={{ zIndex: 10 }}
-      position={absolutePosition ? "absolute" : undefined}
-      {...defaultPosition}
-    >
+    <BaseContainer style={{ zIndex: 10, ...centerRules }} {...defaultPosition}>
       <Ionicons name="checkmark" size={size} color={color} />
     </BaseContainer>
   );

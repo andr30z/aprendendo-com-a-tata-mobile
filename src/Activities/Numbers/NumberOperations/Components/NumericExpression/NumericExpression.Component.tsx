@@ -154,7 +154,7 @@ const NumericExpression: React.FC<NumberSequenceItemProps> = React.memo(
         >
           {resultsArray.map((value, index) => (
             <DraxView
-              key={index}
+              key={value}
               draggable={!isActivityResultView}
               payload={value}
             >
