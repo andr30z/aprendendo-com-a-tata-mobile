@@ -32,29 +32,33 @@ const CurrentUserActivityVisualization: React.FC = ({ children }) => {
     activityPlayParamsResolver: (_, activityResult) => {
       return { activityResult };
     },
-    sendToActivityPlayOnSearchActivity:false
+    sendToActivityPlayOnSearchActivity: false,
   });
-  const getActivitiesResults = () => {
-    if (lastPage && lastPage < page) return setFalse();
+  const getActivitiesResults = (resetPagination = false) => {
+    const isReset =
+      typeof resetPagination === "boolean" ? resetPagination : false;
+    if (!isReset && lastPage && lastPage < page) return setFalse();
     setTrue();
     baseApi
       .get<PaginationInterface<ActivityResult>>(
         baseApiRoutes.ACTIVITY_RESULT_USERS +
           "/" +
           user?._id +
-          `?page=${page}&limit=20&sort=-1`
+          `?page=${isReset ? 1 : page}&limit=20&sort=-1`
       )
       .then((res) => {
         setLastPage(res.data.lastPage);
         setPage(res.data.nextPage);
         setActivityResults((past) => {
           const pastItems = past || [];
+          if (isReset) return res.data.results;
           return [...pastItems, ...res.data.results];
         });
       })
       .catch(showError)
       .finally(setFalse);
   };
+
   useEffect(() => {
     getActivitiesResults();
   }, [user?._id]);
@@ -72,10 +76,7 @@ const CurrentUserActivityVisualization: React.FC = ({ children }) => {
         refreshControl={
           <RefreshControl
             refreshing={value}
-            onRefresh={() => {
-              setTrue();
-              getActivitiesResults();
-            }}
+            onRefresh={() => getActivitiesResults(true)}
           />
         }
         userActivities={activityResults}

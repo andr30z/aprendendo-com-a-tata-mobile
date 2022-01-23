@@ -11,10 +11,12 @@ interface OnFinishActivityModalProps {
   setFinished: SetStateInterface<boolean>;
   modalRef: React.RefObject<BottomSheetModalMethods>;
   finished: boolean;
+  currentStageIndex: number;
+  oldStageIndex: React.MutableRefObject<number>;
 }
 
 const Modal = WithModal<Omit<OnFinishActivityModalProps, "modalRef">>(
-  ({ onSubmit, modalSheetRef }) => {
+  ({ onSubmit, modalSheetRef, oldStageIndex, currentStageIndex }) => {
     return (
       <BaseContainer
         flex={1}
@@ -26,7 +28,12 @@ const Modal = WithModal<Omit<OnFinishActivityModalProps, "modalRef">>(
           name="cross"
           size={40}
           color="red"
-          onPress={() => modalSheetRef.current?.close()}
+          onPress={() => {
+            modalSheetRef.current?.close();
+            //this is super important
+            //if I don't set the old stage with the currentStageIndex, the hook useOnChageStage will bug
+            oldStageIndex.current = currentStageIndex;
+          }}
           style={{ position: "absolute", top: 10, left: 10 }}
         />
         <Button

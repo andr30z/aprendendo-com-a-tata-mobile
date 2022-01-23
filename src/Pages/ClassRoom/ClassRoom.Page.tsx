@@ -1,4 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/core";
 import { debounce } from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -39,7 +40,7 @@ interface ClassesApiResponse {
   classrooms: Array<ClassRoomInterface>;
 }
 /**
- * Class page, both childs and teachers.
+ * Class page, both child and teacher view.
  * @author andr30z
  *
  **/
@@ -53,6 +54,7 @@ const ClassRoom: React.FC = () => {
     setTrue: setTrueIsLoading,
     setFalse: setFalseIsLoading,
   } = useBoolean();
+  const isFocused = useIsFocused();
   const [searchCode, setSearchCode] = useState("");
   const getCodeRoute = (text: string) => {
     return text ? baseApiRoutes.CLASSROOMS + "?code=" + text : undefined;
@@ -75,6 +77,7 @@ const ClassRoom: React.FC = () => {
         setFalseIsLoading();
       });
   };
+
   const debouncedSearch = useCallback(
     debounce((text: string) => {
       getAllClasses(undefined, getCodeRoute(text));
@@ -85,6 +88,10 @@ const ClassRoom: React.FC = () => {
   useEffect(() => {
     getAllClasses();
   }, []);
+  useEffect(() => {
+    if (!isFocused) close();
+  }, [isFocused]);
+
   const onSuccessSaveClassroom = useCallback(() => {
     getAllClasses();
     close();

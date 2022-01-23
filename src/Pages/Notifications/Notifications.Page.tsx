@@ -40,6 +40,7 @@ const Notifications: React.FC = () => {
       true
     )
       .then((res) => {
+        console.log(res.data)
         setNotifications(res.data.notifications.reverse());
       })
       .catch(showError)

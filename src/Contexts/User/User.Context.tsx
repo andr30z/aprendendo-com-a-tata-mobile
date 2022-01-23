@@ -95,7 +95,7 @@ export const UserProvider: React.FC = ({ children }) => {
   }, []);
 
   const logoutUser = useCallback(async () => {
-    baseApi.delete(baseApiRoutes.LOGOUT);
+    baseApi.delete(baseApiRoutes.LOGOUT).catch(console.warn);
     await AsyncStorage.removeItem(ASYNC_STORAGE_COOKIE_KEY);
     setUser(null);
   }, [user]);

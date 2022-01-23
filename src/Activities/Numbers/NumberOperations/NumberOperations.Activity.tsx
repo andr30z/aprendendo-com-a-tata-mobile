@@ -29,6 +29,7 @@ const NumberOperations = WithDraxProvider<NumberOperationsProps>(
     const { currentStageIndex } = useActivityPlayContext();
     useOnChangeStage(operationsResults, setOperationsResults);
     const currentStage = activity.stages[currentStageIndex];
+    // console.log(operationsResults, "results")
     const { height } = useWindowDimensions();
     return (
       <BaseContainer flex={1}>

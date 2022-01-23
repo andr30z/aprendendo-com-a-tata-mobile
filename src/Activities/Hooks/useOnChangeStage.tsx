@@ -17,27 +17,30 @@ export function useOnChangeStage<S>(
     activityStageLength,
     isActivityResultView,
   } = useActivityPlayContext();
+  const onEffectReturn = (index: number = oldStageIndex.current) => {
+    const activityAnswersCurrent = activityAnswers.current;
+    const list = [...activityAnswersCurrent];
+    const activity = { activity: state };
+    if (list[index] === undefined) list.push(activity);
+    else list[index] = activity;
+    activityAnswers.current = list;
+  };
+
   useEffect(() => {
-    const onEffectReturn = (index: number = oldStageIndex.current) => {
-      const activityAnswersCurrent = activityAnswers.current;
-      const list = [...activityAnswersCurrent];
-      list[index] = { activity: state };
-      activityAnswers.current = list;
-    };
-    if (activityStageLength === undefined) return;
+    if (isActivityResultView) return;
     if (hasFinishedActivity)
-      return onEffectReturn(
+      onEffectReturn(
         oldStageIndex.current === currentStageIndex
           ? currentStageIndex
           : oldStageIndex.current + 1
       );
-    const activityAnswersCurrent = activityAnswers.current;
-    const index = isActivityResultView
-      ? currentStageIndex
-      : oldStageIndex.current;
-    if (activityAnswersCurrent[index])
-      setState(activityAnswersCurrent[index]?.activity || []);
-    if (isActivityResultView) return;
-    return onEffectReturn;
+    else onEffectReturn();
   }, [currentStageIndex, hasFinishedActivity]);
+
+  useEffect(() => {
+    if (activityStageLength === undefined) return;
+    const activityAnswersCurrent = activityAnswers.current;
+    const index = currentStageIndex;
+    setState(activityAnswersCurrent[index]?.activity || []);
+  }, [currentStageIndex]);
 }

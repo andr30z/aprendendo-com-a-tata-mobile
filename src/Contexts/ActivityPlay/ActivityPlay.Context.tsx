@@ -5,11 +5,8 @@ import OnFinishActivityModal from "../../Components/OnFinishActivityModal/OnFini
 import ShowActivityResultModal from "../../Components/ShowActivityResultModal/ShowActivityResultModal.Component";
 import { BaseContainer } from "../../GlobalStyles/Containers.Style";
 import {
-  ActivityAnswers,
-  ActivityCommonProps,
-  ActivityResult,
+  ActivityAnswers
 } from "../../Interfaces/index";
-import { ActivityPostParams } from "../../Routes/MainStackNavigation/Interfaces";
 import { BackgroundSwitch } from "./Backgrounds";
 import { ActivityPlayProviderProps } from "./Interfaces";
 import { useActivityPlayLogic } from "./useActivityPlayLogic";
@@ -129,6 +126,8 @@ export const ActivityPlayProvider: React.FC<ActivityPlayProviderProps> = ({
         finished={hasFinishedActivity}
         setFinished={setHasFinishedActivity}
         onSubmit={onEndActivity}
+        currentStageIndex={currentStageIndex}
+        oldStageIndex={oldStageIndex}
       />
     </ActivityPlayContext.Provider>
   );

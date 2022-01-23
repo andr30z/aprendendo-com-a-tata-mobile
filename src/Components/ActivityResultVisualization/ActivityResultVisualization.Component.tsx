@@ -56,12 +56,10 @@ const ActivityResultVisualization: React.FC<
 }) => {
   const isResponsibleVisualization = visualizationType === "responsible";
   const isCurrentUserVisualization = visualizationType === "current-user";
-
   return (
     <FlatList
       refreshControl={refreshControl}
       data={userActivities}
-      removeClippedSubviews={true}
       maxToRenderPerBatch={10}
       windowSize={11}
       onEndReached={onEndReached}
