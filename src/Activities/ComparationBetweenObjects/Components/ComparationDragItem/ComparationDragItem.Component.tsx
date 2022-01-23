@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
 import { Image, View } from "react-native";
 import { DraxView } from "react-native-drax";
+import WrongItemMark from "../../../../Components/WrongItemMark/WrongItemMark.Component";
+import CorrectItemMark from "../../../../Components/CorrectItemMark/CorrectItemMark.Component";
 import { useActivityPlayContext } from "../../../../Contexts";
 import { BaseText } from "../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
@@ -55,10 +57,37 @@ const ComparationDragItem: React.FC<ComparationDragItemProps> = ({
           alignItems: "center",
           justifyContent: "center",
           height: "33%",
+          position: isActivityResultView ? "relative" : undefined,
         }}
       >
+        {isActivityResultView && (
+          <>
+            {!bond ? (
+              <WrongItemMark
+                color={comparation.borderColorOnSuccessDrag}
+                position={{
+                  right: comparation.receiver ? undefined : 0,
+                  top: undefined,
+                  left: comparation.receiver ? 0 : undefined,
+                  bottom: "-5%" as any,
+                }}
+              />
+            ) : (
+              <CorrectItemMark
+                color={comparation.borderColorOnSuccessDrag}
+                position={{
+                  right: comparation.receiver ? undefined : 0,
+                  top: undefined,
+                  left: comparation.receiver ? 0 : undefined,
+                  bottom: "-5%" as any,
+                }}
+              />
+            )}
+          </>
+        )}
         <BaseContainer
           style={
+            !isActivityResultView &&
             bond && {
               borderStyle: "solid",
               borderColor: comparation.borderColorOnSuccessDrag,

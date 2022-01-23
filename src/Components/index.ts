@@ -32,3 +32,5 @@ export { default as BackdropLoading } from "./BackdropLoading/BackdropLoading.Co
 export { default as ActivityResultVisualization } from "./ActivityResultVisualization/ActivityResultVisualization.Component";
 export { default as NotificationItem } from "./NotificationItem/NotificationItem.Component";
 export { default as ActivityResultStars } from "./ActivityResultStars/ActivityResultStars.Component";
+export { default as CorrectItemMark } from "./CorrectItemMark/CorrectItemMark.Component";
+export { default as WrongItemMark } from "./WrongItemMark/WrongItemMark.Component";

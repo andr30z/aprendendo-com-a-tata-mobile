@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { DraxDragWithReceiverEventData, DraxView } from "react-native-drax";
+import { CorrectItemMark, WrongItemMark } from "../../../../../Components";
 import { useActivityPlayContext } from "../../../../../Contexts";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../GlobalStyles/Containers.Style";
 import { getRandomInt } from "../../../../../Utils";
-
 interface NumberSequenceItemProps {
   numberItem: string | number;
   sequence: Array<number | string>;
@@ -67,8 +67,26 @@ const NumberSequenceItem: React.FC<NumberSequenceItemProps> = React.memo(
             marginVertical="3px"
             marginHorizontal="3px"
             justify="center"
+            position={isActivityResultView ? "relative" : undefined}
           >
-            <BaseText color={randomStyle.textColor}>{numberItem}</BaseText>
+            {isActivityResultView && isReceptive && (
+              <>
+                {!numberItem ? (
+                  <WrongItemMark absolutePosition={false} />
+                ) : (
+                  <CorrectItemMark
+                    size={30}
+                    position={{
+                      top: "10%",
+                      left: "20%",
+                    }}
+                  />
+                )}
+              </>
+            )}
+            {numberItem ? (
+              <BaseText color={randomStyle.textColor}>{numberItem}</BaseText>
+            ) : null}
           </BaseContainer>
         </View>
       </DraxView>
