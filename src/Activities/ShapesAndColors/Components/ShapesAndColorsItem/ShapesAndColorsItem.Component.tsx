@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { View, Image } from "react-native";
 import { DraxView } from "react-native-drax";
+import { CorrectItemMark, WrongItemMark } from "../../../../Components";
 import { useActivityPlayContext } from "../../../../Contexts";
 import {
   ShapesAndColorsActivityStageItem,
@@ -53,8 +54,23 @@ const ShapesAndColorsItem: React.FC<ShapesAndColorsItemProps> = ({
         receptive={!isHeadImage}
       >
         <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center", marginTop:20 }}
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
+            position: isActivityResultView ? "relative" : undefined,
+          }}
         >
+          {isActivityResultView && !isHeadImage && imageAfterColoring ? (
+            <>
+              {taggedItem ? (
+                <CorrectItemMark center size={60} />
+              ) : (
+                <WrongItemMark center size={60} />
+              )}
+            </>
+          ) : null}
           <Image
             resizeMode="center"
             style={{ height: 80, width: "95%" }}

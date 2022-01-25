@@ -4,6 +4,8 @@ import { BaseContainer } from "../../../../GlobalStyles/Containers.Style";
 import { QuestionOptionItem, StoryActivityAnswer } from "../../../Interfaces";
 import { AnswerText } from "./Styles";
 import { Checkbox } from "react-native-ui-lib";
+import { useActivityPlayContext } from "../../../../Contexts";
+import { CorrectItemMark, WrongItemMark } from "../../../../Components";
 
 interface QuestionsOptionsProps {
   option: QuestionOptionItem;
@@ -27,8 +29,36 @@ const QuestionOption: React.FC<QuestionsOptionsProps> = ({
       storyActivityAnswer.find((x) => x.answerId === option._id) !== undefined,
     [storyActivityAnswer, questionId, option]
   );
+  const { isCorrect } = option;
+  const { isActivityResultView } = useActivityPlayContext();
   return (
-    <BaseContainer marginBottom="15px" flexDirection="row" key={option._id}>
+    <BaseContainer
+      // position={isActivityResultView ? "relative" : undefined}
+      marginBottom="15px"
+      flexDirection="row"
+      key={option._id}
+    >
+      {isActivityResultView && isSelected ? (
+        <>
+          {!isCorrect ? (
+            <WrongItemMark
+              size={25}
+              position={{
+                top: 0,
+                left: -26,
+              }}
+            />
+          ) : (
+            <CorrectItemMark
+              size={25}
+              position={{
+                top: 0,
+                left: -26,
+              }}
+            />
+          )}
+        </>
+      ) : null}
       <Checkbox
         color="green"
         onValueChange={() => onValueChange(option, questionId)}

@@ -44,7 +44,7 @@ const Storytelling: React.FC<StorytellingProps> = ({ activity }) => {
     /**
      * That approach is very ugly and wrong, but solves the problem with drawer layout breaking on orientation change,
      * and I'm not going to commit/change anything inside
-     * react-native-gesture-handler to fix that shit, specially after discover that they are using class components ;-;.
+     * react-native-gesture-handler to fix that shit, specially after I discover that they are using class components ;-;.
      * Maybe in future updates I come back on this problem again (I hope gesture handler lib fix that weird behavior ASAP).
      *
      **/

@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 import { useWindowDimensions, Image } from "react-native";
 import { DraxDragWithReceiverEventData, DraxView } from "react-native-drax";
+import { CorrectItemMark, WrongItemMark } from "../../../../../Components";
 import { useActivityPlayContext } from "../../../../../Contexts";
 import { BaseText } from "../../../../../GlobalStyles/BaseStyles";
 import { BaseContainer } from "../../../../../GlobalStyles/Containers.Style";
@@ -139,9 +140,34 @@ const NumericExpression: React.FC<NumberSequenceItemProps> = React.memo(
           onReceiveDragDrop={onReceiveDragDrop}
         >
           <BaseContainer style={{ alignItems: "center" }}>
-            <BaseText color="black" fontWeight="bold" fontSize="60px">
-              {resultApplied?.result}
-            </BaseText>
+            {isActivityResultView ? (
+              <>
+                {resultApplied ? (
+                  <CorrectItemMark
+                    size={70}
+                    position={{
+                      top: 0,
+                      right: 40,
+                      left: undefined,
+                    }}
+                  />
+                ) : (
+                  <WrongItemMark
+                    size={70}
+                    position={{
+                      top: 0,
+                      right: 40,
+                      left: undefined,
+                    }}
+                  />
+                )}
+              </>
+            ) : null}
+            {resultApplied ? (
+              <BaseText color="black" fontWeight="bold" fontSize="60px">
+                {resultApplied?.result}
+              </BaseText>
+            ) : null}
           </BaseContainer>
         </DraxView>
 
