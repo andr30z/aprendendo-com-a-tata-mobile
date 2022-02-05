@@ -27,6 +27,7 @@ const DragLettersToCompleteWordsItem: React.FC<CompleteWordsByImagesAndLettersIt
     );
     const { isActivityResultView } = useActivityPlayContext();
     const { height, width } = useWindowDimensions();
+    console.log( completeWords[index])
     return (
       <BaseContainer
         style={{

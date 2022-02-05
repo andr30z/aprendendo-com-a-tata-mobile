@@ -8,6 +8,7 @@ import { DraxScrollView } from "react-native-drax";
 import { DragLettersToCompleteWordsItem } from "./Components";
 import { useCompleteWordsLogic, useOnChangeStage } from "../../Hooks";
 import { useActivityPlayContext } from "../../../Contexts";
+import { useCompleteWordsInit } from "../Hooks/useCompleWordsInit";
 interface ImagesByLettersProps {
   activity: CompleteWordsByImagesAndLettersActivityStageInterface;
 }
@@ -25,6 +26,7 @@ const DragLettersToCompleteWords = WithDraxProvider<ImagesByLettersProps>(
       currentStage
     );
     useOnChangeStage(completeWords, setCompleteWords);
+    useCompleteWordsInit(completeWords, setCompleteWords, currentStage);
 
     return (
       <BaseContainer flex={1}>

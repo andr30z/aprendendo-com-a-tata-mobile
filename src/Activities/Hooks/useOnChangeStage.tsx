@@ -28,7 +28,6 @@ export function useOnChangeStage<S>(
 
   useEffect(() => {
     if (isActivityResultView) return;
-    console.log(hasFinishedActivity)
     if (hasFinishedActivity)
       onEffectReturn(
         oldStageIndex.current === currentStageIndex

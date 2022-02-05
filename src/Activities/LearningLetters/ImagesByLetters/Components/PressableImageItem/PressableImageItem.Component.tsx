@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Pressable, Image } from "react-native";
+import { CorrectItemMark, WrongItemMark } from "../../../../../Components";
 import { useActivityPlayContext } from "../../../../../Contexts";
 import {
   CommonImageItemProps,
@@ -52,11 +53,33 @@ const PressableImageItem: React.FC<PressableImageItemProps> = ({
         {
           marginHorizontal: 10,
           padding: 4,
+          position: isActivityResultView ? "relative" : undefined,
         },
       ]}
       key={imageItem._id}
       onPress={isActivityResultView ? undefined : onPressValue}
     >
+      {isActivityResultView && imageItem.imageStartWithInitialLetter ? (
+        <>
+          {!isImagePressed ? (
+            <WrongItemMark
+              size={25}
+              position={{
+                top: 0,
+                left: 10,
+              }}
+            />
+          ) : (
+            <CorrectItemMark
+              size={25}
+              position={{
+                top: 0,
+                left:10,
+              }}
+            />
+          )}
+        </>
+      ) : null}
       <Image
         resizeMode="center"
         style={{ height: 80, width: 80 }}

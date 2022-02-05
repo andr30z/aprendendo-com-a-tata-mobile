@@ -23,17 +23,18 @@ interface ImagesByLettersProps {
  * @author andr30z
  **/
 const ImagesByLetters: React.FC<ImagesByLettersProps> = ({ activity }) => {
-  
   const [pressedImagesId, setPressedImagesId] =
-  useState<PressedImagesInterface>([]);
-  
-  const { currentStageIndex } = useActivityPlayContext();
+    useState<PressedImagesInterface>([]);
+
+  const { currentStageIndex, isActivityResultView } = useActivityPlayContext();
   const currentStage = activity.stages[currentStageIndex];
-  
+
   useOnChangeStage(pressedImagesId, setPressedImagesId);
 
   useScreenOrientation(5, 2);
   useEffect(() => {
+    if (isActivityResultView) return;
+    // if (pressedImagesId[0]?.imagesContainerId) return;
     setPressedImagesId(
       currentStage.pressingLettersActivity.map((item) => ({
         imagesContainerId: item._id,

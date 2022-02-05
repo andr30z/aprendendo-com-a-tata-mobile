@@ -7,6 +7,7 @@ import { BaseContainer } from "../../../GlobalStyles/Containers.Style";
 import { useStageLogic } from "../../../Hooks/useStageLogic";
 import { useCompleteWordsLogic, useOnChangeStage } from "../../Hooks";
 import { CompleteWordsByImagesAndLettersActivityStageInterface } from "../../Interfaces";
+import { useCompleteWordsInit } from "../Hooks/useCompleWordsInit";
 import { CompleteWordsByImagesAndLettersItem } from "./Components";
 interface ImagesByLettersProps {
   activity: CompleteWordsByImagesAndLettersActivityStageInterface;
@@ -25,7 +26,7 @@ const CompleteWordsByImagesAndLetters = WithDraxProvider<ImagesByLettersProps>(
       currentStage
     );
     useOnChangeStage(completeWords, setCompleteWords);
-
+    useCompleteWordsInit(completeWords, setCompleteWords, currentStage);
     return (
       <BaseContainer flex={1}>
         <DraxScrollView>
