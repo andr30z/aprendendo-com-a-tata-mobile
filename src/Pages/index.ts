@@ -12,3 +12,4 @@ export { default as TeacherActivityResult } from "./TeacherActivityResult/Teache
 export { default as ResponsibleChildManager } from "./ResponsibleChildManager/ResponsibleChildManager.Page";
 export { default as Notifications } from "./Notifications/Notifications.Page";
 export { default as CurrentUserActivityVisualization } from "./CurrentUserActivityVisualization/CurrentUserActivityVisualization.Page";
+export { default as CreditsInfo } from "./CreditsInfo/CreditsInfo.Page";

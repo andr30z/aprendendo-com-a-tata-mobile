@@ -4,7 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
 import { WithStatusBar } from "../../Components";
 import { BaseText } from "../../GlobalStyles/BaseStyles";
-import { Notifications, ResponsibleChildManager, User } from "../../Pages";
+import { CreditsInfo, Notifications, ResponsibleChildManager, User } from "../../Pages";
 import { PasswordChange } from "../../Pages/PasswordChange/PasswordChange.Page";
 import { SettingsDrawerParamList } from "./Interfaces";
 import { ROUTES_NAME } from "./RoutesName";
@@ -86,6 +86,27 @@ const SettingsDrawer: React.FC = () => {
         }}
         component={Notifications}
         name={ROUTES_NAME.NOTIFICATIONS}
+      />
+        <Drawer.Screen
+        options={{
+          headerLeft: ({ tintColor }) => (
+            <AntDesign
+              onPress={() => navigation.goBack()}
+              name="arrowleft"
+              size={24}
+              style={{ marginLeft: 15, marginTop: 5 }}
+              color={tintColor}
+            />
+          ),
+          headerTitle: () => (
+            <BaseText fontSize="19px" color="black">
+              Créditos
+            </BaseText>
+          ),
+          headerShown: true,
+        }}
+        name={ROUTES_NAME.CREDITS_INFO}
+        component={CreditsInfo}
       />
     </Drawer.Navigator>
   );

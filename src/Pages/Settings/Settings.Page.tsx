@@ -14,29 +14,25 @@ import { SettingsOptionsListing } from "./Modules";
 const Settings: React.FC = () => {
   const { user } = useUserContext();
   return (
-    <BaseContainer backgroundColor="white" position="relative" flex={1}>
+    <BaseContainer flex={1}>
       <BaseContainer
-        position="absolute"
         width="100%"
-        height="70px"
         flexDirection="row"
-        paddingHorizontal="10px"
+        justify="flex-start"
         align="center"
-        style={{ top: 15 }}
+        paddingHorizontal="10px"
+        flex={1}
+        marginTop="10px"
       >
-        <BaseContainer align="center" flexDirection="row">
-          <ProfilePhoto
-            size={60}
-            source={{ uri: formatFilePathUrl(user?.profilePhoto?.path) }}
-          />
-          <BaseText color="black" fontSize="25px" marginLeft="13px">
-            {user?.name}
-          </BaseText>
-        </BaseContainer>
+        <ProfilePhoto
+          size={80}
+          source={{ uri: formatFilePathUrl(user?.profilePhoto?.path) }}
+        />
+        <BaseText color="black" fontSize="25px" marginLeft="13px">
+          {user?.name}
+        </BaseText>
       </BaseContainer>
-      <ScrollView style={{ paddingVertical: 75 }}>
-        <SettingsOptionsListing />
-      </ScrollView>
+      <SettingsOptionsListing />
     </BaseContainer>
   );
 };
