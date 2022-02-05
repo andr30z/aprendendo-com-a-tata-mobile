@@ -27,7 +27,7 @@ export const TextPostContainer = styled(BaseContainer)`
 export const ActivityContainer = styled(BaseContainer)`
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   min-height: 110px;
 `;

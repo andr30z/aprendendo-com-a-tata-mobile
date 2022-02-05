@@ -70,7 +70,7 @@ const ClassroomMemberDetailsModal = WithModal<ClassroomMemberDetailsModalProps>(
         />
         <BaseContainer justify="center" flex={1}>
           <ProfilePhoto
-            size={200}
+            size={140}
             source={{
               uri:
                 formatFilePathUrl(child.profilePhoto?.path) ||
@@ -79,7 +79,7 @@ const ClassroomMemberDetailsModal = WithModal<ClassroomMemberDetailsModalProps>(
           />
         </BaseContainer>
         <BaseContainer
-          flex={0.9}
+          flex={1}
           align="center"
           justify="space-evenly"
           flexDirection="column"

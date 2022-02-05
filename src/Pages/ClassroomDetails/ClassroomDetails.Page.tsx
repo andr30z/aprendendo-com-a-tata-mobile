@@ -114,7 +114,7 @@ const ClassroomDetailsInitial: React.FC<Props> = ({ navigation }) => {
       },
       ...pendingJoinRequests,
     ];
-  }, [classroom, classroom, userIsTeacher]);
+  }, [classroom, userIsTeacher]);
   if (!classroom) return null;
   return (
     <StickyParallaxHeader

@@ -24,7 +24,7 @@ const ButtonsContainerWithSpinner = WithSpinner<{
   return (
     <BaseContainer flexDirection="column">
       <Button
-        buttonHeight="29px"
+        buttonHeight="40%"
         buttonTitle="Aprovar"
         buttonWidth="120px"
         backgroundColor={primaryTheme}
@@ -33,7 +33,7 @@ const ButtonsContainerWithSpinner = WithSpinner<{
       />
       <Button
         backgroundColor={primaryTheme}
-        buttonHeight="29px"
+        buttonHeight="40%"
         textStyles={btnTextStyles}
         buttonTitle="Recusar"
         containerStyles={{ marginTop: 5 }}

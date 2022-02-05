@@ -110,10 +110,9 @@ const PostItem: React.FC<PostItemProps> = ({
             {post.activities.map((a, index) => (
               <ActivityItem
                 roundedBorders={false}
-                boxWidth="30%"
+                boxWidth="33.1%"
                 marginTop="10px"
-                marginHorizontal="5px"
-                containerHeight="150"
+                containerHeight="130"
                 renderMidComponent={() => (
                   <ActivityResultValue
                     activityId={a._id}

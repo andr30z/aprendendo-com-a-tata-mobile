@@ -57,7 +57,7 @@ const Members: React.FC<MembersProps> = ({ members }) => {
         color={primaryTheme}
         marginBottom="18px"
       >
-        {members.length} alunos
+        {members.length} aluno(s)
       </BaseText>
       <BaseContainer
         align="center"
