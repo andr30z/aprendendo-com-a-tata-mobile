@@ -35,6 +35,7 @@ const CurrentUserActivityVisualization: React.FC = ({ children }) => {
     sendToActivityPlayOnSearchActivity: false,
   });
   const getActivitiesResults = (resetPagination = false) => {
+    if (!user?._id) return;
     const isReset =
       typeof resetPagination === "boolean" ? resetPagination : false;
     if (!isReset && lastPage && lastPage < page) return setFalse();

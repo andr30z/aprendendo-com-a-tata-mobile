@@ -90,7 +90,7 @@ const ActivityItem: React.FC<
             justify="center"
           >
             <BaseContainer flex={2} width="100%" align="center" justify="center">
-              <ItemTitle android_hyphenationFrequency="full">{hypher.hyphenateText(name).replace(/\u00AD/g, "\u200B")}</ItemTitle>
+              <ItemTitle>{hypher.hyphenateText(name).replace(/\u00AD/g, "\u200B")}</ItemTitle>
             </BaseContainer>
             {renderMidComponent && renderMidComponent()}
           </BaseContainer>

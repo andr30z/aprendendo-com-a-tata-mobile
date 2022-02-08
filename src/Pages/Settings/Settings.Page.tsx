@@ -14,7 +14,7 @@ import { SettingsOptionsListing } from "./Modules";
 const Settings: React.FC = () => {
   const { user } = useUserContext();
   return (
-    <BaseContainer flex={1}>
+    <BaseContainer backgroundColor="#fff"  flex={1}>
       <BaseContainer
         width="100%"
         flexDirection="row"
