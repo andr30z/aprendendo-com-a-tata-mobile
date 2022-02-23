@@ -4,7 +4,7 @@
 
 <h2>Core</h2>
 <p>This app implements the core concepts of the BNCC (Base Nacional Comum Curricular) for child education. The BNCC is a regulatory paper upon the brazilian education in general</p>
-<h2>Tecnologias Utilizadas</h2>
+<h2>Tools</h2>
  
  <ul>
    <li>React Native/Expo (Managed Workflow)</li>
