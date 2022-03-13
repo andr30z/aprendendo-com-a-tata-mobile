@@ -6,12 +6,14 @@
 <p>This app implements the core concepts of the BNCC (Base Nacional Comum Curricular) for child education. The BNCC is a regulatory paper upon the brazilian education in general.</p>
 
 <h2>Prints</h2>
-<div style="display:flex; align-items:center; flex-direction:row; flex-wrap: wrap; justify-content:center; gap:1em;">
+<div align="center">
+  <div style="flex:1; display:flex; align-items:center; flex-direction:row; flex-wrap: wrap; justify-content:center; gap:1em; width:100%;">
   <img height="600" width="350" src="./assets/readme/initial_page.png" />
   <img height="600" width="350" src="./assets/readme/initial_page_ativities.png" />
   <img height="600" width="350" src="./assets/readme/animals.png" />
   <img height="600" width="350" src="./assets/readme/details-class.png" />
 </div>
+  </div>
 
 <h2>Core Libs</h2>
  
