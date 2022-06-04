@@ -11,7 +11,7 @@
   <img height="600" width="350" src="./assets/readme/initial_page.png" />
   <img height="600" width="350" src="./assets/readme/initial_page_ativities.png" />
   <img height="600" width="350" src="./assets/readme/animals.png" />
-  <img height="600" width="350" src="./assets/readme/criancas_vinculadas.png" />
+  <img height="600" width="350" src="./assets/criancas_vinculadas.png" />
 </div>
   </div>
 
